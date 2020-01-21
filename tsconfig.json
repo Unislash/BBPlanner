@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "outDir": "dist",
+    "module": "commonjs",
+    "strict": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "noEmitOnError": true,
+    "noErrorTruncation": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "target": "ES6"
+  },
+  "include": [
+    "./src/**/**/*"
+  ]
+}
