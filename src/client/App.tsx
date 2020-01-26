@@ -1,28 +1,35 @@
 import './app.css';
 import {Component} from 'react';
 import React from 'react';
-import logo from './react.png';
-
-interface AppState {
-    username?: string;
-}
+import {AllPerks} from './components/AllPerks';
+import {BuildName} from './components/BuildName';
 
 export class App extends Component {
-    state: AppState = {username: undefined};
-
-    componentDidMount() {
-        fetch('/api/getUsername')
-            .then(res => res.json())
-            .then(user => this.setState({username: user.username}));
-    }
-
     render() {
-        const {username} = this.state;
         return (
-            <div>
-                {username ? <h1>{`Hello! ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
-                <img src={logo} alt="react"/>
-            </div>
+            <>
+                <div className="appBackground"/>
+                <div className="header">
+                    <h1 className="pageTitle">Battle Brothers Planner</h1>
+                </div>
+                <div className="content">
+                    <div className="perkPlanner">
+                        <div className="plannerInfo">
+                            <div className="leftInfo">
+                                <BuildName />
+                            </div>
+                            <div className="rightInfo">
+                                <h3 className="requiredLevel">Level Required: {11}</h3>
+                                <h3 className="perksRemaining">Remaining Perks: {0}</h3>
+                            </div>
+                        </div>
+                        <AllPerks/>
+                    </div>
+                    <div className="statsPlanner">
+                        Stats Planner
+                    </div>
+                </div>
+            </>
         );
     }
 }
