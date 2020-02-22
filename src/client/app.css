@@ -43,19 +43,47 @@ body {
     display: flex;
 }
 
+.leftInfo {
+    display: flex;
+    align-items: center;
+}
+
 .buildNameInput {
     width: 300px;
     background: rgba(0,0,0,.2);
-    border: none;
     padding: 5px 5px 5px 10px;
     font-size: 20px;
     color: #fff;
-    outline: 1px solid rgba(255,255,255,.3);
+    border: 1px solid rgba(255,255,255,.05);
+    border-radius: 4px;
+    outline: none; /* remove the outline on focus (should probably have a reset sheet...*/
+    transition: border .1s;
+}
+
+.buildNameInput:hover {
+    border: 1px solid rgba(255,255,255,.3);
 }
 
 .buildNameInput:focus {
-    outline: 1px solid rgba(255,255,255,.6);
-    outline-offset: 0;
+    border: 1px solid rgba(255,255,255,.6);
+}
+
+.shareButton {
+    margin-left: 5px;
+    padding: 4px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0; /*to prevent the newline from rendering*/
+    transition: border .1s;
+}
+
+.shareButton:hover {
+    border: 1px solid rgba(255,255,255,.3);
+}
+
+.shareButton:active {
+    border: 1px solid rgba(255,255,255,.6);
 }
 
 .rightInfo {
@@ -69,6 +97,8 @@ body {
 
 .allPerks {
     width: 800px;
+    margin-top: 10px;
+    margin-bottom: 30px;
 }
 
 .perkRow {
@@ -100,3 +130,7 @@ body {
 .MuiTooltip-tooltip {
     margin: 0 !important;
 }
+
+/*button.MuiButton-containedPrimary {*/
+    /*background-color: #251B13;*/
+/*}*/

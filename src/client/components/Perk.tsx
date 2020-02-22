@@ -19,6 +19,7 @@ export const Perk: React.FC<PerkProps> = props => {
                 arrow={false}
                 placement="bottom"
                 TransitionComponent={Fade}
+                enterDelay={400}
             >
                 <div className="perkImageHoverWrapper">
                     {/*unfortunately we need a wrapper around img to let it be hoverable for the tooltip, but not draggable*/}

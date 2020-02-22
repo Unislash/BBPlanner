@@ -3,11 +3,15 @@ import {Component} from 'react';
 import React from 'react';
 import {AllPerks} from './components/AllPerks';
 import {BuildName} from './components/BuildName';
+import {ResetPerks} from './components/ResetPerks';
+import {MuiTheme} from './MuiTheme';
+import {PerkPlannerInfo} from './components/PerkPlannerInfo';
+import {ShareButton} from './components/ShareButton';
 
 export class App extends Component {
     render() {
         return (
-            <>
+            <MuiTheme>
                 <div className="appBackground"/>
                 <div className="header">
                     <h1 className="pageTitle">Battle Brothers Planner</h1>
@@ -16,20 +20,21 @@ export class App extends Component {
                     <div className="perkPlanner">
                         <div className="plannerInfo">
                             <div className="leftInfo">
-                                <BuildName />
+                                <BuildName/>
+                                <ShareButton/>
                             </div>
                             <div className="rightInfo">
-                                <h3 className="requiredLevel">Level Required: {11}</h3>
-                                <h3 className="perksRemaining">Remaining Perks: {0}</h3>
+                                <PerkPlannerInfo/>
                             </div>
                         </div>
                         <AllPerks/>
+                        <ResetPerks/>
                     </div>
                     <div className="statsPlanner">
                         Stats Planner
                     </div>
                 </div>
-            </>
+            </MuiTheme>
         );
     }
 }
