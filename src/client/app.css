@@ -8,6 +8,15 @@ body {
     color: #ffffff;
 }
 
+h3 {
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
+p {
+    margin: 8px 0;
+}
+
 .appBackground {
     top: 0;
     right: 0;
@@ -50,18 +59,15 @@ body {
 
 .buildNameInput {
     width: 300px;
-    background: rgba(0,0,0,.2);
     padding: 5px 5px 5px 10px;
     font-size: 20px;
     color: #fff;
-    border: 1px solid rgba(255,255,255,.05);
-    border-radius: 4px;
-    outline: none; /* remove the outline on focus (should probably have a reset sheet...*/
     transition: border .1s;
 }
 
 .buildNameInput:hover {
-    border: 1px solid rgba(255,255,255,.3);
+    border: 1px solid rgba(255,255,255,.4);
+    background-color: #332923;
 }
 
 .buildNameInput:focus {
@@ -131,6 +137,121 @@ body {
     margin: 0 !important;
 }
 
-/*button.MuiButton-containedPrimary {*/
-    /*background-color: #251B13;*/
-/*}*/
+.statsPlanner {
+    margin-top: 10px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    /*background: url("./images/tactical_character_background.png") repeat-y;*/
+    background-size: 100% auto;
+}
+
+.statBar {
+    display: flex;
+    align-items: center;
+}
+
+.inputBar {
+    position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    background-color: #261E1B;
+    border: 1px solid #716F6D;
+    border-radius: 3px;
+    box-shadow: inset 0 0 2px 1px rgba(15,11,8, .5), inset 1px 2px 2px rgba(83,61,38, .8);
+    cursor: pointer;
+}
+
+/*Hover treatment*/
+.inputBar:hover::before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(164,140,105, .1);
+    user-select: none;
+    z-index: 0;
+}
+
+.statBar .inputBar {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+}
+
+.statBar .icon {
+    flex: 0 0 auto;
+    margin-right: 4px;
+}
+
+.statBar .stars {
+    position: absolute;
+    left: 4px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    margin-left: 2px;
+}
+
+.star {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-left: -2px;
+}
+
+.starIcon {
+    height: 16px;
+}
+
+.starIcon.inactive {
+    filter: grayscale(100%) brightness(70%);
+}
+
+.barTextControl {
+    position: relative;
+    margin-left: 4px;
+    display: flex;
+    height: 100%;
+}
+
+.barInputWidthReserver {
+    opacity: 0;
+}
+
+.barInputElement {
+    /*Reset input styles*/
+    padding: 0;
+    border: none;
+    background: transparent;
+    outline: none !important;
+    font-family: inherit;
+    font-size: inherit;
+
+    position: absolute;
+    left: 0;
+    width: 100px;
+    height: 100%;
+    color: #fff;
+    z-index: 1;
+}
+
+.arrowIndicator {
+    padding-left: 10px;
+    padding-right: 8px;
+    margin-top: -1px;
+    height: 16px;
+}
+
+.maxStat {
+    line-height: 24px;
+    margin-top: -1px;
+}

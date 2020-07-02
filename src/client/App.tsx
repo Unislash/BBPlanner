@@ -7,6 +7,7 @@ import {ResetPerks} from './components/PerkPlanner/ResetPerks';
 import {MuiTheme} from './MuiTheme';
 import {PerkPlannerInfo} from './components/Header/PerkPlannerInfo';
 import {ShareButton} from './components/Header/ShareButton';
+import {StatsPlanner} from './components/StatsPlanner/StatsPlanner';
 
 export class App extends Component {
     render() {
@@ -30,9 +31,7 @@ export class App extends Component {
                         <AllPerks/>
                         <ResetPerks/>
                     </div>
-                    <div className="statsPlanner">
-                        Stats Planner
-                    </div>
+                    <StatsPlanner />
                 </div>
             </MuiTheme>
         );

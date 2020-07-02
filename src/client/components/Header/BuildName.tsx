@@ -13,7 +13,7 @@ export const BuildNameBase: React.FC<BuildNameProps> = props => {
 
     return (
         <input
-            className="buildNameInput"
+            className="buildNameInput inputBar"
             type="text"
             value={buildName}
             onChange={e => onChange(e.target.value)}
