@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {getAvailableNumberOfPerks} from '../logic';
+import {getAvailableNumberOfPerks} from '../../logic';
 
 interface RemainingPerksProps {
     isStudent: boolean;

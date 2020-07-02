@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {AppState} from '../reducers';
-import {resetPerks} from '../actions';
+import {AppState} from '../../reducers';
+import {resetPerks} from '../../actions';
 import {connect} from 'react-redux';
 
 import DeleteIcon from '@material-ui/icons/Delete';

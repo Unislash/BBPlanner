@@ -4,7 +4,7 @@ interface PerkHeaderProps {
     title: React.ReactNode;
 }
 
-export const PerkHeader: React.FC<PerkHeaderProps> = props => {
+export const PerkTooltipHeader: React.FC<PerkHeaderProps> = props => {
     const {title} = props;
 
     return (

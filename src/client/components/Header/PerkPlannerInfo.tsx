@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {AppState} from '../reducers';
+import {AppState} from '../../reducers';
 import {connect} from 'react-redux';
 
 import {RemainingPerks} from './RemainingPerks';
 import {RequiredLevel} from './RequiredLevel';
-import {maxLevel} from '../logic';
+import {maxLevel} from '../../logic';
 
 interface PerkPlannerInfoProps {
     isStudent: boolean;

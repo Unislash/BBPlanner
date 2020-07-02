@@ -1,12 +1,12 @@
 import './app.css';
 import {Component} from 'react';
 import React from 'react';
-import {AllPerks} from './components/AllPerks';
-import {BuildName} from './components/BuildName';
-import {ResetPerks} from './components/ResetPerks';
+import {AllPerks} from './components/PerkPlanner/AllPerks';
+import {BuildName} from './components/Header/BuildName';
+import {ResetPerks} from './components/PerkPlanner/ResetPerks';
 import {MuiTheme} from './MuiTheme';
-import {PerkPlannerInfo} from './components/PerkPlannerInfo';
-import {ShareButton} from './components/ShareButton';
+import {PerkPlannerInfo} from './components/Header/PerkPlannerInfo';
+import {ShareButton} from './components/Header/ShareButton';
 
 export class App extends Component {
     render() {
