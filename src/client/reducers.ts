@@ -1,6 +1,7 @@
-import {RESET_PERKS, SET_BUILD_NAME, TOGGLE_PERK, TOGGLE_STUDENT} from './actions';
+import {RESET_PERKS, SET_BUILD_NAME, SET_PERKS, TOGGLE_PERK, TOGGLE_STUDENT} from './actions';
 import {AnyAction} from 'redux';
 import {getAvailableNumberOfPerks, maxLevel} from './logic';
+import {saveToURL} from './url';
 
 const initialState: AppState = {
     activePerkIds: [],
@@ -36,6 +37,9 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
                     // do nothing; there are no available perks left
                 }
             }
+
+            // TODO: This should probably be in a thunk, not in a reducer
+            saveToURL(newState);
             break;
         }
         case TOGGLE_STUDENT: {
@@ -49,6 +53,14 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
             newState = {
                 ...state,
                 activePerkIds: [],
+            };
+            break;
+        }
+        case SET_PERKS: {
+            const { activePerkIds } = action.payload;
+            newState = {
+                ...state,
+                activePerkIds,
             };
             break;
         }
