@@ -5,6 +5,7 @@ export const TOGGLE_PERK = "TOGGLE_PERK";
 export const RESET_PERKS = "RESET_PERKS";
 export const SET_PERKS = "SET_PERKS";
 export const TOGGLE_STUDENT = "TOGGLE_STUDENT";
+export const SET_STUDENT = "SET_STUDENT";
 export const SET_STAT = "SET_STAT";
 export const RESET_STAT_NUMS = "RESET_STAT_NUMS";
 export const SET_STAT_NUMS = "SET_STAT_NUMS";
@@ -21,6 +22,11 @@ export const togglePerk = (perkId: string): AnyAction => ({
 export const toggleStudent = (): AnyAction => ({
     type: TOGGLE_STUDENT,
     payload: {},
+});
+
+export const setStudent = (isStudent: boolean): AnyAction => ({
+    type: SET_STUDENT,
+    payload: {isStudent},
 });
 
 export const setPerks = (activePerkIds: string[]): AnyAction => ({

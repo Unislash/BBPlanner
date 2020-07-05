@@ -3,7 +3,7 @@ import {
     RESET_STAT_NUMS,
     SET_BUILD_NAME,
     SET_PERKS, SET_STAR, SET_STARS, SET_STAT,
-    SET_STAT_NUMS,
+    SET_STAT_NUMS, SET_STUDENT,
     TOGGLE_PERK,
     TOGGLE_STUDENT,
 } from './actions';
@@ -76,6 +76,14 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
             };
             break;
         }
+        case SET_STUDENT: {
+            const { isStudent } = action.payload;
+            newState = {
+                ...state,
+                isStudent,
+            };
+            break;
+        }
         case SET_PERKS: {
             const { activePerkIds } = action.payload;
             newState = {
@@ -89,6 +97,9 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
                 ...state,
                 activePerkIds: [],
             };
+
+            // TODO: This should probably be in a thunk, not in a reducer
+            saveToURL(newState);
             break;
         }
         case SET_STAT: {
@@ -120,6 +131,9 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
                 ...state,
                 statNums: getNewStatNums(),
             };
+
+            // TODO: This should probably be in a thunk, not in a reducer
+            saveToURL(newState);
             break;
         }
         case SET_STAR: {
@@ -151,6 +165,9 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
                 ...state,
                 stars: getNewStars(),
             };
+
+            // TODO: This should probably be in a thunk, not in a reducer
+            saveToURL(newState);
             break;
         }
         case SET_BUILD_NAME: {

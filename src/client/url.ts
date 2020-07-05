@@ -1,6 +1,6 @@
 import {perkBinary} from './perkBinary';
 import {store} from './createStore';
-import {setBuildName, setPerks, setStars, setStatNums} from './actions';
+import {setBuildName, setPerks, setStars, setStatNums, setStudent} from './actions';
 import {AppState, Stars, StatNums} from './models';
 import {getNewStars, getNewStatNums} from './reducers';
 
@@ -134,15 +134,16 @@ export const loadFromURL = () => {
     }
     const compressedPerks = getQueryStringParameter("perks");
     if (compressedPerks) {
-        store.dispatch(setPerks(uncompressPerks(compressedPerks)))
+        const activePerkIds = uncompressPerks(compressedPerks);
+        store.dispatch(setPerks(activePerkIds));
+        store.dispatch(setStudent(activePerkIds.indexOf("student") !== -1));
     }
     const compressedStats = getQueryStringParameter("stats");
     if (compressedStats) {
-        store.dispatch(setStatNums(uncompressStats(compressedStats)))
+        store.dispatch(setStatNums(uncompressStats(compressedStats)));
     }
     const compressedStars = getQueryStringParameter("stars");
     if (compressedStars) {
-        store.dispatch(setStars(uncompressStars(compressedStars)))
+        store.dispatch(setStars(uncompressStars(compressedStars)));
     }
-
 };
