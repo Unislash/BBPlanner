@@ -12,7 +12,7 @@ import {getAvailableNumberOfPerks, maxLevel} from './logic';
 import {saveToURL} from './url';
 import {AppState} from './models';
 
-const getNewStatNums = () => ({
+export const getNewStatNums = () => ({
     health: 55,
     fatigue: 100,
     resolve: 40,
@@ -23,7 +23,7 @@ const getNewStatNums = () => ({
     rdefense: 3,
 });
 
-const getNewStars = () => ({
+export const getNewStars = () => ({
     health: 0,
     fatigue: 0,
     resolve: 0,
@@ -102,6 +102,9 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
                 ...state,
                 statNums: newStatNums,
             };
+
+            // TODO: This should probably be in a thunk, not in a reducer
+            saveToURL(newState);
             break;
         }
         case SET_STAT_NUMS: {
@@ -130,6 +133,9 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
                 ...state,
                 stars: newStars,
             };
+
+            // TODO: This should probably be in a thunk, not in a reducer
+            saveToURL(newState);
             break;
         }
         case SET_STARS: {
@@ -148,7 +154,7 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
             break;
         }
         case SET_BUILD_NAME: {
-            const { buildName } = action.payload;
+            const { buildName, withSave = true } = action.payload;
             newState = {
                 ...state,
                 buildName: buildName,
@@ -156,6 +162,9 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
 
             // TODO: This should probably be in a thunk, not in a reducer
             document.title = buildName ? buildName : "BB Planner";
+            if (withSave) {
+                saveToURL(newState);
+            }
             break;
         }
         default:

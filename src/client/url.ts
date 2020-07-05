@@ -1,7 +1,8 @@
 import {perkBinary} from './perkBinary';
 import {store} from './createStore';
-import {setPerks} from './actions';
-import {AppState} from './models';
+import {setBuildName, setPerks, setStars, setStatNums} from './actions';
+import {AppState, Stars, StatNums} from './models';
+import {getNewStars, getNewStatNums} from './reducers';
 
 const padString = (padding: string, strToPad: string, padLeft: boolean = true) => {
     if (typeof strToPad === 'undefined')
@@ -70,45 +71,49 @@ const uncompressPerks = (packedString: string) => {
     return activePerkIds;
 };
 
-const compressStats = () => {
-    // TODO: Store these in redux instead of local state, and load them here
-    const stats = {
-        health: 55,
-        fatigue: 100,
-        resolve: 40,
-        initiative: 100,
-        mattack: 55,
-        rattack: 40,
-        mdefense: 4,
-        rdefense: 3,
-    };
-
-    return Object.values(stats)
+const compressStats = (statNums: StatNums) => {
+    return Object.values(statNums)
         .map(statNum => padString("000", statNum.toString()))
         .join("");
 };
 
-const compressStars = () => {
-    // TODO: Store these in redux instead of local state, and load them here
-    const stars = {
-        health: 2,
-        fatigue: 2,
-        resolve: 2,
-        initiative: 0,
-        mattack: 0,
-        rattack: 0,
-        mdefense: 0,
-        rdefense: 0,
-    };
+const uncompressStats = (packedString: string) => {
+    let newStatNums = getNewStatNums();
+    if (!packedString.length) {
+        return newStatNums;
+    }
 
+    const statsArray = packedString.match(/.{1,3}/g)!.map(str => parseInt(str, 10));
+    Object.keys(newStatNums).forEach((key: string, index: number) => {
+        (newStatNums as any)[key] = statsArray[index];
+    });
+
+    return newStatNums;
+};
+
+const compressStars = (stars: Stars) => {
     return Object.values(stars)
         .join("");
+};
+
+const uncompressStars = (packedString: string) => {
+    let newStars = getNewStars();
+    if (!packedString.length) {
+        return newStars;
+    }
+
+    const starsArray = packedString.match(/.{1}/g)!.map(str => parseInt(str, 10));
+    Object.keys(newStars).forEach((key: string, index: number) => {
+        (newStars as any)[key] = starsArray[index];
+    });
+
+    return newStars;
 };
 
 const setQueryStringParameter = (name: string, value: string) => {
     const params = new URLSearchParams(window.location.search);
     params.set(name, value);
-    window.history.replaceState({}, "", decodeURIComponent(`${window.location.pathname}?${params}`));
+    window.history.replaceState({}, "", `${window.location.pathname}?${params}`);
 };
 const getQueryStringParameter = (name: string) => {
     const params = new URLSearchParams(window.location.search);
@@ -116,14 +121,28 @@ const getQueryStringParameter = (name: string) => {
 };
 
 export const saveToURL = (state: AppState) => {
+    setQueryStringParameter("name", state.buildName);
     setQueryStringParameter("perks", compressPerks(state.activePerkIds));
-    setQueryStringParameter("stats", compressStats());
-    setQueryStringParameter("stars", compressStars());
+    setQueryStringParameter("stats", compressStats(state.statNums));
+    setQueryStringParameter("stars", compressStars(state.stars));
 };
 
 export const loadFromURL = () => {
+    const name = getQueryStringParameter("name");
+    if (name) {
+        store.dispatch(setBuildName(name, false));
+    }
     const compressedPerks = getQueryStringParameter("perks");
     if (compressedPerks) {
         store.dispatch(setPerks(uncompressPerks(compressedPerks)))
     }
+    const compressedStats = getQueryStringParameter("stats");
+    if (compressedStats) {
+        store.dispatch(setStatNums(uncompressStats(compressedStats)))
+    }
+    const compressedStars = getQueryStringParameter("stars");
+    if (compressedStars) {
+        store.dispatch(setStars(uncompressStars(compressedStars)))
+    }
+
 };

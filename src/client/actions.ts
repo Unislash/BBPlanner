@@ -63,7 +63,7 @@ export const resetStars = (): AnyAction => ({
     payload: {},
 });
 
-export const setBuildName = (buildName: string): AnyAction => ({
+export const setBuildName = (buildName: string, withSave?: boolean): AnyAction => ({
     type: SET_BUILD_NAME,
-    payload: {buildName},
+    payload: {buildName, withSave},
 });
