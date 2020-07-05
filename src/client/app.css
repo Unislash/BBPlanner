@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'FreeUniversal';
+    src: url('./fonts/FreeUniversal-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Cinzel-Bold';
+    src: url('./fonts/Cinzel-Bold.woff') format('woff');
+}
+
 body,
 header {
     margin: 0;
@@ -5,7 +15,12 @@ header {
 }
 
 body {
+    font-family: 'FreeUniversal', sans-serif;
     color: #ffffff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel-Bold', sans-serif;
 }
 
 h3 {
@@ -170,7 +185,7 @@ p {
 
 .statsPlanner {
     margin-top: 10px;
-    width: 500px;
+    width: 550px;
     margin-left: auto;
     margin-right: auto;
     /*background: url("./images/tactical_character_background.png") repeat-y;*/
