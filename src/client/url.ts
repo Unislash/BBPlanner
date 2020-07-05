@@ -1,7 +1,7 @@
 import {perkBinary} from './perkBinary';
-import {AppState} from './reducers';
 import {store} from './createStore';
 import {setPerks} from './actions';
+import {AppState} from './models';
 
 const padString = (padding: string, strToPad: string, padLeft: boolean = true) => {
     if (typeof strToPad === 'undefined')

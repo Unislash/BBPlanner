@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {StatBar} from './StatBar';
-import {useState} from 'react';
 
 import healthIcon from '../../images/stats/health.png';
 import fatigueIcon from '../../images/stats/fatigue.png';
@@ -10,28 +9,36 @@ import mattackIcon from '../../images/stats/mattack.png';
 import rattackIcon from '../../images/stats/rattack.png';
 import mdefenseIcon from '../../images/stats/mdefense.png';
 import rdefenseIcon from '../../images/stats/rdefense.png';
+import {setStat, setStar} from '../../actions';
+import {connect} from 'react-redux';
+import {AppState, Stars, StatNums, StatType} from '../../models';
 
 interface StatsPlannerProps {
+    statNums: StatNums;
+    stars: Stars;
+    setStat: (statType: StatType, num: number) => void;
+    setStar: (statType: StatType, amount: number) => void;
 }
 
-export const StatsPlanner: React.FC<StatsPlannerProps> = () => {
-    const [health, setHealth] = useState(55);
-    const [fatigue, setFatigue] = useState(100);
-    const [resolve, setResolve] = useState(40);
-    const [initiative, setInitiative] = useState(100);
-    const [mattack, setMattack] = useState(55);
-    const [rattack, setRattack] = useState(40);
-    const [mdefense, setMdefense] = useState(4);
-    const [rdefense, setRdefense] = useState(3);
+export const StatsPlannerBase: React.FC<StatsPlannerProps> = props => {
+    const {
+        statNums,
+        stars,
+        setStat,
+        setStar,
+    } = props;
 
-    const [healthStars, setHealthStars] = useState(0);
-    const [fatigueStars, setFatigueStars] = useState(0);
-    const [resolveStars, setResolveStars] = useState(0);
-    const [initiativeStars, setInitiativeStars] = useState(0);
-    const [mattackStars, setMattackStars] = useState(0);
-    const [rattackStars, setRattackStars] = useState(0);
-    const [mdefenseStars, setMdefenseStars] = useState(0);
-    const [rdefenseStars, setRdefenseStars] = useState(0);
+    const getSetStat = (statType: StatType) => {
+        return (value: number) => {
+            setStat(statType, value);
+        }
+    };
+
+    const getSetStar = (statType: StatType) => {
+        return (value: number) => {
+            setStar(statType, value);
+        }
+    };
 
     return (
         <div className="statsPlanner">
@@ -40,69 +47,84 @@ export const StatsPlanner: React.FC<StatsPlannerProps> = () => {
             <div className="statBars">
                 <StatBar
                     icon={healthIcon}
-                    statNumber={health}
-                    setStatNumber={setHealth}
-                    statType={"health"}
-                    stars={healthStars}
-                    setStars={setHealthStars}
+                    statNumber={statNums["health"]}
+                    setStatNumber={getSetStat("health")}
+                    statType={'health'}
+                    stars={stars["health"]}
+                    setStars={getSetStar("health")}
                 />
                 <StatBar
                     icon={fatigueIcon}
-                    statNumber={fatigue}
-                    setStatNumber={setFatigue}
-                    statType={"fatigue"}
-                    stars={fatigueStars}
-                    setStars={setFatigueStars}
+                    statNumber={statNums['fatigue']}
+                    setStatNumber={getSetStat('fatigue')}
+                    statType={'fatigue'}
+                    stars={stars['fatigue']}
+                    setStars={getSetStar('fatigue')}
                 />
                 <StatBar
                     icon={resolveIcon}
-                    statNumber={resolve}
-                    setStatNumber={setResolve}
-                    statType={"resolve"}
-                    stars={resolveStars}
-                    setStars={setResolveStars}
+                    statNumber={statNums['resolve']}
+                    setStatNumber={getSetStat('resolve')}
+                    statType={'resolve'}
+                    stars={stars['resolve']}
+                    setStars={getSetStar('resolve')}
                 />
                 <StatBar
                     icon={initiativeIcon}
-                    statNumber={initiative}
-                    setStatNumber={setInitiative}
-                    statType={"initiative"}
-                    stars={initiativeStars}
-                    setStars={setInitiativeStars}
+                    statNumber={statNums['initiative']}
+                    setStatNumber={getSetStat('initiative')}
+                    statType={'initiative'}
+                    stars={stars['initiative']}
+                    setStars={getSetStar('initiative')}
                 />
                 <StatBar
                     icon={mattackIcon}
-                    statNumber={mattack}
-                    setStatNumber={setMattack}
-                    statType={"mattack"}
-                    stars={mattackStars}
-                    setStars={setMattackStars}
+                    statNumber={statNums['mattack']}
+                    setStatNumber={getSetStat('mattack')}
+                    statType={'mattack'}
+                    stars={stars['mattack']}
+                    setStars={getSetStar('mattack')}
                 />
                 <StatBar
                     icon={rattackIcon}
-                    statNumber={rattack}
-                    setStatNumber={setRattack}
-                    statType={"rattack"}
-                    stars={rattackStars}
-                    setStars={setRattackStars}
+                    statNumber={statNums['rattack']}
+                    setStatNumber={getSetStat('rattack')}
+                    statType={'rattack'}
+                    stars={stars['rattack']}
+                    setStars={getSetStar('rattack')}
                 />
                 <StatBar
                     icon={mdefenseIcon}
-                    statNumber={mdefense}
-                    setStatNumber={setMdefense}
-                    statType={"mdefense"}
-                    stars={mdefenseStars}
-                    setStars={setMdefenseStars}
+                    statNumber={statNums['mdefense']}
+                    setStatNumber={getSetStat('mdefense')}
+                    statType={'mdefense'}
+                    stars={stars['mdefense']}
+                    setStars={getSetStar('mdefense')}
                 />
                 <StatBar
                     icon={rdefenseIcon}
-                    statNumber={rdefense}
-                    setStatNumber={setRdefense}
-                    statType={"rdefense"}
-                    stars={rdefenseStars}
-                    setStars={setRdefenseStars}
+                    statNumber={statNums['rdefense']}
+                    setStatNumber={getSetStat('rdefense')}
+                    statType={'rdefense'}
+                    stars={stars['rdefense']}
+                    setStars={getSetStar('rdefense')}
                 />
             </div>
         </div>
     );
 };
+
+const mapStateToProps = (state: AppState) => ({
+    statNums: state.statNums,
+    stars: state.stars,
+});
+
+const mapDispatchToProps = {
+    setStat,
+    setStar,
+};
+
+export const StatsPlanner = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(StatsPlannerBase);

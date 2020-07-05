@@ -1,9 +1,16 @@
 import {AnyAction} from 'redux';
+import {Stars, StatNums, StatType} from './models';
 
 export const TOGGLE_PERK = "TOGGLE_PERK";
 export const RESET_PERKS = "RESET_PERKS";
 export const SET_PERKS = "SET_PERKS";
 export const TOGGLE_STUDENT = "TOGGLE_STUDENT";
+export const SET_STAT = "SET_STAT";
+export const RESET_STAT_NUMS = "RESET_STAT_NUMS";
+export const SET_STAT_NUMS = "SET_STAT_NUMS";
+export const SET_STAR = "SET_STAR";
+export const RESET_STARS = "RESET_STARS";
+export const SET_STARS = "SET_STARS";
 export const SET_BUILD_NAME = "SET_BUILD_NAME";
 
 export const togglePerk = (perkId: string): AnyAction => ({
@@ -23,6 +30,36 @@ export const setPerks = (activePerkIds: string[]): AnyAction => ({
 
 export const resetPerks = (): AnyAction => ({
     type: RESET_PERKS,
+    payload: {},
+});
+
+export const setStat = (statType: StatType, num: number): AnyAction => ({
+    type: SET_STAT,
+    payload: {statType, num},
+});
+
+export const setStatNums = (statNums: StatNums): AnyAction => ({
+    type: SET_STAT_NUMS,
+    payload: {statNums},
+});
+
+export const resetStatNums = (): AnyAction => ({
+    type: RESET_STAT_NUMS,
+    payload: {},
+});
+
+export const setStar = (statType: StatType, amount: number): AnyAction => ({
+    type: SET_STAR,
+    payload: {statType, amount},
+});
+
+export const setStars = (stars: Stars): AnyAction => ({
+    type: SET_STARS,
+    payload: {stars},
+});
+
+export const resetStars = (): AnyAction => ({
+    type: RESET_STARS,
     payload: {},
 });
 

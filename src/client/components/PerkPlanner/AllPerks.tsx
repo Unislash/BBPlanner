@@ -54,7 +54,7 @@ import {Perk} from './Perk';
 import {PerkTooltipHeader} from './PerkTooltipHeader';
 import {connect} from 'react-redux';
 import {togglePerk, toggleStudent} from '../../actions';
-import {AppState} from '../../reducers';
+import {AppState} from '../../models';
 
 const tooltips = {
     fastAdaption: <><PerkTooltipHeader title="Fast Adaptation" />Adapt to your opponent's moves! Gain an additional stacking + 8% chance to hit with each attack that misses an opponent. Bonus is reset upon landing a hit.</>,

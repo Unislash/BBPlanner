@@ -1,19 +1,46 @@
-import {RESET_PERKS, SET_BUILD_NAME, SET_PERKS, TOGGLE_PERK, TOGGLE_STUDENT} from './actions';
+import {
+    RESET_PERKS, RESET_STARS,
+    RESET_STAT_NUMS,
+    SET_BUILD_NAME,
+    SET_PERKS, SET_STAR, SET_STARS, SET_STAT,
+    SET_STAT_NUMS,
+    TOGGLE_PERK,
+    TOGGLE_STUDENT,
+} from './actions';
 import {AnyAction} from 'redux';
 import {getAvailableNumberOfPerks, maxLevel} from './logic';
 import {saveToURL} from './url';
+import {AppState} from './models';
+
+const getNewStatNums = () => ({
+    health: 55,
+    fatigue: 100,
+    resolve: 40,
+    initiative: 100,
+    mattack: 55,
+    rattack: 40,
+    mdefense: 4,
+    rdefense: 3,
+});
+
+const getNewStars = () => ({
+    health: 0,
+    fatigue: 0,
+    resolve: 0,
+    initiative: 0,
+    mattack: 0,
+    rattack: 0,
+    mdefense: 0,
+    rdefense: 0,
+});
 
 const initialState: AppState = {
     activePerkIds: [],
     buildName: "Untitled Build",
     isStudent: false,
+    statNums: getNewStatNums(),
+    stars: getNewStars(),
 };
-
-export interface AppState {
-    activePerkIds: string[];
-    buildName: string;
-    isStudent: boolean;
-}
 
 export const appReducer = (state: AppState = initialState, action: AnyAction): AppState => {
     let newState: AppState = state;
@@ -49,6 +76,14 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
             };
             break;
         }
+        case SET_PERKS: {
+            const { activePerkIds } = action.payload;
+            newState = {
+                ...state,
+                activePerkIds,
+            };
+            break;
+        }
         case RESET_PERKS: {
             newState = {
                 ...state,
@@ -56,11 +91,59 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
             };
             break;
         }
-        case SET_PERKS: {
-            const { activePerkIds } = action.payload;
+        case SET_STAT: {
+            const { statType, num } = action.payload;
+            const newStatNums = {
+                ...state.statNums,
+            };
+            newStatNums[statType] = num; // modify in-place to retain object attribute order
+
             newState = {
                 ...state,
-                activePerkIds,
+                statNums: newStatNums,
+            };
+            break;
+        }
+        case SET_STAT_NUMS: {
+            const { statNums } = action.payload;
+            newState = {
+                ...state,
+                statNums,
+            };
+            break;
+        }
+        case RESET_STAT_NUMS: {
+            newState = {
+                ...state,
+                statNums: getNewStatNums(),
+            };
+            break;
+        }
+        case SET_STAR: {
+            const { statType, amount } = action.payload;
+            const newStars = {
+                ...state.stars,
+            };
+            newStars[statType] = amount; // modify in-place to retain object attribute order
+
+            newState = {
+                ...state,
+                stars: newStars,
+            };
+            break;
+        }
+        case SET_STARS: {
+            const { stars } = action.payload;
+            newState = {
+                ...state,
+                stars,
+            };
+            break;
+        }
+        case RESET_STARS: {
+            newState = {
+                ...state,
+                stars: getNewStars(),
             };
             break;
         }

@@ -4,10 +4,9 @@ import {ChangeEvent, useRef, useState} from 'react';
 
 import arrow_right from '../../images/arrow_right.png';
 import {Star} from './Star';
+import {StatType} from '../../models';
 
 type BarColor = 'red' | 'yellow' | 'blue' | 'brown';
-
-type StatType = 'health' | 'fatigue' | 'resolve' | 'initiative' | 'mattack' | 'rattack' | 'mdefense' | 'rdefense';
 
 interface StatBarProps {
     statType: StatType;

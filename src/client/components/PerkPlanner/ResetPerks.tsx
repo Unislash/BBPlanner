@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {AppState} from '../../reducers';
 import {resetPerks} from '../../actions';
 import {connect} from 'react-redux';
+import {AppState} from '../../models';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button/Button';

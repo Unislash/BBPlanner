@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {AppState} from '../../reducers';
 import {setBuildName} from '../../actions';
 import {connect} from 'react-redux';
+import {AppState} from '../../models';
 
 interface BuildNameProps {
     buildName: string;
