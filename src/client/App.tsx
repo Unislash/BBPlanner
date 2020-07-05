@@ -13,6 +13,7 @@ export class App extends Component {
     render() {
         return (
             <MuiTheme>
+                <div className="blanket" />
                 <div className="appBackground"/>
                 <div className="header">
                     <h1 className="pageTitle">Battle Brothers Planner</h1>

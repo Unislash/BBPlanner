@@ -17,6 +17,35 @@ p {
     margin: 8px 0;
 }
 
+@media only screen and (max-width: 1084px) {
+    .blanket {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 1595px) and (min-width: 1084px) {
+    .blanket {
+        width: 980px;
+    }
+}
+
+@media only screen and (min-width: 1596px) {
+    .blanket {
+        width: 1080px;
+    }
+}
+
+.blanket {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(6,6,6,.7);
+    z-index: -1;
+    box-shadow: 0 0 20px 15px rgba(6,6,6,.7);
+}
+
 .appBackground {
     top: 0;
     right: 0;
@@ -25,8 +54,8 @@ p {
     position: fixed;
     background-size: cover;
     transform: translate3d(0,0,0);
-    background: url("./images/armor_bg.jpeg") no-repeat center;
-    filter: grayscale(90%);
+    background: url("./images/loading_screen_08.jpg") no-repeat center;
+    filter: grayscale(40%);
     z-index: -2;
 }
 .appBackground:after {
@@ -34,7 +63,7 @@ p {
     display: block;
     height: 100%;
     width: 100%;
-    background-color: rgba(22,16,11,0.92);
+    background-color: rgba(11,11,16,0.6);
 }
 
 .pageTitle {
@@ -45,10 +74,12 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 800px;
+    margin: 0 auto;
 }
 
 .plannerInfo {
-    width: 800px;
+    width: 100%;
     display: flex;
 }
 
@@ -102,7 +133,7 @@ p {
 }
 
 .allPerks {
-    width: 800px;
+    width: 100%;
     margin-top: 10px;
     margin-bottom: 30px;
 }
