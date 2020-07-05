@@ -1,6 +1,7 @@
 import * as React from 'react';
-import {Fade, Tooltip} from '@material-ui/core';
 import classcat from 'classcat';
+import Tooltip from 'rc-tooltip';
+import 'rc-tooltip/assets/bootstrap.css';
 
 interface PerkProps {
     isActive: boolean;
@@ -15,11 +16,9 @@ export const Perk: React.FC<PerkProps> = props => {
     return (
         <div onClick={onClick} className={classcat(["perk", {isActive}])}>
             <Tooltip
-                title={tooltipText}
-                arrow={false}
+                overlay={tooltipText}
                 placement="bottom"
-                TransitionComponent={Fade}
-                enterDelay={400}
+                mouseEnterDelay={.8}
             >
                 <div className="perkImageHoverWrapper">
                     {/*unfortunately we need a wrapper around img to let it be hoverable for the tooltip, but not draggable*/}

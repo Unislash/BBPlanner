@@ -178,9 +178,8 @@ p {
     line-height: 1.5;
 }
 
-/*Wow this is hard to adjust without this kind of duct tape solution*/
-.MuiTooltip-tooltip {
-    margin: 0 !important;
+.rc-tooltip {
+    max-width: 400px;
 }
 
 .statsPlanner {
