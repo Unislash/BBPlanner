@@ -53,7 +53,7 @@ import * as React from 'react';
 import {Perk} from './Perk';
 import {PerkTooltipHeader} from './PerkTooltipHeader';
 import {connect} from 'react-redux';
-import {togglePerk, toggleStudent} from '../../actions';
+import {togglePerk} from '../../actions';
 import {AppState} from '../../models';
 
 const tooltips = {
@@ -112,7 +112,6 @@ const tooltips = {
 interface AllPerksProps {
     activePerks: string[];
     togglePerk: (perkId: string) => void;
-    toggleStudent: () => void;
 }
 
 export const AllPerksBase: React.FC<AllPerksProps> = props => {
@@ -128,7 +127,7 @@ export const AllPerksBase: React.FC<AllPerksProps> = props => {
                 <Perk isActive={isPerkActive("pathfinder", props.activePerks)} onClick={() => props.togglePerk("pathfinder")} image={pathfinder} tooltipText={tooltips.pathfinder} />
                 <Perk isActive={isPerkActive("adrenaline", props.activePerks)} onClick={() => props.togglePerk("adrenaline")} image={adrenaline} tooltipText={tooltips.adrenaline} />
                 <Perk isActive={isPerkActive("recover", props.activePerks)} onClick={() => props.togglePerk("recover")} image={recover} tooltipText={tooltips.recover} />
-                <Perk isActive={isPerkActive("student", props.activePerks)} onClick={() => {props.togglePerk("student"); props.toggleStudent();}} image={student} tooltipText={tooltips.student} />
+                <Perk isActive={isPerkActive("student", props.activePerks)} onClick={() => {props.togglePerk("student");}} image={student} tooltipText={tooltips.student} />
             </div>
             <div className="perkRow perkRow_two">
                 <Perk isActive={isPerkActive("executioner", props.activePerks)} onClick={() => props.togglePerk("executioner")} image={executioner} tooltipText={tooltips.executioner} />
@@ -197,7 +196,6 @@ const mapStateToProps = (state: AppState) => ({
 
 const mapDispatchToProps = {
     togglePerk,
-    toggleStudent,
 };
 
 export const AllPerks = connect(

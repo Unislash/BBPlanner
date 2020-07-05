@@ -5,7 +5,6 @@ import {
     SET_PERKS, SET_STAR, SET_STARS, SET_STAT,
     SET_STAT_NUMS, SET_STUDENT,
     TOGGLE_PERK,
-    TOGGLE_STUDENT,
 } from './actions';
 import {AnyAction} from 'redux';
 import {getAvailableNumberOfPerks, maxLevel} from './logic';
@@ -53,13 +52,19 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
                     ...state,
                     activePerkIds: [...state.activePerkIds].filter(item => item !== perkId),
                 };
+                if (perkId === "student") {
+                    newState.isStudent = false;
+                }
             } else {
                 // It doesn't exist, so try to add it
-                if (getAvailableNumberOfPerks(state.activePerkIds.length, maxLevel, state.isStudent) >= 1) {
+                if (perkId === "student" || getAvailableNumberOfPerks(state.activePerkIds.length, maxLevel, state.isStudent) >= 1) {
                     newState = {
                         ...state,
                         activePerkIds: [...state.activePerkIds, perkId],
                     };
+                    if (perkId === "student") {
+                        newState.isStudent = true;
+                    }
                 } else {
                     // do nothing; there are no available perks left
                 }
@@ -67,13 +72,6 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
 
             // TODO: This should probably be in a thunk, not in a reducer
             saveToURL(newState);
-            break;
-        }
-        case TOGGLE_STUDENT: {
-            newState = {
-                ...state,
-                isStudent: !state.isStudent,
-            };
             break;
         }
         case SET_STUDENT: {
