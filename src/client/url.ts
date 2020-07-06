@@ -1,6 +1,6 @@
 import {perkBinary} from './perkBinary';
 import {store} from './createStore';
-import {setBuildName, setPerks, setStars, setStatNums, setStudent} from './actions';
+import {setBuildIdList, setBuildName, setPerks, setStars, setStatNums, setStudent} from './actions';
 import {AppState, Stars, StatNums} from './models';
 import {getNewStars, getNewStatNums} from './reducers';
 
@@ -110,21 +110,23 @@ const uncompressStars = (packedString: string) => {
     return newStars;
 };
 
-const setQueryStringParameter = (name: string, value: string) => {
-    const params = new URLSearchParams(window.location.search);
-    params.set(name, value);
-    window.history.replaceState({}, "", `${window.location.pathname}?${params}`);
-};
 const getQueryStringParameter = (name: string) => {
     const params = new URLSearchParams(window.location.search);
     return params.get(name);
 };
 
-export const saveToURL = (state: AppState) => {
-    setQueryStringParameter("name", state.buildName);
-    setQueryStringParameter("perks", compressPerks(state.activePerkIds));
-    setQueryStringParameter("stats", compressStats(state.statNums));
-    setQueryStringParameter("stars", compressStars(state.stars));
+export const saveToURL = (state: AppState): string => {
+    const params = new URLSearchParams(window.location.search);
+
+    params.set("name", state.buildName);
+    params.set("perks", compressPerks(state.activePerkIds));
+    params.set("stats", compressStats(state.statNums));
+    params.set("stars", compressStars(state.stars));
+
+    const newUrl = `${window.location.pathname}?${params}`;
+    window.history.replaceState({}, "", newUrl);
+
+    return newUrl;
 };
 
 export const loadFromURL = () => {
@@ -132,18 +134,23 @@ export const loadFromURL = () => {
     if (name) {
         store.dispatch(setBuildName(name, false));
     }
+
     const compressedPerks = getQueryStringParameter("perks");
     if (compressedPerks) {
         const activePerkIds = uncompressPerks(compressedPerks);
         store.dispatch(setPerks(activePerkIds));
         store.dispatch(setStudent(activePerkIds.indexOf("student") !== -1));
     }
+
     const compressedStats = getQueryStringParameter("stats");
     if (compressedStats) {
         store.dispatch(setStatNums(uncompressStats(compressedStats)));
     }
+
     const compressedStars = getQueryStringParameter("stars");
     if (compressedStars) {
         store.dispatch(setStars(uncompressStars(compressedStars)));
     }
+
+    store.dispatch(setBuildIdList(localStorage.getObject("bbplanner") || []));
 };

@@ -6,8 +6,9 @@ import {BuildName} from './components/Header/BuildName';
 import {ResetPerks} from './components/PerkPlanner/ResetPerks';
 import {MuiTheme} from './MuiTheme';
 import {PerkPlannerInfo} from './components/Header/PerkPlannerInfo';
-import {ShareButton} from './components/Header/ShareButton';
+import {SaveButton} from './components/Header/SaveButton';
 import {StatsPlanner} from './components/StatsPlanner/StatsPlanner';
+import {BuildList} from './components/BuildList/BuildList';
 
 export class App extends Component {
     render() {
@@ -23,7 +24,7 @@ export class App extends Component {
                         <div className="plannerInfo">
                             <div className="leftInfo">
                                 <BuildName/>
-                                <ShareButton/>
+                                <SaveButton/>
                             </div>
                             <div className="rightInfo">
                                 <PerkPlannerInfo/>
@@ -33,6 +34,7 @@ export class App extends Component {
                         <ResetPerks/>
                     </div>
                     <StatsPlanner />
+                    <BuildList />
                 </div>
             </MuiTheme>
         );

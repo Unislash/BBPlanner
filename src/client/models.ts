@@ -14,5 +14,9 @@ export interface AppState {
     isStudent: boolean;
     statNums: StatNums;
     stars: Stars;
+    buildIdList: string[];
 }
 
+export interface AppStateWithURL extends AppState {
+    url: string;
+}

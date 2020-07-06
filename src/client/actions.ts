@@ -12,6 +12,8 @@ export const SET_STAR = "SET_STAR";
 export const RESET_STARS = "RESET_STARS";
 export const SET_STARS = "SET_STARS";
 export const SET_BUILD_NAME = "SET_BUILD_NAME";
+export const SAVE_BUILD = "SAVE_BUILD";
+export const SET_BUILD_ID_LIST = "SET_BUILD_ID_LIST";
 
 export const togglePerk = (perkId: string): AnyAction => ({
     type: TOGGLE_PERK,
@@ -66,4 +68,9 @@ export const resetStars = (): AnyAction => ({
 export const setBuildName = (buildName: string, withSave?: boolean): AnyAction => ({
     type: SET_BUILD_NAME,
     payload: {buildName, withSave},
+});
+
+export const setBuildIdList = (buildIdList: string[]): AnyAction => ({
+    type: SET_BUILD_ID_LIST,
+    payload: {buildIdList},
 });

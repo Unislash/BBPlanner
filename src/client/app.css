@@ -120,7 +120,7 @@ p {
     border: 1px solid rgba(255,255,255,.6);
 }
 
-.shareButton {
+.saveButton {
     margin-left: 5px;
     padding: 4px;
     border: 1px solid transparent;
@@ -130,11 +130,11 @@ p {
     transition: border .1s;
 }
 
-.shareButton:hover {
+.saveButton:hover {
     border: 1px solid rgba(255,255,255,.3);
 }
 
-.shareButton:active {
+.saveButton:active {
     border: 1px solid rgba(255,255,255,.6);
 }
 
@@ -299,4 +299,12 @@ p {
 .maxStat {
     line-height: 24px;
     margin-top: -1px;
+}
+
+.buildList {
+    display: flex;
+}
+
+.buildEntry {
+    margin: 4px 8px;
 }
