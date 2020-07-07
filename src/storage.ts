@@ -14,7 +14,7 @@ Storage.prototype.getObject = function(key: string): Object | undefined {
  * Updates any existing state in storage.
  * If no existing entry is found in storage, no state will be saved unless `forceSave` is true.
  */
-export const updateStorage = (appState: AppState, forceSave: boolean = true): boolean => {
+export const updateStorageForCurrentBuild = (appState: AppState, forceSave: boolean = true): boolean => {
     const stateToSave: AppStateWithURL = {
         ...appState,
         url: window.location.search,
@@ -40,6 +40,17 @@ export const updateStorage = (appState: AppState, forceSave: boolean = true): bo
     }
 
     return false;
+};
+
+export const removeBuildFromStorage = (buildId: string): string[] => {
+    let savedBuildIds = localStorage.getObject("bbplanner") as Array<string> | undefined || [];
+    const index = savedBuildIds.indexOf(buildId);
+    if (index > -1) {
+        savedBuildIds.splice(index, 1);
+    }
+    localStorage.setObject("bbplanner", savedBuildIds);
+
+    return savedBuildIds;
 };
 
 export const loadFromStorage = (buildName: string): boolean => {

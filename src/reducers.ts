@@ -10,7 +10,7 @@ import {AnyAction} from 'redux';
 import {getAvailableNumberOfPerks, maxLevel} from './logic';
 import {saveToURL} from './url';
 import {AppState} from './models';
-import {updateStorage} from './storage';
+import {updateStorageForCurrentBuild} from './storage';
 
 export const getNewStatNums = () => ({
     health: 55,
@@ -74,7 +74,7 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
 
             // TODO: This should probably be in a thunk, not in a reducer
             saveToURL(newState);
-            updateStorage(newState);
+            updateStorageForCurrentBuild(newState);
             break;
         }
         case SET_STUDENT: {
@@ -101,7 +101,7 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
 
             // TODO: This should probably be in a thunk, not in a reducer
             saveToURL(newState);
-            updateStorage(newState);
+            updateStorageForCurrentBuild(newState);
             break;
         }
         case SET_STAT: {
@@ -118,7 +118,7 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
 
             // TODO: This should probably be in a thunk, not in a reducer
             saveToURL(newState);
-            updateStorage(newState);
+            updateStorageForCurrentBuild(newState);
             break;
         }
         case SET_STAT_NUMS: {
@@ -137,7 +137,7 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
 
             // TODO: This should probably be in a thunk, not in a reducer
             saveToURL(newState);
-            updateStorage(newState);
+            updateStorageForCurrentBuild(newState);
             break;
         }
         case SET_STAR: {
@@ -154,7 +154,7 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
 
             // TODO: This should probably be in a thunk, not in a reducer
             saveToURL(newState);
-            updateStorage(newState);
+            updateStorageForCurrentBuild(newState);
             break;
         }
         case SET_STARS: {
@@ -173,7 +173,7 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
 
             // TODO: This should probably be in a thunk, not in a reducer
             saveToURL(newState);
-            updateStorage(newState);
+            updateStorageForCurrentBuild(newState);
             break;
         }
         case SET_BUILD_NAME: {

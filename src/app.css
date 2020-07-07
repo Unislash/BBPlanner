@@ -322,14 +322,37 @@ p {
 .buildList {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
 }
 
 .buildEntry {
-    margin: 4px 0;
+    display: flex;
+    padding: 4px 0;
+}
+
+.buildEntryText {
+    margin-right: 4px;
     cursor: pointer;
 }
 
-.buildEntry:hover {
+.buildEntryText:hover {
+    color: #fff;
+}
+
+.deleteBuild {
+    display: none;
+    cursor: pointer;
+    height: 22px;
+}
+
+.buildEntry:hover .deleteBuild {
+    display: block;
+}
+
+.deleteBuild svg {
+    max-height: 100%;
+    display: block;
+}
+
+.deleteBuild:hover {
     color: #fff;
 }
