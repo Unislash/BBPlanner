@@ -69,7 +69,7 @@ p {
     position: fixed;
     background-size: cover;
     transform: translate3d(0,0,0);
-    background: url("./images/loading_screen_08.jpg") no-repeat center;
+    background: url("images/loading_screen_08.jpg") no-repeat center;
     filter: grayscale(40%);
     z-index: -2;
 }

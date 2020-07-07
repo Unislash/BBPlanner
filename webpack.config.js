@@ -5,10 +5,11 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const outputDirectory = 'dist';
 
 module.exports = {
-    entry: ['./src/client/index.tsx'],
+    entry: ['./src/index.tsx'],
+    target: "web",
     output: {
         path: path.resolve(__dirname, outputDirectory),
-        filename: 'js/[name].bundle.js',
+        filename: '[name].bundle.js',
     },
     resolve: {
         extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
@@ -19,7 +20,7 @@ module.exports = {
             {
                 test: /\.(ts|tsx)$/,
                 use: [
-                    'ts-loader',
+                    'awesome-typescript-loader',
                 ]
             },
             {
@@ -47,8 +48,8 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin([outputDirectory]),
         new HtmlWebpackPlugin({
-            template: './public/index.html',
-            favicon: './public/favicon.png'
+            template: './index.html',
+            favicon: './favicon.png'
         })
     ]
 };
