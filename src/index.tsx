@@ -8,6 +8,10 @@ import {App} from './App';
 import {store} from './createStore';
 import {loadFromURL} from './url';
 
+window.onpopstate = () => {
+    loadFromURL();
+};
+
 const rootElement = document.getElementById('root');
 ReactDOM.render(
     <Provider store={store}>
