@@ -11,7 +11,7 @@ export const BuildListBase: React.FC<BuildListProps> = props => {
     const {buildIdList} = props;
 
     return (
-        <div>
+        <div className="savedBuilds">
             <h3>Saved Builds:</h3>
             <div className="buildList">
                 {

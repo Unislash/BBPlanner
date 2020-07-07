@@ -38,13 +38,7 @@ p {
     }
 }
 
-@media only screen and (max-width: 1595px) and (min-width: 1084px) {
-    .blanket {
-        width: 980px;
-    }
-}
-
-@media only screen and (min-width: 1596px) {
+@media only screen and (min-width: 1084px) {
     .blanket {
         width: 1080px;
     }
@@ -85,12 +79,25 @@ p {
     text-align: center;
 }
 
+.content {
+    display: flex;
+    justify-content: center;
+}
+
+.mainPanel {
+    width: 700px;
+}
+
+.rightPanel {
+    width: 200px;
+    padding-left: 48px;
+    color: #d1c5b6;
+}
+
 .perkPlanner {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 800px;
-    margin: 0 auto;
 }
 
 .plannerInfo {
@@ -162,6 +169,11 @@ p {
     margin: 3px 1px;
     user-select: none;
     filter: grayscale(100%);
+    cursor: pointer;
+}
+
+.perk:hover {
+    filter: grayscale(65%);
 }
 
 .perk.isActive {
@@ -301,10 +313,23 @@ p {
     margin-top: -1px;
 }
 
+.savedBuilds h3 {
+    color: white;
+    margin-top: 22px;
+    margin-bottom: 8px;
+}
+
 .buildList {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .buildEntry {
-    margin: 4px 8px;
+    margin: 4px 0;
+    cursor: pointer;
+}
+
+.buildEntry:hover {
+    color: #fff;
 }

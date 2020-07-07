@@ -20,21 +20,25 @@ export class App extends Component {
                     <h1 className="pageTitle">Battle Brothers Planner</h1>
                 </div>
                 <div className="content">
-                    <div className="perkPlanner">
-                        <div className="plannerInfo">
-                            <div className="leftInfo">
-                                <BuildName/>
-                                <SaveButton/>
+                    <div className="mainPanel">
+                        <div className="perkPlanner">
+                            <div className="plannerInfo">
+                                <div className="leftInfo">
+                                    <BuildName/>
+                                    <SaveButton/>
+                                </div>
+                                <div className="rightInfo">
+                                    <PerkPlannerInfo/>
+                                </div>
                             </div>
-                            <div className="rightInfo">
-                                <PerkPlannerInfo/>
-                            </div>
+                            <AllPerks/>
+                            <ResetPerks/>
                         </div>
-                        <AllPerks/>
-                        <ResetPerks/>
+                        <StatsPlanner />
                     </div>
-                    <StatsPlanner />
-                    <BuildList />
+                    <div className="rightPanel">
+                        <BuildList />
+                    </div>
                 </div>
             </MuiTheme>
         );
