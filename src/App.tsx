@@ -16,11 +16,11 @@ export class App extends Component {
             <MuiTheme>
                 <div className="blanket" />
                 <div className="appBackground"/>
-                <div className="header">
-                    <h1 className="pageTitle">Battle Brothers Planner</h1>
-                </div>
                 <div className="content">
                     <div className="mainPanel">
+                        <div className="header">
+                            <h1 className="pageTitle">Battle Brothers Planner</h1>
+                        </div>
                         <div className="perkPlanner">
                             <div className="plannerInfo">
                                 <div className="leftInfo">

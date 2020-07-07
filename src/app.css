@@ -313,9 +313,12 @@ p {
     margin-top: -1px;
 }
 
+.savedBuilds {
+    margin-top: 34px;
+}
+
 .savedBuilds h3 {
     color: white;
-    margin-top: 22px;
     margin-bottom: 8px;
 }
 
@@ -332,6 +335,7 @@ p {
 .buildEntryText {
     margin-right: 4px;
     cursor: pointer;
+    transition: color .1s;
 }
 
 .buildEntryText:hover {
@@ -351,6 +355,7 @@ p {
 .deleteBuild svg {
     max-height: 100%;
     display: block;
+    transition: color .1s;
 }
 
 .deleteBuild:hover {

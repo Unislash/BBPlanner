@@ -3,7 +3,7 @@ import {resetPerks} from '../../actions';
 import {connect} from 'react-redux';
 import {AppState} from '../../models';
 
-import DeleteIcon from '@material-ui/icons/Delete';
+import ResetIcon from '@material-ui/icons/RotateLeft';
 import Button from '@material-ui/core/Button/Button';
 
 interface ResetPerksProps {
@@ -19,7 +19,7 @@ export const ResetPerksBase: React.FC<ResetPerksProps> = props => {
             className="resetPerks"
             onClick={resetPerks}
         >
-            <DeleteIcon/> Reset Perks
+            <ResetIcon/>&nbsp;Reset Perks
         </Button>
     );
 };

@@ -14,7 +14,7 @@ Storage.prototype.getObject = function(key: string): Object | undefined {
  * Updates any existing state in storage.
  * If no existing entry is found in storage, no state will be saved unless `forceSave` is true.
  */
-export const updateStorageForCurrentBuild = (appState: AppState, forceSave: boolean = true): boolean => {
+export const updateStorageForCurrentBuild = (appState: AppState, forceSave: boolean = false): boolean => {
     const stateToSave: AppStateWithURL = {
         ...appState,
         url: window.location.search,
