@@ -40,7 +40,7 @@ const packBinaryString = (values: string) => {
     return to64String(parseInt(values, 2));
 };
 
-const unpackBinaryString = (packed: string) => {
+const unpackBinaryString = (packed: string): string => {
     // const unpacked = parseInt(packed, 36).toString(2);
     const unpacked = to64Parse(packed).toString(2);
     return padString('0'.repeat(Object.keys(perkBinary).length), unpacked);
@@ -62,7 +62,7 @@ const uncompressPerks = (packedString: string) => {
     const binaryString = unpackBinaryString(packedString);
 
     let activePerkIds: string[] = [];
-    [...binaryString].forEach((str: string, index: number) => {
+    binaryString.split('').forEach((str: string, index: number) => {
         if (str === "1") {
             activePerkIds.push(Object.keys(perkBinary)[index]);
         }

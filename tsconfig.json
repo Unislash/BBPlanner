@@ -2,20 +2,22 @@
   "compilerOptions": {
     "jsx": "react",
     "outDir": "dist",
-    "module": "commonjs",
     "strict": true,
     "noImplicitAny": true,
-    "esModuleInterop": true,
-    "moduleResolution": "node",
     "preserveConstEnums": true,
     "removeComments": true,
     "noEmitOnError": true,
     "noErrorTruncation": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "target": "ES6"
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "lib": ["ES2015", "DOM"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "sourceMap": true
   },
   "include": [
     "./src/**/*"
