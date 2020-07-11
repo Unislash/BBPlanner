@@ -9,6 +9,7 @@ import {PerkPlannerInfo} from './components/Header/PerkPlannerInfo';
 import {SaveButton} from './components/Header/SaveButton';
 import {StatsPlanner} from './components/StatsPlanner/StatsPlanner';
 import {BuildList} from './components/BuildList/BuildList';
+import {OtherResources} from './components/OtherResources/OtherResources';
 
 export class App extends Component {
     render() {
@@ -38,6 +39,7 @@ export class App extends Component {
                     </div>
                     <div className="rightPanel">
                         <BuildList />
+                        <OtherResources />
                     </div>
                 </div>
             </MuiTheme>

@@ -15,7 +15,7 @@ export const BuildListBase: React.FC<BuildListProps> = props => {
 
     return (
         <div className="savedBuilds">
-            <h3>Saved Builds:</h3>
+            <h3>Saved Builds</h3>
             <div className="buildList">
                 {
                     buildIdList.map(buildId => (
