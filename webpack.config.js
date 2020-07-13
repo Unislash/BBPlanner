@@ -5,7 +5,9 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const outputDirectory = 'dist';
 
 module.exports = {
-    entry: ['./src/index.tsx'],
+    entry: {
+        main: './src/index.tsx'
+    },
     target: "web",
     output: {
         path: path.resolve(__dirname, outputDirectory),
@@ -48,8 +50,15 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin([outputDirectory]),
         new HtmlWebpackPlugin({
+            filename: "index.html",
             template: './index.html',
-            favicon: './favicon.png'
+            favicon: './favicon.png',
+            chunks: ["main"]
+        }),
+        new HtmlWebpackPlugin({
+            filename: "error.html",
+            template: './error.html',
+            chunks: []
         })
     ]
 };
