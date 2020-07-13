@@ -2,3 +2,5 @@
 node_modules
 dist
 *.log
+.idea/workspace.xml
+.idea/shelf/*
