@@ -359,11 +359,15 @@ p {
 .buildList {
     display: flex;
     flex-direction: column;
+    /* for animations */
+    position: relative;
 }
 
 .buildEntry {
     display: flex;
     padding: 4px 0;
+    /* for animations */
+    position: relative;
 }
 
 .buildEntryText {
@@ -377,13 +381,19 @@ p {
 }
 
 .deleteBuild {
-    display: none;
     cursor: pointer;
     height: 22px;
+    transition: opacity .2s;
+
+    /*hide button until entry is hovered*/
+    pointer-events: none;
+    opacity: 0;
 }
 
 .buildEntry:hover .deleteBuild {
     display: block;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .deleteBuild svg {

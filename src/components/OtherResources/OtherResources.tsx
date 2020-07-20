@@ -14,7 +14,7 @@ export const OtherResources: React.FC = () => {
                 <p><a href="https://www.nexusmods.com/battlebrothers/mods">Mods on Nexus<HyperlinkIcon /></a></p>
                 <p><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Battle Brothers Reddit<HyperlinkIcon /></a></p>
                 <p><a href="http://battlebrothersgame.com">Battle Brothers Website<HyperlinkIcon /></a></p>
-                <p><a href="mailto:">Contact Me</a></p>
+                <p><a href="mailto:unislash@bbplanner.xyz">Contact Me</a></p>
             </div>
         </div>
     );

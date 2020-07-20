@@ -42,6 +42,10 @@ export const updateStorageForCurrentBuild = (appState: AppState, forceSave: bool
     return false;
 };
 
+export const saveBuildIdListToStorage = (buildIdList: string[]) => {
+    localStorage.setObject("bbplanner", buildIdList);
+}
+
 export const removeBuildFromStorage = (buildId: string): string[] => {
     let savedBuildIds = localStorage.getObject("bbplanner") as Array<string> | undefined || [];
     const index = savedBuildIds.indexOf(buildId);

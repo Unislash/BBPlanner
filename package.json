@@ -13,8 +13,11 @@
   "dependencies": {
     "@material-ui/core": "^4.8.3",
     "@material-ui/icons": "^4.5.1",
+    "@popmotion/popcorn": "^0.4.4",
+    "array-move": "^3.0.0",
     "classcat": "^4.0.2",
     "es6-object-assign": "^1.1.0",
+    "framer-motion": "^1.11.1",
     "rc-tooltip": "^4.2.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
