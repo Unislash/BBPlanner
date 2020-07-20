@@ -55,6 +55,8 @@ import {PerkTooltipHeader} from './PerkTooltipHeader';
 import {connect} from 'react-redux';
 import {togglePerk} from '../../actions';
 import {AppState} from '../../models';
+import {canAddPerk} from '../../thunks';
+import classcat from 'classcat';
 
 const tooltips = {
     fastAdaption: <><PerkTooltipHeader title="Fast Adaptation" />Adapt to your opponent's moves! Gain an additional stacking + 8% chance to hit with each attack that misses an opponent. Bonus is reset upon landing a hit.</>,
@@ -112,12 +114,12 @@ const tooltips = {
 interface AllPerksProps {
     activePerks: string[];
     togglePerk: (perkId: string) => void;
+    canAddPerk: () => boolean;
 }
 
 export const AllPerksBase: React.FC<AllPerksProps> = props => {
-
     return (
-        <div className="allPerks">
+        <div className={classcat(["allPerks", {canAddPerk: props.canAddPerk()}])}>
             <div className="perkRow perkRow_one">
                 <Perk isActive={isPerkActive("fastAdaption", props.activePerks)} onClick={() => props.togglePerk("fastAdaption")} image={fastAdaption} tooltipText={tooltips.fastAdaption} />
                 <Perk isActive={isPerkActive("cripplingStrikes", props.activePerks)} onClick={() => props.togglePerk("cripplingStrikes")} image={cripplingStrikes} tooltipText={tooltips.cripplingStrikes} />
@@ -196,6 +198,7 @@ const mapStateToProps = (state: AppState) => ({
 
 const mapDispatchToProps = {
     togglePerk,
+    canAddPerk,
 };
 
 export const AllPerks = connect(
