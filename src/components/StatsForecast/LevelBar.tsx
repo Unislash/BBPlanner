@@ -43,7 +43,7 @@ export const LevelBar: React.FC<LevelBarProps> = props => {
         <div className="statBar">
             <img className="icon" src={icon} />
             <div
-                className={classcat(['inputBar'])}
+                className={classcat(['inputBar', 'yellow'])}
                 onClick={handleBarClick}
             >
                 <div className="barTextControl">

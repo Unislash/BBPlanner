@@ -37,7 +37,7 @@ const barColorByStat: { [key: string]: BarColor; } = {
     health: 'red',
     fatigue: 'blue',
     resolve: 'brown',
-    initiative: 'yellow',
+    initiative: 'brown',
     mattack: 'brown',
     rattack: 'brown',
     mdefense: 'brown',

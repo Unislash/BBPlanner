@@ -261,7 +261,7 @@ p {
 }
 
 /*Hover treatment*/
-.inputBar:hover::before {
+.inputBar:hover:before {
     display: block;
     content: "";
     position: absolute;
@@ -272,6 +272,34 @@ p {
     background-color: rgba(164,140,105, .1);
     user-select: none;
     z-index: 0;
+}
+
+.inputBar.red {
+    background-color: #5A191F;
+    border: 1px solid #a38080;
+    box-shadow: inset 0 0 2px 1px rgb(75, 21, 27), inset 1px 2px 2px rgb(160, 41, 53);
+}
+
+.inputBar.blue {
+    background-color: #12527C;
+    border: 1px solid #71809a;
+    box-shadow: inset 0 0 2px 1px rgb(37, 67, 85), inset 1px 2px 2px rgb(33, 131, 182);
+}
+.inputBar.blue:hover:before {
+    background-color: rgba(154, 177, 219, 0.1);
+}
+
+.inputBar.yellow {
+    background-color: #AD712A;
+    border: 1px solid #c9b692;
+    box-shadow: inset 0 0 2px 1px rgb(120, 70, 25), inset 1px 2px 2px rgb(232, 173, 83);
+    text-shadow: 0 1px 2px rgb(120, 70, 25), 0 1px 2px rgb(120, 70, 25), 0 1px 2px rgb(120, 70, 25), 0 1px 2px rgb(120, 70, 25);
+}
+.inputBar.yellow .barInputElement {
+    text-shadow: 0 1px 2px rgb(120, 70, 25), 0 1px 2px rgb(120, 70, 25), 0 1px 2px rgb(120, 70, 25), 0 1px 2px rgb(120, 70, 25);
+}
+.inputBar.yellow:hover:before {
+    background-color: rgba(253, 236, 180, 0.1);
 }
 
 .statBar .inputBar {
