@@ -99,8 +99,11 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
                 activePerkIds: [],
             };
 
+            // Ok so pushing a new history entry only half works... if the user does go back after
+            // resetting perks, everything looks right until they move away. For now I'm going to
+            // leave this, and I can come back and introduce proper undo capabilities.
             // TODO: This should probably be in a thunk, not in a reducer
-            saveToURL(newState);
+            saveToURL(newState, true);
             updateStorageForCurrentBuild(newState);
             break;
         }

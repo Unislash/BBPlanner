@@ -115,7 +115,7 @@ const getQueryStringParameter = (name: string) => {
     return params.get(name);
 };
 
-export const saveToURL = (state: AppState): string => {
+export const saveToURL = (state: AppState, shouldCreateHistoryEntry?: boolean): string => {
     const params = new URLSearchParams(window.location.search);
 
     params.set("name", state.buildName);
@@ -124,7 +124,11 @@ export const saveToURL = (state: AppState): string => {
     params.set("stars", compressStars(state.stars));
 
     const newUrl = `${window.location.pathname}?${params}`;
-    window.history.replaceState({}, "", newUrl);
+    if (shouldCreateHistoryEntry) {
+        window.history.pushState({}, "", newUrl);
+    } else {
+        window.history.replaceState({}, "", newUrl);
+    }
 
     return newUrl;
 };
