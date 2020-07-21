@@ -153,7 +153,11 @@ p {
     border-radius: 4px;
     cursor: pointer;
     font-size: 0; /*to prevent the newline from rendering*/
-    transition: border .1s;
+    transition: border .1s, color .5s;
+}
+
+.saveButton.saved {
+    color: #ff5e5e;
 }
 
 .saveButton:hover {
