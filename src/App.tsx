@@ -7,7 +7,7 @@ import {ResetPerks} from './components/PerkPlanner/ResetPerks';
 import {MuiTheme} from './MuiTheme';
 import {PerkPlannerInfo} from './components/Header/PerkPlannerInfo';
 import {SaveButton} from './components/Header/SaveButton';
-import {StatsPlanner} from './components/StatsPlanner/StatsPlanner';
+import {StatsForecast} from './components/StatsForecast/StatsForecast';
 import {BuildList} from './components/BuildList/BuildList';
 import {OtherResources} from './components/OtherResources/OtherResources';
 
@@ -35,7 +35,7 @@ export class App extends Component {
                             <AllPerks/>
                             <ResetPerks/>
                         </div>
-                        <StatsPlanner />
+                        <StatsForecast />
                     </div>
                     <div className="rightPanel">
                         <BuildList />

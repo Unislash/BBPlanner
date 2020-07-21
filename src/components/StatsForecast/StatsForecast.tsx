@@ -16,14 +16,14 @@ import {connect} from 'react-redux';
 import {AppState, Stars, StatNums, StatType} from '../../models';
 import {LevelBar} from './LevelBar';
 
-interface StatsPlannerProps {
+interface StatsForecastProps {
     statNums: StatNums;
     stars: Stars;
     setStat: (statType: StatType, num: number) => void;
     setStar: (statType: StatType, amount: number) => void;
 }
 
-export const StatsPlannerBase: React.FC<StatsPlannerProps> = props => {
+export const StatsForecastBase: React.FC<StatsForecastProps> = props => {
     const {
         statNums,
         stars,
@@ -44,9 +44,9 @@ export const StatsPlannerBase: React.FC<StatsPlannerProps> = props => {
     };
 
     return (
-        <div className="statsPlanner">
-            <h3>Stat Planner:</h3>
-            <p>Enter your current stats and add stars to see the expected max value</p>
+        <div className="statsForecast">
+            <h3>Stats Forecast:</h3>
+            <p>Enter your current level, stats, and stars to see the expected max stats</p>
             <div className="statBars">
                 <LevelBar
                     icon={levelIcon}
@@ -140,7 +140,7 @@ const mapDispatchToProps = {
     setStar,
 };
 
-export const StatsPlanner = connect(
+export const StatsForecast = connect(
     mapStateToProps,
     mapDispatchToProps,
-)(StatsPlannerBase);
+)(StatsForecastBase);
