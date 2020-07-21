@@ -13,6 +13,7 @@ import {AppState} from './models';
 import {updateStorageForCurrentBuild} from './storage';
 
 export const getNewStatNums = () => ({
+    level: 1,
     health: 55,
     fatigue: 100,
     resolve: 40,

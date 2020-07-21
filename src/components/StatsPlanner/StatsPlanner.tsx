@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {StatBar} from './StatBar';
 
+import levelIcon from '../../images/stats/leveled_up.png';
 import healthIcon from '../../images/stats/health.png';
 import fatigueIcon from '../../images/stats/fatigue.png';
 import resolveIcon from '../../images/stats/resolve.png';
@@ -9,9 +10,11 @@ import mattackIcon from '../../images/stats/mattack.png';
 import rattackIcon from '../../images/stats/rattack.png';
 import mdefenseIcon from '../../images/stats/mdefense.png';
 import rdefenseIcon from '../../images/stats/rdefense.png';
+
 import {setStat, setStar} from '../../actions';
 import {connect} from 'react-redux';
 import {AppState, Stars, StatNums, StatType} from '../../models';
+import {LevelBar} from './LevelBar';
 
 interface StatsPlannerProps {
     statNums: StatNums;
@@ -45,6 +48,11 @@ export const StatsPlannerBase: React.FC<StatsPlannerProps> = props => {
             <h3>Stat Planner:</h3>
             <p>Enter your current stats and add stars to see the expected max value</p>
             <div className="statBars">
+                <LevelBar
+                    icon={levelIcon}
+                    levelNumber={statNums["level"]}
+                    setLevelNumber={getSetStat("level")}
+                />
                 <StatBar
                     icon={healthIcon}
                     statNumber={statNums["health"]}
@@ -52,6 +60,7 @@ export const StatsPlannerBase: React.FC<StatsPlannerProps> = props => {
                     statType={'health'}
                     stars={stars["health"]}
                     setStars={getSetStar("health")}
+                    currentLevel={statNums['level']}
                 />
                 <StatBar
                     icon={fatigueIcon}
@@ -60,6 +69,7 @@ export const StatsPlannerBase: React.FC<StatsPlannerProps> = props => {
                     statType={'fatigue'}
                     stars={stars['fatigue']}
                     setStars={getSetStar('fatigue')}
+                    currentLevel={statNums['level']}
                 />
                 <StatBar
                     icon={resolveIcon}
@@ -68,6 +78,7 @@ export const StatsPlannerBase: React.FC<StatsPlannerProps> = props => {
                     statType={'resolve'}
                     stars={stars['resolve']}
                     setStars={getSetStar('resolve')}
+                    currentLevel={statNums['level']}
                 />
                 <StatBar
                     icon={initiativeIcon}
@@ -76,6 +87,7 @@ export const StatsPlannerBase: React.FC<StatsPlannerProps> = props => {
                     statType={'initiative'}
                     stars={stars['initiative']}
                     setStars={getSetStar('initiative')}
+                    currentLevel={statNums['level']}
                 />
                 <StatBar
                     icon={mattackIcon}
@@ -84,6 +96,7 @@ export const StatsPlannerBase: React.FC<StatsPlannerProps> = props => {
                     statType={'mattack'}
                     stars={stars['mattack']}
                     setStars={getSetStar('mattack')}
+                    currentLevel={statNums['level']}
                 />
                 <StatBar
                     icon={rattackIcon}
@@ -92,6 +105,7 @@ export const StatsPlannerBase: React.FC<StatsPlannerProps> = props => {
                     statType={'rattack'}
                     stars={stars['rattack']}
                     setStars={getSetStar('rattack')}
+                    currentLevel={statNums['level']}
                 />
                 <StatBar
                     icon={mdefenseIcon}
@@ -100,6 +114,7 @@ export const StatsPlannerBase: React.FC<StatsPlannerProps> = props => {
                     statType={'mdefense'}
                     stars={stars['mdefense']}
                     setStars={getSetStar('mdefense')}
+                    currentLevel={statNums['level']}
                 />
                 <StatBar
                     icon={rdefenseIcon}
@@ -108,6 +123,7 @@ export const StatsPlannerBase: React.FC<StatsPlannerProps> = props => {
                     statType={'rdefense'}
                     stars={stars['rdefense']}
                     setStars={getSetStar('rdefense')}
+                    currentLevel={statNums['level']}
                 />
             </div>
         </div>

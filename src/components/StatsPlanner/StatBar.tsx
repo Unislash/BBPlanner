@@ -15,6 +15,7 @@ interface StatBarProps {
     setStatNumber: (value: number) => void;
     stars: number;
     setStars: (value: number) => void;
+    currentLevel: number;
 }
 
 const levelIncrementByStat: { [key: string]: number; } = {
@@ -55,6 +56,7 @@ export const StatBar: React.FC<StatBarProps> = props => {
         setStatNumber,
         stars,
         setStars,
+        currentLevel,
     } = props;
 
     const [hoveredStarIndex, setHoveredStarIndex] = useState<number | undefined>(undefined);
@@ -106,7 +108,7 @@ export const StatBar: React.FC<StatBarProps> = props => {
                     <input ref={inputRef} className="barInputElement" maxLength={5} value={statNumber} onChange={handleInputChange} />
                 </div>
                 <img className="arrowIndicator" src={arrow_right} />
-                <div className="maxStat">{getMaxStat(statType, statNumber, stars, 10)}</div>
+                <div className="maxStat">{getMaxStat(statType, statNumber, stars, 11 - currentLevel)}</div>
             </div>
         </div>
     );

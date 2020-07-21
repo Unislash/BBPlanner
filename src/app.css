@@ -34,7 +34,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h3 {
-    margin-top: 16px;
+    margin-top: 0;
     margin-bottom: 8px;
 }
 
@@ -176,7 +176,7 @@ p {
 .allPerks {
     width: 100%;
     margin-top: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 .perkRow {
@@ -357,7 +357,7 @@ p {
 }
 
 .savedBuilds {
-    margin-top: 34px;
+    margin-top: 50px;
 }
 
 .buildList {
