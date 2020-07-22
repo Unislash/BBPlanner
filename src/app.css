@@ -75,9 +75,11 @@ p {
     bottom: 0;
     left: 0;
     position: fixed;
-    background-size: cover;
     transform: translate3d(0,0,0);
-    background: url("images/loading_screen_08.jpg") no-repeat center;
+    background-image: url("images/loading_screen_08.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     filter: grayscale(40%);
     z-index: -2;
 }
