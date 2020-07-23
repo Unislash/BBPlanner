@@ -42,6 +42,10 @@ p {
     margin: 8px 0;
 }
 
+.robot {
+    display: none;
+}
+
 #root {
     height: 100%;
 }
