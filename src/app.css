@@ -152,7 +152,7 @@ p {
     border: 1px solid rgba(255,255,255,.6);
 }
 
-.saveButton {
+.plannerButton {
     margin-left: 5px;
     padding: 4px;
     border: 1px solid transparent;
@@ -162,16 +162,16 @@ p {
     transition: border .1s, color .5s;
 }
 
-.saveButton.saved {
-    color: #ff5e5e;
-}
-
-.saveButton:hover {
+.plannerButton:hover {
     border: 1px solid rgba(255,255,255,.3);
 }
 
-.saveButton:active {
+.plannerButton:active {
     border: 1px solid rgba(255,255,255,.6);
+}
+
+.saveButton.saved {
+    color: #ff5e5e;
 }
 
 .rightInfo {
@@ -237,9 +237,17 @@ p {
     line-height: 1.5;
 }
 
-.rc-tooltip {
+body .rc-tooltip {
     max-width: 400px;
     pointer-events: none;
+}
+
+body .rc-tooltip-inner {
+    min-height: auto;
+}
+
+.rc-tooltip.shareTooltip {
+    font-size: 14px;
 }
 
 .statsForecast {

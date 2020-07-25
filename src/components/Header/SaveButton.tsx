@@ -20,7 +20,7 @@ export const BaseSaveButton: React.FC<SaveButtonProps> = ({
     const isSaved = buildIdList.indexOf(buildName) > -1;
     return (
         <div
-            className={classcat(['saveButton', {
+            className={classcat(['saveButton', 'plannerButton', {
                 saved: isSaved
             }])}
             onClick={() => {

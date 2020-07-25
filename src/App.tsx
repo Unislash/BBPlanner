@@ -10,6 +10,7 @@ import {SaveButton} from './components/Header/SaveButton';
 import {StatsForecast} from './components/StatsForecast/StatsForecast';
 import {BuildList} from './components/BuildList/BuildList';
 import {OtherResources} from './components/OtherResources/OtherResources';
+import {ShareButton} from './components/Header/ShareButton';
 
 export class App extends Component {
     render() {
@@ -27,6 +28,7 @@ export class App extends Component {
                                 <div className="leftInfo">
                                     <BuildName/>
                                     <SaveButton/>
+                                    <ShareButton/>
                                 </div>
                                 <div className="rightInfo">
                                     <PerkPlannerInfo/>
