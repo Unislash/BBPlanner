@@ -50,13 +50,22 @@ p {
     height: 100%;
 }
 
-@media only screen and (max-width: 1084px) {
+@media only screen and (max-width: 980px) {
     .blanket {
         width: 100%;
     }
+
+    .content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    body .otherResources {
+        margin-top: 20px;
+    }
 }
 
-@media only screen and (min-width: 1084px) {
+@media only screen and (min-width: 980px) {
     .blanket {
         width: 1060px;
     }
@@ -518,6 +527,7 @@ body .rc-tooltip-inner {
 }
 
 .otherResources {
+    /* Pin to top of flex*/
     margin-top: auto;
 }
 
