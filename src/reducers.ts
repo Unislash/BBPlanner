@@ -113,8 +113,9 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
             // resetting perks, everything looks right until they move away. For now I'm going to
             // leave this, and I can come back and introduce proper undo capabilities.
             // TODO: This should probably be in a thunk, not in a reducer
-            saveToURL(newState, true);
-            updateStorageForCurrentBuild(newState);
+            // Don't save! To avoid accidental resets, wait for the user to pick their first perk to save
+            // saveToURL(newState, true);
+            // updateStorageForCurrentBuild(newState);
             break;
         }
         case SET_STAT: {
