@@ -16,7 +16,6 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
     },
-    devtool: 'source-map',
     module: {
         rules: [
             {
@@ -39,13 +38,6 @@ module.exports = {
                 loader: 'url-loader?limit=100000'
             },
         ]
-    },
-    devServer: {
-        port: 3000,
-        open: true,
-        proxy: {
-            '/api': 'http://localhost:8080'
-        }
     },
     plugins: [
         new CleanWebpackPlugin([outputDirectory]),
