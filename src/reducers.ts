@@ -9,7 +9,8 @@ import {
     SET_STARS,
     SET_STAT,
     SET_STAT_NUMS,
-    SET_STUDENT, SET_THEME_ID,
+    SET_STUDENT,
+    SET_THEME_ID,
     TOGGLE_PERK,
 } from './actions';
 import {AnyAction} from 'redux';
@@ -17,41 +18,8 @@ import {getAvailableNumberOfPerks, maxLevel} from './logic';
 import {saveToURL} from './url';
 import {AppState} from './models';
 import {updateStorageForCurrentBuild} from './storage';
-import {getThemeId, saveThemeId} from './storageTheme';
-
-export const getNewStatNums = () => ({
-    level: 1,
-    health: 55,
-    fatigue: 100,
-    resolve: 40,
-    initiative: 100,
-    mattack: 55,
-    rattack: 40,
-    mdefense: 4,
-    rdefense: 3,
-});
-
-export const getNewStars = () => ({
-    health: 0,
-    fatigue: 0,
-    resolve: 0,
-    initiative: 0,
-    mattack: 0,
-    rattack: 0,
-    mdefense: 0,
-    rdefense: 0,
-});
-
-const initialState: AppState = {
-    activePerkIds: [],
-    buildName: "Untitled Build",
-    isStudent: false,
-    statNums: getNewStatNums(),
-    stars: getNewStars(),
-    buildIdList: [],
-    themeId: getThemeId(),
-    version: "1.0",
-};
+import {saveThemeId} from './storageTheme';
+import {getNewStars, getNewStatNums, initialState} from './initialState';
 
 export const appReducer = (state: AppState = initialState, action: AnyAction): AppState => {
     let newState: AppState = state;

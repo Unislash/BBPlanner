@@ -2,7 +2,7 @@ import {perkBinary} from './perkBinary';
 import {store} from './createStore';
 import {setBuildIdList, setBuildName, setPerks, setStars, setStatNums, setStudent} from './actions';
 import {AppState, Stars, StatNums} from './models';
-import {getNewStars, getNewStatNums} from './reducers';
+import {getNewStars, getNewStatNums, initialState} from './initialState';
 
 const padString = (padding: string, strToPad: string, padLeft: boolean = true) => {
     if (typeof strToPad === 'undefined')
@@ -116,12 +116,28 @@ const getQueryStringParameter = (name: string) => {
 };
 
 export const saveToURL = (state: AppState, shouldCreateHistoryEntry?: boolean): string => {
+    const compressedPerks = compressPerks(state.activePerkIds);
+    const compressedStats = compressStats(state.statNums);
+    const compressedStars = compressStars(state.stars);
+
+    const existingName = getQueryStringParameter("name");
+    const shouldSaveName = state.buildName !== initialState.buildName && existingName !== state.buildName;
+
+    const existingCompressedPerks = getQueryStringParameter("perks");
+    const shouldSavePerks = state.activePerkIds != initialState.activePerkIds && existingCompressedPerks !== compressedPerks;
+
+    const existingCompressedStats = getQueryStringParameter("stats");
+    const shouldSaveStats = state.statNums != initialState.statNums && existingCompressedStats !== compressedStats;
+
+    const existingCompressedStars = getQueryStringParameter("stars");
+    const shouldSaveStars = state.stars != initialState.stars && existingCompressedStars !== compressedStars;
+
     const params = new URLSearchParams(window.location.search);
 
-    params.set("name", state.buildName);
-    params.set("perks", compressPerks(state.activePerkIds));
-    params.set("stats", compressStats(state.statNums));
-    params.set("stars", compressStars(state.stars));
+    shouldSaveName && params.set("name", state.buildName);
+    shouldSavePerks && params.set("perks", compressedPerks);
+    shouldSaveStats && params.set("stats", compressedStats);
+    shouldSaveStars && params.set("stars", compressedStars);
 
     const newUrl = `${window.location.pathname}?${params}`;
     if (shouldCreateHistoryEntry) {
