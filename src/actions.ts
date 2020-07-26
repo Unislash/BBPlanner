@@ -1,5 +1,5 @@
 import {AnyAction} from 'redux';
-import {Stars, StatNums, StatType} from './models';
+import {Stars, StatNums, StatType, ThemeId} from './models';
 
 export const TOGGLE_PERK = "TOGGLE_PERK";
 export const RESET_PERKS = "RESET_PERKS";
@@ -14,6 +14,7 @@ export const SET_STARS = "SET_STARS";
 export const SET_BUILD_NAME = "SET_BUILD_NAME";
 export const SAVE_BUILD = "SAVE_BUILD";
 export const SET_BUILD_ID_LIST = "SET_BUILD_ID_LIST";
+export const SET_THEME_ID = "SET_THEME_ID";
 
 export const togglePerk = (perkId: string): AnyAction => ({
     type: TOGGLE_PERK,
@@ -73,4 +74,9 @@ export const setBuildName = (buildName: string, withSave?: boolean): AnyAction =
 export const setBuildIdList = (buildIdList: string[]): AnyAction => ({
     type: SET_BUILD_ID_LIST,
     payload: {buildIdList},
+});
+
+export const setThemeId = (themeId: ThemeId): AnyAction => ({
+    type: SET_THEME_ID,
+    payload: {themeId},
 });

@@ -58,7 +58,7 @@ p {
 
 @media only screen and (min-width: 1084px) {
     .blanket {
-        width: 1080px;
+        width: 1060px;
     }
 }
 
@@ -70,7 +70,7 @@ p {
     transform: translateX(-50%);
     background: rgba(6,6,6,.7);
     z-index: -1;
-    box-shadow: 0 0 20px 15px rgba(6,6,6,.7);
+    box-shadow: 0 0 30px 35px rgba(6,6,6,.7);
 }
 
 .appBackground {
@@ -80,7 +80,7 @@ p {
     left: 0;
     position: fixed;
     transform: translate3d(0,0,0);
-    background-image: url("images/loading_screen_08.jpg");
+    background-image: url("images/bg_beastsAndExporation.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -92,7 +92,28 @@ p {
     display: block;
     height: 100%;
     width: 100%;
-    background-color: rgba(11,11,16,0.5);
+    background-color: rgba(11,11,16,0.3);
+}
+
+.appBackground.vanilla {
+    background-image: url("images/bg_vanilla.jpg");
+}
+.appBackground.vanilla:after {
+    background-color: rgba(5,5,5,0.5);
+}
+
+.appBackground.warriorsOfTheNorth {
+    background-image: url("images/bg_warriorsOfTheNorth.jpg");
+}
+.appBackground.warriorsOfTheNorth:after {
+    background-color: rgba(11,11,16,0.4);
+}
+
+.appBackground.blazingDeserts {
+    background-image: url("images/bg_blazingDeserts.jpg");
+}
+.appBackground.blazingDeserts:after {
+    background-color: rgba(27,20,11,0.5);
 }
 
 .pageTitle {
@@ -218,8 +239,9 @@ p {
     animation-direction: alternate;
 }
 
-.allPerks:not(.canAddPerk) .perk:hover {
+.allPerks:not(.canAddPerk) .perk:not(.isActive):hover {
     animation: none;
+    cursor: auto;
 }
 
 .perk.isActive {
@@ -402,8 +424,47 @@ body .rc-tooltip-inner {
     margin-bottom: 8px;
 }
 
+.themeSwitcher {
+    display: flex;
+    margin-top: 20px;
+}
+
+.themeButton {
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 8px;
+    border-radius: 4px;
+    border: 1px solid rgb(77,66,53);
+    box-shadow: inset 0px 0px 3px rgba(0,0,0,.5);
+    cursor: pointer;
+    transition: margin .1s;
+}
+
+.themeButton:hover {
+    margin-top: -1px;
+}
+
+.themeButton.vanilla {
+    background-image: url("images/btn_vanilla.jpg");
+}
+
+.themeButton.beastsAndExploration {
+    background-image: url("images/btn_beastsAndExploration.jpg");
+}
+
+.themeButton.warriorsOfTheNorth {
+    background-image: url("images/btn_warriorsOfTheNorth.jpg");
+}
+
+.themeButton.blazingDeserts {
+    background-image: url("images/btn_blazingDeserts.jpg");
+}
+
 .savedBuilds {
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .buildList {

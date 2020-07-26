@@ -1,9 +1,15 @@
 import {
-    RESET_PERKS, RESET_STARS,
-    RESET_STAT_NUMS, SET_BUILD_ID_LIST,
+    RESET_PERKS,
+    RESET_STARS,
+    RESET_STAT_NUMS,
+    SET_BUILD_ID_LIST,
     SET_BUILD_NAME,
-    SET_PERKS, SET_STAR, SET_STARS, SET_STAT,
-    SET_STAT_NUMS, SET_STUDENT,
+    SET_PERKS,
+    SET_STAR,
+    SET_STARS,
+    SET_STAT,
+    SET_STAT_NUMS,
+    SET_STUDENT, SET_THEME_ID,
     TOGGLE_PERK,
 } from './actions';
 import {AnyAction} from 'redux';
@@ -11,6 +17,7 @@ import {getAvailableNumberOfPerks, maxLevel} from './logic';
 import {saveToURL} from './url';
 import {AppState} from './models';
 import {updateStorageForCurrentBuild} from './storage';
+import {getThemeId, saveThemeId} from './storageTheme';
 
 export const getNewStatNums = () => ({
     level: 1,
@@ -42,6 +49,8 @@ const initialState: AppState = {
     statNums: getNewStatNums(),
     stars: getNewStars(),
     buildIdList: [],
+    themeId: getThemeId(),
+    version: "1.0",
 };
 
 export const appReducer = (state: AppState = initialState, action: AnyAction): AppState => {
@@ -201,6 +210,17 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
                 buildIdList,
             };
 
+            break;
+        }
+        case SET_THEME_ID: {
+            const { themeId } = action.payload;
+            newState = {
+                ...state,
+                themeId,
+            };
+
+            // TODO: This should probably be in a thunk, not in a reducer
+            saveThemeId(themeId);
             break;
         }
         default:

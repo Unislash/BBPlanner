@@ -1,5 +1,4 @@
 import './app.css';
-import {Component} from 'react';
 import React from 'react';
 import {AllPerks} from './components/PerkPlanner/AllPerks';
 import {BuildName} from './components/Header/BuildName';
@@ -11,40 +10,53 @@ import {StatsForecast} from './components/StatsForecast/StatsForecast';
 import {BuildList} from './components/BuildList/BuildList';
 import {OtherResources} from './components/OtherResources/OtherResources';
 import {ShareButton} from './components/Header/ShareButton';
+import {ThemeSwitcher} from './components/ThemeSwitcher/ThemeSwitcher';
+import {AppState, ThemeId} from './models';
+import { connect } from 'react-redux';
 
-export class App extends Component {
-    render() {
-        return (
-            <MuiTheme>
-                <div className="blanket" />
-                <div className="appBackground"/>
-                <div className="content">
-                    <div className="mainPanel">
-                        <div className="header">
-                            <h1 className="pageTitle">Battle Brothers Planner</h1>
-                        </div>
-                        <div className="perkPlanner">
-                            <div className="plannerInfo">
-                                <div className="leftInfo">
-                                    <BuildName/>
-                                    <SaveButton/>
-                                    <ShareButton/>
-                                </div>
-                                <div className="rightInfo">
-                                    <PerkPlannerInfo/>
-                                </div>
-                            </div>
-                            <AllPerks/>
-                            <ResetPerks/>
-                        </div>
-                        <StatsForecast />
-                    </div>
-                    <div className="rightPanel">
-                        <BuildList />
-                        <OtherResources />
-                    </div>
-                </div>
-            </MuiTheme>
-        );
-    }
+interface AppProps {
+    themeId: ThemeId;
 }
+
+export const AppBase: React.FC<AppProps> = ({themeId}) => (
+    <MuiTheme>
+        <div className="blanket"/>
+        <div className={`appBackground ${themeId}`}/>
+        <div className="content">
+            <div className="mainPanel">
+                <div className="header">
+                    <h1 className="pageTitle">Battle Brothers Planner</h1>
+                </div>
+                <div className="perkPlanner">
+                    <div className="plannerInfo">
+                        <div className="leftInfo">
+                            <BuildName/>
+                            <SaveButton/>
+                            <ShareButton/>
+                        </div>
+                        <div className="rightInfo">
+                            <PerkPlannerInfo/>
+                        </div>
+                    </div>
+                    <AllPerks/>
+                    <ResetPerks/>
+                </div>
+                <StatsForecast/>
+            </div>
+            <div className="rightPanel">
+                <ThemeSwitcher/>
+                <BuildList/>
+                <OtherResources/>
+            </div>
+        </div>
+    </MuiTheme>
+);
+
+
+const mapStateToProps = (state: AppState) => ({
+    themeId: state.themeId,
+});
+
+export const App = connect(
+    mapStateToProps,
+)(AppBase);

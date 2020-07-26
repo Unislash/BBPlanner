@@ -8,6 +8,13 @@ export interface Stars {
     [key: string]: number;
 }
 
+export enum ThemeId {
+    vanilla = "vanilla",
+    beastsAndExploration = "beastsAndExploration",
+    warriorsOfTheNorth = "warriorsOfTheNorth",
+    blazingDeserts = "blazingDeserts",
+}
+
 export interface AppState {
     activePerkIds: string[];
     buildName: string;
@@ -15,6 +22,8 @@ export interface AppState {
     statNums: StatNums;
     stars: Stars;
     buildIdList: string[];
+    themeId: ThemeId;
+    version: string;
 }
 
 export interface AppStateWithURL extends AppState {
