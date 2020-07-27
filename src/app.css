@@ -486,6 +486,7 @@ body .rc-tooltip-inner {
 .buildEntry {
     display: flex;
     padding: 4px 0;
+    word-break: break-word;
     /* for animations */
     position: relative;
 }
