@@ -33,6 +33,14 @@ const getMaxStat = (statType: StatType, startValue: number, stars: number, remai
     return startValue + (levelIncrementByStat[statType] + stars * 0.5) * remainingLevels;
 };
 
+const getMinPerLevel = (statType: StatType, stars: number) => {
+    return levelIncrementByStat[statType] - 1 + (stars === 3 ? 2 : stars);
+};
+
+const getMaxPerLevel = (statType: StatType, stars: number) => {
+    return levelIncrementByStat[statType] + 1 + (stars === 3 ? 1 : 0);
+};
+
 const barColorByStat: { [key: string]: BarColor; } = {
     health: 'red',
     fatigue: 'blue',
@@ -73,6 +81,9 @@ export const StatBar: React.FC<StatBarProps> = props => {
 
     const inputRef = useRef<HTMLInputElement>(null);
 
+    const minPerLevel = getMinPerLevel(statType, stars);
+    const maxPerLevel = getMaxPerLevel(statType, stars);
+
     return (
         <div className="statBar">
             <img className="icon" src={icon} />
@@ -80,28 +91,33 @@ export const StatBar: React.FC<StatBarProps> = props => {
                 className={classcat(['inputBar', getBarColor(statType)])}
                 onClick={handleBarClick}
             >
-                <div className="stars">
-                    <Star
-                        starIndex={1}
-                        currentStars={stars}
-                        setCurrentStars={setStars}
-                        hoveredStarIndex={hoveredStarIndex}
-                        setHoveredStarIndex={setHoveredStarIndex}
-                    />
-                    <Star
-                        starIndex={2}
-                        currentStars={stars}
-                        setCurrentStars={setStars}
-                        hoveredStarIndex={hoveredStarIndex}
-                        setHoveredStarIndex={setHoveredStarIndex}
-                    />
-                    <Star
-                        starIndex={3}
-                        currentStars={stars}
-                        setCurrentStars={setStars}
-                        hoveredStarIndex={hoveredStarIndex}
-                        setHoveredStarIndex={setHoveredStarIndex}
-                    />
+                <div className="pinLeft">
+                    <div className="stars">
+                        <Star
+                            starIndex={1}
+                            currentStars={stars}
+                            setCurrentStars={setStars}
+                            hoveredStarIndex={hoveredStarIndex}
+                            setHoveredStarIndex={setHoveredStarIndex}
+                        />
+                        <Star
+                            starIndex={2}
+                            currentStars={stars}
+                            setCurrentStars={setStars}
+                            hoveredStarIndex={hoveredStarIndex}
+                            setHoveredStarIndex={setHoveredStarIndex}
+                        />
+                        <Star
+                            starIndex={3}
+                            currentStars={stars}
+                            setCurrentStars={setStars}
+                            hoveredStarIndex={hoveredStarIndex}
+                            setHoveredStarIndex={setHoveredStarIndex}
+                        />
+                    </div>
+                    <div className="statRangePerLevel">
+                        +{minPerLevel === maxPerLevel ? `${minPerLevel}` : `${minPerLevel}-${maxPerLevel}`}
+                    </div>
                 </div>
                 <div className="barTextControl">
                     <span className="barInputWidthReserver">{statNumber}</span>

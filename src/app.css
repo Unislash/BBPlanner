@@ -351,6 +351,11 @@ body .rc-tooltip-inner {
     background-color: rgba(253, 236, 180, 0.1);
 }
 
+.statBar .icon {
+    flex: 0 0 auto;
+    margin-right: 4px;
+}
+
 .statBar .inputBar {
     flex: 1 1 auto;
     display: flex;
@@ -359,16 +364,16 @@ body .rc-tooltip-inner {
     height: 24px;
 }
 
-.statBar .icon {
-    flex: 0 0 auto;
-    margin-right: 4px;
-}
-
-.statBar .stars {
+.statBar .pinLeft {
     position: absolute;
     left: 4px;
     top: 0;
     bottom: 0;
+    display: flex;
+    align-items: center;
+}
+
+.statBar .stars {
     display: flex;
     margin-left: 2px;
 }
@@ -386,6 +391,11 @@ body .rc-tooltip-inner {
 
 .starIcon.inactive {
     filter: grayscale(100%) brightness(70%);
+}
+
+.statBar .statRangePerLevel {
+    font-size: 13px;
+    color: #989086;
 }
 
 .barTextControl {
