@@ -26,7 +26,7 @@ export const getNewStars = () => ({
 
 export const initialState: AppState = {
     activePerkIds: [],
-    buildName: 'Untitled Build',
+    buildName: '',
     isStudent: false,
     statNums: getNewStatNums(),
     stars: getNewStars(),

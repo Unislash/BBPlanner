@@ -115,29 +115,12 @@ const getQueryStringParameter = (name: string) => {
     return params.get(name);
 };
 
-export const saveToURL = (state: AppState, shouldCreateHistoryEntry?: boolean): string => {
-    const compressedPerks = compressPerks(state.activePerkIds);
-    const compressedStats = compressStats(state.statNums);
-    const compressedStars = compressStars(state.stars);
-
-    const existingName = getQueryStringParameter("name");
-    const shouldSaveName = state.buildName !== initialState.buildName && existingName !== state.buildName;
-
-    const existingCompressedPerks = getQueryStringParameter("perks");
-    const shouldSavePerks = state.activePerkIds != initialState.activePerkIds && existingCompressedPerks !== compressedPerks;
-
-    const existingCompressedStats = getQueryStringParameter("stats");
-    const shouldSaveStats = state.statNums != initialState.statNums && existingCompressedStats !== compressedStats;
-
-    const existingCompressedStars = getQueryStringParameter("stars");
-    const shouldSaveStars = state.stars != initialState.stars && existingCompressedStars !== compressedStars;
-
+export const resetURL = (shouldCreateHistoryEntry?: boolean): string => {
     const params = new URLSearchParams(window.location.search);
-
-    shouldSaveName && params.set("name", state.buildName);
-    shouldSavePerks && params.set("perks", compressedPerks);
-    shouldSaveStats && params.set("stats", compressedStats);
-    shouldSaveStars && params.set("stars", compressedStars);
+    params.delete("name");
+    params.delete("perks");
+    params.delete("stats");
+    params.delete("stars");
 
     const newUrl = `${window.location.pathname}?${params}`;
     if (shouldCreateHistoryEntry) {
@@ -146,6 +129,40 @@ export const saveToURL = (state: AppState, shouldCreateHistoryEntry?: boolean): 
         window.history.replaceState({}, "", newUrl);
     }
 
+    return newUrl;
+}
+
+export const saveToURL = (state: AppState, shouldCreateHistoryEntry?: boolean): string => {
+    const params = new URLSearchParams(window.location.search);
+
+    const compressedPerks = compressPerks(state.activePerkIds);
+    const compressedStats = compressStats(state.statNums);
+    const compressedStars = compressStars(state.stars);
+    const compressedInitialPerks = compressPerks(initialState.activePerkIds);
+    const compressedInitialStats = compressStats(initialState.statNums);
+    const compressedInitialStars = compressStars(initialState.stars);
+
+    // Determine if we should clear any url parameters
+    const shouldHaveNameChunk = state.buildName !== initialState.buildName;
+    const shouldHavePerkChunk = compressedPerks !== compressedInitialPerks;
+    const shouldHaveStatsChunk = compressedStats !== compressedInitialStats;
+    const shouldHaveStarsChunk = compressedStars !== compressedInitialStars;
+
+    // Set or clear url parameters appropriately
+    shouldHaveNameChunk ? params.set("name", state.buildName) : params.delete("name");
+    shouldHavePerkChunk ? params.set("perks", compressedPerks) : params.delete("perks");
+    shouldHaveStatsChunk ? params.set("stats", compressedStats) : params.delete("stats");
+    shouldHaveStarsChunk ? params.set("stars", compressedStars) : params.delete("stars");
+
+    // Set history entry
+    const newUrl = `${window.location.pathname}?${params}`;
+    if (shouldCreateHistoryEntry) {
+        window.history.pushState({}, "", newUrl);
+    } else {
+        window.history.replaceState({}, "", newUrl);
+    }
+
+    // Return url to caller
     return newUrl;
 };
 

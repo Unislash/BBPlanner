@@ -17,6 +17,7 @@ export const BuildNameBase: React.FC<BuildNameProps> = props => {
             type="text"
             value={buildName}
             onChange={e => onChange(e.target.value)}
+            placeholder="Untitled Build"
         />
     );
 };

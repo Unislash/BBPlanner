@@ -3,6 +3,7 @@ import {Stars, StatNums, StatType, ThemeId} from './models';
 
 export const TOGGLE_PERK = "TOGGLE_PERK";
 export const RESET_PERKS = "RESET_PERKS";
+export const CREATE_NEW_BUILD = "CREATE_NEW_BUILD";
 export const SET_PERKS = "SET_PERKS";
 export const SET_STUDENT = "SET_STUDENT";
 export const SET_STAT = "SET_STAT";
@@ -33,6 +34,11 @@ export const setPerks = (activePerkIds: string[]): AnyAction => ({
 
 export const resetPerks = (): AnyAction => ({
     type: RESET_PERKS,
+    payload: {},
+});
+
+export const createNewBuild = (): AnyAction => ({
+    type: CREATE_NEW_BUILD,
     payload: {},
 });
 

@@ -24,7 +24,7 @@ export const ShareButton: React.FC = () => {
             overlay="URL copied to clipboard!"
             placement="bottom"
             visible={tooltipVisible}
-            overlayClassName="shareTooltip"
+            overlayClassName="plannerButtonTooltip"
         >
             <div
                 className="plannerButton shareButton"

@@ -173,6 +173,10 @@ p {
     transition: border .1s;
 }
 
+.buildNameInput::placeholder {
+    color: #989086;
+}
+
 .buildNameInput:hover {
     border: 1px solid rgba(255,255,255,.4);
     background-color: #332923;
@@ -198,6 +202,11 @@ p {
 
 .plannerButton:active {
     border: 1px solid rgba(255,255,255,.6);
+}
+
+.newButton {
+    margin-left: auto;
+    margin-right: 4px;
 }
 
 .saveButton.saved {
@@ -277,7 +286,7 @@ body .rc-tooltip-inner {
     min-height: auto;
 }
 
-.rc-tooltip.shareTooltip {
+.rc-tooltip.plannerButtonTooltip {
     font-size: 14px;
 }
 

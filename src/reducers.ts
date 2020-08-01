@@ -1,4 +1,5 @@
 import {
+    CREATE_NEW_BUILD,
     RESET_PERKS,
     RESET_STARS,
     RESET_STAT_NUMS,
@@ -15,7 +16,7 @@ import {
 } from './actions';
 import {AnyAction} from 'redux';
 import {getAvailableNumberOfPerks, maxLevel} from './logic';
-import {saveToURL} from './url';
+import {resetURL, saveToURL} from './url';
 import {AppState} from './models';
 import {updateStorageForCurrentBuild} from './storage';
 import {saveThemeId} from './storageTheme';
@@ -77,13 +78,23 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
                 activePerkIds: [],
             };
 
-            // Ok so pushing a new history entry only half works... if the user does go back after
-            // resetting perks, everything looks right until they move away. For now I'm going to
-            // leave this, and I can come back and introduce proper undo capabilities.
-            // TODO: This should probably be in a thunk, not in a reducer
             // Don't save! To avoid accidental resets, wait for the user to pick their first perk to save
             // saveToURL(newState, true);
             // updateStorageForCurrentBuild(newState);
+            break;
+        }
+        case CREATE_NEW_BUILD: {
+            newState = {
+                ...state,
+                activePerkIds: [],
+                buildName: initialState.buildName,
+                isStudent: initialState.isStudent,
+                statNums: getNewStatNums(),
+                stars: getNewStars(),
+            };
+
+            // TODO: This should probably be in a thunk, not in a reducer
+            resetURL(true);
             break;
         }
         case SET_STAT: {

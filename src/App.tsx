@@ -13,6 +13,7 @@ import {ShareButton} from './components/Header/ShareButton';
 import {ThemeSwitcher} from './components/ThemeSwitcher/ThemeSwitcher';
 import {AppState, ThemeId} from './models';
 import { connect } from 'react-redux';
+import {NewBuildButton} from './components/Header/NewBuildButton';
 
 interface AppProps {
     themeId: ThemeId;
@@ -30,6 +31,7 @@ export const AppBase: React.FC<AppProps> = ({themeId}) => (
                 <div className="perkPlanner">
                     <div className="plannerInfo">
                         <div className="leftInfo">
+                            <NewBuildButton/>
                             <BuildName/>
                             <SaveButton/>
                             <ShareButton/>
