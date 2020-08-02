@@ -1,13 +1,13 @@
 import * as React from 'react';
+import {maxLevel} from '../../logic';
 
 interface RequiredLevelProps {
     isStudent: boolean;
     currentPerkAmount: number;
-    maxLevel: number;
 }
 
 export const RequiredLevel: React.FC<RequiredLevelProps> = props => {
-    const {isStudent, currentPerkAmount, maxLevel} = props;
+    const {isStudent, currentPerkAmount} = props;
     let requiredLevel = 1;
     requiredLevel += currentPerkAmount;
     if (isStudent && currentPerkAmount >= maxLevel) {

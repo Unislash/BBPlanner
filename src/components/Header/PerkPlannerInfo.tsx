@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 
 import {RemainingPerks} from './RemainingPerks';
 import {RequiredLevel} from './RequiredLevel';
-import {maxLevel} from '../../logic';
 import {AppState} from '../../models';
 
 interface PerkPlannerInfoProps {
@@ -15,10 +14,10 @@ export const PerkPlannerInfoBase: React.FC<PerkPlannerInfoProps> = props => {
     const {isStudent, currentPerkAmount} = props;
 
     return (
-        <>
-            <RequiredLevel isStudent={isStudent} currentPerkAmount={currentPerkAmount} maxLevel={maxLevel}/>
-            <RemainingPerks isStudent={isStudent} currentPerkAmount={currentPerkAmount} maxLevel={maxLevel}/>
-        </>
+        <div className="perkPlannerInfo">
+            <RequiredLevel isStudent={isStudent} currentPerkAmount={currentPerkAmount}/>
+            <RemainingPerks isStudent={isStudent} currentPerkAmount={currentPerkAmount}/>
+        </div>
     );
 };
 

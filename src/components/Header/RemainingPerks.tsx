@@ -1,14 +1,13 @@
 import * as React from 'react';
-import {getAvailableNumberOfPerks} from '../../logic';
+import {getAvailableNumberOfPerks, maxLevel} from '../../logic';
 
 interface RemainingPerksProps {
     isStudent: boolean;
     currentPerkAmount: number;
-    maxLevel: number;
 }
 
 export const RemainingPerks: React.FC<RemainingPerksProps> = props => {
-    const {isStudent, currentPerkAmount, maxLevel} = props;
+    const {isStudent, currentPerkAmount} = props;
     const remainingPerks = getAvailableNumberOfPerks(currentPerkAmount, maxLevel, isStudent);
 
     return (

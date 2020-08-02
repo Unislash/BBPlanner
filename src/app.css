@@ -215,11 +215,22 @@ p {
 
 .rightInfo {
     margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.perkPlannerInfo {
+    flex-shrink: 0;
 }
 
 .requiredLevel,
 .perksRemaining {
     margin: 0;
+}
+
+.invalidIndicator {
+    margin-right: 8px;
+    color: #d6990f;
 }
 
 .allPerks {
