@@ -143,16 +143,22 @@ export const saveToURL = (state: AppState, shouldCreateHistoryEntry?: boolean): 
     const compressedInitialStars = compressStars(initialState.stars);
 
     // Determine if we should clear any url parameters
-    const shouldHaveNameChunk = state.buildName !== initialState.buildName;
-    const shouldHavePerkChunk = compressedPerks !== compressedInitialPerks;
-    const shouldHaveStatsChunk = compressedStats !== compressedInitialStats;
-    const shouldHaveStarsChunk = compressedStars !== compressedInitialStars;
+    const shouldSaveNameChunk = state.buildName !== initialState.buildName;
+    const shouldSavePerkChunk = compressedPerks !== compressedInitialPerks;
+    const shouldSaveStatsChunk = compressedStats !== compressedInitialStats;
+    const shouldSaveStarsChunk = compressedStars !== compressedInitialStars;
 
-    // Set or clear url parameters appropriately
-    shouldHaveNameChunk ? params.set("name", state.buildName) : params.delete("name");
-    shouldHavePerkChunk ? params.set("perks", compressedPerks) : params.delete("perks");
-    shouldHaveStatsChunk ? params.set("stats", compressedStats) : params.delete("stats");
-    shouldHaveStarsChunk ? params.set("stars", compressedStars) : params.delete("stars");
+    // Clear all url parameters (to keep the order consistent for readability)
+    params.delete("name");
+    params.delete("perks");
+    params.delete("stats");
+    params.delete("stars");
+
+    // Add back any parameters that should be saved
+    shouldSaveNameChunk && params.set("name", state.buildName);
+    shouldSavePerkChunk && params.set("perks", compressedPerks);
+    shouldSaveStatsChunk && params.set("stats", compressedStats);
+    shouldSaveStarsChunk && params.set("stars", compressedStars);
 
     // Set history entry
     const newUrl = `${window.location.pathname}?${params}`;
