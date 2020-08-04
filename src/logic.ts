@@ -82,11 +82,10 @@ const perksByRows: { [key: number]: string[]; } = {
 };
 
 /**
- * Fun algorithm: for any active perk, if the number of perks
- * in previous rows is less than the number of previous rows plus remaining
- * perks, the build is invalid.
+ * Fun algorithm: for any active perk, if the number of *perks* in previous rows is less
+ * than the number *of* previous rows, the build is invalid.
  */
-export const isBuildInvalid = (activePerks: string[], remainingPerks: number) => {
+export const isBuildInvalid = (activePerks: string[]) => {
     const firstInvalidPerkId = activePerks.find(currentPerk => {
         // Find the row that the perk belongs to
         const rowNumberKey = Object.keys(perksByRows).find(row => {
@@ -107,7 +106,7 @@ export const isBuildInvalid = (activePerks: string[], remainingPerks: number) =>
         }
 
         // Determine if the perk is invalid
-        if (rowNumber! > (previousRowsPerksCount + remainingPerks)) {
+        if (rowNumber! > previousRowsPerksCount) {
             return true;
         }
     });
