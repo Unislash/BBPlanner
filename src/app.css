@@ -50,8 +50,9 @@ p {
     height: 100%;
 }
 
+/* Small screens: go full width single column layout */
 @media only screen and (max-width: 980px) {
-    .blanket {
+    body .blanket {
         width: 100%;
     }
 
@@ -60,14 +61,20 @@ p {
         align-items: center;
     }
 
+    body .mainPanel {
+        width: auto;
+    }
+
     body .otherResources {
         margin-top: 20px;
     }
 }
 
-@media only screen and (min-width: 980px) {
-    .blanket {
-        width: 1060px;
+/* For really small screens where the perk row starts to wrap, give the rows more spacing */
+@media only screen and (max-width: 700px) {
+    .perkRow {
+        padding: 5px;
+        border-bottom: 1px solid rgba(152, 144, 134, .3);
     }
 }
 
@@ -76,6 +83,7 @@ p {
     top: 0;
     bottom: 0;
     left: 50%;
+    width: 1060px;
     transform: translateX(-50%);
     background: rgba(6,6,6,.7);
     z-index: -1;
@@ -158,11 +166,14 @@ p {
 .plannerInfo {
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .leftInfo {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .buildNameInput {
@@ -214,7 +225,6 @@ p {
 }
 
 .rightInfo {
-    margin-left: auto;
     display: flex;
     align-items: center;
 }
@@ -242,6 +252,7 @@ p {
 .perkRow {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .perk {
@@ -303,7 +314,7 @@ body .rc-tooltip-inner {
 
 .statsForecast {
     margin-top: 10px;
-    width: 550px;
+    max-width: 550px;
     margin-left: auto;
     margin-right: auto;
     /*background: url("./images/tactical_character_background.png") repeat-y;*/
