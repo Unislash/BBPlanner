@@ -4,7 +4,7 @@ import {
     RESET_STARS,
     RESET_STAT_NUMS,
     SET_BUILD_ID_LIST,
-    SET_BUILD_NAME,
+    SET_BUILD_NAME, SET_LOADOUT_ITEMS, SET_LOADOUT_SLOT,
     SET_PERKS,
     SET_STAR,
     SET_STARS,
@@ -20,7 +20,7 @@ import {resetURL, saveToURL} from './url';
 import {AppState} from './models';
 import {updateStorageForCurrentBuild} from './storage';
 import {saveThemeId} from './storageTheme';
-import {getNewStars, getNewStatNums, initialState} from './initialState';
+import {getNewLoadoutItems, getNewStars, getNewStatNums, initialState} from './initialState';
 
 export const appReducer = (state: AppState = initialState, action: AnyAction): AppState => {
     let newState: AppState = state;
@@ -91,6 +91,7 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
                 isStudent: initialState.isStudent,
                 statNums: getNewStatNums(),
                 stars: getNewStars(),
+                loadoutItems: getNewLoadoutItems(),
             };
 
             // TODO: This should probably be in a thunk, not in a reducer
@@ -167,6 +168,27 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
             // TODO: This should probably be in a thunk, not in a reducer
             saveToURL(newState);
             updateStorageForCurrentBuild(newState);
+            break;
+        }
+        case SET_LOADOUT_SLOT: {
+            const { loadoutSlot, itemName } = action.payload;
+            newState = {
+                ...state,
+                loadoutItems: {
+                    ...state.loadoutItems,
+                    [loadoutSlot]: itemName,
+                },
+            };
+            saveToURL(newState);
+            updateStorageForCurrentBuild(newState);
+            break;
+        }
+        case SET_LOADOUT_ITEMS: {
+            const { loadoutItems } = action.payload;
+            newState = {
+                ...state,
+                loadoutItems,
+            };
             break;
         }
         case SET_BUILD_NAME: {

@@ -1,10 +1,20 @@
 import {perkBinary} from './perkBinary';
 import {store} from './createStore';
-import {setBuildIdList, setBuildName, setPerks, setStars, setStatNums, setStudent} from './actions';
-import {AppState, Stars, StatNums} from './models';
-import {getNewStars, getNewStatNums, initialState} from './initialState';
+import {
+    setBuildIdList,
+    setBuildName,
+    setLoadoutItems,
+    setPerks,
+    setStars,
+    setStatNums,
+    setStudent,
+} from './actions';
+import {AppState, LoadoutItems, Stars, StatNums} from './models';
+import {getNewLoadoutItems, getNewStars, getNewStatNums, initialState} from './initialState';
+import {idsByItem} from './components/Loadout/idsByItem';
+import {itemsById} from './components/Loadout/itemsById';
 
-const padString = (padding: string, strToPad: string, padLeft: boolean = true) => {
+export const padString = (padding: string, strToPad: string, padLeft: boolean = true) => {
     if (typeof strToPad === 'undefined')
         return padding;
     if (padLeft) {
@@ -14,7 +24,7 @@ const padString = (padding: string, strToPad: string, padLeft: boolean = true) =
     }
 };
 
-const STR64: Array<string> = ('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/').split( '' );
+export const STR64: Array<string> = ('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/').split( '' );
 
 const to64String = ( input: number, current: string = '' ): string => {
     if ( input < 0 && current.length == 0 ){
@@ -110,6 +120,25 @@ const uncompressStars = (packedString: string) => {
     return newStars;
 };
 
+const compressLoadoutItems = (loadoutItems: LoadoutItems) => {
+    return Object.values(loadoutItems).map(itemName => itemName === "" ? "AA" : idsByItem[itemName])
+        .join("");
+};
+
+const uncompressLoadoutItems = (packedString: string) => {
+    let newLoadoutItems = getNewLoadoutItems();
+    if (!packedString.length) {
+        return newLoadoutItems;
+    }
+
+    const loadoutItemsArray = packedString.match(/.{2}/g)!.map(itemId => itemId === "AA" ? "" : itemsById[itemId]);
+    Object.keys(newLoadoutItems).forEach((key: string, index: number) => {
+        (newLoadoutItems as any)[key] = loadoutItemsArray[index];
+    });
+
+    return newLoadoutItems;
+};
+
 const getQueryStringParameter = (name: string) => {
     const params = new URLSearchParams(window.location.search);
     return params.get(name);
@@ -121,6 +150,7 @@ export const resetURL = (shouldCreateHistoryEntry?: boolean): string => {
     params.delete("perks");
     params.delete("stats");
     params.delete("stars");
+    params.delete("gear");
 
     const newUrl = `${window.location.pathname}?${params}`;
     if (shouldCreateHistoryEntry) {
@@ -138,27 +168,32 @@ export const saveToURL = (state: AppState, shouldCreateHistoryEntry?: boolean): 
     const compressedPerks = compressPerks(state.activePerkIds);
     const compressedStats = compressStats(state.statNums);
     const compressedStars = compressStars(state.stars);
+    const compressedLoadoutItems = compressLoadoutItems(state.loadoutItems);
     const compressedInitialPerks = compressPerks(initialState.activePerkIds);
     const compressedInitialStats = compressStats(initialState.statNums);
     const compressedInitialStars = compressStars(initialState.stars);
+    const compressedInitialLoadoutItems = compressLoadoutItems(initialState.loadoutItems);
 
     // Determine if we should clear any url parameters
     const shouldSaveNameChunk = state.buildName !== initialState.buildName;
     const shouldSavePerkChunk = compressedPerks !== compressedInitialPerks;
     const shouldSaveStatsChunk = compressedStats !== compressedInitialStats;
     const shouldSaveStarsChunk = compressedStars !== compressedInitialStars;
+    const shouldSaveLoadoutItemsChunk = compressedLoadoutItems !== compressedInitialLoadoutItems;
 
     // Clear all url parameters (to keep the order consistent for readability)
     params.delete("name");
     params.delete("perks");
     params.delete("stats");
     params.delete("stars");
+    params.delete("gear");
 
     // Add back any parameters that should be saved
     shouldSaveNameChunk && params.set("name", state.buildName);
     shouldSavePerkChunk && params.set("perks", compressedPerks);
     shouldSaveStatsChunk && params.set("stats", compressedStats);
     shouldSaveStarsChunk && params.set("stars", compressedStars);
+    shouldSaveLoadoutItemsChunk && params.set("gear", compressedLoadoutItems);
 
     // Set history entry
     const newUrl = `${window.location.pathname}?${params}`;
@@ -176,6 +211,8 @@ export const loadFromURL = () => {
     const name = getQueryStringParameter("name");
     if (name) {
         store.dispatch(setBuildName(name, false));
+    } else {
+        store.dispatch(setBuildName("", false));
     }
 
     const compressedPerks = getQueryStringParameter("perks");
@@ -183,16 +220,30 @@ export const loadFromURL = () => {
         const activePerkIds = uncompressPerks(compressedPerks);
         store.dispatch(setPerks(activePerkIds));
         store.dispatch(setStudent(activePerkIds.indexOf("student") !== -1));
+    } else {
+        store.dispatch(setPerks([]));
+        store.dispatch(setStudent(false));
     }
 
     const compressedStats = getQueryStringParameter("stats");
     if (compressedStats) {
         store.dispatch(setStatNums(uncompressStats(compressedStats)));
+    } else {
+        store.dispatch(setStatNums(getNewStatNums()));
     }
 
     const compressedStars = getQueryStringParameter("stars");
     if (compressedStars) {
         store.dispatch(setStars(uncompressStars(compressedStars)));
+    } else {
+        store.dispatch(setStars(getNewStars()));
+    }
+
+    const compressedLoadoutItems = getQueryStringParameter("gear");
+    if (compressedLoadoutItems) {
+        store.dispatch(setLoadoutItems(uncompressLoadoutItems(compressedLoadoutItems)));
+    } else {
+        store.dispatch(setLoadoutItems(getNewLoadoutItems()));
     }
 
     store.dispatch(setBuildIdList(localStorage.getObject("bbplanner") || []));

@@ -24,12 +24,26 @@ export const getNewStars = () => ({
     rdefense: 0,
 });
 
+export const getNewLoadoutItems = () => ({
+    accessories: "",
+    weapons: "",
+    helmets: "",
+    armor: "",
+    ammo: "",
+    offhandItems: "",
+    bags1: "",
+    bags2: "",
+    bags3: "",
+    bags4: "",
+});
+
 export const initialState: AppState = {
     activePerkIds: [],
     buildName: '',
     isStudent: false,
     statNums: getNewStatNums(),
     stars: getNewStars(),
+    loadoutItems: getNewLoadoutItems(),
     buildIdList: [],
     themeId: getThemeId(),
     version: '1.0',

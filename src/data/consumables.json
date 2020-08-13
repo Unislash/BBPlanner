@@ -1,0 +1,12 @@
+{
+  "Antidote": {"name": "Antidote", "description": "An antidote for various types of poisons. Tastes quite bitter.", "accessoryIcon": "antidote_01", "isDroppedAsLoot": "true"},
+  "Bandages": {"name": "Bandages", "description": "Clean bandages that can be used in combat to apply pressure to bleeding wounds and stop any hemorrhaging.", "accessoryIcon": "bandages_01", "isDroppedAsLoot": "true"},
+  "Strange Mushrooms": {"name": "Strange Mushrooms", "description": "Strange mushrooms that have anyone chewing them enter a trance-like state of rage where they don't feel any pain and exhibit significantly increased aggression. May result in sickness. Eat responsibly.", "accessoryIcon": "mushrooms_01", "isDroppedAsLoot": "true"},
+  "Cat Potion": {"name": "Cat Potion", "description": "Be quick as a cat! This potion promises to heighten your senses, and sharpen your reflexes.", "accessoryIcon": "potion_06", "isDroppedAsLoot": "true"},
+  "Iron Will Potion": {"name": "Iron Will Potion", "description": "A drink to numb the pain and get the juices flowing. Expect a major burning sensation in your throat.", "accessoryIcon": "potion_07", "isDroppedAsLoot": "true"},
+  "Lionheart Potion": {"name": "Lionheart Potion", "description": "Be brave as a lion! This potion promises to turn fear into courage, and a wimpy peasant into a knight of the realm.", "accessoryIcon": "potion_02", "isDroppedAsLoot": "true"},
+  "Night Owl Elixir": {"name": "Night Owl Elixir", "description": "This elixir, when consumed, brightens up the night like if it were the mid of day.", "accessoryIcon": "potion_03", "isDroppedAsLoot": "true"},
+  "Goblin Poison": {"name": "Goblin Poison", "description": "A flask of spider poison used by goblins. Can be used to coat your weapons and arrowtips.", "accessoryIcon": "poison_01", "isDroppedAsLoot": "true"},
+  "Second Wind Potion": {"name": "Second Wind Potion", "description": "A fatigued fighter is a dead fighter. This concoction of various stimulants promises to help catch one's wind.", "accessoryIcon": "potion_01", "isDroppedAsLoot": "true"},
+  "Poisoned Oil": {"name": "Poisoned Oil", "description": "A flask of oil laced with concentrated webknecht poison. Can be used to coat your weapons and arrowtips.", "accessoryIcon": "potion_04", "isDroppedAsLoot": "true"}
+}

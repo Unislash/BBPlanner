@@ -5,7 +5,7 @@
     "strict": true,
     "noImplicitAny": true,
     "preserveConstEnums": true,
-    "removeComments": true,
+    "removeComments": false,
     "noEmitOnError": true,
     "noErrorTruncation": true,
     "noUnusedLocals": true,

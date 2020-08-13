@@ -313,7 +313,7 @@ body .rc-tooltip-inner {
 }
 
 .statsForecast {
-    margin-top: 10px;
+    margin-top: 12px;
     max-width: 550px;
     margin-left: auto;
     margin-right: auto;
@@ -467,6 +467,80 @@ body .rc-tooltip-inner {
 .maxStat {
     line-height: 24px;
     margin-top: -1px;
+}
+
+.loadout {
+    margin-top: 28px;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loadoutUI {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.loadoutColumns {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.loadoutColumn:not(:first-of-type) {
+    margin-left: 34px;
+}
+
+.loadoutBags {
+    display: flex;
+}
+
+.loadoutSlot.accessory {
+    margin-top: 9px;
+    margin-left: 3px;
+    margin-bottom: 8px;
+    width: 68px;
+    height: 68px;
+}
+
+.loadoutSlot.weapon {
+    width: 74px;
+    height: 144px;
+}
+
+.loadoutSlot.helmet {
+    margin-left: 3px;
+    margin-bottom: 8px;
+    width: 68px;
+    height: 68px;
+}
+
+.loadoutSlot.armor {
+    width: 74px;
+    height: 144px;
+}
+
+.loadoutSlot.ammo {
+    margin-top: 9px;
+    margin-left: 3px;
+    margin-bottom: 8px;
+    width: 68px;
+    height: 68px;
+}
+
+.loadoutSlot.offhand {
+    width: 74px;
+    height: 144px;
+}
+
+.loadoutSlot.bag {
+    width: 70px;
+    height: 70px;
+}
+
+.loadoutSlot.bag:not(:first-of-type) {
+    margin-left: 4px;
 }
 
 .rightPanel h3 {

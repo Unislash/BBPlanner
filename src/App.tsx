@@ -15,6 +15,7 @@ import {AppState, ThemeId} from './models';
 import { connect } from 'react-redux';
 import {NewBuildButton} from './components/Header/NewBuildButton';
 import {InvalidBuildIndicator} from './components/Header/InvalidBuildIndicator';
+import {Loadout} from './components/Loadout/Loadout';
 
 interface AppProps {
     themeId: ThemeId;
@@ -46,6 +47,7 @@ export const AppBase: React.FC<AppProps> = ({themeId}) => (
                     <ResetPerks/>
                 </div>
                 <StatsForecast/>
+                <Loadout/>
             </div>
             <div className="rightPanel">
                 <ThemeSwitcher/>

@@ -8,6 +8,12 @@ export interface Stars {
     [key: string]: number;
 }
 
+export type LoadoutSlotType = 'accessories' | 'weapons' | 'helmets' | 'armor' | 'ammo' | 'offhandItems' | 'bags1' | 'bags2' | 'bags3' | 'bags4';
+
+export interface LoadoutItems {
+    [key: string]: string;
+}
+
 export enum ThemeId {
     vanilla = "vanilla",
     beastsAndExploration = "beastsAndExploration",
@@ -21,6 +27,7 @@ export interface AppState {
     isStudent: boolean;
     statNums: StatNums;
     stars: Stars;
+    loadoutItems: LoadoutItems;
     buildIdList: string[];
     themeId: ThemeId;
     version: string;
@@ -28,4 +35,25 @@ export interface AppState {
 
 export interface AppStateWithURL extends AppState {
     url: string;
+}
+
+export interface LoadoutItem {
+    id: string;
+    name: string;
+    imageName: string;
+}
+
+export interface Weapon extends LoadoutItem {
+    regularDamage: string;
+    regularDamageMax: string;
+    armorDamageMult: string;
+    directDamageMult: string;
+    shieldDamage: string;
+    chanceToHitHead: string;
+    rangeMax: string;
+}
+
+export interface Shield extends LoadoutItem {
+    meleeDefense: string;
+    rangedDefense: string;
 }
