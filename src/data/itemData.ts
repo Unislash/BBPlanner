@@ -86,5 +86,9 @@ export const bags = Object.values(consumablesJson).map(jsonItem => ({
     id: jsonItem.name,
     name: jsonItem.name,
     imageName: jsonItem.toolIcon + "_70x70"
+}))).concat(Object.values(ammoJson).map(jsonItem => ({
+    id: jsonItem.name,
+    name: jsonItem.name,
+    imageName: jsonItem.ammoIcon
 })));
 bags.unshift(emptyItem);
