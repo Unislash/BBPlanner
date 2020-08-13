@@ -108,7 +108,7 @@ const tooltips = {
     fearsome: <><PerkTooltipHeader title="Fearsome" />Make them scatter and flee! Any attack that inflicts at least 1 point of damage to hitpoints triggers a morale check for the opponent with a penalty equal to 20% of your resolve, as opposed to no penalty and only if at or above 15 points of damage.</>,
     duelist: <><PerkTooltipHeader title="Duelist" />Become one with your weapon and go for the weak spots! With the offhand free or carrying a throwable tool (e.g. a throwing net), an additional + 25% of any damage ignores armor. Does not work with two-handed weapons.</>,
     killingFrenzy: <><PerkTooltipHeader title="Killing Frenzy" />Go into a killing frenzy! A kill increases all damage by 25% for 2 turns. Does not stack, but another kill will reset the timer.</>,
-    indomitable: <><PerkTooltipHeader title="Indomitable" />Unlocks the 'Indomitable' skill which costs 5 AP and 20 Fatigue to be used and grants a 50% damage reduction and immunity to being stunned, knocked back or grabbed for one turn.</>,
+    indomitable: <><PerkTooltipHeader title="Indomitable" />Unlocks the 'Indomitable' skill which costs 5 AP and 25 Fatigue to be used and grants a 50% damage reduction and immunity to being stunned, knocked back or grabbed for one turn.</>,
 };
 
 interface AllPerksProps {
