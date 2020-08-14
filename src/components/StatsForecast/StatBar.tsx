@@ -26,7 +26,7 @@ const levelIncrementByStat: { [key: string]: number; } = {
     mattack: 2,
     rattack: 3,
     mdefense: 2,
-    rdefense: 2,
+    rdefense: 3,
 };
 
 const getMaxStat = (statType: StatType, startValue: number, stars: number, remainingLevels: number): number => {
