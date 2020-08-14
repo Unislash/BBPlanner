@@ -141,7 +141,7 @@ p {
     display: flex;
     justify-content: center;
     min-height: 100%;
-    padding-bottom: 12px;
+    padding-bottom: 120px;
     box-sizing: border-box;
 }
 
@@ -256,7 +256,7 @@ p {
 }
 
 .perk {
-    margin: 3px 1px;
+    padding: 3px 1px;
     user-select: none;
     filter: grayscale(100%);
     cursor: pointer;
