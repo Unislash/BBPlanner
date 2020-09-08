@@ -281,6 +281,9 @@ p {
 
 .allPerks:not(.canAddPerk) .perk:not(.isActive):hover {
     animation: none;
+}
+
+.allPerks:not(.canAddPerk) .perk:not(.isActive) {
     cursor: auto;
 }
 

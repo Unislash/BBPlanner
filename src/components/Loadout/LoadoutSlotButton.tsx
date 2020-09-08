@@ -82,7 +82,7 @@ export const StyledLoadoutSlotButton = styled.button<StyledLoadoutSlotButtonProp
     width: 100%;
     height: 100%;
     border: 1px solid #110705;
-    box-shadow: inset 1px 0px 3px rgba(115, 98, 80,.5), 1px 0px 3px rgba(115, 98, 80,.5);
+    box-shadow: inset 1px 0px 3px rgba(115, 98, 80,.8), 1px 0px 3px rgba(115, 98, 80,.8);
     background-color: rgba(11, 10, 10, .8);
     border-radius: 6px;
     cursor: pointer;

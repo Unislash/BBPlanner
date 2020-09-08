@@ -30,6 +30,7 @@ export const AppBase: React.FC<AppProps> = ({themeId}) => (
                 <div className="header">
                     <h1 className="pageTitle">Battle Brothers Planner</h1>
                 </div>
+                {location.protocol === 'https:' && <p style={{marginTop: "-18px"}}>If you're looking for your saved builds, <a href="http://www.bbplanner.xyz" style={{textDecoration:"underline"}}>swap back to plain http</a>. BBPlanner doesn't share builds between https and http yet.</p>}
                 <div className="perkPlanner">
                     <div className="plannerInfo">
                         <div className="leftInfo">
