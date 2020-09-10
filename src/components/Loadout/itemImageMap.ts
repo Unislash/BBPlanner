@@ -410,6 +410,58 @@ import quiver_03 from "../../images/items/ammo/quiver_03.png";
 import quiver_04 from "../../images/items/ammo/quiver_04.png";
 import quiver_01 from "../../images/items/ammo/quiver_01.png";
 import quiver_02 from "../../images/items/ammo/quiver_02.png";
+import daze_bomb_01 from "../../images/items/tools/daze_bomb_01.png";
+import fire_pot_01 from "../../images/items/tools/fire_pot_01.png";
+import smoke_bomb_01 from "../../images/items/tools/smoke_bomb_01.png";
+import daze_bomb_01_70x70 from "../../images/items/tools/daze_bomb_01_70x70.png";
+import fire_pot_01_70x70 from "../../images/items/tools/fire_pot_01_70x70.png";
+import smoke_bomb_01_70x70 from "../../images/items/tools/smoke_bomb_01_70x70.png";
+import powder_bag_large from "../../images/items/ammo/powder_bag_large.png"
+import powder_bag from "../../images/items/ammo/powder_bag.png"
+import inventory_helmet_southern_11 from "../../images/items/helmets/inventory_helmet_southern_11.png"
+import inventory_helmet_southern_10 from "../../images/items/helmets/inventory_helmet_southern_10.png"
+import inventory_helmet_southern_23 from "../../images/items/helmets/inventory_helmet_southern_23.png"
+import inventory_helmet_southern_22 from "../../images/items/helmets/inventory_helmet_southern_22.png"
+import inventory_helmet_southern_06 from "../../images/items/helmets/inventory_helmet_southern_06.png"
+import inventory_helmet_southern_13 from "../../images/items/helmets/inventory_helmet_southern_13.png"
+import inventory_helmet_southern_09 from "../../images/items/helmets/inventory_helmet_southern_09.png"
+import inventory_helmet_southern_03 from "../../images/items/helmets/inventory_helmet_southern_03.png"
+import inventory_helmet_southern_18 from "../../images/items/helmets/inventory_helmet_southern_18.png"
+import inventory_helmet_southern_16 from "../../images/items/helmets/inventory_helmet_southern_16.png"
+import inventory_helmet_southern_19 from "../../images/items/helmets/inventory_helmet_southern_19.png"
+import inventory_helmet_southern_20 from "../../images/items/helmets/inventory_helmet_southern_20.png"
+import inventory_helmet_southern_21 from "../../images/items/helmets/inventory_helmet_southern_21.png"
+import inventory_helmet_southern_07 from "../../images/items/helmets/inventory_helmet_southern_07.png"
+import inventory_helmet_southern_05 from "../../images/items/helmets/inventory_helmet_southern_05.png"
+import inventory_helmet_southern_01 from "../../images/items/helmets/inventory_helmet_southern_01.png"
+import inventory_helmet_southern_04 from "../../images/items/helmets/inventory_helmet_southern_04.png"
+import inventory_helmet_southern_02 from "../../images/items/helmets/inventory_helmet_southern_02.png"
+import composite_bow_01 from "../../images/items/weapons/composite_bow_01.png"
+import firelance_01 from "../../images/items/weapons/firelance_01.png"
+import handgonne_01 from "../../images/items/weapons/handgonne_01.png"
+import heavy_southern_mace_01 from "../../images/items/weapons/heavy_southern_mace_01.png"
+import light_southern_mace_01 from "../../images/items/weapons/light_southern_mace_01.png"
+import wooden_nomad_mace_01 from "../../images/items/weapons/wooden_nomad_mace_01.png"
+import warriors_sling_01 from "../../images/items/weapons/warriors_sling_01.png"
+import polemace_01 from "../../images/items/weapons/polemace_01.png"
+import qatal_dagger_01 from "../../images/items/weapons/qatal_dagger_01.png"
+import southern_short_sword_01 from "../../images/items/weapons/southern_short_sword_01.png"
+import swordlance_01 from "../../images/items/weapons/swordlance_01.png"
+import two_handed_saif from "../../images/items/weapons/two_handed_saif.png"
+import two_handed_scimitar_01 from "../../images/items/weapons/two_handed_scimitar_01.png"
+import composite_bow_01_70x70 from "../../images/items/weapons/composite_bow_01_70x70.png"
+import firelance_01_70x70 from "../../images/items/weapons/firelance_01_70x70.png"
+import handgonne_01_70x70 from "../../images/items/weapons/handgonne_01_70x70.png"
+import heavy_southern_mace_01_70x70 from "../../images/items/weapons/heavy_southern_mace_01_70x70.png"
+import light_southern_mace_01_70x70 from "../../images/items/weapons/light_southern_mace_01_70x70.png"
+import wooden_nomad_mace_01_70x70 from "../../images/items/weapons/wooden_nomad_mace_01_70x70.png"
+import warriors_sling_01_70x70 from "../../images/items/weapons/warriors_sling_01_70x70.png"
+import polemace_01_70x70 from "../../images/items/weapons/polemace_01_70x70.png"
+import qatal_dagger_01_70x70 from "../../images/items/weapons/qatal_dagger_01_70x70.png"
+import southern_short_sword_01_70x70 from "../../images/items/weapons/southern_short_sword_01_70x70.png"
+import swordlance_01_70x70 from "../../images/items/weapons/swordlance_01_70x70.png"
+import two_handed_saif_70x70 from "../../images/items/weapons/two_handed_saif_70x70.png"
+import two_handed_scimitar_01_70x70 from "../../images/items/weapons/two_handed_scimitar_01_70x70.png"
 
 export const itemImageMap: { [key: string]: string; } = {
     inventory_helmet_21: inventory_helmet_21,
@@ -824,6 +876,58 @@ export const itemImageMap: { [key: string]: string; } = {
     quiver_04: quiver_04,
     quiver_01: quiver_01,
     quiver_02: quiver_02,
+    daze_bomb_01: daze_bomb_01,
+    fire_pot_01: fire_pot_01,
+    smoke_bomb_01: smoke_bomb_01,
+    daze_bomb_01_70x70: daze_bomb_01_70x70,
+    fire_pot_01_70x70: fire_pot_01_70x70,
+    smoke_bomb_01_70x70: smoke_bomb_01_70x70,
+    powder_bag_large: powder_bag_large,
+    powder_bag: powder_bag,
+    inventory_helmet_southern_11: inventory_helmet_southern_11,
+    inventory_helmet_southern_10: inventory_helmet_southern_10,
+    inventory_helmet_southern_23: inventory_helmet_southern_23,
+    inventory_helmet_southern_22: inventory_helmet_southern_22,
+    inventory_helmet_southern_06: inventory_helmet_southern_06,
+    inventory_helmet_southern_13: inventory_helmet_southern_13,
+    inventory_helmet_southern_09: inventory_helmet_southern_09,
+    inventory_helmet_southern_03: inventory_helmet_southern_03,
+    inventory_helmet_southern_18: inventory_helmet_southern_18,
+    inventory_helmet_southern_16: inventory_helmet_southern_16,
+    inventory_helmet_southern_19: inventory_helmet_southern_19,
+    inventory_helmet_southern_20: inventory_helmet_southern_20,
+    inventory_helmet_southern_21: inventory_helmet_southern_21,
+    inventory_helmet_southern_07: inventory_helmet_southern_07,
+    inventory_helmet_southern_05: inventory_helmet_southern_05,
+    inventory_helmet_southern_01: inventory_helmet_southern_01,
+    inventory_helmet_southern_04: inventory_helmet_southern_04,
+    inventory_helmet_southern_02: inventory_helmet_southern_02,
+    composite_bow_01: composite_bow_01,
+    firelance_01: firelance_01,
+    handgonne_01: handgonne_01,
+    heavy_southern_mace_01: heavy_southern_mace_01,
+    light_southern_mace_01: light_southern_mace_01,
+    wooden_nomad_mace_01: wooden_nomad_mace_01,
+    warriors_sling_01: warriors_sling_01,
+    polemace_01: polemace_01,
+    qatal_dagger_01: qatal_dagger_01,
+    southern_short_sword_01: southern_short_sword_01,
+    swordlance_01: swordlance_01,
+    two_handed_saif: two_handed_saif,
+    two_handed_scimitar_01: two_handed_scimitar_01,
+    composite_bow_01_70x70: composite_bow_01_70x70,
+    firelance_01_70x70: firelance_01_70x70,
+    handgonne_01_70x70: handgonne_01_70x70,
+    heavy_southern_mace_01_70x70: heavy_southern_mace_01_70x70,
+    light_southern_mace_01_70x70: light_southern_mace_01_70x70,
+    wooden_nomad_mace_01_70x70: wooden_nomad_mace_01_70x70,
+    warriors_sling_01_70x70: warriors_sling_01_70x70,
+    polemace_01_70x70: polemace_01_70x70,
+    qatal_dagger_01_70x70: qatal_dagger_01_70x70,
+    southern_short_sword_01_70x70: southern_short_sword_01_70x70,
+    swordlance_01_70x70: swordlance_01_70x70,
+    two_handed_saif_70x70: two_handed_saif_70x70,
+    two_handed_scimitar_01_70x70: two_handed_scimitar_01_70x70,
 }
 
 export default itemImageMap;

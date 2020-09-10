@@ -6,7 +6,14 @@
 //armors
 //ammo
 //accessories
+//blazing deserts
+//bugged items
 import {STR64} from '../../url';
+
+// Accidentally shipped a bug where the generated IDs had a fencepost error. I need to keep them
+// in the list to preserve the relative ordering of the hashed ids, but don't want to create
+// duplicates... so now those items are named this:
+const bugRemnant = "derp";
 
 const itemNames = [
     "Ancient Spear",
@@ -73,7 +80,7 @@ const itemNames = [
     "Obsidian Dagger",
     "Head Splitter",
     "Man Splitter",
-    "Head Chopper",
+    `Head Chopper ${bugRemnant}`,
     "Berserk Chain",
     "Bundle of Crude Javelins",
     "Cudgel",
@@ -137,7 +144,7 @@ const itemNames = [
     "Old Wooden Shield",
     "Decayed Heater Shield",
     "Worn Kite Shield",
-    "Aketon Cap",
+    `Aketon Cap ${bugRemnant}`,
     "Ancient Honor Guard Helmet",
     "Ancient Household Helmet",
     "Ancient Legionary Helmet",
@@ -201,7 +208,7 @@ const itemNames = [
     "Rusty Mail Coif",
     "Sallet Helmet",
     "Steppe Helmet with Mail",
-    "Straw Hat",
+    `Straw Hat ${bugRemnant}`,
     "Witchhunter's Hat",
     "Wizard's Hat",
     "Antidote",
@@ -265,7 +272,7 @@ const itemNames = [
     "Sackcloth",
     "Scale Armor",
     "Scrap Metal Armor",
-    "Sellsword's Armor",
+    `Sellsword's Armor ${bugRemnant}`,
     "Tattered Sackcloth",
     "Dark Thick Tunic",
     "Thick Furs",
@@ -295,6 +302,47 @@ const itemNames = [
     "Wardog",
     "Unleash Warhound",
     "Warwolf",
+    "Composite Bow",
+    "Fire Lance",
+    "Handgonne",
+    "Heavy Southern Mace",
+    "Light Southern Mace",
+    "Nomad Mace",
+    "Nomad Sling",
+    "Polemace",
+    "Qatal Dagger",
+    "Saif",
+    "Swordlance",
+    "Two-Handed Saif",
+    "Two-Handed Scimitar",
+    "Flash Pot",
+    "Fire Pot",
+    "Smoke Pot",
+    "Assassin's Face Mask",
+    "Assassin's Head Wrap",
+    "Blade Dancer's Head Wrap",
+    "Desert Stalker's Head Wrap",
+    "Engineer's Hat",
+    "Gladiator Helmet",
+    "Gunner's Hat",
+    "Heavy Lamellar Helmet",
+    "Leather Head Wrap",
+    "Nomad Head Wrap",
+    "Nomad Leather Cap",
+    "Nomad Light Helmet",
+    "Nomad Reinforced Helmet",
+    "Southern Head Wrap",
+    "Southern Helmet with Coif",
+    "Spiked Skull Cap with Mail",
+    "Turban Helmet",
+    "Wrapped Southern Helmet",
+    "Large Powder Bag",
+    "Powder Bag",
+    // Give bugged items a new id
+    "Head Chopper",
+    "Aketon Cap",
+    "Straw Hat",
+    "Sellsword's Armor",
 ]
 
 export const generateItemsToId = () => {
@@ -304,7 +352,7 @@ export const generateItemsToId = () => {
         let id = "";
         let remainingI = i;
         let secondStr64DigitIndex = 0;
-        while(remainingI >= 1) {
+        while(remainingI >= 0) {
             if (Math.floor(remainingI / STR64.length) <= 0) {
                 id += STR64[secondStr64DigitIndex];
                 id += STR64[remainingI % STR64.length];
