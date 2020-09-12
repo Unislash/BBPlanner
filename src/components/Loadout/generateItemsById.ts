@@ -352,6 +352,9 @@ const itemNames = [
     "Southern Mail Shirt",
     "Stitched Nomad Armor",
     "Thick Nomad Robe",
+    "Gilder's Embrace",
+    "Sipar Shield",
+    "Adarga Shield",
     // Give bugged items a new id
     "Head Chopper",
     "Aketon Cap",

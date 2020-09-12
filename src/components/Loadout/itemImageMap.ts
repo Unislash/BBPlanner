@@ -476,6 +476,12 @@ import inventory_body_southern_armor_01 from "../../images/items/armor/inventory
 import inventory_body_southern_armor_04 from "../../images/items/armor/inventory_body_southern_armor_04.png"
 import inventory_body_southern_armor_14 from "../../images/items/armor/inventory_body_southern_armor_14.png"
 import inventory_body_southern_armor_17 from "../../images/items/armor/inventory_body_southern_armor_17.png"
+import inventory_legendary_shield_01 from "../../images/items/shields/inventory_legendary_shield_01.png";
+import inventory_metal_round_shield_01 from "../../images/items/shields/inventory_metal_round_shield_01.png";
+import inventory_shield_adarga_01 from "../../images/items/shields/inventory_shield_adarga_01.png";
+import icon_legendary_shield_01 from "../../images/items/shields/icon_legendary_shield_01.png";
+import icon_metal_round_shield_01 from "../../images/items/shields/icon_metal_round_shield_01.png";
+import icon_shield_adarga_01 from "../../images/items/shields/icon_shield_adarga_01.png";
 
 export const itemImageMap: { [key: string]: string; } = {
     inventory_helmet_21: inventory_helmet_21,
@@ -956,6 +962,12 @@ export const itemImageMap: { [key: string]: string; } = {
     inventory_body_southern_armor_04: inventory_body_southern_armor_04,
     inventory_body_southern_armor_14: inventory_body_southern_armor_14,
     inventory_body_southern_armor_17: inventory_body_southern_armor_17,
+    inventory_legendary_shield_01: inventory_legendary_shield_01,
+    inventory_metal_round_shield_01: inventory_metal_round_shield_01,
+    inventory_shield_adarga_01: inventory_shield_adarga_01,
+    icon_legendary_shield_01: icon_legendary_shield_01,
+    icon_metal_round_shield_01: icon_metal_round_shield_01,
+    icon_shield_adarga_01: icon_shield_adarga_01,
 }
 
 export default itemImageMap;
