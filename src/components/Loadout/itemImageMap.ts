@@ -462,6 +462,20 @@ import southern_short_sword_01_70x70 from "../../images/items/weapons/southern_s
 import swordlance_01_70x70 from "../../images/items/weapons/swordlance_01_70x70.png"
 import two_handed_saif_70x70 from "../../images/items/weapons/two_handed_saif_70x70.png"
 import two_handed_scimitar_01_70x70 from "../../images/items/weapons/two_handed_scimitar_01_70x70.png"
+import inventory_body_southern_armor_03 from "../../images/items/armor/inventory_body_southern_armor_03.png"
+import inventory_body_southern_armor_12 from "../../images/items/armor/inventory_body_southern_armor_12.png"
+import inventory_body_southern_armor_11 from "../../images/items/armor/inventory_body_southern_armor_11.png"
+import inventory_body_southern_armor_13 from "../../images/items/armor/inventory_body_southern_armor_13.png"
+import inventory_body_southern_armor_05 from "../../images/items/armor/inventory_body_southern_armor_05.png"
+import inventory_body_southern_armor_02 from "../../images/items/armor/inventory_body_southern_armor_02.png"
+import inventory_body_southern_armor_16 from "../../images/items/armor/inventory_body_southern_armor_16.png"
+import inventory_body_southern_armor_07 from "../../images/items/armor/inventory_body_southern_armor_07.png"
+import inventory_body_southern_armor_06 from "../../images/items/armor/inventory_body_southern_armor_06.png"
+import inventory_body_southern_armor_15 from "../../images/items/armor/inventory_body_southern_armor_15.png"
+import inventory_body_southern_armor_01 from "../../images/items/armor/inventory_body_southern_armor_01.png"
+import inventory_body_southern_armor_04 from "../../images/items/armor/inventory_body_southern_armor_04.png"
+import inventory_body_southern_armor_14 from "../../images/items/armor/inventory_body_southern_armor_14.png"
+import inventory_body_southern_armor_17 from "../../images/items/armor/inventory_body_southern_armor_17.png"
 
 export const itemImageMap: { [key: string]: string; } = {
     inventory_helmet_21: inventory_helmet_21,
@@ -928,6 +942,20 @@ export const itemImageMap: { [key: string]: string; } = {
     swordlance_01_70x70: swordlance_01_70x70,
     two_handed_saif_70x70: two_handed_saif_70x70,
     two_handed_scimitar_01_70x70: two_handed_scimitar_01_70x70,
+    inventory_body_southern_armor_03: inventory_body_southern_armor_03,
+    inventory_body_southern_armor_12: inventory_body_southern_armor_12,
+    inventory_body_southern_armor_11: inventory_body_southern_armor_11,
+    inventory_body_southern_armor_13: inventory_body_southern_armor_13,
+    inventory_body_southern_armor_05: inventory_body_southern_armor_05,
+    inventory_body_southern_armor_02: inventory_body_southern_armor_02,
+    inventory_body_southern_armor_16: inventory_body_southern_armor_16,
+    inventory_body_southern_armor_07: inventory_body_southern_armor_07,
+    inventory_body_southern_armor_06: inventory_body_southern_armor_06,
+    inventory_body_southern_armor_15: inventory_body_southern_armor_15,
+    inventory_body_southern_armor_01: inventory_body_southern_armor_01,
+    inventory_body_southern_armor_04: inventory_body_southern_armor_04,
+    inventory_body_southern_armor_14: inventory_body_southern_armor_14,
+    inventory_body_southern_armor_17: inventory_body_southern_armor_17,
 }
 
 export default itemImageMap;
