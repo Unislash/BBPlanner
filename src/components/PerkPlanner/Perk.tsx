@@ -17,7 +17,7 @@ export const Perk: React.FC<PerkProps> = props => {
         <Tooltip
             overlay={tooltipText}
             placement="bottom"
-            mouseEnterDelay={.8}
+            mouseEnterDelay={.5}
         >
             <div onClick={onClick} className={classcat(["perk", {isActive}])}>
                 <div className="perkImageHoverWrapper">
