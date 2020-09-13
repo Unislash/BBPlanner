@@ -88,7 +88,7 @@ const WeaponContent: React.FC<{item: Weapon}> = ({item}) => (
         <Title>{item.name}</Title>
         <Description>{item.description}</Description>
         <StatLine>Worth&nbsp;&nbsp;<MoneyIcon src={money}/>&nbsp;<b>{item.value}</b></StatLine>
-        <StatLine><StatIcon src={asset_supplies}/><b>{item.conditionMax}</b> &nbsp;maximum durability</StatLine>
+        {item.conditionMax && <StatLine><StatIcon src={asset_supplies}/><b>{item.conditionMax}</b> &nbsp;maximum durability</StatLine>}
         <StatLine><StatIcon src={regular_damage}/>Damage of&nbsp;<b>{item.regularDamage} - {item.regularDamageMax}</b></StatLine>
         <StatLine><StatIcon src={direct_damage}/><b>{Math.round(parseFloat(item.directDamageMult) * 100)}%</b>&nbsp;of damage ignores armor</StatLine>
         <StatLine><StatIcon src={armor_damage}/><b>{Math.round(parseFloat(item.armorDamageMult) * 100)}%</b>&nbsp;effective against armor</StatLine>

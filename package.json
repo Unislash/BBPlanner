@@ -5,8 +5,8 @@
   "main": "src/server/index.ts",
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
-    "client": "webpack-dev-server --open --config webpack.config.dev.js --hot",
-    "deployMain": "node uploadToS3"
+    "localDev": "webpack-dev-server --open --config webpack.config.dev.js --hot",
+    "deployBundle": "node uploadToS3"
   },
   "author": "Brent Grossman",
   "license": "MIT",
