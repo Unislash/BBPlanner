@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
     "localDev": "webpack-dev-server --open --config webpack.config.dev.js --hot",
-    "deployBundle": "node uploadToS3",
+    "deploy": "bash ./uploadAssets.sh",
     "generateItemsById": "npx ts-node -P ./tsconfig-node.json scripts/generateItemsById"
   },
   "author": "Brent Grossman",
