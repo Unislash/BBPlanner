@@ -6,3 +6,11 @@ output
 .idea/workspace.xml
 .idea/shelf/*
 uploadToS3.js
+
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
