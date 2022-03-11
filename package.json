@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
     "localDev": "webpack-dev-server --open --config webpack.config.dev.js --hot",
-    "deployBundle": "node uploadToS3"
+    "deployBundle": "node uploadToS3",
+    "generateItemsById": "npx ts-node -P ./tsconfig-node.json scripts/generateItemsById"
   },
   "author": "Brent Grossman",
   "license": "MIT",
@@ -30,6 +31,8 @@
     "url-search-params-polyfill": "^8.1.0"
   },
   "devDependencies": {
+    "@types/mkdirp": "^1.0.2",
+    "@types/node": "^17.0.21",
     "@types/react": "^16.9.41",
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.6",
@@ -40,9 +43,11 @@
     "css-loader": "^3.6.0",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
+    "mkdirp": "^1.0.4",
     "randomstring": "^1.1.5",
     "source-map-loader": "^1.0.1",
     "style-loader": "^0.23.0",
+    "ts-node": "^10.7.0",
     "typescript": "^3.9.6",
     "url-loader": "^1.0.1",
     "webpack": "^4.43.0",

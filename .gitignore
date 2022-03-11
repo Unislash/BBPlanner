@@ -1,6 +1,7 @@
 .vscode
 node_modules
 dist
+output
 *.log
 .idea/workspace.xml
 .idea/shelf/*

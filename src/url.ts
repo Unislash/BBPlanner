@@ -13,6 +13,7 @@ import {AppState, LoadoutItems, Stars, StatNums} from './models';
 import {getNewLoadoutItems, getNewStars, getNewStatNums, initialState} from './initialState';
 import {idsByItem} from './components/Loadout/idsByItem';
 import {itemsById} from './components/Loadout/itemsById';
+import {to64Parse, to64String} from './compressionUtils';
 
 export const padString = (padding: string, strToPad: string, padLeft: boolean = true) => {
     if (typeof strToPad === 'undefined')
@@ -22,27 +23,6 @@ export const padString = (padding: string, strToPad: string, padLeft: boolean = 
     } else {
         return (strToPad + padding).substring(0, padding.length);
     }
-};
-
-export const STR64: Array<string> = ('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/').split( '' );
-
-const to64String = ( input: number, current: string = '' ): string => {
-    if ( input < 0 && current.length == 0 ){
-        input = input * - 1;
-    }
-    var modify: number = input % 64;
-    var remain: number = Math.floor( input / 64 );
-    var result: string = STR64[ modify ] + current;
-    return ( remain <= 0 ) ? result : to64String( remain, result );
-};
-
-const to64Parse =( input: string ): number => {
-    let result: number = 0;
-    const toProc: Array<string> = input.split( '' );
-    for ( let e in toProc ){
-        result = ( result * 64 ) + STR64.indexOf( toProc[ e ] );
-    }
-    return result;
 };
 
 const packBinaryString = (values: string) => {

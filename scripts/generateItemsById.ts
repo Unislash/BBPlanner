@@ -1,22 +1,47 @@
-//weapons
-//tools
-//shields
-//helmets
-//consumables
-//armors
-//ammo
-//accessories
-//blazing deserts
-//bugged items
-import {STR64} from '../../url';
+/**
+ * This is a dev script to regenerate the map of Items by their STR64 ID (and the inverse map).
+ * The results are output to `output/generateItemsById.output.js`, and the content should be
+ * copied to `src/components/loadout/<corresponding-map.js>`
+ *
+ * Usage:
+ * - Run `yarn generateItemsById`
+ * - Copy variable to corresponding file
+ * - Format variable in file via IntelliJ with ctrl + alt + L (this will replace double quotes with
+ *   single quotes)
+ * - IMPORTANT: Review for any out-of-order schenanigans via a git diff
+ */
+
+import fs from 'fs';
+import mkdirp from 'mkdirp';
+import {STR64} from '../src/compressionUtils';
 
 // Accidentally shipped a bug where the generated IDs had a fencepost error. I need to keep them
 // in the list to preserve the relative ordering of the hashed ids, but don't want to create
 // duplicates... so now those items are named this:
 const bugRemnant = "derp";
 
+/**
+ * This array serves as the source of truth for the compression of items in the URL.
+ *
+ * IMPORTANT: The order of this array is directly correlated to the generated lookup tables, and
+ * therefore the way user data is recalled.
+ * - DO NOT CHANGE THE ORDER OF ITEMS IN THIS ARRAY
+ * - ONLY add to the BOTTOM of this list
+ *
+ * Current order:
+ * weapons
+ * tools
+ * shields
+ * helmets
+ * consumables
+ * armors
+ * ammo
+ * accessories
+ * blazing deserts
+ * bugged items
+ */
 const itemNames = [
-    "Ancient Spear",
+    `Ancient Spear ${bugRemnant}`,
     "Ancient Sword",
     "Antler Cleaver",
     "Arming Sword",
@@ -360,12 +385,16 @@ const itemNames = [
     "Aketon Cap",
     "Straw Hat",
     "Sellsword's Armor",
-]
+    "Ancient Spear",
+];
 
-export const generateItemsToId = () => {
+/**
+ * Generate the stuff
+ */
+export const generateItemsById = async () => {
     const itemsById: { [key: string]: string; } = {};
     const idsByItem: { [key: string]: string; } = {};
-    for (let i = 1; i <= itemNames.length; i++) {
+    for (let i = 1; i < itemNames.length; i++) {
         let id = "";
         let remainingI = i;
         let secondStr64DigitIndex = 0;
@@ -381,6 +410,17 @@ export const generateItemsToId = () => {
         itemsById[id] = itemNames[i];
         idsByItem[itemNames[i]] = id;
     }
-    console.log(itemsById);
-    console.log(idsByItem);
+    // console.log(itemsById);
+    // console.log(idsByItem);
+
+    // Make the output directory if it doesn't exist (as a sibling to package.json)
+    await mkdirp("output");
+
+    fs.writeFileSync("output/generateItemsById.output.ts", `export const itemsById: { [key: string]: string; } = ${JSON.stringify(itemsById)};`);
+    fs.appendFileSync("output/generateItemsById.output.ts", `\n`);
+    fs.appendFileSync("output/generateItemsById.output.ts", `export const idsByItem: { [key: string]: string; } = ${JSON.stringify(idsByItem)};`);
+
+    console.log("Output saved to `output/generateItemsById.output.js`");
 }
+
+generateItemsById();
