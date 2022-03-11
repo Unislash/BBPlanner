@@ -22,7 +22,7 @@ module.exports = {
             {
                 test: /\.(ts|tsx)$/,
                 use: [
-                    'awesome-typescript-loader',
+                    'ts-loader',
                 ]
             },
             {
@@ -36,7 +36,12 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|jpeg|woff|woff2|eot|ttf|svg)$/,
-                loader: 'url-loader?limit=100000'
+                type: 'asset',
+                parser: {
+                    dataUrlCondition: {
+                        maxSize: 1024 * 50/*kb*/
+                    }
+                },
             },
         ]
     },
