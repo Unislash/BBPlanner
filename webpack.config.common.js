@@ -11,8 +11,36 @@ module.exports = {
     target: "web",
     output: {
         path: path.resolve(__dirname, outputDirectory),
-        filename: '[name].bundle.js',
-        chunkFilename: '[name].bundle.js',
+        filename: '[name].bundle.[contenthash].js',
+        chunkFilename: `[name].bundle.[chunkhash].js`,
+    },
+    optimization: {
+        splitChunks: {
+            // Split all the chunks
+            chunks: "all",
+            // HTTP 2.0 browsers don't have concurrent request limits anymore!
+            // Buuuut we're still on HTTP1.1 because lack of https. Disabling.
+            // maxInitialRequests: Infinity,
+            // Try to make chunks that will be less than 1MB (uncompressed, unminified), if possible
+            // Note: reducing this will split chunks up even more, but probably isn't necessary
+            maxSize: 1000000,
+            // For modules in node_modules, group chunks by each module and make the
+            // chunk names readable.
+            // Disabled until we can use HTTP 2.0
+            // cacheGroups: {
+            //     vendor: {
+            //         test: /[\\/]node_modules[\\/]/,
+            //         name(module) {
+            //             // Match either a `@smartsheet/<package>`, or any package with no slashes in its name
+            //             const packageNameMatch = module.context.match(
+            //                 /node_modules[\/\\](@smartsheet[\/\\][\w-]+|[@\w-]+)/
+            //             );
+            //
+            //             return packageNameMatch ? `npm.${packageNameMatch[1]}` : "reactApp";
+            //         },
+            //     },
+            // },
+        },
     },
     resolve: {
         extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
