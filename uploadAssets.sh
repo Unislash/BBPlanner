@@ -58,13 +58,17 @@ aws s3 \
     --cache-control "public, max-age=31536000, immutable" \
     --content-type "application/json; charset=UTF-8"
 
+# Make cloudfront cache html files (since we invalidate their cache manually), but ensure
+# no caching on end user browsers
 aws s3 \
-    --size-only \
     --no-progress \
     sync "${productionAssetFolder}" "${BUCKET_ADDRESS}" \
     --exclude "*" \
     --include "*.html" \
+    --cache-control "public, max-age=0, s-maxage=604800" \
     --content-type "text/html; charset=UTF-8"
+# it appears that it can be common for the index.html to not change in size even though script tag references change
+#    --size-only \
 
 aws s3 \
     --size-only \
@@ -88,11 +92,28 @@ aws s3 \
     --cache-control "public, max-age=31536000, immutable" \
 
 # Now invalidate the non-immutable entities
-# aws cli complains about invalid paths, but it does seem to work perfectly fine!
+
+# Holy batman this is janky.
+# We must generate a json file to sidestep some "peculiarities" of git bash
+# And then, naturally, when we read in the file to the aws cli it resolves with
+# standard windows uris rather than unix ones (although somehow a mix of them does
+# seem to work. But oh my goodness the jank)
+DATESTRING=$(date +"%Y-%m-%d_%H-%M-%S")
+JSON_STRING='
+{
+  "Paths": {
+    "Quantity": 3,
+    "Items": ["/index.html", "/error.html", "/"]
+  },
+  "CallerReference": "'$DATESTRING'"
+}
+'
+echo $JSON_STRING > $PWD/output/invalidate_cloudfront.json
+LOCALPATH=$(cmd //c cd)
 aws cloudfront create-invalidation \
-    --distribution-id E1S2RN5GC9LKLO \
-    --paths "/index.html" "/error.html"
+    --distribution-id E2009WZB53ANZE \
+    --invalidation-batch file://$LOCALPATH/output/invalidate_cloudfront.json
 
 #aws cloudfront create-invalidation \
-#    --distribution-id E2009WZB53ANZE \
-#    --paths "/index.html" "/error.html"
+#    --distribution-id E1S2RN5GC9LKLO \
+#    --invalidation-batch file://$LOCALPATH/output/invalidate_cloudfront.json
