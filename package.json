@@ -38,7 +38,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.6",
     "@types/react-select": "^3.0.16",
-    "aws-sdk": "^2.720.0",
+    "aws-sdk": "^2.814.0",
     "clean-webpack-plugin": "^1.0.0",
     "css-loader": "^6.7.1",
     "file-loader": "^6.2.0",
