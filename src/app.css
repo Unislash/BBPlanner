@@ -65,6 +65,10 @@ p {
         width: auto;
     }
 
+    body .rightPanel {
+        padding-left: 0;
+    }
+
     body .otherResources {
         margin-top: 20px;
     }
@@ -133,6 +137,13 @@ p {
     background-color: rgba(27,20,11,0.5);
 }
 
+.appBackground.ofFleshAndFaith {
+    background-image: url("images/bg_ofFleshAndFaith.jpg");
+}
+.appBackground.ofFleshAndFaith:after {
+    background-color: rgba(16,11,13,0.4);
+}
+
 .pageTitle {
     text-align: center;
 }
@@ -152,8 +163,8 @@ p {
 .rightPanel {
     display: flex;
     flex-direction: column;
-    width: 200px;
-    padding-left: 48px;
+    width: 208px;
+    padding-left: 40px;
     color: #d1c5b6;
 }
 
@@ -553,6 +564,7 @@ body .rc-tooltip-inner {
 
 .themeSwitcher {
     display: flex;
+    width: 240px;
     margin-top: 20px;
 }
 
@@ -588,6 +600,10 @@ body .rc-tooltip-inner {
 
 .themeButton.blazingDeserts {
     background-image: url("images/btn_blazingDeserts.jpg");
+}
+
+.themeButton.ofFleshAndFaith {
+    background-image: url("images/btn_ofFleshAndFaith.jpg");
 }
 
 .savedBuilds {

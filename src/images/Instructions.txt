@@ -1,0 +1,13 @@
+# Instructions for background images and their buttons
+
+### Background images
+1. Pull background sources from data/gfx/ui/screens/
+1. Ensure size is 1920x1080
+1. Compress to ~78 quality (https://imagecompressor.com/ works)
+
+### Buttons
+1. Pull button sources from data/gfx/ui/events
+1. Open in image editor (fireworks)
+1. Crop edges and 1px of their inner shadows off
+1. Resize to 100x100
+1. Export with 80 jpg quality

@@ -19,6 +19,7 @@ export enum ThemeId {
     beastsAndExploration = "beastsAndExploration",
     warriorsOfTheNorth = "warriorsOfTheNorth",
     blazingDeserts = "blazingDeserts",
+    ofFleshAndFaith = "ofFleshAndFaith",
 }
 
 export interface AppState {

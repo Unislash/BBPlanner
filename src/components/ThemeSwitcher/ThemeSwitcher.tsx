@@ -19,6 +19,7 @@ export const ThemeSwitcherBase: React.FC<ThemeSwitcherProps> = ({
             <ThemeButton themeId={ThemeId.beastsAndExploration} activeThemeId={themeId} setThemeId={setThemeId}/>
             <ThemeButton themeId={ThemeId.warriorsOfTheNorth} activeThemeId={themeId} setThemeId={setThemeId}/>
             <ThemeButton themeId={ThemeId.blazingDeserts} activeThemeId={themeId} setThemeId={setThemeId}/>
+            <ThemeButton themeId={ThemeId.ofFleshAndFaith} activeThemeId={themeId} setThemeId={setThemeId}/>
         </div>
     );
 }

@@ -19,6 +19,8 @@ const getText = (themeId: ThemeId) => {
             return "Warriors of the North Theme";
         case ThemeId.blazingDeserts:
             return "Blazing Deserts Theme";
+        case ThemeId.ofFleshAndFaith:
+            return "Of Flesh and Faith Theme";
     }
 }
 
