@@ -76,6 +76,7 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
             newState = {
                 ...state,
                 activePerkIds: [],
+                isStudent: false,
             };
 
             // Don't save! To avoid accidental resets, wait for the user to pick their first perk to save
