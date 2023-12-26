@@ -1,9 +1,13 @@
 const path = require('path');
+const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+const TerserPlugin = require('terser-webpack-plugin');
 
 const outputDirectory = 'dist';
+
+const gplInclude = fs.readFileSync('./gpl_include.txt', 'utf8');
 
 module.exports = env => {
     const withAnalyzer = toBoolOrDefault(env, "withAnalyzer", false);
@@ -59,6 +63,19 @@ module.exports = env => {
                 //     },
                 // },
             },
+            minimizer: [
+                new TerserPlugin({
+                    terserOptions: {
+                        output: {
+                            comments: /@license/i,
+                        },
+                    },
+                    extractComments: {
+                        condition: /@license/i,
+                        banner: () => gplInclude,
+                    },
+                }),
+            ],
         },
         resolve: {
             extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']

@@ -1,7 +1,7 @@
-# What is this?
+# What is BBPlanner?
 This is a personal project that I built for the community of a game I have enjoyed over the years called Battle Brothers. The game is a turn-based tactics strategy game set in the middle-ages, full of cutthroat mercenaries (of which you are one), noble houses, and magical beasts.
 
-This tool itself lets you plan out builds for new recruits to your company of mercenaries, featuring both a perk picker and a stat forecaster.
+This tool itself lets you plan out builds for new recruits to your company of mercenaries, featuring a perk picker, stat forecaster, planned equipment, and more.
 
 # Inspiration
 Parts of this tool are very heavily influenced by a previous tool, [Battle Brothers Perk Calculator](http://tumult.cc/bb-calc.html), which I used for many years. Eventually I grabbed the source for it, added some features for my own personal usage, and reached out to the author and sent along my modifications. He thanked me, but ultimately never ended up incorporating it.
@@ -16,6 +16,8 @@ So, eventually I decided to write it from scratch, using modern web technologies
 1. A Stat Forecaster, which estimates the max stats a character would have at level 11
 1. Links to other community resources
 
+As the project has matured, I've continued to add additional useful tools and capabilities over the years.
+
 # A note to code spelunkers
 This is a personal project. I definitely took a few shortcuts, but I felt like the code complexity was going to stay pretty small. Eventually I regretted taking those shortcuts, but hey, it's just a fun project.
 
@@ -25,3 +27,4 @@ If I were to approach this from a professional perspective, I would have done th
 * Kept my leaf react components much more separated from business logic, and instead only focused on rendering
 * My goodness why didn't I use sass or css-in-js from the start?
 * Written tests!
+* The original code was written before react hooks came out, and a hooks rewrite is certainly overdue at this point
