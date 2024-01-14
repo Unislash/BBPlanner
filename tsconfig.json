@@ -8,8 +8,6 @@
     "removeComments": false,
     "noEmitOnError": true,
     "noErrorTruncation": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "allowJs": true,

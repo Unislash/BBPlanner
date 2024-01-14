@@ -30,8 +30,6 @@ export interface AppState {
     stars: Stars;
     loadoutItems: LoadoutItems;
     buildIdList: string[];
-    themeId: ThemeId;
-    version: string;
 }
 
 export interface AppStateWithURL extends AppState {

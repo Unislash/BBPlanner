@@ -215,17 +215,6 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
 
             break;
         }
-        case SET_THEME_ID: {
-            const { themeId } = action.payload;
-            newState = {
-                ...state,
-                themeId,
-            };
-
-            // TODO: This should probably be in a thunk, not in a reducer
-            saveThemeId(themeId);
-            break;
-        }
         default:
             break;
     }

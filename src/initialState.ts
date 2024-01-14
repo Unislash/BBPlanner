@@ -1,5 +1,4 @@
 import {AppState} from './models';
-import {getThemeId} from './storageTheme';
 
 export const getNewStatNums = () => ({
     level: 1,
@@ -45,6 +44,4 @@ export const initialState: AppState = {
     stars: getNewStars(),
     loadoutItems: getNewLoadoutItems(),
     buildIdList: [],
-    themeId: getThemeId(),
-    version: '1.0',
 };

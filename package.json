@@ -5,7 +5,7 @@
   "main": "src/server/index.ts",
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
-    "localDev": "webpack-dev-server --open --config webpack.config.dev.js --hot",
+    "serve": "webpack-dev-server --open --config webpack.config.dev.js --hot",
     "deploy": "bash ./uploadAssets.sh",
     "analyze": "yarn run build --env withAnalyzer=true",
     "generateItemsById": "npx ts-node -P ./tsconfig-node.json scripts/generateItemsById"
@@ -29,7 +29,8 @@
     "react-select": "^3.1.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "url-search-params-polyfill": "^8.1.0"
+    "url-search-params-polyfill": "^8.1.0",
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@types/mkdirp": "^1.0.2",
