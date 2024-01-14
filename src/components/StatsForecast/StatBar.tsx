@@ -16,6 +16,7 @@ interface StatBarProps {
     stars: number;
     setStars: (value: number) => void;
     currentLevel: number;
+    perkMultiplier?: number;
 }
 
 const levelIncrementByStat: { [key: string]: number; } = {
@@ -29,8 +30,9 @@ const levelIncrementByStat: { [key: string]: number; } = {
     rdefense: 3,
 };
 
-const getMaxStat = (statType: StatType, startValue: number, stars: number, remainingLevels: number): number => {
-    return startValue + (levelIncrementByStat[statType] + stars * 0.5) * remainingLevels;
+const getMaxStat = (statType: StatType, startValue: number, stars: number, remainingLevels: number, perkMultiplier: number): number => {
+    const standardMax = startValue + (levelIncrementByStat[statType] + stars * 0.5) * remainingLevels;
+    return Math.round(standardMax * (1 + perkMultiplier));
 };
 
 const getMinPerLevel = (statType: StatType, stars: number) => {
@@ -65,6 +67,7 @@ export const StatBar: React.FC<StatBarProps> = props => {
         stars,
         setStars,
         currentLevel,
+        perkMultiplier,
     } = props;
 
     const [hoveredStarIndex, setHoveredStarIndex] = useState<number | undefined>(undefined);
@@ -124,7 +127,10 @@ export const StatBar: React.FC<StatBarProps> = props => {
                     <input ref={inputRef} className="barInputElement" maxLength={5} value={statNumber} onChange={handleInputChange} />
                 </div>
                 <img className="arrowIndicator" src={arrow_right} />
-                <div className="maxStat">{getMaxStat(statType, statNumber, stars, 11 - currentLevel)}</div>
+                <div className="maxStat">
+                    {getMaxStat(statType, statNumber, stars, 11 - currentLevel, perkMultiplier || 0)}
+                    {perkMultiplier ? '*' : ''}
+                </div>
             </div>
         </div>
     );

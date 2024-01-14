@@ -22,7 +22,7 @@ export const LoadoutBase: React.FC<LoadoutProps> = props => {
 
     return (
         <div className="loadout">
-            <h3>Loadout:</h3>
+            <h2>Loadout</h2>
             <p>Select your intended weapons and armor</p>
             <div className="loadoutUI">
                 <div className="loadoutColumns">

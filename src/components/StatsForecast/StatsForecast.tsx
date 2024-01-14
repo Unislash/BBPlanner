@@ -15,10 +15,12 @@ import {setStat, setStar} from '../../actions';
 import {connect} from 'react-redux';
 import {AppState, Stars, StatNums, StatType} from '../../models';
 import {LevelBar} from './LevelBar';
+import {ForecastInfoButton} from './ForecastInfoButton';
 
 interface StatsForecastProps {
     statNums: StatNums;
     stars: Stars;
+    activePerkIds: string[];
     setStat: (statType: StatType, num: number) => void;
     setStar: (statType: StatType, amount: number) => void;
 }
@@ -27,6 +29,7 @@ export const StatsForecastBase: React.FC<StatsForecastProps> = props => {
     const {
         statNums,
         stars,
+        activePerkIds,
         setStat,
         setStar,
     } = props;
@@ -45,7 +48,7 @@ export const StatsForecastBase: React.FC<StatsForecastProps> = props => {
 
     return (
         <div className="statsForecast">
-            <h3>Stats Forecast:</h3>
+            <h2 className="statsForecastHeader">Stats Forecast <ForecastInfoButton /></h2>
             <p>Enter your current level, stats, and stars to see the expected max stats</p>
             <div className="statBars">
                 <LevelBar
@@ -61,6 +64,7 @@ export const StatsForecastBase: React.FC<StatsForecastProps> = props => {
                     stars={stars["health"]}
                     setStars={getSetStar("health")}
                     currentLevel={statNums['level']}
+                    perkMultiplier={activePerkIds.includes('colossus') ? .25 : undefined}
                 />
                 <StatBar
                     icon={fatigueIcon}
@@ -79,6 +83,7 @@ export const StatsForecastBase: React.FC<StatsForecastProps> = props => {
                     stars={stars['resolve']}
                     setStars={getSetStar('resolve')}
                     currentLevel={statNums['level']}
+                    perkMultiplier={activePerkIds.includes('fortifiedMind') ? .25 : undefined}
                 />
                 <StatBar
                     icon={initiativeIcon}
@@ -133,6 +138,7 @@ export const StatsForecastBase: React.FC<StatsForecastProps> = props => {
 const mapStateToProps = (state: AppState) => ({
     statNums: state.statNums,
     stars: state.stars,
+    activePerkIds: state.activePerkIds,
 });
 
 const mapDispatchToProps = {

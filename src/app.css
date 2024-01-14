@@ -33,6 +33,10 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Cinzel-Bold', sans-serif;
 }
 
+h2 {
+    margin-bottom: 8px;
+}
+
 h3 {
     margin-top: 0;
     margin-bottom: 8px;
@@ -208,14 +212,18 @@ p {
     border: 1px solid rgba(255,255,255,.6);
 }
 
-.plannerButton {
+.plannerButton,
+.plannerHoverIcon {
     margin-left: 5px;
     padding: 4px;
     border: 1px solid transparent;
     border-radius: 4px;
-    cursor: pointer;
     font-size: 0; /*to prevent the newline from rendering*/
     transition: border .1s, color .5s;
+}
+
+.plannerButton {
+    cursor: pointer;
 }
 
 .plannerButton:hover {
@@ -333,6 +341,10 @@ body .rc-tooltip-inner {
     margin-right: auto;
     /*background: url("./images/tactical_character_background.png") repeat-y;*/
     background-size: 100% auto;
+}
+
+.statsForecastHeader {
+    display: flex;
 }
 
 .statBar {
