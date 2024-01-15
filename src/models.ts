@@ -23,16 +23,14 @@ export enum ThemeId {
 }
 
 export interface AppState {
-    activePerkIds: string[];
     buildName: string;
-    isStudent: boolean;
     statNums: StatNums;
     stars: Stars;
     loadoutItems: LoadoutItems;
     buildIdList: string[];
 }
 
-export interface AppStateWithURL extends AppState {
+export interface LocalStorageBuildData {
     url: string;
 }
 

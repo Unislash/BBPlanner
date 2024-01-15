@@ -21,10 +21,3 @@ export const removeBuild = (buildId: string) => {
         dispatch(setBuildIdList(newBuildIdList));
     };
 };
-
-export const canAddPerk = () => {
-    return (_dispatch: TDispatch, getState: GetState) => {
-        const state = getState();
-        return getAvailableNumberOfPerks(state.activePerkIds.length, maxLevel, state.isStudent) >= 1;
-    };
-};

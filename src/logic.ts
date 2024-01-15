@@ -82,8 +82,8 @@ const perksByRows: { [key: number]: string[]; } = {
 };
 
 /**
- * Fun algorithm: for any active perk, if the number of *perks* in previous rows is less
- * than the number *of* previous rows, the build is invalid.
+ * Fun algorithm: for any active perk, if the *number of perks* in previous rows is less
+ * than the *number of previous rows*, the build is invalid.
  */
 export const isBuildInvalid = (activePerks: string[]) => {
     const firstInvalidPerkId = activePerks.find(currentPerk => {

@@ -6,7 +6,7 @@ interface RemainingPerksProps {
     currentPerkAmount: number;
 }
 
-export const RemainingPerks: React.FC<RemainingPerksProps> = props => {
+export const RemainingPerks = (props: RemainingPerksProps): JSX.Element => {
     const {isStudent, currentPerkAmount} = props;
     const remainingPerks = getAvailableNumberOfPerks(currentPerkAmount, maxLevel, isStudent);
 

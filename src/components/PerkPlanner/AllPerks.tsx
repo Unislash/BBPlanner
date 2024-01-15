@@ -52,11 +52,8 @@ import indomitable from '../../images/perks/indomitable.png';
 import * as React from 'react';
 import {Perk} from './Perk';
 import {PerkTooltipHeader} from './PerkTooltipHeader';
-import {connect} from 'react-redux';
-import {togglePerk} from '../../actions';
-import {AppState} from '../../models';
-import {canAddPerk} from '../../thunks';
 import classcat from 'classcat';
+import {useActivePerkIds, useCanAddPerk, usePerkActions} from '../../stores/perkStore';
 
 const tooltips = {
     fastAdaption: <><PerkTooltipHeader title="Fast Adaptation" />Adapt to your opponent's moves! Gain an additional stacking +10% chance to hit with each attack that misses an opponent. Bonus is reset upon landing a hit.</>,
@@ -111,78 +108,76 @@ const tooltips = {
     indomitable: <><PerkTooltipHeader title="Indomitable" />Unlocks the 'Indomitable' skill which costs 5 AP and 25 Fatigue to be used and grants a 50% damage reduction and immunity to being stunned, knocked back or grabbed for one turn.</>,
 };
 
-interface AllPerksProps {
-    activePerks: string[];
-    togglePerk: (perkId: string) => void;
-    canAddPerk: () => boolean;
-}
+export const AllPerks = (): JSX.Element => {
+    const activePerks = useActivePerkIds();
+    const canAddPerk = useCanAddPerk();
+    const {togglePerk} = usePerkActions();
 
-export const AllPerksBase: React.FC<AllPerksProps> = props => {
     return (
-        <div className={classcat(["allPerks", {canAddPerk: props.canAddPerk()}])}>
+        <div className={classcat(["allPerks", {canAddPerk: canAddPerk}])}>
             <div className="perkRow perkRow_one">
-                <Perk isActive={isPerkActive("fastAdaption", props.activePerks)} onClick={() => props.togglePerk("fastAdaption")} image={fastAdaption} tooltipText={tooltips.fastAdaption} />
-                <Perk isActive={isPerkActive("cripplingStrikes", props.activePerks)} onClick={() => props.togglePerk("cripplingStrikes")} image={cripplingStrikes} tooltipText={tooltips.cripplingStrikes} />
-                <Perk isActive={isPerkActive("colossus", props.activePerks)} onClick={() => props.togglePerk("colossus")} image={colossus} tooltipText={tooltips.colossus} />
-                <Perk isActive={isPerkActive("nineLives", props.activePerks)} onClick={() => props.togglePerk("nineLives")} image={nineLives} tooltipText={tooltips.nineLives} />
-                <Perk isActive={isPerkActive("bagsAndBelts", props.activePerks)} onClick={() => props.togglePerk("bagsAndBelts")} image={bagsAndBelts} tooltipText={tooltips.bagsAndBelts} />
-                <Perk isActive={isPerkActive("pathfinder", props.activePerks)} onClick={() => props.togglePerk("pathfinder")} image={pathfinder} tooltipText={tooltips.pathfinder} />
-                <Perk isActive={isPerkActive("adrenaline", props.activePerks)} onClick={() => props.togglePerk("adrenaline")} image={adrenaline} tooltipText={tooltips.adrenaline} />
-                <Perk isActive={isPerkActive("recover", props.activePerks)} onClick={() => props.togglePerk("recover")} image={recover} tooltipText={tooltips.recover} />
-                <Perk isActive={isPerkActive("student", props.activePerks)} onClick={() => {props.togglePerk("student");}} image={student} tooltipText={tooltips.student} />
+                <Perk isActive={isPerkActive("fastAdaption", activePerks)} onClick={() => togglePerk("fastAdaption")} image={fastAdaption} tooltipText={tooltips.fastAdaption} />
+                <Perk isActive={isPerkActive("cripplingStrikes", activePerks)} onClick={() => togglePerk("cripplingStrikes")} image={cripplingStrikes} tooltipText={tooltips.cripplingStrikes} />
+                <Perk isActive={isPerkActive("colossus", activePerks)} onClick={() => togglePerk("colossus")} image={colossus} tooltipText={tooltips.colossus} />
+                <Perk isActive={isPerkActive("nineLives", activePerks)} onClick={() => togglePerk("nineLives")} image={nineLives} tooltipText={tooltips.nineLives} />
+                <Perk isActive={isPerkActive("bagsAndBelts", activePerks)} onClick={() => togglePerk("bagsAndBelts")} image={bagsAndBelts} tooltipText={tooltips.bagsAndBelts} />
+                <Perk isActive={isPerkActive("pathfinder", activePerks)} onClick={() => togglePerk("pathfinder")} image={pathfinder} tooltipText={tooltips.pathfinder} />
+                <Perk isActive={isPerkActive("adrenaline", activePerks)} onClick={() => togglePerk("adrenaline")} image={adrenaline} tooltipText={tooltips.adrenaline} />
+                <Perk isActive={isPerkActive("recover", activePerks)} onClick={() => togglePerk("recover")} image={recover} tooltipText={tooltips.recover} />
+                <Perk isActive={isPerkActive("student", activePerks)} onClick={() => {togglePerk("student");}} image={student} tooltipText={tooltips.student} />
             </div>
             <div className="perkRow perkRow_two">
-                <Perk isActive={isPerkActive("executioner", props.activePerks)} onClick={() => props.togglePerk("executioner")} image={executioner} tooltipText={tooltips.executioner} />
-                <Perk isActive={isPerkActive("bullseye", props.activePerks)} onClick={() => props.togglePerk("bullseye")} image={bullseye} tooltipText={tooltips.bullseye} />
-                <Perk isActive={isPerkActive("dodge", props.activePerks)} onClick={() => props.togglePerk("dodge")} image={dodge} tooltipText={tooltips.dodge} />
-                <Perk isActive={isPerkActive("fortifiedMind", props.activePerks)} onClick={() => props.togglePerk("fortifiedMind")} image={fortifiedMind} tooltipText={tooltips.fortifiedMind} />
-                <Perk isActive={isPerkActive("resilient", props.activePerks)} onClick={() => props.togglePerk("resilient")} image={resilient} tooltipText={tooltips.resilient} />
-                <Perk isActive={isPerkActive("steelBrow", props.activePerks)} onClick={() => props.togglePerk("steelBrow")} image={steelBrow} tooltipText={tooltips.steelBrow} />
-                <Perk isActive={isPerkActive("quickHands", props.activePerks)} onClick={() => props.togglePerk("quickHands")} image={quickHands} tooltipText={tooltips.quickHands} />
-                <Perk isActive={isPerkActive("gifted", props.activePerks)} onClick={() => props.togglePerk("gifted")} image={gifted} tooltipText={tooltips.gifted} />
+                <Perk isActive={isPerkActive("executioner", activePerks)} onClick={() => togglePerk("executioner")} image={executioner} tooltipText={tooltips.executioner} />
+                <Perk isActive={isPerkActive("bullseye", activePerks)} onClick={() => togglePerk("bullseye")} image={bullseye} tooltipText={tooltips.bullseye} />
+                <Perk isActive={isPerkActive("dodge", activePerks)} onClick={() => togglePerk("dodge")} image={dodge} tooltipText={tooltips.dodge} />
+                <Perk isActive={isPerkActive("fortifiedMind", activePerks)} onClick={() => togglePerk("fortifiedMind")} image={fortifiedMind} tooltipText={tooltips.fortifiedMind} />
+                <Perk isActive={isPerkActive("resilient", activePerks)} onClick={() => togglePerk("resilient")} image={resilient} tooltipText={tooltips.resilient} />
+                <Perk isActive={isPerkActive("steelBrow", activePerks)} onClick={() => togglePerk("steelBrow")} image={steelBrow} tooltipText={tooltips.steelBrow} />
+                <Perk isActive={isPerkActive("quickHands", activePerks)} onClick={() => togglePerk("quickHands")} image={quickHands} tooltipText={tooltips.quickHands} />
+                <Perk isActive={isPerkActive("gifted", activePerks)} onClick={() => togglePerk("gifted")} image={gifted} tooltipText={tooltips.gifted} />
             </div>
             <div className="perkRow perkRow_two">
-                <Perk isActive={isPerkActive("backstabber", props.activePerks)} onClick={() => props.togglePerk("backstabber")} image={backstabber} tooltipText={tooltips.backstabber} />
-                <Perk isActive={isPerkActive("anticipation", props.activePerks)} onClick={() => props.togglePerk("anticipation")} image={anticipation} tooltipText={tooltips.anticipation} />
-                <Perk isActive={isPerkActive("shieldExpert", props.activePerks)} onClick={() => props.togglePerk("shieldExpert")} image={shieldExpert} tooltipText={tooltips.shieldExpert} />
-                <Perk isActive={isPerkActive("brawny", props.activePerks)} onClick={() => props.togglePerk("brawny")} image={brawny} tooltipText={tooltips.brawny} />
-                <Perk isActive={isPerkActive("relentless", props.activePerks)} onClick={() => props.togglePerk("relentless")} image={relentless} tooltipText={tooltips.relentless} />
-                <Perk isActive={isPerkActive("rotation", props.activePerks)} onClick={() => props.togglePerk("rotation")} image={rotation} tooltipText={tooltips.rotation} />
-                <Perk isActive={isPerkActive("rally", props.activePerks)} onClick={() => props.togglePerk("rally")} image={rally} tooltipText={tooltips.rally} />
-                <Perk isActive={isPerkActive("taunt", props.activePerks)} onClick={() => props.togglePerk("taunt")} image={taunt} tooltipText={tooltips.taunt} />
+                <Perk isActive={isPerkActive("backstabber", activePerks)} onClick={() => togglePerk("backstabber")} image={backstabber} tooltipText={tooltips.backstabber} />
+                <Perk isActive={isPerkActive("anticipation", activePerks)} onClick={() => togglePerk("anticipation")} image={anticipation} tooltipText={tooltips.anticipation} />
+                <Perk isActive={isPerkActive("shieldExpert", activePerks)} onClick={() => togglePerk("shieldExpert")} image={shieldExpert} tooltipText={tooltips.shieldExpert} />
+                <Perk isActive={isPerkActive("brawny", activePerks)} onClick={() => togglePerk("brawny")} image={brawny} tooltipText={tooltips.brawny} />
+                <Perk isActive={isPerkActive("relentless", activePerks)} onClick={() => togglePerk("relentless")} image={relentless} tooltipText={tooltips.relentless} />
+                <Perk isActive={isPerkActive("rotation", activePerks)} onClick={() => togglePerk("rotation")} image={rotation} tooltipText={tooltips.rotation} />
+                <Perk isActive={isPerkActive("rally", activePerks)} onClick={() => togglePerk("rally")} image={rally} tooltipText={tooltips.rally} />
+                <Perk isActive={isPerkActive("taunt", activePerks)} onClick={() => togglePerk("taunt")} image={taunt} tooltipText={tooltips.taunt} />
             </div>
             <div className="perkRow perkRow_two">
-                <Perk isActive={isPerkActive("maceMastery", props.activePerks)} onClick={() => props.togglePerk("maceMastery")} image={maceMastery} tooltipText={tooltips.maceMastery} />
-                <Perk isActive={isPerkActive("flailMastery", props.activePerks)} onClick={() => props.togglePerk("flailMastery")} image={flailMastery} tooltipText={tooltips.flailMastery} />
-                <Perk isActive={isPerkActive("hammerMastery", props.activePerks)} onClick={() => props.togglePerk("hammerMastery")} image={hammerMastery} tooltipText={tooltips.hammerMastery} />
-                <Perk isActive={isPerkActive("axeMastery", props.activePerks)} onClick={() => props.togglePerk("axeMastery")} image={axeMastery} tooltipText={tooltips.axeMastery} />
-                <Perk isActive={isPerkActive("cleaverMastery", props.activePerks)} onClick={() => props.togglePerk("cleaverMastery")} image={cleaverMastery} tooltipText={tooltips.cleaverMastery} />
-                <Perk isActive={isPerkActive("swordMastery", props.activePerks)} onClick={() => props.togglePerk("swordMastery")} image={swordMastery} tooltipText={tooltips.swordMastery} />
-                <Perk isActive={isPerkActive("daggerMastery", props.activePerks)} onClick={() => props.togglePerk("daggerMastery")} image={daggerMastery} tooltipText={tooltips.daggerMastery} />
-                <Perk isActive={isPerkActive("polearmMastery", props.activePerks)} onClick={() => props.togglePerk("polearmMastery")} image={polearmMastery} tooltipText={tooltips.polearmMastery} />
-                <Perk isActive={isPerkActive("spearMastery", props.activePerks)} onClick={() => props.togglePerk("spearMastery")} image={spearMastery} tooltipText={tooltips.spearMastery} />
-                <Perk isActive={isPerkActive("crossbowMastery", props.activePerks)} onClick={() => props.togglePerk("crossbowMastery")} image={crossbowMastery} tooltipText={tooltips.crossbowMastery} />
-                <Perk isActive={isPerkActive("bowMastery", props.activePerks)} onClick={() => props.togglePerk("bowMastery")} image={bowMastery} tooltipText={tooltips.bowMastery} />
-                <Perk isActive={isPerkActive("throwingMastery", props.activePerks)} onClick={() => props.togglePerk("throwingMastery")} image={throwingMastery} tooltipText={tooltips.throwingMastery} />
+                <Perk isActive={isPerkActive("maceMastery", activePerks)} onClick={() => togglePerk("maceMastery")} image={maceMastery} tooltipText={tooltips.maceMastery} />
+                <Perk isActive={isPerkActive("flailMastery", activePerks)} onClick={() => togglePerk("flailMastery")} image={flailMastery} tooltipText={tooltips.flailMastery} />
+                <Perk isActive={isPerkActive("hammerMastery", activePerks)} onClick={() => togglePerk("hammerMastery")} image={hammerMastery} tooltipText={tooltips.hammerMastery} />
+                <Perk isActive={isPerkActive("axeMastery", activePerks)} onClick={() => togglePerk("axeMastery")} image={axeMastery} tooltipText={tooltips.axeMastery} />
+                <Perk isActive={isPerkActive("cleaverMastery", activePerks)} onClick={() => togglePerk("cleaverMastery")} image={cleaverMastery} tooltipText={tooltips.cleaverMastery} />
+                <Perk isActive={isPerkActive("swordMastery", activePerks)} onClick={() => togglePerk("swordMastery")} image={swordMastery} tooltipText={tooltips.swordMastery} />
+                <Perk isActive={isPerkActive("daggerMastery", activePerks)} onClick={() => togglePerk("daggerMastery")} image={daggerMastery} tooltipText={tooltips.daggerMastery} />
+                <Perk isActive={isPerkActive("polearmMastery", activePerks)} onClick={() => togglePerk("polearmMastery")} image={polearmMastery} tooltipText={tooltips.polearmMastery} />
+                <Perk isActive={isPerkActive("spearMastery", activePerks)} onClick={() => togglePerk("spearMastery")} image={spearMastery} tooltipText={tooltips.spearMastery} />
+                <Perk isActive={isPerkActive("crossbowMastery", activePerks)} onClick={() => togglePerk("crossbowMastery")} image={crossbowMastery} tooltipText={tooltips.crossbowMastery} />
+                <Perk isActive={isPerkActive("bowMastery", activePerks)} onClick={() => togglePerk("bowMastery")} image={bowMastery} tooltipText={tooltips.bowMastery} />
+                <Perk isActive={isPerkActive("throwingMastery", activePerks)} onClick={() => togglePerk("throwingMastery")} image={throwingMastery} tooltipText={tooltips.throwingMastery} />
             </div>
             <div className="perkRow perkRow_two">
-                <Perk isActive={isPerkActive("reachAdvantage", props.activePerks)} onClick={() => props.togglePerk("reachAdvantage")} image={reachAdvantage} tooltipText={tooltips.reachAdvantage} />
-                <Perk isActive={isPerkActive("overwhelm", props.activePerks)} onClick={() => props.togglePerk("overwhelm")} image={overwhelm} tooltipText={tooltips.overwhelm} />
-                <Perk isActive={isPerkActive("loneWolf", props.activePerks)} onClick={() => props.togglePerk("loneWolf")} image={loneWolf} tooltipText={tooltips.loneWolf} />
-                <Perk isActive={isPerkActive("underdog", props.activePerks)} onClick={() => props.togglePerk("underdog")} image={underdog} tooltipText={tooltips.underdog} />
-                <Perk isActive={isPerkActive("footwork", props.activePerks)} onClick={() => props.togglePerk("footwork")} image={footwork} tooltipText={tooltips.footwork} />
+                <Perk isActive={isPerkActive("reachAdvantage", activePerks)} onClick={() => togglePerk("reachAdvantage")} image={reachAdvantage} tooltipText={tooltips.reachAdvantage} />
+                <Perk isActive={isPerkActive("overwhelm", activePerks)} onClick={() => togglePerk("overwhelm")} image={overwhelm} tooltipText={tooltips.overwhelm} />
+                <Perk isActive={isPerkActive("loneWolf", activePerks)} onClick={() => togglePerk("loneWolf")} image={loneWolf} tooltipText={tooltips.loneWolf} />
+                <Perk isActive={isPerkActive("underdog", activePerks)} onClick={() => togglePerk("underdog")} image={underdog} tooltipText={tooltips.underdog} />
+                <Perk isActive={isPerkActive("footwork", activePerks)} onClick={() => togglePerk("footwork")} image={footwork} tooltipText={tooltips.footwork} />
             </div>
             <div className="perkRow perkRow_two">
-                <Perk isActive={isPerkActive("berserk", props.activePerks)} onClick={() => props.togglePerk("berserk")} image={berserk} tooltipText={tooltips.berserk} />
-                <Perk isActive={isPerkActive("headhunter", props.activePerks)} onClick={() => props.togglePerk("headhunter")} image={headhunter} tooltipText={tooltips.headhunter} />
-                <Perk isActive={isPerkActive("nimble", props.activePerks)} onClick={() => props.togglePerk("nimble")} image={nimble} tooltipText={tooltips.nimble} />
-                <Perk isActive={isPerkActive("battleForged", props.activePerks)} onClick={() => props.togglePerk("battleForged")} image={battleForged} tooltipText={tooltips.battleForged} />
+                <Perk isActive={isPerkActive("berserk", activePerks)} onClick={() => togglePerk("berserk")} image={berserk} tooltipText={tooltips.berserk} />
+                <Perk isActive={isPerkActive("headhunter", activePerks)} onClick={() => togglePerk("headhunter")} image={headhunter} tooltipText={tooltips.headhunter} />
+                <Perk isActive={isPerkActive("nimble", activePerks)} onClick={() => togglePerk("nimble")} image={nimble} tooltipText={tooltips.nimble} />
+                <Perk isActive={isPerkActive("battleForged", activePerks)} onClick={() => togglePerk("battleForged")} image={battleForged} tooltipText={tooltips.battleForged} />
             </div>
             <div className="perkRow perkRow_two">
-                <Perk isActive={isPerkActive("fearsome", props.activePerks)} onClick={() => props.togglePerk("fearsome")} image={fearsome} tooltipText={tooltips.fearsome} />
-                <Perk isActive={isPerkActive("duelist", props.activePerks)} onClick={() => props.togglePerk("duelist")} image={duelist} tooltipText={tooltips.duelist} />
-                <Perk isActive={isPerkActive("killingFrenzy", props.activePerks)} onClick={() => props.togglePerk("killingFrenzy")} image={killingFrenzy} tooltipText={tooltips.killingFrenzy} />
-                <Perk isActive={isPerkActive("indomitable", props.activePerks)} onClick={() => props.togglePerk("indomitable")} image={indomitable} tooltipText={tooltips.indomitable} />
+                <Perk isActive={isPerkActive("fearsome", activePerks)} onClick={() => togglePerk("fearsome")} image={fearsome} tooltipText={tooltips.fearsome} />
+                <Perk isActive={isPerkActive("duelist", activePerks)} onClick={() => togglePerk("duelist")} image={duelist} tooltipText={tooltips.duelist} />
+                <Perk isActive={isPerkActive("killingFrenzy", activePerks)} onClick={() => togglePerk("killingFrenzy")} image={killingFrenzy} tooltipText={tooltips.killingFrenzy} />
+                <Perk isActive={isPerkActive("indomitable", activePerks)} onClick={() => togglePerk("indomitable")} image={indomitable} tooltipText={tooltips.indomitable} />
             </div>
         </div>
     );
@@ -191,17 +186,3 @@ export const AllPerksBase: React.FC<AllPerksProps> = props => {
 const isPerkActive = (perkId: string, activePerkIds: string[]) => {
     return activePerkIds.indexOf(perkId) > -1;
 };
-
-const mapStateToProps = (state: AppState) => ({
-    activePerks: state.activePerkIds,
-});
-
-const mapDispatchToProps = {
-    togglePerk,
-    canAddPerk,
-};
-
-export const AllPerks = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(AllPerksBase);

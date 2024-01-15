@@ -6,8 +6,9 @@ interface RequiredLevelProps {
     currentPerkAmount: number;
 }
 
-export const RequiredLevel: React.FC<RequiredLevelProps> = props => {
+export const RequiredLevel = (props: RequiredLevelProps): JSX.Element => {
     const {isStudent, currentPerkAmount} = props;
+
     let requiredLevel = 1;
     requiredLevel += currentPerkAmount;
     if (isStudent && currentPerkAmount >= maxLevel) {

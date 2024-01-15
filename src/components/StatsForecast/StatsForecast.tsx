@@ -16,23 +16,24 @@ import {connect} from 'react-redux';
 import {AppState, Stars, StatNums, StatType} from '../../models';
 import {LevelBar} from './LevelBar';
 import {ForecastInfoButton} from './ForecastInfoButton';
+import {useActivePerkIds} from '../../stores/perkStore';
 
 interface StatsForecastProps {
     statNums: StatNums;
     stars: Stars;
-    activePerkIds: string[];
     setStat: (statType: StatType, num: number) => void;
     setStar: (statType: StatType, amount: number) => void;
 }
 
-export const StatsForecastBase: React.FC<StatsForecastProps> = props => {
+export const StatsForecastBase = (props: StatsForecastProps): JSX.Element => {
     const {
         statNums,
         stars,
-        activePerkIds,
         setStat,
         setStar,
     } = props;
+
+    const activePerkIds = useActivePerkIds();
 
     const getSetStat = (statType: StatType) => {
         return (value: number) => {
@@ -138,7 +139,6 @@ export const StatsForecastBase: React.FC<StatsForecastProps> = props => {
 const mapStateToProps = (state: AppState) => ({
     statNums: state.statNums,
     stars: state.stars,
-    activePerkIds: state.activePerkIds,
 });
 
 const mapDispatchToProps = {

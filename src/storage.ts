@@ -1,4 +1,4 @@
-import {AppState, AppStateWithURL} from './models';
+import {AppState, LocalStorageBuildData} from './models';
 import {loadFromURL} from './url';
 
 Storage.prototype.setObject = function(key: string, value: Object) {
@@ -15,11 +15,10 @@ Storage.prototype.getObject = function(key: string): Object | undefined {
  * If no existing entry is found in storage, no state will be saved unless `forceSave` is true.
  */
 export const updateStorageForCurrentBuild = (appState: AppState, forceSave: boolean = false): boolean => {
-    const stateToSave: AppStateWithURL = {
-        ...appState,
+    const stateToSave: LocalStorageBuildData = {
         url: window.location.search,
     };
-    const storage = localStorage.getObject(appState.buildName) as AppStateWithURL | undefined;
+    const storage = localStorage.getObject(appState.buildName) as LocalStorageBuildData | undefined;
     const buildId = appState.buildName;
 
     if (forceSave) {
@@ -58,7 +57,7 @@ export const removeBuildFromStorage = (buildId: string): string[] => {
 };
 
 export const loadFromStorage = (buildName: string): boolean => {
-    const storage = localStorage.getObject(buildName) as AppStateWithURL | undefined;
+    const storage = localStorage.getObject(buildName) as LocalStorageBuildData | undefined;
     if (storage) {
         window.history.pushState({}, "", storage.url);
         loadFromURL();

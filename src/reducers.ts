@@ -1,95 +1,30 @@
 import {
     CREATE_NEW_BUILD,
-    RESET_PERKS,
     RESET_STARS,
     RESET_STAT_NUMS,
     SET_BUILD_ID_LIST,
     SET_BUILD_NAME, SET_LOADOUT_ITEMS, SET_LOADOUT_SLOT,
-    SET_PERKS,
     SET_STAR,
     SET_STARS,
     SET_STAT,
     SET_STAT_NUMS,
-    SET_STUDENT,
-    SET_THEME_ID,
-    TOGGLE_PERK,
 } from './actions';
 import {AnyAction} from 'redux';
-import {getAvailableNumberOfPerks, maxLevel} from './logic';
 import {resetURL, saveToURL} from './url';
 import {AppState} from './models';
 import {updateStorageForCurrentBuild} from './storage';
-import {saveThemeId} from './storageTheme';
 import {getNewLoadoutItems, getNewStars, getNewStatNums, initialState} from './initialState';
+import {perkStore, useActivePerkIds} from './stores/perkStore';
 
 export const appReducer = (state: AppState = initialState, action: AnyAction): AppState => {
     let newState: AppState = state;
     switch (action.type) {
-        case TOGGLE_PERK: {
-            const { perkId } = action.payload;
-            if (state.activePerkIds.indexOf(perkId) > -1) {
-                // It exists, so remove it
-                newState = {
-                    ...state,
-                    activePerkIds: [...state.activePerkIds].filter(item => item !== perkId),
-                };
-                if (perkId === "student") {
-                    newState.isStudent = false;
-                }
-            } else {
-                // It doesn't exist, so try to add it
-                if (perkId === "student" || getAvailableNumberOfPerks(state.activePerkIds.length, maxLevel, state.isStudent) >= 1) {
-                    newState = {
-                        ...state,
-                        activePerkIds: [...state.activePerkIds, perkId],
-                    };
-                    if (perkId === "student") {
-                        newState.isStudent = true;
-                    }
-                } else {
-                    // do nothing; there are no available perks left
-                }
-            }
-
-            // TODO: This should probably be in a thunk, not in a reducer
-            saveToURL(newState);
-            updateStorageForCurrentBuild(newState);
-            break;
-        }
-        case SET_STUDENT: {
-            const { isStudent } = action.payload;
-            newState = {
-                ...state,
-                isStudent,
-            };
-            break;
-        }
-        case SET_PERKS: {
-            const { activePerkIds } = action.payload;
-            newState = {
-                ...state,
-                activePerkIds,
-            };
-            break;
-        }
-        case RESET_PERKS: {
-            newState = {
-                ...state,
-                activePerkIds: [],
-                isStudent: false,
-            };
-
-            // Don't save! To avoid accidental resets, wait for the user to pick their first perk to save
-            // saveToURL(newState, true);
-            // updateStorageForCurrentBuild(newState);
-            break;
-        }
         case CREATE_NEW_BUILD: {
             newState = {
                 ...state,
-                activePerkIds: [],
+                // activePerkIds: [],
                 buildName: initialState.buildName,
-                isStudent: initialState.isStudent,
+                // isStudent: initialState.isStudent,
                 statNums: getNewStatNums(),
                 stars: getNewStars(),
                 loadoutItems: getNewLoadoutItems(),
@@ -112,7 +47,10 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
             };
 
             // TODO: This should probably be in a thunk, not in a reducer
-            saveToURL(newState);
+            saveToURL({
+                ...newState,
+                activePerkIds: perkStore.getState().activePerkIds,
+            });
             updateStorageForCurrentBuild(newState);
             break;
         }
@@ -131,7 +69,10 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
             };
 
             // TODO: This should probably be in a thunk, not in a reducer
-            saveToURL(newState);
+            saveToURL({
+                ...newState,
+                activePerkIds: perkStore.getState().activePerkIds,
+            });
             updateStorageForCurrentBuild(newState);
             break;
         }
@@ -148,7 +89,10 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
             };
 
             // TODO: This should probably be in a thunk, not in a reducer
-            saveToURL(newState);
+            saveToURL({
+                ...newState,
+                activePerkIds: perkStore.getState().activePerkIds,
+            });
             updateStorageForCurrentBuild(newState);
             break;
         }
@@ -167,7 +111,10 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
             };
 
             // TODO: This should probably be in a thunk, not in a reducer
-            saveToURL(newState);
+            saveToURL({
+                ...newState,
+                activePerkIds: perkStore.getState().activePerkIds,
+            });
             updateStorageForCurrentBuild(newState);
             break;
         }
@@ -180,7 +127,10 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
                     [loadoutSlot]: itemName,
                 },
             };
-            saveToURL(newState);
+            saveToURL({
+                ...newState,
+                activePerkIds: perkStore.getState().activePerkIds,
+            });
             updateStorageForCurrentBuild(newState);
             break;
         }
@@ -202,7 +152,10 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
             // TODO: This should probably be in a thunk, not in a reducer
             document.title = buildName ? buildName : "BB Planner";
             if (withSave) {
-                saveToURL(newState);
+                saveToURL({
+                    ...newState,
+                    activePerkIds: perkStore.getState().activePerkIds,
+                });
             }
             break;
         }

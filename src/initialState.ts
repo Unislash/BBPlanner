@@ -37,9 +37,7 @@ export const getNewLoadoutItems = () => ({
 });
 
 export const initialState: AppState = {
-    activePerkIds: [],
     buildName: '',
-    isStudent: false,
     statNums: getNewStatNums(),
     stars: getNewStars(),
     loadoutItems: getNewLoadoutItems(),
