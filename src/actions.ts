@@ -2,9 +2,6 @@ import {AnyAction} from 'redux';
 import {LoadoutItems, LoadoutSlotType, Stars, StatNums, StatType} from './models';
 
 export const CREATE_NEW_BUILD = "CREATE_NEW_BUILD";
-export const SET_STAT = "SET_STAT";
-export const RESET_STAT_NUMS = "RESET_STAT_NUMS";
-export const SET_STAT_NUMS = "SET_STAT_NUMS";
 export const SET_STAR = "SET_STAR";
 export const RESET_STARS = "RESET_STARS";
 export const SET_STARS = "SET_STARS";
@@ -15,21 +12,6 @@ export const SET_LOADOUT_ITEMS = "SET_LOADOUT_ITEMS";
 
 export const createNewBuild = (): AnyAction => ({
     type: CREATE_NEW_BUILD,
-    payload: {},
-});
-
-export const setStat = (statType: StatType, num: number): AnyAction => ({
-    type: SET_STAT,
-    payload: {statType, num},
-});
-
-export const setStatNums = (statNums: StatNums): AnyAction => ({
-    type: SET_STAT_NUMS,
-    payload: {statNums},
-});
-
-export const resetStatNums = (): AnyAction => ({
-    type: RESET_STAT_NUMS,
     payload: {},
 });
 

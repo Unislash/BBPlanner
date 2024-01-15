@@ -5,14 +5,14 @@ import {
     setBuildName,
     setLoadoutItems,
     setStars,
-    setStatNums,
 } from './actions';
 import {AppState, LoadoutItems, Stars, StatNums} from './models';
 import {getNewLoadoutItems, getNewStars, getNewStatNums, initialState} from './initialState';
 import {idsByItem} from './components/Loadout/idsByItem';
 import {itemsById} from './components/Loadout/itemsById';
 import {to64Parse, to64String} from './compressionUtils';
-import {initialPerkStore, perkStore, PerkStore, usePerkActions} from './stores/perkStore';
+import {initialPerkStore, perkStore, PerkStore} from './stores/perkStore';
+import {initialStatsStore, statsStore, StatsStore} from './stores/statsStore';
 
 export const padString = (padding: string, strToPad: string, padLeft: boolean = true) => {
     if (typeof strToPad === 'undefined')
@@ -143,7 +143,8 @@ export const resetURL = (shouldCreateHistoryEntry?: boolean): string => {
 
 export interface StateToSaveToUrl extends
     Pick<PerkStore, 'activePerkIds'>,
-    Pick<AppState, 'statNums' | 'stars' | 'loadoutItems' | 'buildName'>
+    Pick<StatsStore, 'statNums'>,
+    Pick<AppState, 'stars' | 'loadoutItems' | 'buildName'>
 {}
 
 export const saveToURL = (state: StateToSaveToUrl, shouldCreateHistoryEntry?: boolean): string => {
@@ -154,7 +155,7 @@ export const saveToURL = (state: StateToSaveToUrl, shouldCreateHistoryEntry?: bo
     const compressedStars = compressStars(state.stars);
     const compressedLoadoutItems = compressLoadoutItems(state.loadoutItems);
     const compressedInitialPerks = compressPerks(initialPerkStore.activePerkIds);
-    const compressedInitialStats = compressStats(initialState.statNums);
+    const compressedInitialStats = compressStats(initialStatsStore.statNums);
     const compressedInitialStars = compressStars(initialState.stars);
     const compressedInitialLoadoutItems = compressLoadoutItems(initialState.loadoutItems);
 
@@ -193,6 +194,7 @@ export const saveToURL = (state: StateToSaveToUrl, shouldCreateHistoryEntry?: bo
 
 export const loadFromURL = () => {
     const {setStudent, setPerks} = perkStore.getState().actions;
+    const {setStatNums} = statsStore.getState().actions;
 
     const name = getQueryStringParameter("name");
     if (name) {
@@ -213,9 +215,9 @@ export const loadFromURL = () => {
 
     const compressedStats = getQueryStringParameter("stats");
     if (compressedStats) {
-        store.dispatch(setStatNums(uncompressStats(compressedStats)));
+        setStatNums(uncompressStats(compressedStats));
     } else {
-        store.dispatch(setStatNums(getNewStatNums()));
+        setStatNums(getNewStatNums());
     }
 
     const compressedStars = getQueryStringParameter("stars");

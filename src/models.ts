@@ -24,7 +24,6 @@ export enum ThemeId {
 
 export interface AppState {
     buildName: string;
-    statNums: StatNums;
     stars: Stars;
     loadoutItems: LoadoutItems;
     buildIdList: string[];
