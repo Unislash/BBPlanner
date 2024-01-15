@@ -1,18 +1,16 @@
 import {
     CREATE_NEW_BUILD,
-    RESET_STARS,
     SET_BUILD_ID_LIST,
     SET_BUILD_NAME, SET_LOADOUT_ITEMS, SET_LOADOUT_SLOT,
-    SET_STAR,
-    SET_STARS,
 } from './actions';
 import {AnyAction} from 'redux';
 import {resetURL, saveToURL} from './url';
 import {AppState} from './models';
 import {updateStorageForCurrentBuild} from './storage';
-import {getNewLoadoutItems, getNewStars, initialState} from './initialState';
+import {getNewLoadoutItems, initialState} from './initialState';
 import {perkStore} from './stores/perkStore';
 import {statsStore} from './stores/statsStore';
+import {starsStore} from './stores/starsStore';
 
 export const appReducer = (state: AppState = initialState, action: AnyAction): AppState => {
     let newState: AppState = state;
@@ -24,56 +22,12 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
                 buildName: initialState.buildName,
                 // isStudent: initialState.isStudent,
                 // statNums: getNewStatNums(),
-                stars: getNewStars(),
+                // stars: getNewStars(),
                 loadoutItems: getNewLoadoutItems(),
             };
 
             // TODO: This should probably be in a thunk, not in a reducer
             resetURL(true);
-            break;
-        }
-        case SET_STAR: {
-            const { statType, amount } = action.payload;
-            const newStars = {
-                ...state.stars,
-            };
-            newStars[statType] = amount; // modify in-place to retain object attribute order
-
-            newState = {
-                ...state,
-                stars: newStars,
-            };
-
-            // TODO: This should probably be in a thunk, not in a reducer
-            saveToURL({
-                ...newState,
-                statNums: statsStore.getState().statNums,
-                activePerkIds: perkStore.getState().activePerkIds,
-            });
-            updateStorageForCurrentBuild(newState);
-            break;
-        }
-        case SET_STARS: {
-            const { stars } = action.payload;
-            newState = {
-                ...state,
-                stars,
-            };
-            break;
-        }
-        case RESET_STARS: {
-            newState = {
-                ...state,
-                stars: getNewStars(),
-            };
-
-            // TODO: This should probably be in a thunk, not in a reducer
-            saveToURL({
-                ...newState,
-                statNums: statsStore.getState().statNums,
-                activePerkIds: perkStore.getState().activePerkIds,
-            });
-            updateStorageForCurrentBuild(newState);
             break;
         }
         case SET_LOADOUT_SLOT: {
@@ -89,6 +43,7 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
                 ...newState,
                 statNums: statsStore.getState().statNums,
                 activePerkIds: perkStore.getState().activePerkIds,
+                stars: starsStore.getState().stars,
             });
             updateStorageForCurrentBuild(newState);
             break;
@@ -115,6 +70,7 @@ export const appReducer = (state: AppState = initialState, action: AnyAction): A
                     ...newState,
                     statNums: statsStore.getState().statNums,
                     activePerkIds: perkStore.getState().activePerkIds,
+                    stars: starsStore.getState().stars,
                 });
             }
             break;

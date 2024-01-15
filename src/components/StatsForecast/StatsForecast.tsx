@@ -11,28 +11,19 @@ import rattackIcon from '../../images/stats/rattack.png';
 import mdefenseIcon from '../../images/stats/mdefense.png';
 import rdefenseIcon from '../../images/stats/rdefense.png';
 
-import {setStar} from '../../actions';
-import {connect} from 'react-redux';
-import {AppState, Stars, StatType} from '../../models';
+import {Stars, StatType} from '../../models';
 import {LevelBar} from './LevelBar';
 import {ForecastInfoButton} from './ForecastInfoButton';
 import {useActivePerkIds} from '../../stores/perkStore';
 import {useStatNums, useStatsActions} from '../../stores/statsStore';
+import {useStars, useStarsActions} from '../../stores/starsStore';
 
-interface StatsForecastProps {
-    stars: Stars;
-    setStar: (statType: StatType, amount: number) => void;
-}
-
-export const StatsForecastBase = (props: StatsForecastProps): JSX.Element => {
-    const {
-        stars,
-        setStar,
-    } = props;
-
+export const StatsForecast = (): JSX.Element => {
     const activePerkIds = useActivePerkIds();
     const statNums = useStatNums();
     const {setStat} = useStatsActions()
+    const stars = useStars();
+    const {setStar} = useStarsActions()
 
     const getSetStat = (statType: StatType) => {
         return (value: number) => {
@@ -134,16 +125,3 @@ export const StatsForecastBase = (props: StatsForecastProps): JSX.Element => {
         </div>
     );
 };
-
-const mapStateToProps = (state: AppState) => ({
-    stars: state.stars,
-});
-
-const mapDispatchToProps = {
-    setStar,
-};
-
-export const StatsForecast = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(StatsForecastBase);

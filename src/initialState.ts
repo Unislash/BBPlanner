@@ -38,7 +38,6 @@ export const getNewLoadoutItems = () => ({
 
 export const initialState: AppState = {
     buildName: '',
-    stars: getNewStars(),
     loadoutItems: getNewLoadoutItems(),
     buildIdList: [],
 };
