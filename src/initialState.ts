@@ -38,6 +38,5 @@ export const getNewLoadoutItems = () => ({
 
 export const initialState: AppState = {
     buildName: '',
-    loadoutItems: getNewLoadoutItems(),
     buildIdList: [],
 };

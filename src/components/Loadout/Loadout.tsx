@@ -1,24 +1,16 @@
 import * as React from 'react';
-import {setLoadoutSlot} from '../../actions';
-import {connect} from 'react-redux';
-import {AppState, LoadoutItem, LoadoutItems, LoadoutSlotType} from '../../models';
+import {LoadoutItem} from '../../models';
 import {LoadoutSelect} from './LoadoutSelect';
 import {accessories, ammo, armor, bags, helmets, offhandItems, TWO_HANDED_WEAPON, weapons} from '../../data/itemData';
-
-interface LoadoutProps {
-    loadoutItems: LoadoutItems;
-    setLoadoutSlot: (loadoutSlotType: LoadoutSlotType, item: string) => void;
-}
+import {useLoadoutActions, useLoadoutItems} from '../../stores/loadoutStore';
 
 const getLoadoutItemByName = (name: string, loadoutItemList: LoadoutItem[]) => {
     return loadoutItemList.find(item => name === item.id);
 };
 
-export const LoadoutBase: React.FC<LoadoutProps> = props => {
-    const {
-        loadoutItems,
-        setLoadoutSlot,
-    } = props;
+export const Loadout = (): JSX.Element => {
+    const loadoutItems = useLoadoutItems();
+    const {setLoadoutSlot} = useLoadoutActions();
 
     return (
         <div className="loadout">
@@ -130,16 +122,3 @@ export const LoadoutBase: React.FC<LoadoutProps> = props => {
         </div>
     );
 };
-
-const mapStateToProps = (state: AppState) => ({
-    loadoutItems: state.loadoutItems,
-});
-
-const mapDispatchToProps = {
-    setLoadoutSlot,
-};
-
-export const Loadout = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(LoadoutBase);

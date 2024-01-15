@@ -1,6 +1,7 @@
 import { devtools } from "zustand/middleware";
 import { useStore } from "zustand";
 import create from "zustand/vanilla";
+import shallow from 'zustand/shallow'
 import {Stars, StatType} from '../models';
 import {getNewStars} from '../initialState';
 
@@ -65,5 +66,5 @@ export const starsStore = create<StarsStore>()(
     )
 );
 
-export const useStars = () => useStore(starsStore, state => state.stars);
+export const useStars = () => useStore(starsStore, state => state.stars, shallow);
 export const useStarsActions = () => useStore(starsStore, state => state.actions)

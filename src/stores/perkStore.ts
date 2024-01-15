@@ -1,6 +1,7 @@
 import { devtools } from "zustand/middleware";
 import { useStore } from "zustand";
 import create from "zustand/vanilla";
+import shallow from 'zustand/shallow'
 import {getAvailableNumberOfPerks, maxLevel} from '../logic';
 
 export interface PerkStore {
@@ -71,7 +72,7 @@ export const perkStore = create<PerkStore>()(
     )
 );
 
-export const useActivePerkIds = () => useStore(perkStore, state => state.activePerkIds);
+export const useActivePerkIds = () => useStore(perkStore, state => state.activePerkIds, shallow);
 export const useIsStudent = () => useStore(perkStore, state => state.isStudent);
 export const useCanAddPerk = () => useStore(perkStore, state => getAvailableNumberOfPerks(state.activePerkIds.length, maxLevel, state.isStudent) >= 1);
 export const usePerkActions = () => useStore(perkStore, state => state.actions)

@@ -3,7 +3,6 @@ import {store} from './createStore';
 import {
     setBuildIdList,
     setBuildName,
-    setLoadoutItems,
 } from './actions';
 import {AppState, LoadoutItems, Stars, StatNums} from './models';
 import {getNewLoadoutItems, getNewStars, getNewStatNums, initialState} from './initialState';
@@ -13,6 +12,7 @@ import {to64Parse, to64String} from './compressionUtils';
 import {initialPerkStore, perkStore, PerkStore} from './stores/perkStore';
 import {initialStatsStore, statsStore, StatsStore} from './stores/statsStore';
 import {initialStarsStore, starsStore, StarsStore} from './stores/starsStore';
+import {initialLoadoutStore, loadoutStore, LoadoutStore} from './stores/loadoutStore';
 
 export const padString = (padding: string, strToPad: string, padLeft: boolean = true) => {
     if (typeof strToPad === 'undefined')
@@ -145,7 +145,8 @@ export interface StateToSaveToUrl extends
     Pick<PerkStore, 'activePerkIds'>,
     Pick<StatsStore, 'statNums'>,
     Pick<StarsStore, 'stars'>,
-    Pick<AppState, 'loadoutItems' | 'buildName'>
+    Pick<LoadoutStore, 'loadoutItems'>,
+    Pick<AppState, 'buildName'>
 {}
 
 export const saveToURL = (state: StateToSaveToUrl, shouldCreateHistoryEntry?: boolean): string => {
@@ -158,7 +159,7 @@ export const saveToURL = (state: StateToSaveToUrl, shouldCreateHistoryEntry?: bo
     const compressedInitialPerks = compressPerks(initialPerkStore.activePerkIds);
     const compressedInitialStats = compressStats(initialStatsStore.statNums);
     const compressedInitialStars = compressStars(initialStarsStore.stars);
-    const compressedInitialLoadoutItems = compressLoadoutItems(initialState.loadoutItems);
+    const compressedInitialLoadoutItems = compressLoadoutItems(initialLoadoutStore.loadoutItems);
 
     // Determine if we should clear any url parameters
     const shouldSaveNameChunk = state.buildName !== initialState.buildName;
@@ -197,6 +198,7 @@ export const loadFromURL = () => {
     const {setStudent, setPerks} = perkStore.getState().actions;
     const {setStatNums} = statsStore.getState().actions;
     const {setStars} = starsStore.getState().actions;
+    const {setLoadoutItems} = loadoutStore.getState().actions;
 
     const name = getQueryStringParameter("name");
     if (name) {
@@ -231,9 +233,9 @@ export const loadFromURL = () => {
 
     const compressedLoadoutItems = getQueryStringParameter("gear");
     if (compressedLoadoutItems) {
-        store.dispatch(setLoadoutItems(uncompressLoadoutItems(compressedLoadoutItems)));
+        setLoadoutItems(uncompressLoadoutItems(compressedLoadoutItems));
     } else {
-        store.dispatch(setLoadoutItems(getNewLoadoutItems()));
+        setLoadoutItems(getNewLoadoutItems());
     }
 
     store.dispatch(setBuildIdList(localStorage.getObject("bbplanner") || []));
