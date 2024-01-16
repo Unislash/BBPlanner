@@ -1,9 +1,11 @@
 import { devtools } from "zustand/middleware";
 import { useStore } from "zustand";
-import create from "zustand/vanilla";
-import shallow from 'zustand/shallow'
+import {createStore} from "zustand/vanilla";
+import {shallow} from 'zustand/shallow'
 import {LoadoutItems, LoadoutSlotType} from '../models';
 import {getNewLoadoutItems} from './initialState';
+import {saveToURL} from '../url';
+import {updateStorageForCurrentBuild} from '../storage';
 
 export interface LoadoutStore {
     loadoutItems: LoadoutItems;
@@ -17,7 +19,7 @@ export const initialLoadoutStore = {
     loadoutItems: getNewLoadoutItems(),
 }
 
-export const loadoutStore = create<LoadoutStore>()(
+export const loadoutStore = createStore<LoadoutStore>()(
     devtools(
         (set) => ({
             ...initialLoadoutStore,
@@ -30,13 +32,8 @@ export const loadoutStore = create<LoadoutStore>()(
                         },
                     };
 
-                    // saveToURL({
-                    //     ...newState,
-                    //     statNums: statsStore.getState().statNums,
-                    //     activePerkIds: perkStore.getState().activePerkIds,
-                    //     stars: starsStore.getState().stars,
-                    // });
-                    // updateStorageForCurrentBuild(newState);
+                    saveToURL(newState);
+                    updateStorageForCurrentBuild();
 
                     return newState;
                 }),

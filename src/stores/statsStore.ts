@@ -1,9 +1,11 @@
 import { devtools } from "zustand/middleware";
 import { useStore } from "zustand";
-import create from "zustand/vanilla";
-import shallow from 'zustand/shallow'
+import {createStore} from "zustand/vanilla";
+import {shallow} from 'zustand/shallow'
 import {StatNums, StatType} from '../models';
 import {getNewStatNums} from './initialState';
+import {saveToURL} from '../url';
+import {updateStorageForCurrentBuild} from '../storage';
 
 export interface StatsStore {
     statNums: StatNums;
@@ -18,7 +20,7 @@ export const initialStatsStore = {
     statNums: getNewStatNums(),
 }
 
-export const statsStore = create<StatsStore>()(
+export const statsStore = createStore<StatsStore>()(
     devtools(
         (set) => ({
             ...initialStatsStore,
@@ -33,11 +35,8 @@ export const statsStore = create<StatsStore>()(
                         statNums: newStatNums
                     }
 
-                    // TODO saveToURL
-                    // saveToURL({
-                    //     ...newState,
-                    // });
-                    // updateStorageForCurrentBuild(newState);
+                    saveToURL(newState);
+                    updateStorageForCurrentBuild();
 
                     return newState;
                 }),
@@ -47,11 +46,8 @@ export const statsStore = create<StatsStore>()(
                         statNums: getNewStatNums(),
                     };
 
-                    // TODO saveToURL
-                    // saveToURL({
-                    //     ...newState,
-                    // });
-                    // updateStorageForCurrentBuild(newState);
+                    saveToURL(newState);
+                    updateStorageForCurrentBuild();
 
                     return newState;
                 }),

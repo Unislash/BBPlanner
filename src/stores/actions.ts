@@ -1,16 +1,16 @@
 import {resetURL} from '../url';
-import {initialPerkStore, usePerkActions} from './perkStore';
-import {initialBuildStore, useBuildActions} from './buildStore';
-import {initialStatsStore, useStatsActions} from './statsStore';
-import {initialStarsStore, useStarsActions} from './starsStore';
-import {initialLoadoutStore, useLoadoutActions} from './loadoutStore';
+import {initialPerkStore, perkStore} from './perkStore';
+import {buildStore, initialBuildStore} from './buildStore';
+import {initialStatsStore, statsStore} from './statsStore';
+import {initialStarsStore, starsStore} from './starsStore';
+import {initialLoadoutStore, loadoutStore} from './loadoutStore';
 
 export const createNewBuild = () => {
-    const {setPerks, setStudent} = usePerkActions();
-    const {setBuildName} = useBuildActions();
-    const {setStatNums} = useStatsActions();
-    const {setStars} = useStarsActions();
-    const {setLoadoutItems} = useLoadoutActions();
+    const {setBuildName} = buildStore.getState().actions;
+    const {setPerks, setStudent} = perkStore.getState().actions;
+    const {setStatNums} = statsStore.getState().actions;
+    const {setStars} = starsStore.getState().actions;
+    const {setLoadoutItems} = loadoutStore.getState().actions;
 
     setPerks(initialPerkStore.activePerkIds);
     setStudent(initialPerkStore.isStudent);

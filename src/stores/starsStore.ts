@@ -1,9 +1,11 @@
 import { devtools } from "zustand/middleware";
 import { useStore } from "zustand";
-import create from "zustand/vanilla";
-import shallow from 'zustand/shallow'
+import {createStore} from "zustand/vanilla";
+import {shallow} from 'zustand/shallow'
 import {Stars, StatType} from '../models';
 import {getNewStars} from './initialState';
+import {saveToURL} from '../url';
+import {updateStorageForCurrentBuild} from '../storage';
 
 export interface StarsStore {
     stars: Stars;
@@ -18,7 +20,7 @@ export const initialStarsStore = {
     stars: getNewStars(),
 }
 
-export const starsStore = create<StarsStore>()(
+export const starsStore = createStore<StarsStore>()(
     devtools(
         (set) => ({
             ...initialStarsStore,
@@ -33,13 +35,8 @@ export const starsStore = create<StarsStore>()(
                         stars: newStars,
                     };
 
-                    // TODO saveToURL
-                    // saveToURL({
-                    //     ...newState,
-                    //     statNums: statsStore.getState().statNums,
-                    //     activePerkIds: perkStore.getState().activePerkIds,
-                    // });
-                    // updateStorageForCurrentBuild(newState);
+                    saveToURL(newState);
+                    updateStorageForCurrentBuild();
 
                     return newState;
                 }),
@@ -49,13 +46,8 @@ export const starsStore = create<StarsStore>()(
                         stars: getNewStars(),
                     };
 
-                    // TODO saveToURL
-                    // saveToURL({
-                    //     ...newState,
-                    //     statNums: statsStore.getState().statNums,
-                    //     activePerkIds: perkStore.getState().activePerkIds,
-                    // });
-                    // updateStorageForCurrentBuild(newState);
+                    saveToURL(newState);
+                    updateStorageForCurrentBuild();
 
                     return newState;
                 }),

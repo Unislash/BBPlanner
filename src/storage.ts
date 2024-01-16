@@ -1,6 +1,6 @@
 import {LocalStorageBuildData} from './models';
 import {loadFromURL} from './url';
-import {BuildStore} from './stores/buildStore';
+import {buildStore} from './stores/buildStore';
 
 Storage.prototype.setObject = function(key: string, value: Object) {
     this.setItem(key, JSON.stringify(value));
@@ -15,13 +15,12 @@ Storage.prototype.getObject = function(key: string): Object | undefined {
  * Updates any existing state in storage.
  * If no existing entry is found in storage, no state will be saved unless `forceSave` is true.
  */
-export const updateStorageForCurrentBuild = (state: BuildStore, forceSave: boolean = false): boolean => {
+export const updateStorageForCurrentBuild = (forceSave: boolean = false): boolean => {
     const stateToSave: LocalStorageBuildData = {
         url: window.location.search,
     };
-    const buildName = state.buildName;
-    const storage = localStorage.getObject(buildName) as LocalStorageBuildData | undefined;
-    const buildId = buildName;
+    const buildId = buildStore.getState().buildName;
+    const storage = localStorage.getObject(buildId) as LocalStorageBuildData | undefined;
 
     if (forceSave) {
         localStorage.setObject(buildId, stateToSave);

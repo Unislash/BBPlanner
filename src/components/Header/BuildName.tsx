@@ -10,7 +10,7 @@ export const BuildName = (): JSX.Element => {
             className="buildNameInput inputBar"
             type="text"
             value={buildName}
-            onChange={e => setBuildName(e.target.value)}
+            onChange={e => setBuildName(e.target.value, true)}
             placeholder="Untitled Build"
         />
     );

@@ -1,8 +1,10 @@
 import { devtools } from "zustand/middleware";
 import { useStore } from "zustand";
-import create from "zustand/vanilla";
-import shallow from 'zustand/shallow'
+import {createStore} from "zustand/vanilla";
+import {shallow} from 'zustand/shallow'
 import {getAvailableNumberOfPerks, maxLevel} from '../logic';
+import {saveToURL} from '../url';
+import {updateStorageForCurrentBuild} from '../storage';
 
 export interface PerkStore {
     activePerkIds: string[],
@@ -20,7 +22,7 @@ export const initialPerkStore = {
     isStudent: false,
 }
 
-export const perkStore = create<PerkStore>()(
+export const perkStore = createStore<PerkStore>()(
     devtools(
         (set) => ({
             ...initialPerkStore,
@@ -45,11 +47,8 @@ export const perkStore = create<PerkStore>()(
                             // do nothing; there are no available perks left
                         }
                     }
-                    // TODO saveToURL
-                    // saveToURL({
-                    //     newState
-                    // });
-                    // updateStorageForCurrentBuild(newState);
+                    saveToURL(newState);
+                    updateStorageForCurrentBuild();
 
                     return newState
                 }),
@@ -58,7 +57,7 @@ export const perkStore = create<PerkStore>()(
                 resetPerks: () => set(state => {
                     // Don't save! To avoid accidental resets, wait for the user to pick their first perk to save
                     // saveToURL(newState, true);
-                    // updateStorageForCurrentBuild(newState);
+                    // updateStorageForCurrentBuild();
 
                     return {
                         activePerkIds: [],

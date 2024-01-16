@@ -1,6 +1,6 @@
 import { devtools } from "zustand/middleware";
 import { useStore } from "zustand";
-import create from "zustand/vanilla";
+import {createStore} from "zustand/vanilla";
 import {ThemeId} from '../models';
 import {getThemeId, saveThemeId} from '../storageTheme';
 
@@ -15,7 +15,7 @@ export const initialThemeStore = {
     themeId: getThemeId(),
 }
 
-export const themeStore = create<ThemeStore>()(
+export const themeStore = createStore<ThemeStore>()(
     devtools(
         (set) => ({
             ...initialThemeStore,

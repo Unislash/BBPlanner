@@ -4,11 +4,11 @@ import {getNewLoadoutItems, getNewStars, getNewStatNums} from './stores/initialS
 import {idsByItem} from './components/Loadout/idsByItem';
 import {itemsById} from './components/Loadout/itemsById';
 import {to64Parse, to64String} from './compressionUtils';
-import {initialPerkStore, perkStore, PerkStore} from './stores/perkStore';
-import {initialStatsStore, statsStore, StatsStore} from './stores/statsStore';
-import {initialStarsStore, starsStore, StarsStore} from './stores/starsStore';
-import {initialLoadoutStore, loadoutStore, LoadoutStore} from './stores/loadoutStore';
-import {buildStore, BuildStore, initialBuildStore} from './stores/buildStore';
+import {initialPerkStore, perkStore, PerkStore, useActivePerkIds} from './stores/perkStore';
+import {initialStatsStore, statsStore, StatsStore, useStatNums} from './stores/statsStore';
+import {initialStarsStore, starsStore, StarsStore, useStars} from './stores/starsStore';
+import {initialLoadoutStore, loadoutStore, LoadoutStore, useLoadoutItems} from './stores/loadoutStore';
+import {buildStore, BuildStore, initialBuildStore, useBuildName} from './stores/buildStore';
 
 export const padString = (padding: string, strToPad: string, padLeft: boolean = true) => {
     if (typeof strToPad === 'undefined')
@@ -138,45 +138,38 @@ export const resetURL = (shouldCreateHistoryEntry?: boolean): string => {
 }
 
 export interface StateToSaveToUrl extends
-    Pick<PerkStore, 'activePerkIds'>,
-    Pick<StatsStore, 'statNums'>,
-    Pick<StarsStore, 'stars'>,
-    Pick<LoadoutStore, 'loadoutItems'>,
-    Pick<BuildStore, 'buildName'>
+    Partial<Pick<PerkStore, 'activePerkIds'>>,
+    Partial<Pick<StatsStore, 'statNums'>>,
+    Partial<Pick<StarsStore, 'stars'>>,
+    Partial<Pick<LoadoutStore, 'loadoutItems'>>,
+    Partial<Pick<BuildStore, 'buildName'>>
 {}
 
-export const saveToURL = (state: StateToSaveToUrl, shouldCreateHistoryEntry?: boolean): string => {
-    const params = new URLSearchParams(window.location.search);
+export const saveToURL = (partialState: StateToSaveToUrl, shouldCreateHistoryEntry?: boolean): string => {
+    const params = new URLSearchParams();
 
-    const compressedPerks = compressPerks(state.activePerkIds);
-    const compressedStats = compressStats(state.statNums);
-    const compressedStars = compressStars(state.stars);
-    const compressedLoadoutItems = compressLoadoutItems(state.loadoutItems);
-    const compressedInitialPerks = compressPerks(initialPerkStore.activePerkIds);
-    const compressedInitialStats = compressStats(initialStatsStore.statNums);
-    const compressedInitialStars = compressStars(initialStarsStore.stars);
-    const compressedInitialLoadoutItems = compressLoadoutItems(initialLoadoutStore.loadoutItems);
+    const {buildName} = buildStore.getState();
+    const {activePerkIds} = perkStore.getState();
+    const {statNums} = statsStore.getState();
+    const {stars} = starsStore.getState();
+    const {loadoutItems} = loadoutStore.getState();
 
-    // Determine if we should clear any url parameters
-    const shouldSaveNameChunk = state.buildName !== initialBuildStore.buildName;
-    const shouldSavePerkChunk = compressedPerks !== compressedInitialPerks;
-    const shouldSaveStatsChunk = compressedStats !== compressedInitialStats;
-    const shouldSaveStarsChunk = compressedStars !== compressedInitialStars;
-    const shouldSaveLoadoutItemsChunk = compressedLoadoutItems !== compressedInitialLoadoutItems;
+    // Helper function to determine if a state part has changed, and if so to update the URL parameter
+    const updateParam = (paramKey: string, currentValue: any, initialValue: any, compressFn: (val: any) => string) => {
+        const compressedValue = compressFn(currentValue);
+        const compressedInitialValue = compressFn(initialValue);
 
-    // Clear all url parameters (to keep the order consistent for readability)
-    params.delete("name");
-    params.delete("perks");
-    params.delete("stats");
-    params.delete("stars");
-    params.delete("gear");
+        if (compressedValue !== compressedInitialValue) {
+            params.set(paramKey, compressedValue);
+        }
+    };
 
-    // Add back any parameters that should be saved
-    shouldSaveNameChunk && params.set("name", state.buildName);
-    shouldSavePerkChunk && params.set("perks", compressedPerks);
-    shouldSaveStatsChunk && params.set("stats", compressedStats);
-    shouldSaveStarsChunk && params.set("stars", compressedStars);
-    shouldSaveLoadoutItemsChunk && params.set("gear", compressedLoadoutItems);
+    // Update URL parameters based on the current and initial state values
+    updateParam("name", partialState.buildName || buildName, initialBuildStore.buildName, (name) => name || '');
+    updateParam("perks", partialState.activePerkIds || activePerkIds, initialPerkStore.activePerkIds, compressPerks);
+    updateParam("stats", partialState.statNums || statNums, initialStatsStore.statNums, compressStats);
+    updateParam("stars", partialState.stars || stars, initialStarsStore.stars, compressStars);
+    updateParam("gear", partialState.loadoutItems || loadoutItems, initialLoadoutStore.loadoutItems, compressLoadoutItems);
 
     // Set history entry
     const newUrl = `${window.location.pathname}?${params}`;
@@ -186,7 +179,6 @@ export const saveToURL = (state: StateToSaveToUrl, shouldCreateHistoryEntry?: bo
         window.history.replaceState({}, "", newUrl);
     }
 
-    // Return url to caller
     return newUrl;
 };
 

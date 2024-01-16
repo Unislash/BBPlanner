@@ -1,8 +1,9 @@
 import { devtools } from "zustand/middleware";
 import { useStore } from "zustand";
-import create from "zustand/vanilla";
-import shallow from 'zustand/shallow'
+import {createStore} from "zustand/vanilla";
+import {shallow} from 'zustand/shallow'
 import {removeBuildFromStorage, updateStorageForCurrentBuild} from '../storage';
+import {saveToURL} from '../url';
 
 export interface BuildStore {
     buildName: string;
@@ -20,7 +21,7 @@ export const initialBuildStore = {
     buildIdList: [],
 }
 
-export const buildStore = create<BuildStore>()(
+export const buildStore = createStore<BuildStore>()(
     devtools(
         (set) => ({
             ...initialBuildStore,
@@ -32,13 +33,7 @@ export const buildStore = create<BuildStore>()(
 
                     document.title = buildName ? buildName : "BB Planner";
                     if (withSave) {
-                        // saveToURL({
-                        //     ...newState,
-                        //     statNums: statsStore.getState().statNums,
-                        //     activePerkIds: perkStore.getState().activePerkIds,
-                        //     stars: starsStore.getState().stars,
-                        //     loadoutItems: loadoutStore.getState().loadoutItems,
-                        // });
+                        saveToURL(newState);
                     }
 
                     return newState
@@ -49,7 +44,7 @@ export const buildStore = create<BuildStore>()(
                     return {buildIdList: newBuildIdList};
                 }),
                 saveBuild: () => set(state => {
-                    updateStorageForCurrentBuild(state, true);
+                    updateStorageForCurrentBuild(true);
                     return {buildIdList: localStorage.getObject("bbplanner") || []};
                 }),
             }
