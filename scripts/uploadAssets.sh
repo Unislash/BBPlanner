@@ -98,6 +98,10 @@ aws s3 \
 # And then, naturally, when we read in the file to the aws cli it resolves with
 # standard windows uris rather than unix ones (although somehow a mix of them does
 # seem to work. But oh my goodness the jank)
+
+# Turn off command output
+set +x # turns echo off
+
 DATESTRING=$(date +"%Y-%m-%d_%H-%M-%S")
 JSON_STRING='
 {
@@ -110,6 +114,10 @@ JSON_STRING='
 '
 echo $JSON_STRING > $PWD/output/invalidate_cloudfront.json
 LOCALPATH=$(cmd //c cd)
+
+# Turn on command output
+set -x #turns echo on
+
 aws cloudfront create-invalidation \
     --distribution-id E2009WZB53ANZE \
     --invalidation-batch file://$LOCALPATH/output/invalidate_cloudfront.json
