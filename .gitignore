@@ -5,7 +5,7 @@ output
 *.log
 .idea/workspace.xml
 .idea/shelf/*
-uploadToS3.js
+scripts/uploadToS3.js
 
 .pnp.*
 .yarn/*

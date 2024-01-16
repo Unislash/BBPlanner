@@ -53,9 +53,8 @@ module.exports = env => {
                 //     vendor: {
                 //         test: /[\\/]node_modules[\\/]/,
                 //         name(module) {
-                //             // Match either a `@smartsheet/<package>`, or any package with no slashes in its name
                 //             const packageNameMatch = module.context.match(
-                //                 /node_modules[\/\\](@smartsheet[\/\\][\w-]+|[@\w-]+)/
+                //                 /node_modules[\/\\]([@\w-]+)/
                 //             );
                 //
                 //             return packageNameMatch ? `npm.${packageNameMatch[1]}` : "reactApp";

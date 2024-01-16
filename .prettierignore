@@ -1,0 +1,36 @@
+# This repo uses json for many data sources, and they are already
+# formatted for specific use-cases
+*.json
+output
+
+yarn-error.log
+node_modules
+dist
+coverage
+storybook-static
+*.tgz
+.history
+.cache
+.yalc
+
+# This is generated and parsed by a few tools,
+# let's not make it any harder than we need it to be.
+CHANGELOG.md
+CHANGELOG.json
+
+# Ignore high-churn IntelliJ files
+.idea/artifacts
+.idea/bashsupport_project.xml
+.idea/dataSources
+.idea/compiler.xml
+.idea/dictionaries
+.idea/modules.xml
+.idea/shelf
+.idea/tasks.xml
+.idea/dataSources.ids
+.idea/dataSources.xml
+.idea/dataSources.local.xml
+*.iml
+
+# Ignore typedoc output
+typedoc-output
