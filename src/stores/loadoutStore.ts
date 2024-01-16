@@ -3,7 +3,7 @@ import { useStore } from "zustand";
 import create from "zustand/vanilla";
 import shallow from 'zustand/shallow'
 import {LoadoutItems, LoadoutSlotType} from '../models';
-import {getNewLoadoutItems} from '../initialState';
+import {getNewLoadoutItems} from './initialState';
 
 export interface LoadoutStore {
     loadoutItems: LoadoutItems;

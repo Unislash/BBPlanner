@@ -1,23 +1,16 @@
 import * as React from 'react';
 import { useRef, useState } from "react";
-import {connect} from 'react-redux';
-import {AppState} from '../../models';
 import {loadFromStorage, saveBuildIdListToStorage} from '../../storage';
-import {removeBuild} from '../../thunks';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { findIndex, Position } from "./findIndex";
 import move from "array-move";
 import {BuildEntry} from './BuildEntry';
-import {setBuildIdList} from '../../actions';
+import {useBuildActions, useBuildIdList} from '../../stores/buildStore';
 
-interface BuildListProps {
-    buildIdList: string[];
-    setBuildIdList: (buildIdList: string[]) => void;
-    removeBuild: (buildId: string) => void;
-}
+export const BuildList = (): JSX.Element => {
+    const buildIdList = useBuildIdList();
+    const {setBuildIdList, removeBuild} = useBuildActions();
 
-export const BuildListBase: React.FC<BuildListProps> = props => {
-    const {buildIdList, setBuildIdList, removeBuild} = props;
     const [isItemDragging, setIsItemDragging] = useState(false)
 
     // We need to collect an array of height and position data for all of this component's
@@ -86,17 +79,3 @@ export const BuildListBase: React.FC<BuildListProps> = props => {
         </div>
     );
 };
-
-const mapStateToProps = (state: AppState) => ({
-    buildIdList: state.buildIdList,
-});
-
-const mapDispatchToProps = {
-    removeBuild,
-    setBuildIdList,
-};
-
-export const BuildList = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(BuildListBase);

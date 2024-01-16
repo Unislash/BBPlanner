@@ -1,16 +1,10 @@
 import * as React from 'react';
 import NewIcon from '@material-ui/icons/PostAdd';
-import {connect} from 'react-redux';
-import {createNewBuild} from '../../actions';
 import Tooltip from 'rc-tooltip';
+import {createNewBuild} from '../../stores/actions';
 
-interface NewBuildButtonProps {
-    createNewBuild: () => void;
-}
 
-export const BaseNewBuildButton: React.FC<NewBuildButtonProps> = ({
-    createNewBuild,
-}) => {
+export const NewBuildButton = (): JSX.Element => {
     return (
         <Tooltip
             overlay="Create a new build from scratch"
@@ -29,12 +23,3 @@ export const BaseNewBuildButton: React.FC<NewBuildButtonProps> = ({
         </Tooltip>
     );
 };
-
-const mapDispatchToProps = {
-    createNewBuild,
-};
-
-export const NewBuildButton = connect(
-    null,
-    mapDispatchToProps,
-)(BaseNewBuildButton);

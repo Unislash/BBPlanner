@@ -1,11 +1,6 @@
 import {perkBinary} from './perkBinary';
-import {store} from './createStore';
-import {
-    setBuildIdList,
-    setBuildName,
-} from './actions';
-import {AppState, LoadoutItems, Stars, StatNums} from './models';
-import {getNewLoadoutItems, getNewStars, getNewStatNums, initialState} from './initialState';
+import {LoadoutItems, Stars, StatNums} from './models';
+import {getNewLoadoutItems, getNewStars, getNewStatNums} from './stores/initialState';
 import {idsByItem} from './components/Loadout/idsByItem';
 import {itemsById} from './components/Loadout/itemsById';
 import {to64Parse, to64String} from './compressionUtils';
@@ -13,6 +8,7 @@ import {initialPerkStore, perkStore, PerkStore} from './stores/perkStore';
 import {initialStatsStore, statsStore, StatsStore} from './stores/statsStore';
 import {initialStarsStore, starsStore, StarsStore} from './stores/starsStore';
 import {initialLoadoutStore, loadoutStore, LoadoutStore} from './stores/loadoutStore';
+import {buildStore, BuildStore, initialBuildStore} from './stores/buildStore';
 
 export const padString = (padding: string, strToPad: string, padLeft: boolean = true) => {
     if (typeof strToPad === 'undefined')
@@ -146,7 +142,7 @@ export interface StateToSaveToUrl extends
     Pick<StatsStore, 'statNums'>,
     Pick<StarsStore, 'stars'>,
     Pick<LoadoutStore, 'loadoutItems'>,
-    Pick<AppState, 'buildName'>
+    Pick<BuildStore, 'buildName'>
 {}
 
 export const saveToURL = (state: StateToSaveToUrl, shouldCreateHistoryEntry?: boolean): string => {
@@ -162,7 +158,7 @@ export const saveToURL = (state: StateToSaveToUrl, shouldCreateHistoryEntry?: bo
     const compressedInitialLoadoutItems = compressLoadoutItems(initialLoadoutStore.loadoutItems);
 
     // Determine if we should clear any url parameters
-    const shouldSaveNameChunk = state.buildName !== initialState.buildName;
+    const shouldSaveNameChunk = state.buildName !== initialBuildStore.buildName;
     const shouldSavePerkChunk = compressedPerks !== compressedInitialPerks;
     const shouldSaveStatsChunk = compressedStats !== compressedInitialStats;
     const shouldSaveStarsChunk = compressedStars !== compressedInitialStars;
@@ -199,12 +195,13 @@ export const loadFromURL = () => {
     const {setStatNums} = statsStore.getState().actions;
     const {setStars} = starsStore.getState().actions;
     const {setLoadoutItems} = loadoutStore.getState().actions;
+    const {setBuildName, setBuildIdList} = buildStore.getState().actions;
 
     const name = getQueryStringParameter("name");
     if (name) {
-        store.dispatch(setBuildName(name, false));
+        setBuildName(name, false);
     } else {
-        store.dispatch(setBuildName("", false));
+        setBuildName("", false);
     }
 
     const compressedPerks = getQueryStringParameter("perks");
@@ -238,5 +235,5 @@ export const loadFromURL = () => {
         setLoadoutItems(getNewLoadoutItems());
     }
 
-    store.dispatch(setBuildIdList(localStorage.getObject("bbplanner") || []));
+    setBuildIdList(localStorage.getObject("bbplanner") || []);
 };

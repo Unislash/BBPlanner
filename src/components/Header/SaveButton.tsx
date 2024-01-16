@@ -1,29 +1,20 @@
 import * as React from 'react';
 import SaveIcon from '@material-ui/icons/Favorite';
 import SaveIconBorder from '@material-ui/icons/FavoriteBorder';
-import {connect} from 'react-redux';
-import {saveBuild} from '../../thunks';
-import {AppState} from '../../models';
 import classcat from 'classcat';
 import Tooltip from 'rc-tooltip';
 import { useState } from 'react';
-import {initialState} from '../../initialState';
+import {initialBuildStore, useBuildActions, useBuildIdList, useBuildName} from '../../stores/buildStore';
 
-interface SaveButtonProps {
-    buildName: string;
-    buildIdList: string[];
-    saveBuild: () => void;
-}
+export const SaveButton = (): JSX.Element => {
+    const {saveBuild} = useBuildActions();
+    const buildName = useBuildName();
+    const buildIdList = useBuildIdList();
 
-export const BaseSaveButton: React.FC<SaveButtonProps> = ({
-    saveBuild,
-    buildName,
-    buildIdList,
-}) => {
     const [tooltipVisible, setTooltipVisible] = useState(false);
 
     const isSaved = buildIdList.indexOf(buildName) > -1;
-    const usingDefaultBuildName = buildName === initialState.buildName;
+    const usingDefaultBuildName = buildName === initialBuildStore.buildName;
     return (
         <Tooltip
             overlay="A build has no name?"
@@ -52,17 +43,3 @@ export const BaseSaveButton: React.FC<SaveButtonProps> = ({
         </Tooltip>
     );
 };
-
-const mapStateToProps = (state: AppState) => ({
-    buildName: state.buildName,
-    buildIdList: state.buildIdList,
-});
-
-const mapDispatchToProps = {
-    saveBuild,
-};
-
-export const SaveButton = connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(BaseSaveButton);

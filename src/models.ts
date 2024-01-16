@@ -22,11 +22,6 @@ export enum ThemeId {
     ofFleshAndFaith = "ofFleshAndFaith",
 }
 
-export interface AppState {
-    buildName: string;
-    buildIdList: string[];
-}
-
 export interface LocalStorageBuildData {
     url: string;
 }

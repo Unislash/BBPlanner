@@ -3,7 +3,7 @@ import { useStore } from "zustand";
 import create from "zustand/vanilla";
 import shallow from 'zustand/shallow'
 import {StatNums, StatType} from '../models';
-import {getNewStatNums} from '../initialState';
+import {getNewStatNums} from './initialState';
 
 export interface StatsStore {
     statNums: StatNums;

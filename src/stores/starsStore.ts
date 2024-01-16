@@ -3,7 +3,7 @@ import { useStore } from "zustand";
 import create from "zustand/vanilla";
 import shallow from 'zustand/shallow'
 import {Stars, StatType} from '../models';
-import {getNewStars} from '../initialState';
+import {getNewStars} from './initialState';
 
 export interface StarsStore {
     stars: Stars;

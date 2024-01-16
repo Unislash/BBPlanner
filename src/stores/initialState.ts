@@ -1,5 +1,3 @@
-import {AppState} from './models';
-
 export const getNewStatNums = () => ({
     level: 1,
     health: 55,
@@ -35,8 +33,3 @@ export const getNewLoadoutItems = () => ({
     bags3: "",
     bags4: "",
 });
-
-export const initialState: AppState = {
-    buildName: '',
-    buildIdList: [],
-};

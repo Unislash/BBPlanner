@@ -1,12 +1,8 @@
 /** @jsx jsx */
 import * as React from 'react';
 import { jsx } from '@emotion/core';
-
-// import levelIcon from '../../images/stats/leveled_up.png';
-
 import Select from 'react-select'
 import {LoadoutItem, LoadoutSlotType} from '../../models';
-import { connect } from 'react-redux';
 import { useState } from 'react';
 import { LoadoutFlyout } from './LoadoutFlyout';
 import {loadoutSelectStyles} from './LoadoutSelectStyles';
@@ -22,7 +18,7 @@ interface LoadoutSelectProps {
     loadoutSlotType: LoadoutSlotType;
 }
 
-export const LoadoutSelectBase: React.FC<LoadoutSelectProps> = props => {
+export const LoadoutSelect = (props: LoadoutSelectProps): JSX.Element => {
     const {
         options,
         selected,
@@ -91,11 +87,3 @@ export const LoadoutSelectBase: React.FC<LoadoutSelectProps> = props => {
         </LoadoutFlyout>
     );
 };
-
-const mapDispatchToProps = {
-};
-
-export const LoadoutSelect = connect(
-    null,
-    mapDispatchToProps,
-)(LoadoutSelectBase);
