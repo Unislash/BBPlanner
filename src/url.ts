@@ -1,19 +1,18 @@
-import {idsByItem} from './components/Loadout/idsByItem';
-import {itemsById} from './components/Loadout/itemsById';
-import {to64Parse, to64String} from './compressionUtils';
-import {LoadoutItems, Stars, StatNums} from './models';
-import {perkBinary} from './perkBinary';
-import {getLocalStorageObject} from './storage';
-import {buildStore, BuildStore, initialBuildStore} from './stores/buildStore';
-import {getNewLoadoutItems, getNewStars, getNewStatNums} from './stores/initialState';
-import {initialLoadoutStore, loadoutStore, LoadoutStore} from './stores/loadoutStore';
-import {initialPerkStore, perkStore, PerkStore} from './stores/perkStore';
-import {initialStarsStore, starsStore, StarsStore} from './stores/starsStore';
-import {initialStatsStore, statsStore, StatsStore} from './stores/statsStore';
+import { idsByItem } from "./components/Loadout/idsByItem";
+import { itemsById } from "./components/Loadout/itemsById";
+import { to64Parse, to64String } from "./compressionUtils";
+import { LoadoutItems, Stars, StatNums } from "./models";
+import { perkBinary } from "./perkBinary";
+import { getLocalStorageObject } from "./storage";
+import { buildStore, BuildStore, initialBuildStore } from "./stores/buildStore";
+import { getNewLoadoutItems, getNewStars, getNewStatNums } from "./stores/initialState";
+import { initialLoadoutStore, loadoutStore, LoadoutStore } from "./stores/loadoutStore";
+import { initialPerkStore, perkStore, PerkStore } from "./stores/perkStore";
+import { initialStarsStore, starsStore, StarsStore } from "./stores/starsStore";
+import { initialStatsStore, statsStore, StatsStore } from "./stores/statsStore";
 
 export const padString = (padding: string, strToPad: string, padLeft = true) => {
-    if (typeof strToPad === 'undefined')
-        return padding;
+    if (typeof strToPad === "undefined") return padding;
     if (padLeft) {
         return (padding + strToPad).slice(-padding.length);
     } else {
@@ -29,7 +28,7 @@ const packBinaryString = (values: string) => {
 const unpackBinaryString = (packed: string): string => {
     // const unpacked = parseInt(packed, 36).toString(2);
     const unpacked = to64Parse(packed).toString(2);
-    return padString('0'.repeat(Object.keys(perkBinary).length), unpacked);
+    return padString("0".repeat(Object.keys(perkBinary).length), unpacked);
 };
 
 const compressPerks = (activePerksIds: string[]) => {
@@ -48,7 +47,7 @@ const uncompressPerks = (packedString: string) => {
     const binaryString = unpackBinaryString(packedString);
 
     const activePerkIds: string[] = [];
-    binaryString.split('').forEach((str: string, index: number) => {
+    binaryString.split("").forEach((str: string, index: number) => {
         if (str === "1") {
             activePerkIds.push(Object.keys(perkBinary)[index]);
         }
@@ -59,7 +58,7 @@ const uncompressPerks = (packedString: string) => {
 
 const compressStats = (statNums: StatNums) => {
     return Object.values(statNums)
-        .map(statNum => padString("000", statNum.toString()))
+        .map((statNum) => padString("000", statNum.toString()))
         .join("");
 };
 
@@ -69,7 +68,7 @@ const uncompressStats = (packedString: string) => {
         return newStatNums;
     }
 
-    const statsArray = packedString.match(/.{1,3}/g)!.map(str => parseInt(str, 10));
+    const statsArray = packedString.match(/.{1,3}/g)!.map((str) => parseInt(str, 10));
     Object.keys(newStatNums).forEach((key: string, index: number) => {
         newStatNums[key] = statsArray[index];
     });
@@ -78,8 +77,7 @@ const uncompressStats = (packedString: string) => {
 };
 
 const compressStars = (stars: Stars) => {
-    return Object.values(stars)
-        .join("");
+    return Object.values(stars).join("");
 };
 
 const uncompressStars = (packedString: string) => {
@@ -88,7 +86,7 @@ const uncompressStars = (packedString: string) => {
         return newStars;
     }
 
-    const starsArray = packedString.match(/.{1}/g)!.map(str => parseInt(str, 10));
+    const starsArray = packedString.match(/.{1}/g)!.map((str) => parseInt(str, 10));
     Object.keys(newStars).forEach((key: string, index: number) => {
         newStars[key] = starsArray[index];
     });
@@ -97,7 +95,8 @@ const uncompressStars = (packedString: string) => {
 };
 
 const compressLoadoutItems = (loadoutItems: LoadoutItems) => {
-    return Object.values(loadoutItems).map(itemName => itemName === "" ? "AA" : idsByItem[itemName])
+    return Object.values(loadoutItems)
+        .map((itemName) => (itemName === "" ? "AA" : idsByItem[itemName]))
         .join("");
 };
 
@@ -107,7 +106,7 @@ const uncompressLoadoutItems = (packedString: string) => {
         return newLoadoutItems;
     }
 
-    const loadoutItemsArray = packedString.match(/.{2}/g)!.map(itemId => itemId === "AA" ? "" : itemsById[itemId]);
+    const loadoutItemsArray = packedString.match(/.{2}/g)!.map((itemId) => (itemId === "AA" ? "" : itemsById[itemId]));
     Object.keys(newLoadoutItems).forEach((key: string, index: number) => {
         newLoadoutItems[key] = loadoutItemsArray[index];
     });
@@ -136,24 +135,23 @@ export const resetURL = (shouldCreateHistoryEntry?: boolean): string => {
     }
 
     return newUrl;
-}
+};
 
-export interface StateToSaveToUrl extends
-    Partial<Pick<PerkStore, 'activePerkIds'>>,
-    Partial<Pick<StatsStore, 'statNums'>>,
-    Partial<Pick<StarsStore, 'stars'>>,
-    Partial<Pick<LoadoutStore, 'loadoutItems'>>,
-    Partial<Pick<BuildStore, 'buildName'>>
-{}
+export interface StateToSaveToUrl
+    extends Partial<Pick<PerkStore, "activePerkIds">>,
+        Partial<Pick<StatsStore, "statNums">>,
+        Partial<Pick<StarsStore, "stars">>,
+        Partial<Pick<LoadoutStore, "loadoutItems">>,
+        Partial<Pick<BuildStore, "buildName">> {}
 
 export const saveToURL = (partialState: StateToSaveToUrl, shouldCreateHistoryEntry?: boolean): string => {
     const params = new URLSearchParams();
 
-    const {buildName} = buildStore.getState();
-    const {activePerkIds} = perkStore.getState();
-    const {statNums} = statsStore.getState();
-    const {stars} = starsStore.getState();
-    const {loadoutItems} = loadoutStore.getState();
+    const { buildName } = buildStore.getState();
+    const { activePerkIds } = perkStore.getState();
+    const { statNums } = statsStore.getState();
+    const { stars } = starsStore.getState();
+    const { loadoutItems } = loadoutStore.getState();
 
     // Helper function to determine if a state part has changed, and if so to update the URL parameter
     const updateParam = (paramKey: string, currentValue: any, initialValue: any, compressFn: (val: any) => string) => {
@@ -166,11 +164,16 @@ export const saveToURL = (partialState: StateToSaveToUrl, shouldCreateHistoryEnt
     };
 
     // Update URL parameters based on the current and initial state values
-    updateParam("name", partialState.buildName || buildName, initialBuildStore.buildName, (name: string) => name || '');
+    updateParam("name", partialState.buildName || buildName, initialBuildStore.buildName, (name: string) => name || "");
     updateParam("perks", partialState.activePerkIds || activePerkIds, initialPerkStore.activePerkIds, compressPerks);
     updateParam("stats", partialState.statNums || statNums, initialStatsStore.statNums, compressStats);
     updateParam("stars", partialState.stars || stars, initialStarsStore.stars, compressStars);
-    updateParam("gear", partialState.loadoutItems || loadoutItems, initialLoadoutStore.loadoutItems, compressLoadoutItems);
+    updateParam(
+        "gear",
+        partialState.loadoutItems || loadoutItems,
+        initialLoadoutStore.loadoutItems,
+        compressLoadoutItems,
+    );
 
     // Set history entry
     const newUrl = `${window.location.pathname}?${params.toString()}`;
@@ -184,11 +187,11 @@ export const saveToURL = (partialState: StateToSaveToUrl, shouldCreateHistoryEnt
 };
 
 export const loadFromURL = () => {
-    const {setStudent, setPerks} = perkStore.getState().actions;
-    const {setStatNums} = statsStore.getState().actions;
-    const {setStars} = starsStore.getState().actions;
-    const {setLoadoutItems} = loadoutStore.getState().actions;
-    const {setBuildName, setBuildIdList} = buildStore.getState().actions;
+    const { setStudent, setPerks } = perkStore.getState().actions;
+    const { setStatNums } = statsStore.getState().actions;
+    const { setStars } = starsStore.getState().actions;
+    const { setLoadoutItems } = loadoutStore.getState().actions;
+    const { setBuildName, setBuildIdList } = buildStore.getState().actions;
 
     const name = getQueryStringParameter("name");
     if (name) {

@@ -1,7 +1,7 @@
 import { motion, useMotionValue } from "framer-motion";
-import * as React from 'react';
+import * as React from "react";
 import { useEffect, useState, useRef } from "react";
-import {Position} from './findIndex';
+import { Position } from "./findIndex";
 
 export interface BuildEntryProps {
     className: string;
@@ -12,12 +12,17 @@ export interface BuildEntryProps {
 }
 
 export const BuildEntry: React.FC<BuildEntryProps> = ({
-  setPosition, moveItem, i, children, className, setIsDragging,
+    setPosition,
+    moveItem,
+    i,
+    children,
+    className,
+    setIsDragging,
 }) => {
     const [isDragging, setDragging] = useState(false);
 
     const setDraggingStates = (isDragging: boolean) => {
-        setDragging(isDragging)
+        setDragging(isDragging);
         setIsDragging(isDragging);
     };
 
@@ -35,7 +40,7 @@ export const BuildEntry: React.FC<BuildEntryProps> = ({
     useEffect(() => {
         setPosition(i, {
             height: ref.current!.offsetHeight,
-            top: ref.current!.offsetTop
+            top: ref.current!.offsetTop,
         });
     });
 
@@ -54,7 +59,7 @@ export const BuildEntry: React.FC<BuildEntryProps> = ({
             onDragStart={() => setDraggingStates(true)}
             onDragEnd={() => setDraggingStates(false)}
             onDrag={(_e, { point }) => moveItem(i, point.y)}
-            positionTransition={({ delta }: {delta: {x: number; y: number;}}) => {
+            positionTransition={({ delta }: { delta: { x: number; y: number } }) => {
                 if (isDragging) {
                     // If we're dragging, we want to "undo" the items movement within the list
                     // by manipulating its dragOriginY. This will keep the item under the cursor,
@@ -77,5 +82,5 @@ export const BuildEntry: React.FC<BuildEntryProps> = ({
 const onTop = { zIndex: 1 };
 const flat = {
     zIndex: 0,
-    transition: { delay: 0.3 }
+    transition: { delay: 0.3 },
 };

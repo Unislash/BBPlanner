@@ -1,4 +1,13 @@
-export type StatType = 'level' | 'health' | 'fatigue' | 'resolve' | 'initiative' | 'mattack' | 'rattack' | 'mdefense' | 'rdefense';
+export type StatType =
+    | "level"
+    | "health"
+    | "fatigue"
+    | "resolve"
+    | "initiative"
+    | "mattack"
+    | "rattack"
+    | "mdefense"
+    | "rdefense";
 
 export interface StatNums {
     [key: string]: number;
@@ -8,7 +17,17 @@ export interface Stars {
     [key: string]: number;
 }
 
-export type LoadoutSlotType = 'accessories' | 'weapons' | 'helmets' | 'armor' | 'ammo' | 'offhandItems' | 'bags1' | 'bags2' | 'bags3' | 'bags4';
+export type LoadoutSlotType =
+    | "accessories"
+    | "weapons"
+    | "helmets"
+    | "armor"
+    | "ammo"
+    | "offhandItems"
+    | "bags1"
+    | "bags2"
+    | "bags3"
+    | "bags4";
 
 export interface LoadoutItems {
     [key: string]: string;
@@ -93,8 +112,8 @@ export type Bag = Consumable | Weapon | Shield | Tool | Ammo;
 export type Offhand = Shield | Tool;
 
 export const instanceOfWeapon = (item: any): item is Weapon => {
-    return 'regularDamage' in item;
-}
+    return "regularDamage" in item;
+};
 export const instanceOfShield = (item: any): item is Shield => {
-    return 'conditionMax' in item && !('regularDamage' in item);
-}
+    return "conditionMax" in item && !("regularDamage" in item);
+};

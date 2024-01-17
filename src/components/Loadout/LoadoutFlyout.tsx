@@ -1,15 +1,17 @@
 /** @jsx jsx */
 
-import { jsx } from '@emotion/core';
-import styled from '@emotion/styled';
-import * as React from 'react';
+import { jsx } from "@emotion/core";
+import styled from "@emotion/styled";
+import * as React from "react";
 
 const Menu = styled.div`
     position: absolute;
     bottom: 100%;
-    background-color: #261E1B;
+    background-color: #261e1b;
     border-radius: 4px;
-    box-shadow: 0 0 0 1px hsla(218, 50%, 10%, 0.1), 0 4px 11px hsla(218, 50%, 10%, 0.1);
+    box-shadow:
+        0 0 0 1px hsla(218, 50%, 10%, 0.1),
+        0 4px 11px hsla(218, 50%, 10%, 0.1);
     z-index: 2;
 `;
 

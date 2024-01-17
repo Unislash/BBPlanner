@@ -1,10 +1,10 @@
-import ShareIcon from '@material-ui/icons/Share';
-import Tooltip from 'rc-tooltip';
-import * as React from 'react';
-import { useState } from 'react';
+import ShareIcon from "@material-ui/icons/Share";
+import Tooltip from "rc-tooltip";
+import * as React from "react";
+import { useState } from "react";
 
 const copyUrlToClipboard = () => {
-    const dummy = document.createElement('input');
+    const dummy = document.createElement("input");
     const text = window.location.href;
 
     dummy.style.opacity = "0";
@@ -12,9 +12,9 @@ const copyUrlToClipboard = () => {
     document.body.appendChild(dummy);
     dummy.value = text;
     dummy.select();
-    document.execCommand('copy');
+    document.execCommand("copy");
     document.body.removeChild(dummy);
-}
+};
 
 export const ShareButton: React.FC = () => {
     const [tooltipVisible, setTooltipVisible] = useState(false);
@@ -41,4 +41,3 @@ export const ShareButton: React.FC = () => {
         </Tooltip>
     );
 };
-

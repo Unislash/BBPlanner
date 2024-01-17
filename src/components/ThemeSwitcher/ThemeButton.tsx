@@ -1,7 +1,7 @@
-import classcat from 'classcat';
-import Tooltip from 'rc-tooltip';
-import * as React from 'react';
-import {ThemeId} from '../../models';
+import classcat from "classcat";
+import Tooltip from "rc-tooltip";
+import * as React from "react";
+import { ThemeId } from "../../models";
 
 interface ThemeButtonProps {
     activeThemeId: ThemeId;
@@ -22,23 +22,15 @@ const getText = (themeId: ThemeId) => {
         case ThemeId.ofFleshAndFaith:
             return "Of Flesh and Faith Theme";
     }
-}
+};
 
-export const ThemeButton: React.FC<ThemeButtonProps> = ({
-    themeId,
-    activeThemeId,
-    setThemeId,
-}) => {
+export const ThemeButton: React.FC<ThemeButtonProps> = ({ themeId, activeThemeId, setThemeId }) => {
     return (
-        <Tooltip
-            overlay={getText(themeId)}
-            placement="bottom"
-            mouseEnterDelay={.3}
-        >
+        <Tooltip overlay={getText(themeId)} placement="bottom" mouseEnterDelay={0.3}>
             <div
-                className={classcat(["themeButton", themeId, {isActive: themeId === activeThemeId}])}
+                className={classcat(["themeButton", themeId, { isActive: themeId === activeThemeId }])}
                 onClick={() => setThemeId(themeId)}
             />
         </Tooltip>
     );
-}
+};

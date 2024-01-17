@@ -1,62 +1,64 @@
 import { useStore } from "zustand";
 import { devtools } from "zustand/middleware";
-import {shallow} from 'zustand/shallow'
-import {createStore} from "zustand/vanilla";
-import {Stars, StatType} from '../models';
-import {updateStorageForCurrentBuild} from '../storage';
-import {saveToURL} from '../url';
-import {getNewStars} from './initialState';
+import { shallow } from "zustand/shallow";
+import { createStore } from "zustand/vanilla";
+import { Stars, StatType } from "../models";
+import { updateStorageForCurrentBuild } from "../storage";
+import { saveToURL } from "../url";
+import { getNewStars } from "./initialState";
 
 export interface StarsStore {
     actions: {
         resetStars: () => void;
         setStar: (statType: StatType, amount: number) => void;
         setStars: (stars: Stars) => void;
-    },
+    };
     stars: Stars;
 }
 
 export const initialStarsStore = {
     stars: getNewStars(),
-}
+};
 
 export const starsStore = createStore<StarsStore>()(
     devtools(
         (set) => ({
             ...initialStarsStore,
             actions: {
-                setStar: (statType: StatType, amount: number) => set(state => {
-                    const newStars = {
-                        ...state.stars,
-                    };
-                    newStars[statType] = amount; // modify in-place to retain object attribute order
+                setStar: (statType: StatType, amount: number) =>
+                    set((state) => {
+                        const newStars = {
+                            ...state.stars,
+                        };
+                        newStars[statType] = amount; // modify in-place to retain object attribute order
 
-                    const newState = {
-                        stars: newStars,
-                    };
+                        const newState = {
+                            stars: newStars,
+                        };
 
-                    saveToURL(newState);
-                    updateStorageForCurrentBuild();
+                        saveToURL(newState);
+                        updateStorageForCurrentBuild();
 
-                    return newState;
-                }),
-                setStars: (stars: Stars) => set({stars}),
-                resetStars: () => set(() => {
-                    const newState = {
-                        stars: getNewStars(),
-                    };
+                        return newState;
+                    }),
+                setStars: (stars: Stars) => set({ stars }),
+                resetStars: () =>
+                    set(() => {
+                        const newState = {
+                            stars: getNewStars(),
+                        };
 
-                    saveToURL(newState);
-                    updateStorageForCurrentBuild();
+                        saveToURL(newState);
+                        updateStorageForCurrentBuild();
 
-                    return newState;
-                }),
-            }
+                        return newState;
+                    }),
+            },
         }),
 
-        { name: "StarsStore", trace: true }
-    )
+        { name: "StarsStore", trace: true },
+    ),
 );
 
-export const useStars = () => useStore(starsStore, state => state.stars, shallow);
-export const useStarsActions = () => useStore(starsStore, state => state.actions)
+export const useStars = () => useStore(starsStore, (state) => state.stars, shallow);
+export const useStarsActions = () => useStore(starsStore, (state) => state.actions);

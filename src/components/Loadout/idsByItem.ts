@@ -1,3 +1,4 @@
+// prettier-ignore
 export const idsByItem: { [key: string]: string; } = {
     'Ancient Sword': 'AB',
     'Antler Cleaver': 'AC',

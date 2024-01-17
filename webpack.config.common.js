@@ -1,15 +1,15 @@
-const path = require('path');
-const fs = require('fs');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const path = require("path");
+const fs = require("fs");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
-const TerserPlugin = require('terser-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 
-const outputDirectory = 'dist';
+const outputDirectory = "dist";
 
-const gplInclude = fs.readFileSync('./gpl_include.txt', 'utf8');
+const gplInclude = fs.readFileSync("./gpl_include.txt", "utf8");
 
-module.exports = env => {
+module.exports = (env) => {
     const withAnalyzer = toBoolOrDefault(env, "withAnalyzer", false);
 
     let dynamicPlugins = [];
@@ -22,18 +22,18 @@ module.exports = env => {
                 reportFilename: "../output/bundle-analyzer-report.html",
                 defaultSizes: "stat",
                 openAnalyzer: true,
-            })
+            }),
         );
     }
 
     return {
         entry: {
-            main: './src/index.tsx'
+            main: "./src/index.tsx",
         },
         target: "web",
         output: {
             path: path.resolve(__dirname, outputDirectory),
-            filename: '[name].bundle.[contenthash].js',
+            filename: "[name].bundle.[contenthash].js",
             chunkFilename: `[name].bundle.[chunkhash].js`,
         },
         optimization: {
@@ -77,56 +77,52 @@ module.exports = env => {
             ],
         },
         resolve: {
-            extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
+            extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
         },
         module: {
             rules: [
                 {
                     test: /\.(ts|tsx)$/,
-                    use: [
-                        'ts-loader',
-                    ]
+                    use: ["ts-loader"],
                 },
                 {
                     enforce: "pre",
                     test: /\.js$/,
-                    loader: "source-map-loader"
+                    loader: "source-map-loader",
                 },
                 {
                     test: /\.css$/,
-                    use: ['style-loader', 'css-loader']
+                    use: ["style-loader", "css-loader"],
                 },
                 {
                     test: /\.(png|jpg|jpeg|woff|woff2|eot|ttf|svg)$/,
-                    type: 'asset',
+                    type: "asset",
                     parser: {
                         dataUrlCondition: {
-                            maxSize: 1024 * 50/*kb*/
-                        }
+                            maxSize: 1024 * 50 /*kb*/,
+                        },
                     },
                 },
-            ]
+            ],
         },
         plugins: [
             ...dynamicPlugins,
             new CleanWebpackPlugin([outputDirectory]),
             new HtmlWebpackPlugin({
                 filename: "index.html",
-                template: './index.html',
-                favicon: './favicon.png',
-                chunks: ["main"]
+                template: "./index.html",
+                favicon: "./favicon.png",
+                chunks: ["main"],
             }),
             new HtmlWebpackPlugin({
                 filename: "error.html",
-                template: './error.html',
-                chunks: []
-            })
-        ]
+                template: "./error.html",
+                chunks: [],
+            }),
+        ],
     };
 };
 
 const toBoolOrDefault = (env, property, defaultValue) => {
-    return env && env.hasOwnProperty(property)
-        ? env[property].toLowerCase() === "true"
-        : defaultValue;
+    return env && env.hasOwnProperty(property) ? env[property].toLowerCase() === "true" : defaultValue;
 };

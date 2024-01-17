@@ -8,11 +8,7 @@ export interface Position {
 // Prevent rapid reverse swapping
 const buffer = 5;
 
-export const findIndex = (
-    i: number,
-    yOffset: number,
-    positions: Position[]
-) => {
+export const findIndex = (i: number, yOffset: number, positions: Position[]) => {
     let target = i;
     const { top, height } = positions[i];
     const bottom = top + height;
@@ -22,8 +18,7 @@ export const findIndex = (
         const nextItem = positions[i + 1];
         if (nextItem === undefined) return i;
 
-        const swapOffset =
-            distance(bottom, nextItem.top + nextItem.height / 2) + buffer;
+        const swapOffset = distance(bottom, nextItem.top + nextItem.height / 2) + buffer;
         if (yOffset > swapOffset) {
             target = i + 1;
         }

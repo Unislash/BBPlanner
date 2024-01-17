@@ -1,6 +1,6 @@
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
-import * as React from 'react';
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+import * as React from "react";
 
 const theme = createMuiTheme({
     palette: {
@@ -13,8 +13,4 @@ const theme = createMuiTheme({
     },
 });
 
-export const MuiTheme: React.FC = props => (
-        <ThemeProvider theme={theme}>
-            {props.children}
-        </ThemeProvider>
-);
+export const MuiTheme: React.FC = (props) => <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;

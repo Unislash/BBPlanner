@@ -1,12 +1,12 @@
-import {Accessory, Ammo, Bag, Consumable, Offhand, Shield, Tool, Weapon} from '../models';
-import accessoriesJson from './accessories.json';
-import ammoJson from './ammo.json';
-import armorsJson from './armors.json';
-import consumablesJson from './consumables.json';
-import helmetsJson from './helmets.json';
-import shieldsJson from './shields.json';
-import toolsJson from './tools.json';
-import weaponsJson from './weapons.json';
+import { Accessory, Ammo, Bag, Consumable, Offhand, Shield, Tool, Weapon } from "../models";
+import accessoriesJson from "./accessories.json";
+import ammoJson from "./ammo.json";
+import armorsJson from "./armors.json";
+import consumablesJson from "./consumables.json";
+import helmetsJson from "./helmets.json";
+import shieldsJson from "./shields.json";
+import toolsJson from "./tools.json";
+import weaponsJson from "./weapons.json";
 
 export const TWO_HANDED_WEAPON = "TwoHanded";
 export const ONE_HANDED_WEAPON = "OneHanded";
@@ -16,8 +16,8 @@ export const EMPTY_NAME = "(Empty)";
 const emptyItem = {
     id: "",
     name: EMPTY_NAME,
-    imageName: ""
-}
+    imageName: "",
+};
 
 interface JsonItem {
     chanceToHitHead?: string;
@@ -63,7 +63,7 @@ armor.unshift({
     staminaModifier: "",
 });
 
-export const accessories: Accessory[] = Object.values(accessoriesJson).map(jsonItem => ({
+export const accessories: Accessory[] = Object.values(accessoriesJson).map((jsonItem) => ({
     id: jsonItem.name,
     name: jsonItem.name,
     imageName: jsonItem.accessoryIcon,
@@ -112,7 +112,7 @@ weapons.unshift({
     handType: ONE_HANDED_WEAPON,
 });
 
-export const ammo: Ammo[] = Object.values(ammoJson).map(jsonItem => ({
+export const ammo: Ammo[] = Object.values(ammoJson).map((jsonItem) => ({
     id: jsonItem.name,
     name: jsonItem.name,
     imageName: jsonItem.ammoIcon,
@@ -125,7 +125,7 @@ ammo.unshift({
     description: "",
 });
 
-export const shields: Shield[] = Object.values(shieldsJson).map(jsonItem => ({
+export const shields: Shield[] = Object.values(shieldsJson).map((jsonItem) => ({
     id: jsonItem.name,
     name: jsonItem.name,
     imageName: jsonItem.shieldIcon,
@@ -155,7 +155,7 @@ offhandItems.unshift({
     staminaModifier: "",
 });
 
-export const consumables: Consumable[] = Object.values(consumablesJson).map(jsonItem => ({
+export const consumables: Consumable[] = Object.values(consumablesJson).map((jsonItem) => ({
     id: jsonItem.name,
     name: jsonItem.name,
     imageName: jsonItem.accessoryIcon,
@@ -164,15 +164,15 @@ export const consumables: Consumable[] = Object.values(consumablesJson).map(json
 
 export const bags: Bag[] = [
     ...consumables,
-    ...weapons.map(weapon => ({
+    ...weapons.map((weapon) => ({
         ...weapon,
         imageName: weapon.imageName + "_70x70",
     })),
-    ...shields.map(shield => ({
+    ...shields.map((shield) => ({
         ...shield,
         imageName: shield.imageName.replace("inventory", "icon"),
     })),
-    ...tools.map(tool => ({
+    ...tools.map((tool) => ({
         ...tool,
         imageName: tool.imageName.replace("inventory_", "") + "_70x70",
     })),

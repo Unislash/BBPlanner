@@ -1,11 +1,11 @@
-import classcat from 'classcat';
-import * as React from 'react';
-import {ChangeEvent, useRef, useState} from 'react';
-import arrow_right from '../../images/arrow_right.png';
-import {StatType} from '../../models';
-import {Star} from './Star';
+import classcat from "classcat";
+import * as React from "react";
+import { ChangeEvent, useRef, useState } from "react";
+import arrow_right from "../../images/arrow_right.png";
+import { StatType } from "../../models";
+import { Star } from "./Star";
 
-type BarColor = 'red' | 'yellow' | 'blue' | 'brown';
+type BarColor = "red" | "yellow" | "blue" | "brown";
 
 interface StatBarProps {
     currentLevel: number;
@@ -18,7 +18,7 @@ interface StatBarProps {
     perkMultiplier?: number;
 }
 
-const levelIncrementByStat: { [key: string]: number; } = {
+const levelIncrementByStat: { [key: string]: number } = {
     health: 3,
     fatigue: 3,
     resolve: 3,
@@ -29,7 +29,13 @@ const levelIncrementByStat: { [key: string]: number; } = {
     rdefense: 3,
 };
 
-const getMaxStat = (statType: StatType, startValue: number, stars: number, remainingLevels: number, perkMultiplier: number): number => {
+const getMaxStat = (
+    statType: StatType,
+    startValue: number,
+    stars: number,
+    remainingLevels: number,
+    perkMultiplier: number,
+): number => {
     const standardMax = startValue + (levelIncrementByStat[statType] + stars * 0.5) * remainingLevels;
     return Math.round(standardMax * (1 + perkMultiplier));
 };
@@ -42,38 +48,29 @@ const getMaxPerLevel = (statType: StatType, stars: number) => {
     return levelIncrementByStat[statType] + 1 + (stars === 3 ? 1 : 0);
 };
 
-const barColorByStat: { [key: string]: BarColor; } = {
-    health: 'red',
-    fatigue: 'blue',
-    resolve: 'brown',
-    initiative: 'brown',
-    mattack: 'brown',
-    rattack: 'brown',
-    mdefense: 'brown',
-    rdefense: 'brown',
+const barColorByStat: { [key: string]: BarColor } = {
+    health: "red",
+    fatigue: "blue",
+    resolve: "brown",
+    initiative: "brown",
+    mattack: "brown",
+    rattack: "brown",
+    mdefense: "brown",
+    rdefense: "brown",
 };
 
 const getBarColor = (statType: StatType): BarColor => {
     return barColorByStat[statType];
 };
 
-export const StatBar: React.FC<StatBarProps> = props => {
-    const {
-        statType,
-        icon,
-        statNumber,
-        setStatNumber,
-        stars,
-        setStars,
-        currentLevel,
-        perkMultiplier,
-    } = props;
+export const StatBar: React.FC<StatBarProps> = (props) => {
+    const { statType, icon, statNumber, setStatNumber, stars, setStars, currentLevel, perkMultiplier } = props;
 
     const [hoveredStarIndex, setHoveredStarIndex] = useState<number | undefined>(undefined);
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         // Only take numbers
-        const forcedNumber = event.target.value.replace(/\D/,'');
+        const forcedNumber = event.target.value.replace(/\D/, "");
         setStatNumber(parseInt(forcedNumber || "0", 10));
     };
 
@@ -89,10 +86,7 @@ export const StatBar: React.FC<StatBarProps> = props => {
     return (
         <div className="statBar">
             <img className="icon" src={icon} />
-            <div
-                className={classcat(['inputBar', getBarColor(statType)])}
-                onClick={handleBarClick}
-            >
+            <div className={classcat(["inputBar", getBarColor(statType)])} onClick={handleBarClick}>
                 <div className="pinLeft">
                     <div className="stars">
                         <Star
@@ -123,12 +117,18 @@ export const StatBar: React.FC<StatBarProps> = props => {
                 </div>
                 <div className="barTextControl">
                     <span className="barInputWidthReserver">{statNumber}</span>
-                    <input ref={inputRef} className="barInputElement" maxLength={5} value={statNumber} onChange={handleInputChange} />
+                    <input
+                        ref={inputRef}
+                        className="barInputElement"
+                        maxLength={5}
+                        value={statNumber}
+                        onChange={handleInputChange}
+                    />
                 </div>
                 <img className="arrowIndicator" src={arrow_right} />
                 <div className="maxStat">
                     {getMaxStat(statType, statNumber, stars, 11 - currentLevel, perkMultiplier || 0)}
-                    {perkMultiplier ? '*' : ''}
+                    {perkMultiplier ? "*" : ""}
                 </div>
             </div>
         </div>

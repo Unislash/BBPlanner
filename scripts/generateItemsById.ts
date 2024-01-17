@@ -11,9 +11,9 @@
  * - IMPORTANT: Review for any out-of-order schenanigans via a git diff
  */
 
-import fs from 'fs';
-import mkdirp from 'mkdirp';
-import {STR64} from '../src/compressionUtils';
+import fs from "fs";
+import mkdirp from "mkdirp";
+import { STR64 } from "../src/compressionUtils";
 
 // Accidentally shipped a bug where the generated IDs had a fencepost error. I need to keep them
 // in the list to preserve the relative ordering of the hashed ids, but don't want to create
@@ -392,13 +392,13 @@ const itemNames = [
  * Generate the stuff
  */
 export const generateItemsById = async () => {
-    const itemsById: { [key: string]: string; } = {};
-    const idsByItem: { [key: string]: string; } = {};
+    const itemsById: { [key: string]: string } = {};
+    const idsByItem: { [key: string]: string } = {};
     for (let i = 1; i < itemNames.length; i++) {
         let id = "";
         let remainingI = i;
         let secondStr64DigitIndex = 0;
-        while(remainingI >= 0) {
+        while (remainingI >= 0) {
             if (Math.floor(remainingI / STR64.length) <= 0) {
                 id += STR64[secondStr64DigitIndex];
                 id += STR64[remainingI % STR64.length];
@@ -416,11 +416,17 @@ export const generateItemsById = async () => {
     // Make the output directory if it doesn't exist (as a sibling to package.json)
     await mkdirp("output");
 
-    fs.writeFileSync("output/generateItemsById.output.ts", `export const itemsById: { [key: string]: string; } = ${JSON.stringify(itemsById)};`);
+    fs.writeFileSync(
+        "output/generateItemsById.output.ts",
+        `export const itemsById: { [key: string]: string; } = ${JSON.stringify(itemsById)};`,
+    );
     fs.appendFileSync("output/generateItemsById.output.ts", `\n`);
-    fs.appendFileSync("output/generateItemsById.output.ts", `export const idsByItem: { [key: string]: string; } = ${JSON.stringify(idsByItem)};`);
+    fs.appendFileSync(
+        "output/generateItemsById.output.ts",
+        `export const idsByItem: { [key: string]: string; } = ${JSON.stringify(idsByItem)};`,
+    );
 
     console.log("Output saved to `output/generateItemsById.output.js`");
-}
+};
 
 generateItemsById();

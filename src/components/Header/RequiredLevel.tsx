@@ -1,5 +1,5 @@
-import * as React from 'react';
-import {maxLevel} from '../../logic';
+import * as React from "react";
+import { maxLevel } from "../../logic";
 
 interface RequiredLevelProps {
     currentPerkAmount: number;
@@ -7,7 +7,7 @@ interface RequiredLevelProps {
 }
 
 export const RequiredLevel = (props: RequiredLevelProps): JSX.Element => {
-    const {isStudent, currentPerkAmount} = props;
+    const { isStudent, currentPerkAmount } = props;
 
     let requiredLevel = 1;
     requiredLevel += currentPerkAmount;
@@ -15,7 +15,5 @@ export const RequiredLevel = (props: RequiredLevelProps): JSX.Element => {
         requiredLevel -= 1;
     }
 
-    return (
-        <h3 className="perksRemaining">Required Level: {requiredLevel}</h3>
-    );
+    return <h3 className="perksRemaining">Required Level: {requiredLevel}</h3>;
 };

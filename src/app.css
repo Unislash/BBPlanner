@@ -1,11 +1,11 @@
 @font-face {
-    font-family: 'FreeUniversal';
-    src: url('./fonts/FreeUniversal-Regular.woff') format('woff');
+    font-family: "FreeUniversal";
+    src: url("./fonts/FreeUniversal-Regular.woff") format("woff");
 }
 
 @font-face {
-    font-family: 'Cinzel-Bold';
-    src: url('./fonts/Cinzel-Bold.woff') format('woff');
+    font-family: "Cinzel-Bold";
+    src: url("./fonts/Cinzel-Bold.woff") format("woff");
 }
 
 body,
@@ -15,7 +15,7 @@ html {
 }
 
 body {
-    font-family: 'FreeUniversal', sans-serif;
+    font-family: "FreeUniversal", sans-serif;
     color: #ffffff;
 }
 
@@ -28,9 +28,13 @@ a:hover {
     text-decoration: underline;
 }
 
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Cinzel-Bold', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Cinzel-Bold", sans-serif;
 }
 
 h2 {
@@ -82,7 +86,7 @@ p {
 @media only screen and (max-width: 700px) {
     .perkRow {
         padding: 5px;
-        border-bottom: 1px solid rgba(152, 144, 134, .3);
+        border-bottom: 1px solid rgba(152, 144, 134, 0.3);
     }
 }
 
@@ -93,9 +97,9 @@ p {
     left: 50%;
     width: 1060px;
     transform: translateX(-50%);
-    background: rgba(6,6,6,.7);
+    background: rgba(6, 6, 6, 0.7);
     z-index: -1;
-    box-shadow: 0 0 30px 35px rgba(6,6,6,.7);
+    box-shadow: 0 0 30px 35px rgba(6, 6, 6, 0.7);
 }
 
 .appBackground {
@@ -104,7 +108,7 @@ p {
     bottom: 0;
     left: 0;
     position: fixed;
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
     background-image: url("images/bg_beastsAndExporation.jpg");
     background-size: cover;
     background-repeat: no-repeat;
@@ -117,35 +121,35 @@ p {
     display: block;
     height: 100%;
     width: 100%;
-    background-color: rgba(11,11,16,0.3);
+    background-color: rgba(11, 11, 16, 0.3);
 }
 
 .appBackground.vanilla {
     background-image: url("images/bg_vanilla.jpg");
 }
 .appBackground.vanilla:after {
-    background-color: rgba(5,5,5,0.5);
+    background-color: rgba(5, 5, 5, 0.5);
 }
 
 .appBackground.warriorsOfTheNorth {
     background-image: url("images/bg_warriorsOfTheNorth.jpg");
 }
 .appBackground.warriorsOfTheNorth:after {
-    background-color: rgba(11,11,16,0.4);
+    background-color: rgba(11, 11, 16, 0.4);
 }
 
 .appBackground.blazingDeserts {
     background-image: url("images/bg_blazingDeserts.jpg");
 }
 .appBackground.blazingDeserts:after {
-    background-color: rgba(27,20,11,0.5);
+    background-color: rgba(27, 20, 11, 0.5);
 }
 
 .appBackground.ofFleshAndFaith {
     background-image: url("images/bg_ofFleshAndFaith.jpg");
 }
 .appBackground.ofFleshAndFaith:after {
-    background-color: rgba(16,11,13,0.4);
+    background-color: rgba(16, 11, 13, 0.4);
 }
 
 .pageTitle {
@@ -196,7 +200,7 @@ p {
     padding: 5px 5px 5px 10px;
     font-size: 20px;
     color: #fff;
-    transition: border .1s;
+    transition: border 0.1s;
 }
 
 .buildNameInput::placeholder {
@@ -204,12 +208,12 @@ p {
 }
 
 .buildNameInput:hover {
-    border: 1px solid rgba(255,255,255,.4);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     background-color: #332923;
 }
 
 .buildNameInput:focus {
-    border: 1px solid rgba(255,255,255,.6);
+    border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 .plannerButton,
@@ -219,7 +223,9 @@ p {
     border: 1px solid transparent;
     border-radius: 4px;
     font-size: 0; /*to prevent the newline from rendering*/
-    transition: border .1s, color .5s;
+    transition:
+        border 0.1s,
+        color 0.5s;
 }
 
 .plannerButton {
@@ -227,11 +233,11 @@ p {
 }
 
 .plannerButton:hover {
-    border: 1px solid rgba(255,255,255,.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .plannerButton:active {
-    border: 1px solid rgba(255,255,255,.6);
+    border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 .newButton {
@@ -307,7 +313,7 @@ p {
 }
 
 .perk.isActive {
-    filter: drop-shadow(0px 1px 1px rgb(232, 168, 30)) drop-shadow(0px 0px 0px rgba(232, 168, 30, .5));
+    filter: drop-shadow(0px 1px 1px rgb(232, 168, 30)) drop-shadow(0px 0px 0px rgba(232, 168, 30, 0.5));
     animation: none;
 }
 
@@ -359,10 +365,12 @@ body .rc-tooltip-inner {
     align-items: center;
     justify-content: center;
     height: 24px;
-    background-color: #261E1B;
-    border: 1px solid #716F6D;
+    background-color: #261e1b;
+    border: 1px solid #716f6d;
     border-radius: 3px;
-    box-shadow: inset 0 0 2px 1px rgba(15,11,8, .5), inset 1px 2px 2px rgba(83,61,38, .8);
+    box-shadow:
+        inset 0 0 2px 1px rgba(15, 11, 8, 0.5),
+        inset 1px 2px 2px rgba(83, 61, 38, 0.8);
     cursor: pointer;
 }
 
@@ -375,34 +383,48 @@ body .rc-tooltip-inner {
     bottom: 0;
     right: 0;
     left: 0;
-    background-color: rgba(164,140,105, .1);
+    background-color: rgba(164, 140, 105, 0.1);
     user-select: none;
     z-index: 0;
 }
 
 .inputBar.red {
-    background-color: #5A191F;
+    background-color: #5a191f;
     border: 1px solid #a38080;
-    box-shadow: inset 0 0 2px 1px rgb(75, 21, 27), inset 1px 2px 2px rgb(160, 41, 53);
+    box-shadow:
+        inset 0 0 2px 1px rgb(75, 21, 27),
+        inset 1px 2px 2px rgb(160, 41, 53);
 }
 
 .inputBar.blue {
-    background-color: #12527C;
+    background-color: #12527c;
     border: 1px solid #71809a;
-    box-shadow: inset 0 0 2px 1px rgb(37, 67, 85), inset 1px 2px 2px rgb(33, 131, 182);
+    box-shadow:
+        inset 0 0 2px 1px rgb(37, 67, 85),
+        inset 1px 2px 2px rgb(33, 131, 182);
 }
 .inputBar.blue:hover:before {
     background-color: rgba(154, 177, 219, 0.1);
 }
 
 .inputBar.yellow {
-    background-color: #AD712A;
+    background-color: #ad712a;
     border: 1px solid #c9b692;
-    box-shadow: inset 0 0 2px 1px rgb(120, 70, 25), inset 1px 2px 2px rgb(232, 173, 83);
-    text-shadow: 0 1px 2px rgb(120, 70, 25), 0 1px 2px rgb(120, 70, 25), 0 1px 2px rgb(120, 70, 25), 0 1px 2px rgb(120, 70, 25);
+    box-shadow:
+        inset 0 0 2px 1px rgb(120, 70, 25),
+        inset 1px 2px 2px rgb(232, 173, 83);
+    text-shadow:
+        0 1px 2px rgb(120, 70, 25),
+        0 1px 2px rgb(120, 70, 25),
+        0 1px 2px rgb(120, 70, 25),
+        0 1px 2px rgb(120, 70, 25);
 }
 .inputBar.yellow .barInputElement {
-    text-shadow: 0 1px 2px rgb(120, 70, 25), 0 1px 2px rgb(120, 70, 25), 0 1px 2px rgb(120, 70, 25), 0 1px 2px rgb(120, 70, 25);
+    text-shadow:
+        0 1px 2px rgb(120, 70, 25),
+        0 1px 2px rgb(120, 70, 25),
+        0 1px 2px rgb(120, 70, 25),
+        0 1px 2px rgb(120, 70, 25);
 }
 .inputBar.yellow:hover:before {
     background-color: rgba(253, 236, 180, 0.1);
@@ -588,10 +610,10 @@ body .rc-tooltip-inner {
     background-position: center;
     margin-right: 8px;
     border-radius: 4px;
-    border: 1px solid rgb(77,66,53);
-    box-shadow: inset 0px 0px 3px rgba(0,0,0,.5);
+    border: 1px solid rgb(77, 66, 53);
+    box-shadow: inset 0px 0px 3px rgba(0, 0, 0, 0.5);
     cursor: pointer;
-    transition: margin .1s;
+    transition: margin 0.1s;
 }
 
 .themeButton:hover {
@@ -640,7 +662,7 @@ body .rc-tooltip-inner {
 .buildEntryText {
     margin-right: 4px;
     cursor: pointer;
-    transition: color .1s;
+    transition: color 0.1s;
 }
 
 .buildEntryText:hover {
@@ -650,7 +672,7 @@ body .rc-tooltip-inner {
 .deleteBuild {
     cursor: pointer;
     height: 22px;
-    transition: opacity .2s;
+    transition: opacity 0.2s;
 
     /*hide button until entry is hovered*/
     pointer-events: none;
@@ -666,7 +688,7 @@ body .rc-tooltip-inner {
 .deleteBuild svg {
     max-height: 100%;
     display: block;
-    transition: color .1s;
+    transition: color 0.1s;
 }
 
 .deleteBuild:hover {

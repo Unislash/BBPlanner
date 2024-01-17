@@ -1,10 +1,6 @@
 export const maxLevel = 11;
 
-export const getAvailableNumberOfPerks = (
-    currentPerkAmount: number,
-    maxLevel: number,
-    isStudent: boolean
-): number => {
+export const getAvailableNumberOfPerks = (currentPerkAmount: number, maxLevel: number, isStudent: boolean): number => {
     let remainingPerks = maxLevel - 1;
     remainingPerks -= currentPerkAmount;
     if (isStudent) {
@@ -14,6 +10,7 @@ export const getAvailableNumberOfPerks = (
     return remainingPerks;
 };
 
+// prettier-ignore
 const perksByRows: { [key: number]: string[]; } = {
     0: [
         'fastAdaption',
@@ -86,10 +83,10 @@ const perksByRows: { [key: number]: string[]; } = {
  * than the *number of previous rows*, the build is invalid.
  */
 export const isBuildInvalid = (activePerks: string[]) => {
-    const firstInvalidPerkId = activePerks.find(currentPerk => {
+    const firstInvalidPerkId = activePerks.find((currentPerk) => {
         // Find the row that the perk belongs to
-        const rowNumberKey = Object.keys(perksByRows).find(row => {
-            return !!perksByRows[parseInt(row)].find(perk => {
+        const rowNumberKey = Object.keys(perksByRows).find((row) => {
+            return !!perksByRows[parseInt(row)].find((perk) => {
                 return perk === currentPerk;
             });
         });
@@ -97,8 +94,8 @@ export const isBuildInvalid = (activePerks: string[]) => {
 
         // Count the number of active perks in previous rows
         let previousRowsPerksCount = 0;
-        for(let i = 0; i < rowNumber; i++) {
-            activePerks.forEach(perkId => {
+        for (let i = 0; i < rowNumber; i++) {
+            activePerks.forEach((perkId) => {
                 if (perksByRows[i].indexOf(perkId) > -1) {
                     previousRowsPerksCount += 1;
                 }

@@ -1,11 +1,11 @@
-import * as React from 'react';
-import {ThemeId} from '../../models';
-import {useThemeActions, useThemeId} from '../../stores/themeStore';
-import {ThemeButton} from './ThemeButton';
+import * as React from "react";
+import { ThemeId } from "../../models";
+import { useThemeActions, useThemeId } from "../../stores/themeStore";
+import { ThemeButton } from "./ThemeButton";
 
 export const ThemeSwitcher = (): JSX.Element => {
     const themeId = useThemeId();
-    const {setThemeId} = useThemeActions();
+    const { setThemeId } = useThemeActions();
 
     return (
         <div className="themeSwitcher">
@@ -16,4 +16,4 @@ export const ThemeSwitcher = (): JSX.Element => {
             <ThemeButton themeId={ThemeId.ofFleshAndFaith} activeThemeId={themeId} setThemeId={setThemeId} />
         </div>
     );
-}
+};

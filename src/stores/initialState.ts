@@ -1,4 +1,4 @@
-import {LoadoutItems, Stars, StatNums} from '../models';
+import { LoadoutItems, Stars, StatNums } from "../models";
 
 export const getNewStatNums = (): StatNums => ({
     level: 1,

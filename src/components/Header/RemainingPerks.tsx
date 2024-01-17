@@ -1,5 +1,5 @@
-import * as React from 'react';
-import {getAvailableNumberOfPerks, maxLevel} from '../../logic';
+import * as React from "react";
+import { getAvailableNumberOfPerks, maxLevel } from "../../logic";
 
 interface RemainingPerksProps {
     currentPerkAmount: number;
@@ -7,10 +7,8 @@ interface RemainingPerksProps {
 }
 
 export const RemainingPerks = (props: RemainingPerksProps): JSX.Element => {
-    const {isStudent, currentPerkAmount} = props;
+    const { isStudent, currentPerkAmount } = props;
     const remainingPerks = getAvailableNumberOfPerks(currentPerkAmount, maxLevel, isStudent);
 
-    return (
-        <h3 className="perksRemaining">Remaining Perks: {remainingPerks}</h3>
-    );
+    return <h3 className="perksRemaining">Remaining Perks: {remainingPerks}</h3>;
 };

@@ -66,7 +66,7 @@ module.exports = {
         "typedoc.*",
         "typedoc-output",
         "webpack.config.*",
-        "itemImageMap.ts"
+        "itemImageMap.ts",
     ],
     rules: {
         // Disable explicit function return types

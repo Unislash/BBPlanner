@@ -1,16 +1,16 @@
-import {LocalStorageBuildData} from './models';
-import {buildStore} from './stores/buildStore';
-import {loadFromURL} from './url';
+import { LocalStorageBuildData } from "./models";
+import { buildStore } from "./stores/buildStore";
+import { loadFromURL } from "./url";
 
 export const setLocalStorageObject = <T>(key: string, value: T) => {
     localStorage.setItem(key, JSON.stringify(value));
-}
+};
 
 export const getLocalStorageObject = <T = unknown>(key: string): T | undefined => {
     const value = localStorage.getItem(key);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return value ? JSON.parse(value) : undefined;
-}
+};
 
 /**
  * Updates any existing state in storage.
@@ -45,7 +45,7 @@ export const updateStorageForCurrentBuild = (forceSave = false): boolean => {
 
 export const saveBuildIdListToStorage = (buildIdList: string[]) => {
     setLocalStorageObject("bbplanner", buildIdList);
-}
+};
 
 export const removeBuildFromStorage = (buildId: string): string[] => {
     const savedBuildIds = getLocalStorageObject<string[]>("bbplanner") || [];

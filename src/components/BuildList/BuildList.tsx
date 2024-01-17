@@ -1,24 +1,24 @@
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from "@material-ui/icons/Delete";
 import move from "array-move";
-import * as React from 'react';
+import * as React from "react";
 import { useRef, useState } from "react";
-import {loadFromStorage, saveBuildIdListToStorage} from '../../storage';
-import {useBuildActions, useBuildIdList} from '../../stores/buildStore';
-import {BuildEntry} from './BuildEntry';
+import { loadFromStorage, saveBuildIdListToStorage } from "../../storage";
+import { useBuildActions, useBuildIdList } from "../../stores/buildStore";
+import { BuildEntry } from "./BuildEntry";
 import { findIndex, Position } from "./findIndex";
 
 export const BuildList = (): JSX.Element => {
     const buildIdList = useBuildIdList();
-    const {setBuildIdList, removeBuild} = useBuildActions();
+    const { setBuildIdList, removeBuild } = useBuildActions();
 
-    const [isItemDragging, setIsItemDragging] = useState(false)
+    const [isItemDragging, setIsItemDragging] = useState(false);
 
     // We need to collect an array of height and position data for all of this component's
     // `Item` children, so we can later us that in calculations to decide when a dragging
     // `Item` should swap places with its siblings.
     const positions = useRef<Position[]>([]).current;
     const setPosition = (i: number, offset: Position) => {
-        positions[i] = offset
+        positions[i] = offset;
     };
 
     // Find the ideal index for a dragging item based on its position in the array, and its
@@ -40,41 +40,46 @@ export const BuildList = (): JSX.Element => {
      * by the motion dragging API before the click handlers fire when the mouse button is released.
      */
     const setIsDragging = (isDragging: boolean) => {
-        setTimeout(() => {setIsItemDragging(isDragging)}, 1)
+        setTimeout(() => {
+            setIsItemDragging(isDragging);
+        }, 1);
     };
 
     return (
         <div className="savedBuilds">
             <h3>Saved Builds</h3>
             <div className="buildList">
-                {
-                    buildIdList.map((buildId, i) => (
-                        <BuildEntry
-                            key={buildId}
-                            className="buildEntry"
-                            i={i}
-                            setPosition={setPosition}
-                            moveItem={moveItem}
-                            setIsDragging={setIsDragging}
-                        >
-                            <span className="buildEntryText" onClick={() => {
+                {buildIdList.map((buildId, i) => (
+                    <BuildEntry
+                        key={buildId}
+                        className="buildEntry"
+                        i={i}
+                        setPosition={setPosition}
+                        moveItem={moveItem}
+                        setIsDragging={setIsDragging}
+                    >
+                        <span
+                            className="buildEntryText"
+                            onClick={() => {
                                 if (!isItemDragging) {
-                                    loadFromStorage(buildId)
+                                    loadFromStorage(buildId);
                                 }
-                            }}>{buildId}</span>
-                            <div
-                                className="deleteBuild"
-                                onClick={() => {
-                                    if (!isItemDragging) {
-                                        removeBuild(buildId);
-                                    }
-                                }}
-                            >
-                                <DeleteIcon />
-                            </div>
-                        </BuildEntry>
-                    ))
-                }
+                            }}
+                        >
+                            {buildId}
+                        </span>
+                        <div
+                            className="deleteBuild"
+                            onClick={() => {
+                                if (!isItemDragging) {
+                                    removeBuild(buildId);
+                                }
+                            }}
+                        >
+                            <DeleteIcon />
+                        </div>
+                    </BuildEntry>
+                ))}
             </div>
         </div>
     );

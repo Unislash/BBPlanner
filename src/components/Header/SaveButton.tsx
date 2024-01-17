@@ -1,13 +1,13 @@
-import SaveIcon from '@material-ui/icons/Favorite';
-import SaveIconBorder from '@material-ui/icons/FavoriteBorder';
-import classcat from 'classcat';
-import Tooltip from 'rc-tooltip';
-import * as React from 'react';
-import { useState } from 'react';
-import {initialBuildStore, useBuildActions, useBuildIdList, useBuildName} from '../../stores/buildStore';
+import SaveIcon from "@material-ui/icons/Favorite";
+import SaveIconBorder from "@material-ui/icons/FavoriteBorder";
+import classcat from "classcat";
+import Tooltip from "rc-tooltip";
+import * as React from "react";
+import { useState } from "react";
+import { initialBuildStore, useBuildActions, useBuildIdList, useBuildName } from "../../stores/buildStore";
 
 export const SaveButton = (): JSX.Element => {
-    const {saveBuild} = useBuildActions();
+    const { saveBuild } = useBuildActions();
     const buildName = useBuildName();
     const buildIdList = useBuildIdList();
 
@@ -23,9 +23,13 @@ export const SaveButton = (): JSX.Element => {
             overlayClassName="plannerButtonTooltip"
         >
             <div
-                className={classcat(['saveButton', 'plannerButton', {
-                    saved: isSaved
-                }])}
+                className={classcat([
+                    "saveButton",
+                    "plannerButton",
+                    {
+                        saved: isSaved,
+                    },
+                ])}
                 onClick={() => {
                     // Only allow saving if the user enters a name
                     if (usingDefaultBuildName) {

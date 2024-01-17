@@ -1,7 +1,7 @@
-import classcat from 'classcat';
-import * as React from 'react';
-import {ChangeEvent, useRef} from 'react';
-import arrow_right from '../../images/arrow_right.png';
+import classcat from "classcat";
+import * as React from "react";
+import { ChangeEvent, useRef } from "react";
+import arrow_right from "../../images/arrow_right.png";
 
 interface LevelBarProps {
     icon: string;
@@ -9,17 +9,13 @@ interface LevelBarProps {
     setLevelNumber: (value: number) => void;
 }
 
-export const LevelBar: React.FC<LevelBarProps> = props => {
-    const {
-        icon,
-        levelNumber,
-        setLevelNumber,
-    } = props;
+export const LevelBar: React.FC<LevelBarProps> = (props) => {
+    const { icon, levelNumber, setLevelNumber } = props;
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         // Only take numbers
-        const forcedNumber = event.target.value.replace(/\D/,'');
-        let levelNumber = parseInt(forcedNumber || "0", 10)
+        const forcedNumber = event.target.value.replace(/\D/, "");
+        let levelNumber = parseInt(forcedNumber || "0", 10);
         if (levelNumber > 11) {
             levelNumber = 11;
         }
@@ -30,7 +26,7 @@ export const LevelBar: React.FC<LevelBarProps> = props => {
         if (levelNumber === 0) {
             setLevelNumber(1);
         }
-    }
+    };
 
     const handleBarClick = () => {
         inputRef.current?.focus();
@@ -41,10 +37,7 @@ export const LevelBar: React.FC<LevelBarProps> = props => {
     return (
         <div className="statBar">
             <img className="icon" src={icon} />
-            <div
-                className={classcat(['inputBar', 'yellow'])}
-                onClick={handleBarClick}
-            >
+            <div className={classcat(["inputBar", "yellow"])} onClick={handleBarClick}>
                 <div className="barTextControl">
                     <span className="barInputWidthReserver">{levelNumber}</span>
                     <input
