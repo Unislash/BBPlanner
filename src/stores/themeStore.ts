@@ -1,14 +1,14 @@
-import { devtools } from "zustand/middleware";
 import { useStore } from "zustand";
+import { devtools } from "zustand/middleware";
 import {createStore} from "zustand/vanilla";
 import {ThemeId} from '../models';
 import {getThemeId, saveThemeId} from '../storageTheme';
 
 export interface ThemeStore {
-    themeId: ThemeId,
     actions: {
         setThemeId: (themeId: ThemeId) => void;
-    }
+    },
+    themeId: ThemeId
 }
 
 export const initialThemeStore = {

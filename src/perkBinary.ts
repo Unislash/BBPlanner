@@ -4,7 +4,7 @@
  *
  * This is used as a convenient place to temporarily store perk data during compression
  */
-export let perkBinary = {
+export const perkBinary = {
     fastAdaption: 0,
     cripplingStrikes: 0,
     colossus: 0,

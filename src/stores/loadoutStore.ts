@@ -1,18 +1,18 @@
-import { devtools } from "zustand/middleware";
 import { useStore } from "zustand";
-import {createStore} from "zustand/vanilla";
+import { devtools } from "zustand/middleware";
 import {shallow} from 'zustand/shallow'
+import {createStore} from "zustand/vanilla";
 import {LoadoutItems, LoadoutSlotType} from '../models';
-import {getNewLoadoutItems} from './initialState';
-import {saveToURL} from '../url';
 import {updateStorageForCurrentBuild} from '../storage';
+import {saveToURL} from '../url';
+import {getNewLoadoutItems} from './initialState';
 
 export interface LoadoutStore {
-    loadoutItems: LoadoutItems;
     actions: {
-        setLoadoutSlot: (loadoutSlot: LoadoutSlotType, itemName: string) => void;
         setLoadoutItems: (loadoutItems: LoadoutItems) => void;
-    }
+        setLoadoutSlot: (loadoutSlot: LoadoutSlotType, itemName: string) => void;
+    },
+    loadoutItems: LoadoutItems;
 }
 
 export const initialLoadoutStore = {

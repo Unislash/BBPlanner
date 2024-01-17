@@ -2,8 +2,8 @@ import * as React from 'react';
 import {maxLevel} from '../../logic';
 
 interface RequiredLevelProps {
-    isStudent: boolean;
     currentPerkAmount: number;
+    isStudent: boolean;
 }
 
 export const RequiredLevel = (props: RequiredLevelProps): JSX.Element => {

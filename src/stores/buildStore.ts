@@ -1,19 +1,19 @@
-import { devtools } from "zustand/middleware";
 import { useStore } from "zustand";
-import {createStore} from "zustand/vanilla";
+import { devtools } from "zustand/middleware";
 import {shallow} from 'zustand/shallow'
+import {createStore} from "zustand/vanilla";
 import {removeBuildFromStorage, updateStorageForCurrentBuild} from '../storage';
 import {saveToURL} from '../url';
 
 export interface BuildStore {
-    buildName: string;
-    buildIdList: string[];
     actions: {
-        setBuildName: (buildName: string, withSave?: boolean) => void;
-        setBuildIdList: (buildIdList: string[]) => void;
         removeBuild: (buildId: string) => void;
         saveBuild: () => void;
-    }
+        setBuildIdList: (buildIdList: string[]) => void;
+        setBuildName: (buildName: string, withSave?: boolean) => void;
+    },
+    buildIdList: string[];
+    buildName: string;
 }
 
 export const initialBuildStore = {

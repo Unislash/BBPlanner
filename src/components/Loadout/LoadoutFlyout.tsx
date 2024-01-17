@@ -1,8 +1,8 @@
 /** @jsx jsx */
 
-import * as React from 'react';
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
+import * as React from 'react';
 
 const Menu = styled.div`
     position: absolute;
@@ -30,8 +30,8 @@ const FlyoutRoot = styled.div`
 
 export interface LoadoutFlyoutProps {
     isOpen: boolean;
-    target: React.ReactNode;
     onClose: () => void;
+    target: React.ReactNode;
 }
 
 export const LoadoutFlyout: React.FC<LoadoutFlyoutProps> = ({ children, isOpen, target, onClose }) => (

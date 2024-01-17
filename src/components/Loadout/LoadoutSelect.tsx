@@ -1,21 +1,21 @@
 /** @jsx jsx */
-import * as React from 'react';
 import { jsx } from '@emotion/core';
-import Select from 'react-select'
-import {LoadoutItem, LoadoutSlotType} from '../../models';
+import Tooltip from 'rc-tooltip';
+import * as React from 'react';
 import { useState } from 'react';
+import Select from 'react-select'
+import {EMPTY_NAME} from '../../data/itemData';
+import {LoadoutItem, LoadoutSlotType} from '../../models';
 import { LoadoutFlyout } from './LoadoutFlyout';
 import {loadoutSelectStyles} from './LoadoutSelectStyles';
 import {LoadoutSlotButton} from './LoadoutSlotButton';
-import Tooltip from 'rc-tooltip';
 import {LoadoutTooltip} from './LoadoutTooltip';
-import {EMPTY_NAME} from '../../data/itemData';
 
 interface LoadoutSelectProps {
+    loadoutSlotType: LoadoutSlotType;
     options: LoadoutItem[];
     selected: LoadoutItem;
     onItemChange?: (newItem: LoadoutItem) => void;
-    loadoutSlotType: LoadoutSlotType;
 }
 
 export const LoadoutSelect = (props: LoadoutSelectProps): JSX.Element => {

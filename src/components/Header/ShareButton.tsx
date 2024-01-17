@@ -1,6 +1,6 @@
-import * as React from 'react';
 import ShareIcon from '@material-ui/icons/Share';
 import Tooltip from 'rc-tooltip';
+import * as React from 'react';
 import { useState } from 'react';
 
 const copyUrlToClipboard = () => {
@@ -36,7 +36,7 @@ export const ShareButton: React.FC = () => {
                     }, 3000);
                 }}
             >
-                <ShareIcon/>
+                <ShareIcon />
             </div>
         </Tooltip>
     );

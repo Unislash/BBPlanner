@@ -1,14 +1,13 @@
-import * as React from 'react';
 import classcat from 'classcat';
-
+import * as React from 'react';
 import star from '../../images/star.png';
 
 interface StarProps {
-    starIndex: number;
     currentStars: number;
-    setCurrentStars: (value: number) => void;
     hoveredStarIndex: number | undefined;
+    setCurrentStars: (value: number) => void;
     setHoveredStarIndex: (value: number | undefined) => void;
+    starIndex: number;
 }
 
 export const Star: React.FC<StarProps> = props => {

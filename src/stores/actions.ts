@@ -1,9 +1,9 @@
 import {resetURL} from '../url';
-import {initialPerkStore, perkStore} from './perkStore';
 import {buildStore, initialBuildStore} from './buildStore';
-import {initialStatsStore, statsStore} from './statsStore';
-import {initialStarsStore, starsStore} from './starsStore';
 import {initialLoadoutStore, loadoutStore} from './loadoutStore';
+import {initialPerkStore, perkStore} from './perkStore';
+import {initialStarsStore, starsStore} from './starsStore';
+import {initialStatsStore, statsStore} from './statsStore';
 
 export const createNewBuild = () => {
     const {setBuildName} = buildStore.getState().actions;

@@ -1,21 +1,20 @@
-import * as React from 'react';
 import classcat from 'classcat';
+import * as React from 'react';
 import {ChangeEvent, useRef, useState} from 'react';
-
 import arrow_right from '../../images/arrow_right.png';
-import {Star} from './Star';
 import {StatType} from '../../models';
+import {Star} from './Star';
 
 type BarColor = 'red' | 'yellow' | 'blue' | 'brown';
 
 interface StatBarProps {
-    statType: StatType;
+    currentLevel: number;
     icon: string;
-    statNumber: number;
+    setStars: (value: number) => void;
     setStatNumber: (value: number) => void;
     stars: number;
-    setStars: (value: number) => void;
-    currentLevel: number;
+    statNumber: number;
+    statType: StatType;
     perkMultiplier?: number;
 }
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import {LoadoutItem} from '../../models';
-import {LoadoutSelect} from './LoadoutSelect';
 import {accessories, ammo, armor, bags, helmets, offhandItems, TWO_HANDED_WEAPON, weapons} from '../../data/itemData';
+import {LoadoutItem} from '../../models';
 import {useLoadoutActions, useLoadoutItems} from '../../stores/loadoutStore';
+import {LoadoutSelect} from './LoadoutSelect';
 
 const getLoadoutItemByName = (name: string, loadoutItemList: LoadoutItem[]) => {
     return loadoutItemList.find(item => name === item.id);

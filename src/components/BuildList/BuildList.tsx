@@ -1,11 +1,11 @@
+import DeleteIcon from '@material-ui/icons/Delete';
+import move from "array-move";
 import * as React from 'react';
 import { useRef, useState } from "react";
 import {loadFromStorage, saveBuildIdListToStorage} from '../../storage';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { findIndex, Position } from "./findIndex";
-import move from "array-move";
-import {BuildEntry} from './BuildEntry';
 import {useBuildActions, useBuildIdList} from '../../stores/buildStore';
+import {BuildEntry} from './BuildEntry';
+import { findIndex, Position } from "./findIndex";
 
 export const BuildList = (): JSX.Element => {
     const buildIdList = useBuildIdList();
@@ -70,7 +70,7 @@ export const BuildList = (): JSX.Element => {
                                     }
                                 }}
                             >
-                                <DeleteIcon/>
+                                <DeleteIcon />
                             </div>
                         </BuildEntry>
                     ))

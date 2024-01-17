@@ -1,22 +1,20 @@
 import * as React from 'react';
-import {StatBar} from './StatBar';
-
-import levelIcon from '../../images/stats/leveled_up.png';
-import healthIcon from '../../images/stats/health.png';
 import fatigueIcon from '../../images/stats/fatigue.png';
-import resolveIcon from '../../images/stats/resolve.png';
+import healthIcon from '../../images/stats/health.png';
 import initiativeIcon from '../../images/stats/initiative.png';
+import levelIcon from '../../images/stats/leveled_up.png';
 import mattackIcon from '../../images/stats/mattack.png';
-import rattackIcon from '../../images/stats/rattack.png';
 import mdefenseIcon from '../../images/stats/mdefense.png';
+import rattackIcon from '../../images/stats/rattack.png';
 import rdefenseIcon from '../../images/stats/rdefense.png';
-
-import {Stars, StatType} from '../../models';
-import {LevelBar} from './LevelBar';
-import {ForecastInfoButton} from './ForecastInfoButton';
+import resolveIcon from '../../images/stats/resolve.png';
+import { StatType} from '../../models';
 import {useActivePerkIds} from '../../stores/perkStore';
-import {useStatNums, useStatsActions} from '../../stores/statsStore';
 import {useStars, useStarsActions} from '../../stores/starsStore';
+import {useStatNums, useStatsActions} from '../../stores/statsStore';
+import {ForecastInfoButton} from './ForecastInfoButton';
+import {LevelBar} from './LevelBar';
+import {StatBar} from './StatBar';
 
 export const StatsForecast = (): JSX.Element => {
     const activePerkIds = useActivePerkIds();

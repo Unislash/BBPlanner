@@ -1,19 +1,19 @@
-import { devtools } from "zustand/middleware";
 import { useStore } from "zustand";
-import {createStore} from "zustand/vanilla";
+import { devtools } from "zustand/middleware";
 import {shallow} from 'zustand/shallow'
+import {createStore} from "zustand/vanilla";
 import {Stars, StatType} from '../models';
-import {getNewStars} from './initialState';
-import {saveToURL} from '../url';
 import {updateStorageForCurrentBuild} from '../storage';
+import {saveToURL} from '../url';
+import {getNewStars} from './initialState';
 
 export interface StarsStore {
-    stars: Stars;
     actions: {
+        resetStars: () => void;
         setStar: (statType: StatType, amount: number) => void;
         setStars: (stars: Stars) => void;
-        resetStars: () => void;
-    }
+    },
+    stars: Stars;
 }
 
 export const initialStarsStore = {

@@ -1,6 +1,6 @@
-import * as React from 'react';
 import NewIcon from '@material-ui/icons/PostAdd';
 import Tooltip from 'rc-tooltip';
+import * as React from 'react';
 import {createNewBuild} from '../../stores/actions';
 
 
@@ -18,7 +18,7 @@ export const NewBuildButton = (): JSX.Element => {
                     createNewBuild()
                 }}
             >
-                <NewIcon/>
+                <NewIcon />
             </div>
         </Tooltip>
     );

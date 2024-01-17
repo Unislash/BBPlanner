@@ -1,13 +1,13 @@
-import * as React from 'react';
 import classcat from 'classcat';
 import Tooltip from 'rc-tooltip';
+import * as React from 'react';
 import 'rc-tooltip/assets/bootstrap.css';
 
 interface PerkProps {
-    isActive: boolean;
     image: string;
-    tooltipText: React.ReactNode;
+    isActive: boolean;
     onClick: () => void;
+    tooltipText: React.ReactNode;
 }
 
 export const Perk: React.FC<PerkProps> = props => {
@@ -22,7 +22,7 @@ export const Perk: React.FC<PerkProps> = props => {
             <div onClick={onClick} className={classcat(["perk", {isActive}])}>
                 <div className="perkImageHoverWrapper">
                     {/*unfortunately we need a wrapper around img to let it be hoverable for the tooltip, but not draggable*/}
-                    <img src={image}/>
+                    <img src={image} />
                 </div>
             </div>
         </Tooltip>

@@ -1,5 +1,5 @@
-import ReactDOM from 'react-dom';
 import * as React from 'react';
+import ReactDOM from 'react-dom';
 
 import 'url-search-params-polyfill';
 import 'es6-object-assign/auto';
@@ -13,7 +13,7 @@ window.onpopstate = () => {
 
 const rootElement = document.getElementById('root');
 ReactDOM.render(
-    <App/>,
+    <App />,
     rootElement,
     () => {
         loadFromURL();

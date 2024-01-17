@@ -1,7 +1,6 @@
-import * as React from 'react';
 import classcat from 'classcat';
+import * as React from 'react';
 import {ChangeEvent, useRef} from 'react';
-
 import arrow_right from '../../images/arrow_right.png';
 
 interface LevelBarProps {

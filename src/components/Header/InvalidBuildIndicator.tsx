@@ -1,8 +1,7 @@
-import * as React from 'react';
 import InvalidIcon from '@material-ui/icons/ErrorOutline';
-
-import {isBuildInvalid} from '../../logic';
 import Tooltip from 'rc-tooltip';
+import * as React from 'react';
+import {isBuildInvalid} from '../../logic';
 import {useActivePerkIds} from '../../stores/perkStore';
 
 export const InvalidBuildIndicator = () => {
@@ -15,7 +14,7 @@ export const InvalidBuildIndicator = () => {
             mouseEnterDelay={.5}
             overlayClassName="plannerButtonTooltip"
         >
-            <InvalidIcon className="invalidIndicator"/>
+            <InvalidIcon className="invalidIndicator" />
         </Tooltip>
     ) : null;
 };

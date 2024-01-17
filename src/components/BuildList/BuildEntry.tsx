@@ -1,14 +1,14 @@
+import { motion, useMotionValue } from "framer-motion";
 import * as React from 'react';
 import { useEffect, useState, useRef } from "react";
-import { motion, useMotionValue } from "framer-motion";
 import {Position} from './findIndex';
 
 export interface BuildEntryProps {
-    setPosition: (i: number, offset: Position) => void;
+    className: string;
+    i: number;
     moveItem: (i: number, dragOffset: number) => void;
     setIsDragging: (isDragging: boolean) => void;
-    i: number;
-    className: string;
+    setPosition: (i: number, offset: Position) => void;
 }
 
 export const BuildEntry: React.FC<BuildEntryProps> = ({

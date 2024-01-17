@@ -97,7 +97,7 @@ export const isBuildInvalid = (activePerks: string[]) => {
 
         // Count the number of active perks in previous rows
         let previousRowsPerksCount = 0;
-        for(let i = 0; i < rowNumber!; i++) {
+        for(let i = 0; i < rowNumber; i++) {
             activePerks.forEach(perkId => {
                 if (perksByRows[i].indexOf(perkId) > -1) {
                     previousRowsPerksCount += 1;
@@ -106,7 +106,7 @@ export const isBuildInvalid = (activePerks: string[]) => {
         }
 
         // Determine if the perk is invalid
-        if (rowNumber! > previousRowsPerksCount) {
+        if (rowNumber > previousRowsPerksCount) {
             return true;
         }
     });

@@ -1,5 +1,5 @@
-import React from 'react';
 import HyperlinkIcon from '@material-ui/icons/OpenInNew';
+import React from 'react';
 
 export const OtherResources: React.FC = () => {
     return (

@@ -1,18 +1,17 @@
 /** @jsx jsx */
 
-import * as React from 'react';
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
+import * as React from 'react';
 import { useEffect, useState } from 'react';
-import {LoadoutSlotType} from '../../models';
-
 import inventory_slot_accessory from "../../images/items/inventory_slot_accessory.png";
-import inventory_slot_mainhand from "../../images/items/inventory_slot_mainhand.png"
-import inventory_slot_helmet from "../../images/items/inventory_slot_helmet.png"
-import inventory_slot_body from "../../images/items/inventory_slot_body.png"
 import inventory_slot_ammo from "../../images/items/inventory_slot_ammo.png"
-import inventory_slot_offhand from "../../images/items/inventory_slot_offhand.png"
 import inventory_slot_bag from "../../images/items/inventory_slot_bag.png"
+import inventory_slot_body from "../../images/items/inventory_slot_body.png"
+import inventory_slot_helmet from "../../images/items/inventory_slot_helmet.png"
+import inventory_slot_mainhand from "../../images/items/inventory_slot_mainhand.png"
+import inventory_slot_offhand from "../../images/items/inventory_slot_offhand.png"
+import {LoadoutSlotType} from '../../models';
 
 const buttonResetStyles = `
     text-transform: none; // Remove inheritance of text transform in Firefox
@@ -33,8 +32,8 @@ type ItemImageMap = { [key: string]: string; };
 
 export interface LoadoutSlotButtonProps {
     loadoutSlotType: LoadoutSlotType;
-    onClick?: () => void;
     imageName?: string;
+    onClick?: () => void;
 }
 
 export const LoadoutSlotButton: React.FC<LoadoutSlotButtonProps> = props => {

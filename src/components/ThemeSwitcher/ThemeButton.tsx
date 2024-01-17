@@ -1,12 +1,12 @@
-import * as React from 'react';
 import classcat from 'classcat';
-import {ThemeId} from '../../models';
 import Tooltip from 'rc-tooltip';
+import * as React from 'react';
+import {ThemeId} from '../../models';
 
 interface ThemeButtonProps {
-    themeId: ThemeId;
     activeThemeId: ThemeId;
     setThemeId: (themeId: ThemeId) => void;
+    themeId: ThemeId;
 }
 
 const getText = (themeId: ThemeId) => {

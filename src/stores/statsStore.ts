@@ -1,19 +1,19 @@
-import { devtools } from "zustand/middleware";
 import { useStore } from "zustand";
-import {createStore} from "zustand/vanilla";
+import { devtools } from "zustand/middleware";
 import {shallow} from 'zustand/shallow'
+import {createStore} from "zustand/vanilla";
 import {StatNums, StatType} from '../models';
-import {getNewStatNums} from './initialState';
-import {saveToURL} from '../url';
 import {updateStorageForCurrentBuild} from '../storage';
+import {saveToURL} from '../url';
+import {getNewStatNums} from './initialState';
 
 export interface StatsStore {
-    statNums: StatNums;
     actions: {
+        resetStatNums: () => void;
         setStat: (statType: StatType, num: number) => void;
         setStatNums: (statNums: StatNums) => void;
-        resetStatNums: () => void;
-    }
+    },
+    statNums: StatNums;
 }
 
 export const initialStatsStore = {

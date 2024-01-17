@@ -2,8 +2,8 @@ import * as React from 'react';
 import {getAvailableNumberOfPerks, maxLevel} from '../../logic';
 
 interface RemainingPerksProps {
-    isStudent: boolean;
     currentPerkAmount: number;
+    isStudent: boolean;
 }
 
 export const RemainingPerks = (props: RemainingPerksProps): JSX.Element => {

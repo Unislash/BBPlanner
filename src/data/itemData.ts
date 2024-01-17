@@ -1,12 +1,12 @@
-import helmetsJson from './helmets.json';
-import armorsJson from './armors.json';
-import weaponsJson from './weapons.json';
+import {Accessory, Ammo, Bag, Consumable, Offhand, Shield, Tool, Weapon} from '../models';
 import accessoriesJson from './accessories.json';
+import ammoJson from './ammo.json';
+import armorsJson from './armors.json';
 import consumablesJson from './consumables.json';
+import helmetsJson from './helmets.json';
 import shieldsJson from './shields.json';
 import toolsJson from './tools.json';
-import ammoJson from './ammo.json';
-import {Accessory, Ammo, Bag, Consumable, Offhand, Shield, Tool, Weapon} from '../models';
+import weaponsJson from './weapons.json';
 
 export const TWO_HANDED_WEAPON = "TwoHanded";
 export const ONE_HANDED_WEAPON = "OneHanded";

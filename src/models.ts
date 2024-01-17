@@ -28,22 +28,22 @@ export interface LocalStorageBuildData {
 
 export interface LoadoutItem {
     id: string;
-    name: string;
     imageName: string;
+    name: string;
 }
 
 export interface Helmet extends LoadoutItem {
-    description: string;
     conditionMax: string;
-    value: string;
+    description: string;
     staminaModifier: string;
+    value: string;
 }
 
 export interface Armor extends LoadoutItem {
-    description: string;
     conditionMax: string;
-    value: string;
+    description: string;
     staminaModifier: string;
+    value: string;
 }
 
 export interface Accessory extends LoadoutItem {
@@ -56,33 +56,33 @@ export interface Ammo extends LoadoutItem {
 }
 
 export interface Weapon extends LoadoutItem {
+    armorDamageMult: string;
+    chanceToHitHead: string;
+    conditionMax: string;
     description: string;
+    directDamageMult: string;
+    handType: string;
+    rangeMax: string;
     regularDamage: string;
     regularDamageMax: string;
-    armorDamageMult: string;
-    directDamageMult: string;
     shieldDamage: string;
-    chanceToHitHead: string;
-    rangeMax: string;
-    conditionMax: string;
-    handType: string;
-    value: string;
     staminaModifier: string;
+    value: string;
 }
 
 export interface Shield extends LoadoutItem {
-    description: string;
     conditionMax: string;
+    description: string;
     meleeDefense: string;
     rangedDefense: string;
-    value: string;
     staminaModifier: string;
+    value: string;
 }
 
 export interface Tool extends LoadoutItem {
     description: string;
-    value: string;
     staminaModifier: string;
+    value: string;
 }
 
 export interface Consumable extends LoadoutItem {

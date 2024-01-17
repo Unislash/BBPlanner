@@ -1,20 +1,20 @@
-import { devtools } from "zustand/middleware";
 import { useStore } from "zustand";
-import {createStore} from "zustand/vanilla";
+import { devtools } from "zustand/middleware";
 import {shallow} from 'zustand/shallow'
+import {createStore} from "zustand/vanilla";
 import {getAvailableNumberOfPerks, maxLevel} from '../logic';
-import {saveToURL} from '../url';
 import {updateStorageForCurrentBuild} from '../storage';
+import {saveToURL} from '../url';
 
 export interface PerkStore {
-    activePerkIds: string[],
-    isStudent: boolean,
     actions: {
-        togglePerk: (perkId: string) => void;
-        setStudent: (isStudent: boolean) => void;
-        setPerks: (activePerkIds: string[]) => void;
         resetPerks: () => void;
-    }
+        setPerks: (activePerkIds: string[]) => void;
+        setStudent: (isStudent: boolean) => void;
+        togglePerk: (perkId: string) => void;
+    },
+    activePerkIds: string[],
+    isStudent: boolean
 }
 
 export const initialPerkStore = {
@@ -28,7 +28,7 @@ export const perkStore = createStore<PerkStore>()(
             ...initialPerkStore,
             actions: {
                 togglePerk: (perkId: string) => set(state => {
-                    let newState = {activePerkIds: state.activePerkIds, isStudent: state.isStudent};
+                    const newState = {activePerkIds: state.activePerkIds, isStudent: state.isStudent};
 
                     if (state.activePerkIds.indexOf(perkId) > -1) {
                         // It exists, so remove it

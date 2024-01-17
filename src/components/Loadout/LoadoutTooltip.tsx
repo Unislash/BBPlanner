@@ -1,3 +1,18 @@
+import styled from '@emotion/styled';
+import React from 'react';
+import armor_body from '../../images/loadoutInfo/armor_body.png';
+import armor_damage from '../../images/loadoutInfo/armor_damage.png';
+import armor_head from '../../images/loadoutInfo/armor_head.png';
+import asset_supplies from '../../images/loadoutInfo/asset_supplies.png';
+import chance_to_hit_head from '../../images/loadoutInfo/chance_to_hit_head.png';
+import direct_damage from '../../images/loadoutInfo/direct_damage.png';
+import fatigue from '../../images/loadoutInfo/fatigue.png';
+import melee_defense from '../../images/loadoutInfo/melee_defense.png';
+import money from '../../images/loadoutInfo/money.png';
+import ranged_defense from '../../images/loadoutInfo/ranged_defense.png';
+import regular_damage from '../../images/loadoutInfo/regular_damage.png';
+import shield_damage from '../../images/loadoutInfo/shield_damage.png';
+import vision from '../../images/loadoutInfo/vision.png';
 import {
     Accessory,
     Ammo,
@@ -10,25 +25,10 @@ import {
     Offhand,
     Weapon,
 } from '../../models';
-import React from 'react';
-import styled from '@emotion/styled';
-import armor_body from '../../images/loadoutInfo/armor_body.png';
-import armor_head from '../../images/loadoutInfo/armor_head.png';
-import money from '../../images/loadoutInfo/money.png';
-import fatigue from '../../images/loadoutInfo/fatigue.png';
-import asset_supplies from '../../images/loadoutInfo/asset_supplies.png';
-import regular_damage from '../../images/loadoutInfo/regular_damage.png';
-import direct_damage from '../../images/loadoutInfo/direct_damage.png';
-import armor_damage from '../../images/loadoutInfo/armor_damage.png';
-import chance_to_hit_head from '../../images/loadoutInfo/chance_to_hit_head.png';
-import melee_defense from '../../images/loadoutInfo/melee_defense.png';
-import ranged_defense from '../../images/loadoutInfo/ranged_defense.png';
-import shield_damage from '../../images/loadoutInfo/shield_damage.png';
-import vision from '../../images/loadoutInfo/vision.png';
 
 interface LoadoutTooltipProps {
-    loadoutSlotType: LoadoutSlotType;
     item: LoadoutItem;
+    loadoutSlotType: LoadoutSlotType;
 }
 
 const Title = styled.div`
@@ -67,9 +67,9 @@ const HelmetContent: React.FC<{item: Helmet}> = ({item}) => (
     <>
         <Title>{item.name}</Title>
         <Description>{item.description}</Description>
-        <StatLine>Worth&nbsp;&nbsp;<MoneyIcon src={money}/>&nbsp;<b>{item.value}</b></StatLine>
-        <StatLine><StatIcon src={armor_head}/><b>{item.conditionMax}</b> &nbsp;maximum durability</StatLine>
-        {item.staminaModifier && <StatLine><StatIcon src={fatigue}/>Maximum Fatigue&nbsp;<b>{item.staminaModifier}</b></StatLine>}
+        <StatLine>Worth&nbsp;&nbsp;<MoneyIcon src={money} />&nbsp;<b>{item.value}</b></StatLine>
+        <StatLine><StatIcon src={armor_head} /><b>{item.conditionMax}</b> &nbsp;maximum durability</StatLine>
+        {item.staminaModifier && <StatLine><StatIcon src={fatigue} />Maximum Fatigue&nbsp;<b>{item.staminaModifier}</b></StatLine>}
     </>
 );
 
@@ -77,9 +77,9 @@ const ArmorContent: React.FC<{item: Armor}> = ({item}) => (
     <>
         <Title>{item.name}</Title>
         <Description>{item.description}</Description>
-        <StatLine>Worth&nbsp;&nbsp;<MoneyIcon src={money}/>&nbsp;<b>{item.value}</b></StatLine>
-        <StatLine><StatIcon src={armor_body}/><b>{item.conditionMax}</b> &nbsp;maximum durability</StatLine>
-        {item.staminaModifier && <StatLine><StatIcon src={fatigue}/>Maximum Fatigue&nbsp;<b>{item.staminaModifier}</b></StatLine>}
+        <StatLine>Worth&nbsp;&nbsp;<MoneyIcon src={money} />&nbsp;<b>{item.value}</b></StatLine>
+        <StatLine><StatIcon src={armor_body} /><b>{item.conditionMax}</b> &nbsp;maximum durability</StatLine>
+        {item.staminaModifier && <StatLine><StatIcon src={fatigue} />Maximum Fatigue&nbsp;<b>{item.staminaModifier}</b></StatLine>}
     </>
 );
 
@@ -87,16 +87,16 @@ const WeaponContent: React.FC<{item: Weapon}> = ({item}) => (
     <>
         <Title>{item.name}</Title>
         <Description>{item.description}</Description>
-        <StatLine>Worth&nbsp;&nbsp;<MoneyIcon src={money}/>&nbsp;<b>{item.value}</b></StatLine>
-        {item.conditionMax && <StatLine><StatIcon src={asset_supplies}/><b>{item.conditionMax}</b> &nbsp;maximum durability</StatLine>}
-        <StatLine><StatIcon src={regular_damage}/>Damage of&nbsp;<b>{item.regularDamage} - {item.regularDamageMax}</b></StatLine>
-        <StatLine><StatIcon src={direct_damage}/><b>{Math.round(parseFloat(item.directDamageMult) * 100)}%</b>&nbsp;of damage ignores armor</StatLine>
-        <StatLine><StatIcon src={armor_damage}/><b>{Math.round(parseFloat(item.armorDamageMult) * 100)}%</b>&nbsp;effective against armor</StatLine>
-        {item.chanceToHitHead && <StatLine><StatIcon src={chance_to_hit_head}/>Chance to hit head&nbsp;<b>+{item.chanceToHitHead}%</b></StatLine>}
-        {item.rangeMax && <StatLine><StatIcon src={vision}/>Range of&nbsp;<b>{item.rangeMax}</b>&nbsp;tiles</StatLine>}
+        <StatLine>Worth&nbsp;&nbsp;<MoneyIcon src={money} />&nbsp;<b>{item.value}</b></StatLine>
+        {item.conditionMax && <StatLine><StatIcon src={asset_supplies} /><b>{item.conditionMax}</b> &nbsp;maximum durability</StatLine>}
+        <StatLine><StatIcon src={regular_damage} />Damage of&nbsp;<b>{item.regularDamage} - {item.regularDamageMax}</b></StatLine>
+        <StatLine><StatIcon src={direct_damage} /><b>{Math.round(parseFloat(item.directDamageMult) * 100)}%</b>&nbsp;of damage ignores armor</StatLine>
+        <StatLine><StatIcon src={armor_damage} /><b>{Math.round(parseFloat(item.armorDamageMult) * 100)}%</b>&nbsp;effective against armor</StatLine>
+        {item.chanceToHitHead && <StatLine><StatIcon src={chance_to_hit_head} />Chance to hit head&nbsp;<b>+{item.chanceToHitHead}%</b></StatLine>}
+        {item.rangeMax && <StatLine><StatIcon src={vision} />Range of&nbsp;<b>{item.rangeMax}</b>&nbsp;tiles</StatLine>}
         {/*for some reason, some weapons have a shieldDamage of 0...*/}
-        {!!parseInt(item.shieldDamage) && <StatLine><StatIcon src={shield_damage}/>Shield damage of&nbsp;<b>{item.shieldDamage}</b></StatLine>}
-        {item.staminaModifier && <StatLine><StatIcon src={fatigue}/>Maximum Fatigue&nbsp;<b>{item.staminaModifier}</b></StatLine>}
+        {!!parseInt(item.shieldDamage) && <StatLine><StatIcon src={shield_damage} />Shield damage of&nbsp;<b>{item.shieldDamage}</b></StatLine>}
+        {item.staminaModifier && <StatLine><StatIcon src={fatigue} />Maximum Fatigue&nbsp;<b>{item.staminaModifier}</b></StatLine>}
     </>
 );
 
@@ -104,7 +104,7 @@ const AmmoContent: React.FC<{item: Ammo}> = ({item}) => (
     <>
         <Title>{item.name}</Title>
         <Description>{item.description}</Description>
-        <StatLine>Worth&nbsp;&nbsp;<MoneyIcon src={money}/>&nbsp;<b>{item.value}</b></StatLine>
+        <StatLine>Worth&nbsp;&nbsp;<MoneyIcon src={money} />&nbsp;<b>{item.value}</b></StatLine>
     </>
 );
 
@@ -112,11 +112,11 @@ const OffhandContent: React.FC<{item: Offhand}> = ({item}) => (
     <>
         <Title>{item.name}</Title>
         <Description>{item.description}</Description>
-        <StatLine>Worth&nbsp;&nbsp;<MoneyIcon src={money}/>&nbsp;<b>{item.value}</b></StatLine>
-        {"conditionMax" in item && <StatLine><StatIcon src={asset_supplies}/><b>{item.conditionMax}</b> &nbsp;maximum durability</StatLine>}
-        {"meleeDefense" in item && <StatLine><StatIcon src={melee_defense}/>Melee Defense&nbsp;<b>+{item.meleeDefense}</b></StatLine>}
-        {"rangedDefense" in item && <StatLine><StatIcon src={ranged_defense}/>Ranged Defense&nbsp;<b>+{item.rangedDefense}</b></StatLine>}
-        {item.staminaModifier && <StatLine><StatIcon src={fatigue}/>Maximum Fatigue&nbsp;<b>{item.staminaModifier}</b></StatLine>}
+        <StatLine>Worth&nbsp;&nbsp;<MoneyIcon src={money} />&nbsp;<b>{item.value}</b></StatLine>
+        {"conditionMax" in item && <StatLine><StatIcon src={asset_supplies} /><b>{item.conditionMax}</b> &nbsp;maximum durability</StatLine>}
+        {"meleeDefense" in item && <StatLine><StatIcon src={melee_defense} />Melee Defense&nbsp;<b>+{item.meleeDefense}</b></StatLine>}
+        {"rangedDefense" in item && <StatLine><StatIcon src={ranged_defense} />Ranged Defense&nbsp;<b>+{item.rangedDefense}</b></StatLine>}
+        {item.staminaModifier && <StatLine><StatIcon src={fatigue} />Maximum Fatigue&nbsp;<b>{item.staminaModifier}</b></StatLine>}
     </>
 );
 
@@ -129,7 +129,7 @@ const BagContent: React.FC<{item: Bag}> = ({item}) => {
         return (<>
             <Title>{item.name}</Title>
             <Description>{item.description}</Description>
-            {"value" in item && <StatLine>Worth&nbsp;&nbsp;<MoneyIcon src={money}/>&nbsp;<b>{item.value}</b></StatLine>}
+            {"value" in item && <StatLine>Worth&nbsp;&nbsp;<MoneyIcon src={money} />&nbsp;<b>{item.value}</b></StatLine>}
         </>);
     }
 };

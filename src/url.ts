@@ -1,16 +1,16 @@
-import {perkBinary} from './perkBinary';
-import {LoadoutItems, Stars, StatNums} from './models';
-import {getNewLoadoutItems, getNewStars, getNewStatNums} from './stores/initialState';
 import {idsByItem} from './components/Loadout/idsByItem';
 import {itemsById} from './components/Loadout/itemsById';
 import {to64Parse, to64String} from './compressionUtils';
-import {initialPerkStore, perkStore, PerkStore, useActivePerkIds} from './stores/perkStore';
-import {initialStatsStore, statsStore, StatsStore, useStatNums} from './stores/statsStore';
-import {initialStarsStore, starsStore, StarsStore, useStars} from './stores/starsStore';
-import {initialLoadoutStore, loadoutStore, LoadoutStore, useLoadoutItems} from './stores/loadoutStore';
-import {buildStore, BuildStore, initialBuildStore, useBuildName} from './stores/buildStore';
+import {LoadoutItems, Stars, StatNums} from './models';
+import {perkBinary} from './perkBinary';
+import {buildStore, BuildStore, initialBuildStore} from './stores/buildStore';
+import {getNewLoadoutItems, getNewStars, getNewStatNums} from './stores/initialState';
+import {initialLoadoutStore, loadoutStore, LoadoutStore} from './stores/loadoutStore';
+import {initialPerkStore, perkStore, PerkStore} from './stores/perkStore';
+import {initialStarsStore, starsStore, StarsStore} from './stores/starsStore';
+import {initialStatsStore, statsStore, StatsStore} from './stores/statsStore';
 
-export const padString = (padding: string, strToPad: string, padLeft: boolean = true) => {
+export const padString = (padding: string, strToPad: string, padLeft = true) => {
     if (typeof strToPad === 'undefined')
         return padding;
     if (padLeft) {
@@ -46,7 +46,7 @@ const uncompressPerks = (packedString: string) => {
 
     const binaryString = unpackBinaryString(packedString);
 
-    let activePerkIds: string[] = [];
+    const activePerkIds: string[] = [];
     binaryString.split('').forEach((str: string, index: number) => {
         if (str === "1") {
             activePerkIds.push(Object.keys(perkBinary)[index]);
@@ -63,7 +63,7 @@ const compressStats = (statNums: StatNums) => {
 };
 
 const uncompressStats = (packedString: string) => {
-    let newStatNums = getNewStatNums();
+    const newStatNums = getNewStatNums();
     if (!packedString.length) {
         return newStatNums;
     }
@@ -82,7 +82,7 @@ const compressStars = (stars: Stars) => {
 };
 
 const uncompressStars = (packedString: string) => {
-    let newStars = getNewStars();
+    const newStars = getNewStars();
     if (!packedString.length) {
         return newStars;
     }
@@ -101,7 +101,7 @@ const compressLoadoutItems = (loadoutItems: LoadoutItems) => {
 };
 
 const uncompressLoadoutItems = (packedString: string) => {
-    let newLoadoutItems = getNewLoadoutItems();
+    const newLoadoutItems = getNewLoadoutItems();
     if (!packedString.length) {
         return newLoadoutItems;
     }

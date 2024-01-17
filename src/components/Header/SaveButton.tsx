@@ -1,8 +1,8 @@
-import * as React from 'react';
 import SaveIcon from '@material-ui/icons/Favorite';
 import SaveIconBorder from '@material-ui/icons/FavoriteBorder';
 import classcat from 'classcat';
 import Tooltip from 'rc-tooltip';
+import * as React from 'react';
 import { useState } from 'react';
 import {initialBuildStore, useBuildActions, useBuildIdList, useBuildName} from '../../stores/buildStore';
 
@@ -38,7 +38,7 @@ export const SaveButton = (): JSX.Element => {
                     }
                 }}
             >
-                {isSaved ? <SaveIcon/> : <SaveIconBorder/>}
+                {isSaved ? <SaveIcon /> : <SaveIconBorder />}
             </div>
         </Tooltip>
     );

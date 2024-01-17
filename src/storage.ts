@@ -1,6 +1,6 @@
 import {LocalStorageBuildData} from './models';
-import {loadFromURL} from './url';
 import {buildStore} from './stores/buildStore';
+import {loadFromURL} from './url';
 
 Storage.prototype.setObject = function(key: string, value: Object) {
     this.setItem(key, JSON.stringify(value));
@@ -15,7 +15,7 @@ Storage.prototype.getObject = function(key: string): Object | undefined {
  * Updates any existing state in storage.
  * If no existing entry is found in storage, no state will be saved unless `forceSave` is true.
  */
-export const updateStorageForCurrentBuild = (forceSave: boolean = false): boolean => {
+export const updateStorageForCurrentBuild = (forceSave = false): boolean => {
     const stateToSave: LocalStorageBuildData = {
         url: window.location.search,
     };
@@ -26,7 +26,7 @@ export const updateStorageForCurrentBuild = (forceSave: boolean = false): boolea
         localStorage.setObject(buildId, stateToSave);
 
         // Add buildId to list if it doesn't already exist
-        let savedBuildIds = localStorage.getObject("bbplanner") as Array<string> | undefined || [];
+        const savedBuildIds = localStorage.getObject("bbplanner") as Array<string> | undefined || [];
         if (savedBuildIds.indexOf(buildId) === -1) {
             localStorage.setObject("bbplanner", [...savedBuildIds, buildId]);
         }
@@ -47,7 +47,7 @@ export const saveBuildIdListToStorage = (buildIdList: string[]) => {
 }
 
 export const removeBuildFromStorage = (buildId: string): string[] => {
-    let savedBuildIds = localStorage.getObject("bbplanner") as Array<string> | undefined || [];
+    const savedBuildIds = localStorage.getObject("bbplanner") as Array<string> | undefined || [];
     const index = savedBuildIds.indexOf(buildId);
     if (index > -1) {
         savedBuildIds.splice(index, 1);
