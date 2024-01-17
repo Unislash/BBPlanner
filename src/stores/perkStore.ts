@@ -54,7 +54,7 @@ export const perkStore = createStore<PerkStore>()(
                 }),
                 setStudent: (isStudent: boolean) => set({isStudent}),
                 setPerks: (activePerkIds: string[]) => set({activePerkIds}),
-                resetPerks: () => set(state => {
+                resetPerks: () => set(() => {
                     // Don't save! To avoid accidental resets, wait for the user to pick their first perk to save
                     // saveToURL(newState, true);
                     // updateStorageForCurrentBuild();

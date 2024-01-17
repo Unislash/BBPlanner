@@ -74,7 +74,10 @@ export const LoadoutSelect = (props: LoadoutSelectProps): JSX.Element => {
                 hideSelectedOptions={false}
                 isClearable={false}
                 menuIsOpen
-                onChange={onSelectChange as any}
+                onChange={
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                    onSelectChange as any
+                }
                 options={options}
                 getOptionLabel={option => option.name}
                 getOptionValue={option => option.id}

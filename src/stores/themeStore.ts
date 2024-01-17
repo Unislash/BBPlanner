@@ -20,7 +20,7 @@ export const themeStore = createStore<ThemeStore>()(
         (set) => ({
             ...initialThemeStore,
             actions: {
-                setThemeId: (themeId: ThemeId) => set(state => {
+                setThemeId: (themeId: ThemeId) => set(() => {
                     saveThemeId(themeId);
                     return {themeId};
                 })

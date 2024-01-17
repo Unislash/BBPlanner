@@ -40,5 +40,5 @@ export const findIndex = (
         }
     }
 
-    return clamp(0, positions.length, target);
+    return clamp(0, positions.length, target) as number;
 };

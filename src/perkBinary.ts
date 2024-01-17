@@ -1,10 +1,14 @@
+export interface PerkBinary {
+    [key: string]: number;
+}
+
 /**
  * So this isn't saved in redux, and is instead a singleton.
  * And you know what? That's ok!
  *
  * This is used as a convenient place to temporarily store perk data during compression
  */
-export const perkBinary = {
+export const perkBinary: PerkBinary = {
     fastAdaption: 0,
     cripplingStrikes: 0,
     colossus: 0,

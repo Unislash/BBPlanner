@@ -41,7 +41,7 @@ export const starsStore = createStore<StarsStore>()(
                     return newState;
                 }),
                 setStars: (stars: Stars) => set({stars}),
-                resetStars: () => set(state => {
+                resetStars: () => set(() => {
                     const newState = {
                         stars: getNewStars(),
                     };

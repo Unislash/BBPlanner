@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {accessories, ammo, armor, bags, helmets, offhandItems, TWO_HANDED_WEAPON, weapons} from '../../data/itemData';
-import {LoadoutItem} from '../../models';
+import { LoadoutItem, Weapon } from '../../models';
 import {useLoadoutActions, useLoadoutItems} from '../../stores/loadoutStore';
 import {LoadoutSelect} from './LoadoutSelect';
 
@@ -31,7 +31,7 @@ export const Loadout = (): JSX.Element => {
                             <LoadoutSelect
                                 onItemChange={item => {
                                     setLoadoutSlot("weapons", item.id);
-                                    if (item.id !== "" && (item as any).handType === TWO_HANDED_WEAPON) {
+                                    if (item.id !== "" && (item as Weapon).handType === TWO_HANDED_WEAPON) {
                                         setLoadoutSlot("offhandItems", "");
                                     }
                                 }}
@@ -73,7 +73,7 @@ export const Loadout = (): JSX.Element => {
                                 onItemChange={item => {
                                     setLoadoutSlot("offhandItems", item.id);
                                     const selectedWeaponItem = getLoadoutItemByName(loadoutItems["weapons"], weapons);
-                                    if (item.id !== "" && (selectedWeaponItem as any).handType === TWO_HANDED_WEAPON) {
+                                    if (item.id !== "" && (selectedWeaponItem as Weapon).handType === TWO_HANDED_WEAPON) {
                                         setLoadoutSlot("weapons", "");
                                     }
                                 }}

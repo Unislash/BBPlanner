@@ -42,12 +42,13 @@ export const LoadoutSlotButton: React.FC<LoadoutSlotButtonProps> = props => {
     useEffect(() => {
         async function getItemImageMap() {
             return import(/* webpackPrefetch: true */ /* webpackChunkName: "itemImageMap" */ './itemImageMap')
-                .then(({default: itemImageMap}: any) => {
+                .then(({default: itemImageMap}: { default: ItemImageMap }) => {
                     setItemImageMap(itemImageMap);
                 })
                 .catch(() => 'An error occurred while loading item image map');
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         getItemImageMap();
     }, []);
 

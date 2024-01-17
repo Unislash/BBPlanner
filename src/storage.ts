@@ -2,14 +2,15 @@ import {LocalStorageBuildData} from './models';
 import {buildStore} from './stores/buildStore';
 import {loadFromURL} from './url';
 
-Storage.prototype.setObject = function(key: string, value: Object) {
-    this.setItem(key, JSON.stringify(value));
-};
+export const setLocalStorageObject = <T>(key: string, value: T) => {
+    localStorage.setItem(key, JSON.stringify(value));
+}
 
-Storage.prototype.getObject = function(key: string): Object | undefined {
-    const value = this.getItem(key);
-    return value && JSON.parse(value);
-};
+export const getLocalStorageObject = <T = unknown>(key: string): T | undefined => {
+    const value = localStorage.getItem(key);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return value ? JSON.parse(value) : undefined;
+}
 
 /**
  * Updates any existing state in storage.
@@ -20,22 +21,22 @@ export const updateStorageForCurrentBuild = (forceSave = false): boolean => {
         url: window.location.search,
     };
     const buildId = buildStore.getState().buildName;
-    const storage = localStorage.getObject(buildId) as LocalStorageBuildData | undefined;
+    const storage = getLocalStorageObject<LocalStorageBuildData>(buildId);
 
     if (forceSave) {
-        localStorage.setObject(buildId, stateToSave);
+        setLocalStorageObject(buildId, stateToSave);
 
         // Add buildId to list if it doesn't already exist
-        const savedBuildIds = localStorage.getObject("bbplanner") as Array<string> | undefined || [];
+        const savedBuildIds = getLocalStorageObject<string[]>("bbplanner") || [];
         if (savedBuildIds.indexOf(buildId) === -1) {
-            localStorage.setObject("bbplanner", [...savedBuildIds, buildId]);
+            setLocalStorageObject("bbplanner", [...savedBuildIds, buildId]);
         }
 
         return true;
     }
 
     if (storage) {
-        localStorage.setObject(buildId, stateToSave);
+        setLocalStorageObject(buildId, stateToSave);
         return true;
     }
 
@@ -43,22 +44,22 @@ export const updateStorageForCurrentBuild = (forceSave = false): boolean => {
 };
 
 export const saveBuildIdListToStorage = (buildIdList: string[]) => {
-    localStorage.setObject("bbplanner", buildIdList);
+    setLocalStorageObject("bbplanner", buildIdList);
 }
 
 export const removeBuildFromStorage = (buildId: string): string[] => {
-    const savedBuildIds = localStorage.getObject("bbplanner") as Array<string> | undefined || [];
+    const savedBuildIds = getLocalStorageObject<string[]>("bbplanner") || [];
     const index = savedBuildIds.indexOf(buildId);
     if (index > -1) {
         savedBuildIds.splice(index, 1);
     }
-    localStorage.setObject("bbplanner", savedBuildIds);
+    setLocalStorageObject("bbplanner", savedBuildIds);
 
     return savedBuildIds;
 };
 
 export const loadFromStorage = (buildName: string): boolean => {
-    const storage = localStorage.getObject(buildName) as LocalStorageBuildData | undefined;
+    const storage = getLocalStorageObject<LocalStorageBuildData>(buildName);
     if (storage) {
         window.history.pushState({}, "", storage.url);
         loadFromURL();

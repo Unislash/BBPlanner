@@ -2,7 +2,7 @@ import { useStore } from "zustand";
 import { devtools } from "zustand/middleware";
 import {shallow} from 'zustand/shallow'
 import {createStore} from "zustand/vanilla";
-import {removeBuildFromStorage, updateStorageForCurrentBuild} from '../storage';
+import {getLocalStorageObject, removeBuildFromStorage, updateStorageForCurrentBuild} from '../storage';
 import {saveToURL} from '../url';
 
 export interface BuildStore {
@@ -26,7 +26,7 @@ export const buildStore = createStore<BuildStore>()(
         (set) => ({
             ...initialBuildStore,
             actions: {
-                setBuildName: (buildName: string, withSave?: boolean) => set(state => {
+                setBuildName: (buildName: string, withSave?: boolean) => set(() => {
                     const newState = {
                         buildName: buildName,
                     };
@@ -39,13 +39,13 @@ export const buildStore = createStore<BuildStore>()(
                     return newState
                 }),
                 setBuildIdList: (buildIdList: string[]) => set({buildIdList}),
-                removeBuild: (buildId: string) => set(state => {
+                removeBuild: (buildId: string) => set(() => {
                     const newBuildIdList = removeBuildFromStorage(buildId);
                     return {buildIdList: newBuildIdList};
                 }),
-                saveBuild: () => set(state => {
+                saveBuild: () => set(() => {
                     updateStorageForCurrentBuild(true);
-                    return {buildIdList: localStorage.getObject("bbplanner") || []};
+                    return {buildIdList: getLocalStorageObject<string[]>("bbplanner") || []};
                 }),
             }
         }),

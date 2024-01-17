@@ -1,4 +1,6 @@
-export const getNewStatNums = () => ({
+import {LoadoutItems, Stars, StatNums} from '../models';
+
+export const getNewStatNums = (): StatNums => ({
     level: 1,
     health: 55,
     fatigue: 100,
@@ -10,7 +12,7 @@ export const getNewStatNums = () => ({
     rdefense: 3,
 });
 
-export const getNewStars = () => ({
+export const getNewStars = (): Stars => ({
     health: 0,
     fatigue: 0,
     resolve: 0,
@@ -21,7 +23,7 @@ export const getNewStars = () => ({
     rdefense: 0,
 });
 
-export const getNewLoadoutItems = () => ({
+export const getNewLoadoutItems = (): LoadoutItems => ({
     accessories: "",
     weapons: "",
     helmets: "",

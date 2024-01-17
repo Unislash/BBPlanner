@@ -41,10 +41,6 @@ module.exports = {
         // https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/TYPED_LINTING.md
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
 
-        // Recommende set of rules for jsx-a11y
-        // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y#rule-strictness-in-different-modes
-        "plugin:jsx-a11y/recommended",
-
         // Prettier should always be last, so it can turn off any conflicting rules
         // https://github.com/prettier/eslint-config-prettier#installation
         "prettier",
@@ -70,6 +66,7 @@ module.exports = {
         "typedoc.*",
         "typedoc-output",
         "webpack.config.*",
+        "itemImageMap.ts"
     ],
     rules: {
         // Disable explicit function return types
@@ -127,16 +124,6 @@ module.exports = {
         // Focused tests are useful for debugging but should be unfocused before merging (describe.only, it.only, etc.)
         // https://github.com/jest-community/eslint-plugin-jest/blob/main/docs/rules/no-focused-tests.md
         "jest/no-focused-tests": "error",
-
-        // Enforce that a label tag has a text label and an associated control
-        // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/7d5511d41a24f4291609c4542a7b659827011425/docs/rules/label-has-associated-control.md
-        "jsx-a11y/label-has-associated-control": [
-            "error",
-            {
-                // Assert that either the label has `htmlFor` or a nested control
-                assert: "either",
-            },
-        ],
 
         // Allow empty functions
         // https://eslint.org/docs/rules/no-empty-function
@@ -196,6 +183,9 @@ module.exports = {
         // Prevent extra closing tags for components without children
         // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md
         "react/self-closing-comp": "error",
+
+        // Allow React text nodes to have unescaped quotes
+        "react/no-unescaped-entities": "off",
 
         // Require interface keys to be sorted
         // https://github.com/infctr/eslint-plugin-typescript-sort-keys/blob/master/docs/rules/interface.md

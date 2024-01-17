@@ -95,7 +95,7 @@ const WeaponContent: React.FC<{item: Weapon}> = ({item}) => (
         {item.chanceToHitHead && <StatLine><StatIcon src={chance_to_hit_head} />Chance to hit head&nbsp;<b>+{item.chanceToHitHead}%</b></StatLine>}
         {item.rangeMax && <StatLine><StatIcon src={vision} />Range of&nbsp;<b>{item.rangeMax}</b>&nbsp;tiles</StatLine>}
         {/*for some reason, some weapons have a shieldDamage of 0...*/}
-        {!!parseInt(item.shieldDamage) && <StatLine><StatIcon src={shield_damage} />Shield damage of&nbsp;<b>{item.shieldDamage}</b></StatLine>}
+        {item.shieldDamage && !!parseInt(item.shieldDamage) && <StatLine><StatIcon src={shield_damage} />Shield damage of&nbsp;<b>{item.shieldDamage}</b></StatLine>}
         {item.staminaModifier && <StatLine><StatIcon src={fatigue} />Maximum Fatigue&nbsp;<b>{item.staminaModifier}</b></StatLine>}
     </>
 );

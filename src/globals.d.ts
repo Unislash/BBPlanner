@@ -1,19 +1,19 @@
 declare module "*.svg" {
-    const theModule: any;
+    const theModule: string;
     export = theModule;
 }
 
 declare module "*.png" {
-    const theModule: any;
+    const theModule: string;
     export = theModule;
 }
 
 declare module "*.jpg" {
-    const theModule: any;
+    const theModule: string;
     export = theModule;
 }
 
 declare module "*.jpeg" {
-    const theModule: any;
+    const theModule: string;
     export = theModule;
 }

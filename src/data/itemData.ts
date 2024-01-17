@@ -19,7 +19,15 @@ const emptyItem = {
     imageName: ""
 }
 
-export const helmets = Object.values(helmetsJson).map(jsonItem => ({
+interface JsonItem {
+    chanceToHitHead?: string;
+    conditionMax?: string;
+    rangeMax?: string;
+    shieldDamage?: string;
+    staminaModifier?: string;
+}
+
+export const helmets = Object.values(helmetsJson).map((jsonItem: JsonItem & Record<string, string>) => ({
     id: jsonItem.name,
     name: jsonItem.name,
     imageName: jsonItem.helmetIcon,
@@ -27,7 +35,7 @@ export const helmets = Object.values(helmetsJson).map(jsonItem => ({
     conditionMax: jsonItem.conditionMax,
     value: jsonItem.value,
     // items with no stamina cost don't have a staminaModifier :-(
-    staminaModifier: (jsonItem as any).staminaModifier || "",
+    staminaModifier: jsonItem.staminaModifier ?? "",
 }));
 helmets.unshift({
     ...emptyItem,
@@ -37,7 +45,7 @@ helmets.unshift({
     staminaModifier: "",
 });
 
-export const armor = Object.values(armorsJson).map(jsonItem => ({
+export const armor = Object.values(armorsJson).map((jsonItem: JsonItem & Record<string, string>) => ({
     id: jsonItem.name,
     name: jsonItem.name,
     imageName: jsonItem.armorIcon,
@@ -45,7 +53,7 @@ export const armor = Object.values(armorsJson).map(jsonItem => ({
     conditionMax: jsonItem.conditionMax,
     value: jsonItem.value,
     // items with no stamina cost don't have a staminaModifier :-(
-    staminaModifier: (jsonItem as any).staminaModifier || "",
+    staminaModifier: jsonItem.staminaModifier ?? "",
 }));
 armor.unshift({
     ...emptyItem,
@@ -66,7 +74,7 @@ accessories.unshift({
     description: "",
 });
 
-export const weapons: Weapon[] = Object.values(weaponsJson).map(jsonItem => ({
+export const weapons: Weapon[] = Object.values(weaponsJson).map((jsonItem: JsonItem & Record<string, string>) => ({
     id: jsonItem.name,
     name: jsonItem.name,
     imageName: jsonItem.armamentIcon,
@@ -78,15 +86,15 @@ export const weapons: Weapon[] = Object.values(weaponsJson).map(jsonItem => ({
     armorDamageMult: jsonItem.armorDamageMult,
     directDamageMult: jsonItem.directDamageMult,
     // not all weapons can damage shields
-    shieldDamage: (jsonItem as any).shieldDamage,
+    shieldDamage: jsonItem.shieldDamage,
     // not all weapons add a chance to hit head
-    chanceToHitHead: (jsonItem as any).chanceToHitHead,
+    chanceToHitHead: jsonItem.chanceToHitHead,
     // only range weapons have rangeMax
-    rangeMax: (jsonItem as any).rangeMax,
+    rangeMax: jsonItem.rangeMax,
     // some weapons, such as throwing weapons, don't have durability
-    conditionMax: (jsonItem as any).conditionMax || "",
+    conditionMax: jsonItem.conditionMax || "",
     // items with no stamina cost don't have a staminaModifier :-(
-    staminaModifier: (jsonItem as any).staminaModifier || "",
+    staminaModifier: jsonItem.staminaModifier || "",
 }));
 weapons.unshift({
     ...emptyItem,
@@ -129,13 +137,13 @@ export const shields: Shield[] = Object.values(shieldsJson).map(jsonItem => ({
     staminaModifier: jsonItem.staminaModifier,
 }));
 
-export const tools: Tool[] = Object.values(toolsJson).map(jsonItem => ({
+export const tools: Tool[] = Object.values(toolsJson).map((jsonItem: JsonItem & Record<string, string>) => ({
     id: jsonItem.name,
     name: jsonItem.name,
     imageName: jsonItem.toolIcon,
     value: jsonItem.value,
     // only some tools have a staminaModifier (like nets)
-    staminaModifier: (jsonItem as any).staminaModifier || "",
+    staminaModifier: jsonItem.staminaModifier || "",
     description: jsonItem.description,
 }));
 

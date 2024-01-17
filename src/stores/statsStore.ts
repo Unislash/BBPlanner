@@ -41,7 +41,7 @@ export const statsStore = createStore<StatsStore>()(
                     return newState;
                 }),
                 setStatNums: (statNums: StatNums) => set({statNums}),
-                resetStatNums: () => set(state => {
+                resetStatNums: () => set(() => {
                     const newState = {
                         statNums: getNewStatNums(),
                     };

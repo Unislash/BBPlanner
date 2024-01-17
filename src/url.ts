@@ -3,6 +3,7 @@ import {itemsById} from './components/Loadout/itemsById';
 import {to64Parse, to64String} from './compressionUtils';
 import {LoadoutItems, Stars, StatNums} from './models';
 import {perkBinary} from './perkBinary';
+import {getLocalStorageObject} from './storage';
 import {buildStore, BuildStore, initialBuildStore} from './stores/buildStore';
 import {getNewLoadoutItems, getNewStars, getNewStatNums} from './stores/initialState';
 import {initialLoadoutStore, loadoutStore, LoadoutStore} from './stores/loadoutStore';
@@ -33,7 +34,7 @@ const unpackBinaryString = (packed: string): string => {
 
 const compressPerks = (activePerksIds: string[]) => {
     Object.keys(perkBinary).forEach((perkId: string) => {
-        (perkBinary as any)[perkId] = activePerksIds.includes(perkId) ? 1 : 0;
+        perkBinary[perkId] = activePerksIds.includes(perkId) ? 1 : 0;
     });
     const valuesAsString = Object.values(perkBinary).join("");
     return packBinaryString(valuesAsString);
@@ -70,7 +71,7 @@ const uncompressStats = (packedString: string) => {
 
     const statsArray = packedString.match(/.{1,3}/g)!.map(str => parseInt(str, 10));
     Object.keys(newStatNums).forEach((key: string, index: number) => {
-        (newStatNums as any)[key] = statsArray[index];
+        newStatNums[key] = statsArray[index];
     });
 
     return newStatNums;
@@ -89,7 +90,7 @@ const uncompressStars = (packedString: string) => {
 
     const starsArray = packedString.match(/.{1}/g)!.map(str => parseInt(str, 10));
     Object.keys(newStars).forEach((key: string, index: number) => {
-        (newStars as any)[key] = starsArray[index];
+        newStars[key] = starsArray[index];
     });
 
     return newStars;
@@ -108,7 +109,7 @@ const uncompressLoadoutItems = (packedString: string) => {
 
     const loadoutItemsArray = packedString.match(/.{2}/g)!.map(itemId => itemId === "AA" ? "" : itemsById[itemId]);
     Object.keys(newLoadoutItems).forEach((key: string, index: number) => {
-        (newLoadoutItems as any)[key] = loadoutItemsArray[index];
+        newLoadoutItems[key] = loadoutItemsArray[index];
     });
 
     return newLoadoutItems;
@@ -127,7 +128,7 @@ export const resetURL = (shouldCreateHistoryEntry?: boolean): string => {
     params.delete("stars");
     params.delete("gear");
 
-    const newUrl = `${window.location.pathname}?${params}`;
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
     if (shouldCreateHistoryEntry) {
         window.history.pushState({}, "", newUrl);
     } else {
@@ -165,14 +166,14 @@ export const saveToURL = (partialState: StateToSaveToUrl, shouldCreateHistoryEnt
     };
 
     // Update URL parameters based on the current and initial state values
-    updateParam("name", partialState.buildName || buildName, initialBuildStore.buildName, (name) => name || '');
+    updateParam("name", partialState.buildName || buildName, initialBuildStore.buildName, (name: string) => name || '');
     updateParam("perks", partialState.activePerkIds || activePerkIds, initialPerkStore.activePerkIds, compressPerks);
     updateParam("stats", partialState.statNums || statNums, initialStatsStore.statNums, compressStats);
     updateParam("stars", partialState.stars || stars, initialStarsStore.stars, compressStars);
     updateParam("gear", partialState.loadoutItems || loadoutItems, initialLoadoutStore.loadoutItems, compressLoadoutItems);
 
     // Set history entry
-    const newUrl = `${window.location.pathname}?${params}`;
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
     if (shouldCreateHistoryEntry) {
         window.history.pushState({}, "", newUrl);
     } else {
@@ -227,5 +228,5 @@ export const loadFromURL = () => {
         setLoadoutItems(getNewLoadoutItems());
     }
 
-    setBuildIdList(localStorage.getObject("bbplanner") || []);
+    setBuildIdList(getLocalStorageObject<string[]>("bbplanner") || []);
 };

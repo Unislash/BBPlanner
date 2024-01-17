@@ -10,11 +10,11 @@ export const to64String = ( input: number, current = '' ): string => {
     return ( remain <= 0 ) ? result : to64String( remain, result );
 };
 
-export const to64Parse =( input: string ): number => {
+export const to64Parse = (input: string): number => {
     let result = 0;
-    const toProc: Array<string> = input.split( '' );
-    for ( const e in toProc ){
-        result = ( result * 64 ) + STR64.indexOf( toProc[ e ] );
+    const toProc: Array<string> = input.split('');
+    for (const e of toProc) {
+        result = (result * 64) + STR64.indexOf(e);
     }
     return result;
 };

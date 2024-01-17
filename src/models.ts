@@ -57,15 +57,15 @@ export interface Ammo extends LoadoutItem {
 
 export interface Weapon extends LoadoutItem {
     armorDamageMult: string;
-    chanceToHitHead: string;
+    chanceToHitHead: string | undefined;
     conditionMax: string;
     description: string;
     directDamageMult: string;
     handType: string;
-    rangeMax: string;
+    rangeMax: string | undefined;
     regularDamage: string;
     regularDamageMax: string;
-    shieldDamage: string;
+    shieldDamage: string | undefined;
     staminaModifier: string;
     value: string;
 }
