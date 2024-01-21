@@ -222,7 +222,7 @@ p {
     padding: 4px;
     border: 1px solid transparent;
     border-radius: 4px;
-    font-size: 0; /*to prevent the newline from rendering*/
+    font-size: 0; /* to prevent the newline from rendering */
     transition:
         border 0.1s,
         color 0.5s;
@@ -345,7 +345,6 @@ body .rc-tooltip-inner {
     max-width: 550px;
     margin-left: auto;
     margin-right: auto;
-    /*background: url("./images/tactical_character_background.png") repeat-y;*/
     background-size: 100% auto;
 }
 
@@ -374,7 +373,7 @@ body .rc-tooltip-inner {
     cursor: pointer;
 }
 
-/*Hover treatment*/
+/* Hover treatment */
 .inputBar:hover:before {
     display: block;
     content: "";
@@ -489,7 +488,7 @@ body .rc-tooltip-inner {
 }
 
 .barInputElement {
-    /*Reset input styles*/
+    /* reset input styles */
     padding: 0;
     border: none;
     background: transparent;
@@ -674,7 +673,7 @@ body .rc-tooltip-inner {
     height: 22px;
     transition: opacity 0.2s;
 
-    /*hide button until entry is hovered*/
+    /* hide button until entry is hovered */
     pointer-events: none;
     opacity: 0;
 }
@@ -696,7 +695,7 @@ body .rc-tooltip-inner {
 }
 
 .otherResources {
-    /* Pin to top of flex*/
+    /* Pin to top of flex */
     margin-top: auto;
 }
 
@@ -705,7 +704,7 @@ body .rc-tooltip-inner {
 }
 
 .otherResources svg {
-    /*this isn't hacky--you're hacky!*/
+    /* this isn't hacky--you're hacky! */
     max-height: 12px;
     max-width: 12px;
     position: relative;
