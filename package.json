@@ -2,7 +2,7 @@
   "name": "bbplanner",
   "version": "1.0.0",
   "description": "Battle Brothers planner app",
-  "main": "src/server/index.ts",
+  "main": "src/index.ts",
   "private": true,
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
