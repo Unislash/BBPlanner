@@ -11,7 +11,7 @@ import inventory_slot_body from "../../images/items/inventory_slot_body.png";
 import inventory_slot_helmet from "../../images/items/inventory_slot_helmet.png";
 import inventory_slot_mainhand from "../../images/items/inventory_slot_mainhand.png";
 import inventory_slot_offhand from "../../images/items/inventory_slot_offhand.png";
-import { LoadoutSlotType } from "../../models";
+import { LoadoutSlotType } from "../../types/plannerModels";
 
 const buttonResetStyles = `
     text-transform: none; // Remove inheritance of text transform in Firefox

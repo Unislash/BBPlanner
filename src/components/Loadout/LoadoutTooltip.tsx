@@ -25,7 +25,7 @@ import {
     LoadoutSlotType,
     Offhand,
     Weapon,
-} from "../../models";
+} from "../../types/plannerModels";
 
 interface LoadoutTooltipProps {
     item: LoadoutItem;

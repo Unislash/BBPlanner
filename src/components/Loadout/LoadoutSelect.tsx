@@ -5,7 +5,7 @@ import * as React from "react";
 import { useState } from "react";
 import Select from "react-select";
 import { EMPTY_NAME } from "../../data/itemData";
-import { LoadoutItem, LoadoutSlotType } from "../../models";
+import { LoadoutItem, LoadoutSlotType } from "../../types/plannerModels";
 import { LoadoutFlyout } from "./LoadoutFlyout";
 import { loadoutSelectStyles } from "./LoadoutSelectStyles";
 import { LoadoutSlotButton } from "./LoadoutSlotButton";

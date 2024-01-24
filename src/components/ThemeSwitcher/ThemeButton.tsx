@@ -1,7 +1,7 @@
 import classcat from "classcat";
 import Tooltip from "rc-tooltip";
 import * as React from "react";
-import { ThemeId } from "../../models";
+import { ThemeId } from "../../types/plannerModels";
 
 interface ThemeButtonProps {
     activeThemeId: ThemeId;

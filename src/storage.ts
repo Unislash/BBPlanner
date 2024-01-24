@@ -1,5 +1,5 @@
-import { LocalStorageBuildData } from "./models";
 import { buildStore } from "./stores/buildStore";
+import { LocalStorageBuildData } from "./types/plannerModels";
 import { loadFromURL } from "./url";
 
 export const setLocalStorageObject = <T>(key: string, value: T) => {

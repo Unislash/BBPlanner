@@ -2,8 +2,8 @@ import { useStore } from "zustand";
 import { devtools } from "zustand/middleware";
 import { shallow } from "zustand/shallow";
 import { createStore } from "zustand/vanilla";
-import { Stars, StatType } from "../models";
 import { updateStorageForCurrentBuild } from "../storage";
+import { Stars, StatType } from "../types/plannerModels";
 import { saveToURL } from "../url";
 import { getNewStars } from "./initialState";
 

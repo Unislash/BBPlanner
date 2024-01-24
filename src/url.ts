@@ -1,7 +1,6 @@
 import { idsByItem } from "./components/Loadout/idsByItem";
 import { itemsById } from "./components/Loadout/itemsById";
 import { to64Parse, to64String } from "./compressionUtils";
-import { LoadoutItems, Stars, StatNums } from "./models";
 import { perkBinary } from "./perkBinary";
 import { getLocalStorageObject } from "./storage";
 import { buildStore, BuildStore, initialBuildStore } from "./stores/buildStore";
@@ -10,6 +9,7 @@ import { initialLoadoutStore, loadoutStore, LoadoutStore } from "./stores/loadou
 import { initialPerkStore, perkStore, PerkStore } from "./stores/perkStore";
 import { initialStarsStore, starsStore, StarsStore } from "./stores/starsStore";
 import { initialStatsStore, statsStore, StatsStore } from "./stores/statsStore";
+import { LoadoutItems, Stars, StatNums } from "./types/plannerModels";
 
 export const padString = (padding: string, strToPad: string, padLeft = true) => {
     if (typeof strToPad === "undefined") return padding;
