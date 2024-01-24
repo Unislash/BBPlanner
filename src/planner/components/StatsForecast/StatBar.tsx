@@ -2,7 +2,7 @@ import classcat from "classcat";
 import * as React from "react";
 import { ChangeEvent, useRef, useState } from "react";
 import arrow_right from "../../images/arrow_right.png";
-import { StatType } from "../../types/plannerModels";
+import { StatType } from "../../types/models";
 import { Star } from "./Star";
 
 type BarColor = "red" | "yellow" | "blue" | "brown";

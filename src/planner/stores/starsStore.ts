@@ -4,7 +4,7 @@ import { shallow } from "zustand/shallow";
 import { createStore } from "zustand/vanilla";
 import { updateStorageForCurrentBuild } from "../../storage";
 import { saveToURL } from "../../url";
-import { Stars, StatType } from "../types/plannerModels";
+import { Stars, StatType } from "../types/models";
 import { getNewStars } from "./initialState";
 
 export interface StarsStore {

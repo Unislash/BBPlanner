@@ -11,7 +11,7 @@ import resolveIcon from "../../images/stats/resolve.png";
 import { useActivePerkIds } from "../../stores/perkStore";
 import { useStars, useStarsActions } from "../../stores/starsStore";
 import { useStatNums, useStatsActions } from "../../stores/statsStore";
-import { StatType } from "../../types/plannerModels";
+import { StatType } from "../../types/models";
 import { ForecastInfoButton } from "./ForecastInfoButton";
 import { LevelBar } from "./LevelBar";
 import { StatBar } from "./StatBar";

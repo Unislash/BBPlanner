@@ -1,7 +1,7 @@
 import * as React from "react";
 import { accessories, ammo, armor, bags, helmets, offhandItems, TWO_HANDED_WEAPON, weapons } from "../../data/itemData";
 import { useLoadoutActions, useLoadoutItems } from "../../stores/loadoutStore";
-import { LoadoutItem, Weapon } from "../../types/plannerModels";
+import { LoadoutItem, Weapon } from "../../types/models";
 import { LoadoutSelect } from "./LoadoutSelect";
 
 const getLoadoutItemByName = (name: string, loadoutItemList: LoadoutItem[]) => {

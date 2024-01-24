@@ -8,7 +8,7 @@ import { initialLoadoutStore, loadoutStore, LoadoutStore } from "./planner/store
 import { initialPerkStore, perkStore, PerkStore } from "./planner/stores/perkStore";
 import { initialStarsStore, starsStore, StarsStore } from "./planner/stores/starsStore";
 import { initialStatsStore, statsStore, StatsStore } from "./planner/stores/statsStore";
-import { LoadoutItems, Stars, StatNums } from "./planner/types/plannerModels";
+import { LoadoutItems, Stars, StatNums } from "./planner/types/models";
 import { getLocalStorageObject } from "./storage";
 
 export const padString = (padding: string, strToPad: string, padLeft = true) => {

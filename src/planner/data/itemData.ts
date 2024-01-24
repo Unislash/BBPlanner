@@ -1,4 +1,4 @@
-import { Accessory, Ammo, Bag, Consumable, Offhand, Shield, Tool, Weapon } from "../types/plannerModels";
+import { Accessory, Ammo, Bag, Consumable, Offhand, Shield, Tool, Weapon } from "../types/models";
 import accessoriesJson from "./accessories.json";
 import ammoJson from "./ammo.json";
 import armorsJson from "./armors.json";

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useThemeActions, useThemeId } from "../../stores/themeStore";
-import { ThemeId } from "../../types/plannerModels";
+import { ThemeId } from "../../types/models";
 import { ThemeButton } from "./ThemeButton";
 
 export const ThemeSwitcher = (): JSX.Element => {

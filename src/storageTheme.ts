@@ -1,4 +1,4 @@
-import { ThemeId } from "./planner/types/plannerModels";
+import { ThemeId } from "./planner/types/models";
 import { getLocalStorageObject, setLocalStorageObject } from "./storage";
 
 export const saveThemeId = (themeId: ThemeId) => {
