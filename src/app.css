@@ -109,7 +109,7 @@ p {
     left: 0;
     position: fixed;
     transform: translate3d(0, 0, 0);
-    background-image: url("images/bg_beastsAndExporation.jpg");
+    background-image: url("planner/images/bg_beastsAndExporation.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -125,28 +125,28 @@ p {
 }
 
 .appBackground.vanilla {
-    background-image: url("images/bg_vanilla.jpg");
+    background-image: url("planner/images/bg_vanilla.jpg");
 }
 .appBackground.vanilla:after {
     background-color: rgba(5, 5, 5, 0.5);
 }
 
 .appBackground.warriorsOfTheNorth {
-    background-image: url("images/bg_warriorsOfTheNorth.jpg");
+    background-image: url("planner/images/bg_warriorsOfTheNorth.jpg");
 }
 .appBackground.warriorsOfTheNorth:after {
     background-color: rgba(11, 11, 16, 0.4);
 }
 
 .appBackground.blazingDeserts {
-    background-image: url("images/bg_blazingDeserts.jpg");
+    background-image: url("planner/images/bg_blazingDeserts.jpg");
 }
 .appBackground.blazingDeserts:after {
     background-color: rgba(27, 20, 11, 0.5);
 }
 
 .appBackground.ofFleshAndFaith {
-    background-image: url("images/bg_ofFleshAndFaith.jpg");
+    background-image: url("planner/images/bg_ofFleshAndFaith.jpg");
 }
 .appBackground.ofFleshAndFaith:after {
     background-color: rgba(16, 11, 13, 0.4);
@@ -620,23 +620,23 @@ body .rc-tooltip-inner {
 }
 
 .themeButton.vanilla {
-    background-image: url("images/btn_vanilla.jpg");
+    background-image: url("planner/images/btn_vanilla.jpg");
 }
 
 .themeButton.beastsAndExploration {
-    background-image: url("images/btn_beastsAndExploration.jpg");
+    background-image: url("planner/images/btn_beastsAndExploration.jpg");
 }
 
 .themeButton.warriorsOfTheNorth {
-    background-image: url("images/btn_warriorsOfTheNorth.jpg");
+    background-image: url("planner/images/btn_warriorsOfTheNorth.jpg");
 }
 
 .themeButton.blazingDeserts {
-    background-image: url("images/btn_blazingDeserts.jpg");
+    background-image: url("planner/images/btn_blazingDeserts.jpg");
 }
 
 .themeButton.ofFleshAndFaith {
-    background-image: url("images/btn_ofFleshAndFaith.jpg");
+    background-image: url("planner/images/btn_ofFleshAndFaith.jpg");
 }
 
 .savedBuilds {

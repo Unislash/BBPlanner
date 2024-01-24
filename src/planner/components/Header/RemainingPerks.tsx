@@ -1,5 +1,5 @@
 import * as React from "react";
-import { getAvailableNumberOfPerks, maxLevel } from "../../logic";
+import { getAvailableNumberOfPerks, maxLevel } from "../../../logic";
 
 interface RemainingPerksProps {
     currentPerkAmount: number;

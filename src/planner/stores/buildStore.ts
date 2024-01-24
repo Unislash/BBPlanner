@@ -2,8 +2,8 @@ import { useStore } from "zustand";
 import { devtools } from "zustand/middleware";
 import { shallow } from "zustand/shallow";
 import { createStore } from "zustand/vanilla";
-import { getLocalStorageObject, removeBuildFromStorage, updateStorageForCurrentBuild } from "../storage";
-import { saveToURL } from "../url";
+import { getLocalStorageObject, removeBuildFromStorage, updateStorageForCurrentBuild } from "../../storage";
+import { saveToURL } from "../../url";
 
 export interface BuildStore {
     actions: {

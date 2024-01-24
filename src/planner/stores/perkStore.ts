@@ -2,9 +2,9 @@ import { useStore } from "zustand";
 import { devtools } from "zustand/middleware";
 import { shallow } from "zustand/shallow";
 import { createStore } from "zustand/vanilla";
-import { getAvailableNumberOfPerks, maxLevel } from "../logic";
-import { updateStorageForCurrentBuild } from "../storage";
-import { saveToURL } from "../url";
+import { getAvailableNumberOfPerks, maxLevel } from "../../logic";
+import { updateStorageForCurrentBuild } from "../../storage";
+import { saveToURL } from "../../url";
 
 export interface PerkStore {
     actions: {

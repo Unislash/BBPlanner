@@ -2,9 +2,9 @@ import { useStore } from "zustand";
 import { devtools } from "zustand/middleware";
 import { shallow } from "zustand/shallow";
 import { createStore } from "zustand/vanilla";
-import { updateStorageForCurrentBuild } from "../storage";
+import { updateStorageForCurrentBuild } from "../../storage";
+import { saveToURL } from "../../url";
 import { LoadoutItems, LoadoutSlotType } from "../types/plannerModels";
-import { saveToURL } from "../url";
 import { getNewLoadoutItems } from "./initialState";
 
 export interface LoadoutStore {

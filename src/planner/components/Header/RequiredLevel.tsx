@@ -1,5 +1,5 @@
 import * as React from "react";
-import { maxLevel } from "../../logic";
+import { maxLevel } from "../../../logic";
 
 interface RequiredLevelProps {
     currentPerkAmount: number;

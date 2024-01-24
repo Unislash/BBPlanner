@@ -1,7 +1,7 @@
 import { useStore } from "zustand";
 import { devtools } from "zustand/middleware";
 import { createStore } from "zustand/vanilla";
-import { getThemeId, saveThemeId } from "../storageTheme";
+import { getThemeId, saveThemeId } from "../../storageTheme";
 import { ThemeId } from "../types/plannerModels";
 
 export interface ThemeStore {

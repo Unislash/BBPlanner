@@ -2,7 +2,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import move from "array-move";
 import * as React from "react";
 import { useRef, useState } from "react";
-import { loadFromStorage, saveBuildIdListToStorage } from "../../storage";
+import { loadFromStorage, saveBuildIdListToStorage } from "../../../storage";
 import { useBuildActions, useBuildIdList } from "../../stores/buildStore";
 import { BuildEntry } from "./BuildEntry";
 import { findIndex, Position } from "./findIndex";

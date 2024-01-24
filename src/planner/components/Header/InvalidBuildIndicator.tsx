@@ -1,7 +1,7 @@
 import InvalidIcon from "@material-ui/icons/ErrorOutline";
 import Tooltip from "rc-tooltip";
 import * as React from "react";
-import { isBuildInvalid } from "../../logic";
+import { isBuildInvalid } from "../../../logic";
 import { useActivePerkIds } from "../../stores/perkStore";
 
 export const InvalidBuildIndicator = () => {

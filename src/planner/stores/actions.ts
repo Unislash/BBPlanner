@@ -1,4 +1,4 @@
-import { resetURL } from "../url";
+import { resetURL } from "../../url";
 import { buildStore, initialBuildStore } from "./buildStore";
 import { initialLoadoutStore, loadoutStore } from "./loadoutStore";
 import { initialPerkStore, perkStore } from "./perkStore";
