@@ -19,7 +19,6 @@
     "lint:fix--style": "yarn run --top-level prettier '**/*.{js,ts,tsx,css,scss}' --ignore-path ../../.prettierignore --write"
   },
   "author": "Brent Grossman",
-  "license": "MIT",
   "dependencies": {
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
