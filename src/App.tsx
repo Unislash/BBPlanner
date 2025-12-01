@@ -15,10 +15,12 @@ import { ResetPerks } from "./planner/components/PerkPlanner/ResetPerks";
 import { StatsForecast } from "./planner/components/StatsForecast/StatsForecast";
 import { ThemeSwitcher } from "./planner/components/ThemeSwitcher/ThemeSwitcher";
 import { useThemeId } from "./planner/stores/themeStore";
+import { LegendaryPicker } from './legendaryRating/components/LegendaryPicker/LegendaryPicker';
+import { Barkeep } from './legendaryRating/components/Barkeep/Barkeep';
 
 export const App = (): JSX.Element => {
     const themeId = useThemeId();
-    const showLegendaryTool = false;
+    const showLegendaryTool = true;
 
     return (
         <MuiTheme>
@@ -28,8 +30,11 @@ export const App = (): JSX.Element => {
                 {showLegendaryTool ? (
                     <>
                         <div className="barRoom">
-                            <div className="barkeep">Why hello there</div>
-                            {/*<LegendaryPicker />*/}
+                            <div className="header">
+                                <h1 className="pageTitle">Legendary Rating</h1>
+                            </div>
+                            <Barkeep />
+                            <LegendaryPicker />
                         </div>
                     </>
                 ) : (

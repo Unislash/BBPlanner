@@ -17,6 +17,7 @@ html {
 body {
     font-family: "FreeUniversal", sans-serif;
     color: #ffffff;
+    overflow-y: scroll;
 }
 
 a {
@@ -710,4 +711,70 @@ body .rc-tooltip-inner {
     position: relative;
     top: 2px;
     margin-left: 2px;
+}
+
+.otherResourcesCopy p:first-child {
+    color: #fff;
+}
+
+.barRoom {
+    width: 940px;
+}
+
+.barkeep {
+    height: 160px;
+    border: 2px solid #494230;
+    padding: 12px 20px;
+    margin-bottom: 28px;
+    background: #342619;
+    box-shadow:
+        0 1px 2px #000000,
+        inset 0 0 2px rgba(0, 0, 0, 1),
+        inset 0 1px 4px rgba(252, 210, 180, 0.5),
+        inset 0 1px 1px rgba(252, 210, 180, 0.2),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.7);
+    border-radius: 2px;
+}
+
+.legendaryPicker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.categories {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.categoryButton {
+    padding: 4px 0;
+    text-align: center;
+    width: 120px;
+    font-size: inherit;
+    outline: none; /* Remove the focus outline */
+    cursor: pointer; /* Cursor to pointer to signify this is a button */
+    border: 1px solid #846022;
+    background: linear-gradient(to bottom, #321F19 10%, #734023 90%, #744225 100%);
+    color: #ffffff;
+    box-shadow:
+            2px 2px 4px #000000,
+            inset 0 1px 1px rgba(252, 210, 180, 0.4),
+            inset 0 -1px 3px rgba(20, 0, 0, 1);
+}
+
+.categoryButton.selected,
+.categoryButton:hover {
+    background: linear-gradient(to bottom, #5a3428 30%, #b45a2a 90%, #ba693b 100%);
+    padding-top: 1px;
+    padding-bottom: -1px;
+}
+
+.archetypeGrid {
+    display: flex;
+    flex-wrap: wrap;
+    width: 850px;
+    margin-right: -100px; /* Account for the trailing margin on the right-most grid items */
+    margin-top: 48px;
 }
