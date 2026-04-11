@@ -463,7 +463,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         directDamageMax: 46,
         armorDamageMin: 110,
         armorDamageMax: 140,
-        shieldDamageMin: 28,
+        shieldDamageMin: 24,
         shieldDamageMax: 48,
         hitHeadChanceMin: 5,
         hitHeadChanceMax: 25,

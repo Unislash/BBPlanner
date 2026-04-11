@@ -1,105 +1,139 @@
-import * as React from "react";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { LegendaryStatInputType } from '../../types/models';
-import { useLegendaryActions, useLegendaryStats } from '../../stores/legendaryStore';
 import classcat from "classcat";
+import * as React from "react";
+import { ChangeEvent } from "react";
 
-type BarStatType =
-    'durability' |
-    'fatigue' |
-    'damage' |
-    'directDamage' |
-    'armorDamage' |
-    'shieldDamage' |
-    'hitHeadChance' |
-    'meleeDefense' |
-    'rangedDefense' |
-    'fatigueSkillCost' |
-    'accuracy' |
-    'ammo';
+type Tone = "red" | "yellow" | "blue" | "brown" | "gray";
 
-type BarColor = "red" | "yellow" | "blue" | "brown" | "gray";
+interface StatInput {
+    max: number;
+    min: number;
+    onChange: (value: number) => void;
+    value: number;
+}
 
 interface LegendaryStatBarProps {
     icon: string;
-    statNumber: number;
-    statType: BarStatType;
+    label: string;
+    primary: StatInput;
+    rangeText: string;
+    secondary?: StatInput;
+    tone: Tone;
+    valueFormatter?: (value: number) => string;
 }
 
-const barColorByStat: Record<BarStatType, BarColor> = {
-    durability: "gray",
-    fatigue: "blue",
-    damage: "red",
-    directDamage: "red",
-    armorDamage: "red",
-    shieldDamage: "brown",
-    hitHeadChance: "brown",
-    meleeDefense: "brown",
-    rangedDefense: "brown",
-    fatigueSkillCost: "brown",
-    accuracy: "brown",
-    ammo: "brown",
+const clamp = (value: number, min: number, max: number) => {
+    return Math.min(Math.max(value, min), max);
 };
 
-const getBarColor = (statType: BarStatType): BarColor => {
-    return barColorByStat[statType];
+const getPercentile = (value: number, min: number, max: number) => {
+    if (min === max) {
+        return 100;
+    }
+
+    return clamp(((value - min) / (max - min)) * 100, 0, 100);
 };
 
-export const LegendaryStatBar = (props: LegendaryStatBarProps): JSX.Element => {
-    const { statType, icon } = props;
-    const {setLegendaryStat} = useLegendaryActions();
-    const legendaryStats = useLegendaryStats();
-    const [activeStat, setActiveStat] = useState<LegendaryStatInputType | undefined>(undefined);
-    const [mainStat, setMainStat] = useState<number | undefined>(undefined);
-    const [additionalStat, setAdditionalStat] = useState<number | undefined>(undefined);
+const getOrdinalSuffix = (value: number) => {
+    const mod100 = value % 100;
+    if (mod100 >= 11 && mod100 <= 13) {
+        return "th";
+    }
 
-    const mainInputRef = useRef<HTMLInputElement>(null);
-    const additionalInputRef = useRef<HTMLInputElement>(null);
+    switch (value % 10) {
+        case 1:
+            return "st";
+        case 2:
+            return "nd";
+        case 3:
+            return "rd";
+        default:
+            return "th";
+    }
+};
 
-    useEffect(() => {
-        if (statType === 'damage') {
-            setMainStat(legendaryStats['damageLow']);
-            setAdditionalStat(legendaryStats['damageHigh']);
-        } else {
-            setMainStat(legendaryStats[statType]);
-        }
-    }, [legendaryStats]);
+const formatPercentile = (value: number) => {
+    const roundedValue = Math.round(value);
+    return `${roundedValue}%`;
+};
 
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        // Only take numbers
-        const forcedNumber = event.target.value.replace(/\D/, "");
-        setLegendaryStat(activeStat!, parseInt(forcedNumber || "0", 10));
+const sanitizeInteger = (value: string) => {
+    const sanitizedValue = value.replace(/[^\d-]/g, "");
+    if (!sanitizedValue) {
+        return "0";
+    }
+
+    if (sanitizedValue === "-") {
+        return "0";
+    }
+
+    const [firstCharacter, ...remainingCharacters] = sanitizedValue;
+    const remainingDigits = remainingCharacters.join("").replace(/-/g, "");
+
+    return `${firstCharacter === "-" ? "-" : ""}${(firstCharacter === "-" ? remainingDigits : `${firstCharacter}${remainingDigits}`).replace(/-/g, "")}`;
+};
+
+export const LegendaryStatBar = ({
+    icon,
+    label,
+    primary,
+    rangeText,
+    secondary,
+    tone,
+    valueFormatter,
+}: LegendaryStatBarProps): JSX.Element => {
+    const primaryPercentile = formatPercentile(getPercentile(primary.value, primary.min, primary.max));
+    const secondaryPercentile = secondary
+        ? formatPercentile(getPercentile(secondary.value, secondary.min, secondary.max))
+        : undefined;
+
+    const handlePrimaryChange = (event: ChangeEvent<HTMLInputElement>) => {
+        primary.onChange(parseInt(sanitizeInteger(event.target.value), 10));
     };
 
-    const handleBarClick = (event: React.MouseEvent<HTMLDivElement>) => {
-        if (statType === 'damage') {
-            if ((event.target as Element).className === 'mainStat') {
-                mainInputRef.current?.focus();
-                setActiveStat('damageLow');
-            } else {
-                additionalInputRef.current?.focus();
-                setActiveStat('damageHigh');
-            }
-        } else {
-            mainInputRef.current?.focus();
-            setActiveStat(statType);
+    const handleSecondaryChange = (event: ChangeEvent<HTMLInputElement>) => {
+        if (!secondary) {
+            return;
         }
+
+        secondary.onChange(parseInt(sanitizeInteger(event.target.value), 10));
     };
 
     return (
-        <div className="statBar">
-            <img className="icon" src={icon} />
-            <div className={classcat(["inputBar", getBarColor(statType)])} onClick={handleBarClick}>
-                <div className="barTextControl">
-                    <span className="barInputWidthReserver">{mainStat}</span>
+        <div className={classcat(["legendaryStatBar", `legendaryStatBar_${tone}`])}>
+            <img className="legendaryStatIcon" src={icon} />
+            <div className="legendaryStatMeta">
+                <div className="legendaryStatLabel">{label}</div>
+                <div className="legendaryStatRange">{rangeText}</div>
+            </div>
+            <div className="legendaryStatValueGroup">
+                <div className="legendaryStatInputs">
                     <input
-                        ref={mainInputRef}
-                        className="barInputElement"
-                        maxLength={5}
-                        value={mainStat}
-                        onChange={handleInputChange}
+                        className="legendaryStatInput"
+                        inputMode="numeric"
+                        value={primary.value}
+                        onChange={handlePrimaryChange}
+                        aria-label={`${label} primary value`}
                     />
+                    {secondary && (
+                        <>
+                            <span className="legendaryStatSeparator">-</span>
+                            <input
+                                className="legendaryStatInput"
+                                inputMode="numeric"
+                                value={secondary.value}
+                                onChange={handleSecondaryChange}
+                                aria-label={`${label} secondary value`}
+                            />
+                        </>
+                    )}
                 </div>
+            </div>
+            <div className="legendaryStatPercentiles">
+                <span className="legendaryStatPercentileLabel">Roll percentile</span>
+                <strong className="legendaryStatPercentileValue">
+                    {primaryPercentile}
+                    {secondaryPercentile ? ` / ${secondaryPercentile}` : ""}
+                </strong>
             </div>
         </div>
     );

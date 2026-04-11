@@ -2,7 +2,7 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { CategoryButton } from './CategoryButton';
 import { Category } from '../../types/models';
-import { ArchetypeGridItem, LegendaryItemImageMap } from './ArchetypeGridItem';
+import { ArchetypeGridItem } from './ArchetypeGridItem';
 import {
     armorArchetypes,
     helmetArchetypes,
@@ -11,8 +11,9 @@ import {
     rangedArchetypes,
     shieldArchetypes,
 } from '../../data/archetypes';
-import { useLegendaryActions, useLegendaryImageMap, useSelectedArchetypeId } from '../../stores/legendaryStore';
+import { useLegendaryActions, useSelectedArchetypeId } from '../../stores/legendaryStore';
 import { Evaluator } from '../Evaluator/Evaluator';
+import { LegendaryItemImageMap, loadLegendaryThumbnailMap } from "./legendaryItemImageMap";
 
 const categories: Category[] = [
     {
@@ -52,23 +53,33 @@ const archetypesByCategoryId = {
 
 export const LegendaryPicker = (): JSX.Element => {
     const selectedArchetypeId = useSelectedArchetypeId();
-    const legendaryItemImageMap = useLegendaryImageMap();
-    const {setSelectedArchetypeId, setLegendaryItemImageMap} = useLegendaryActions();
+    const {setSelectedArchetypeId} = useLegendaryActions();
 
     const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
+    const [legendaryItemImageMap, setLegendaryItemImageMap] = useState<LegendaryItemImageMap>();
 
     useEffect(() => {
+        let isSubscribed = true;
+
         async function getItemImageMap() {
-            return import(/* webpackPrefetch: true */ /* webpackChunkName: "itemImageMap" */ "./legendaryItemImageMap")
-                .then(({ default: legendaryItemImageMap }: { default: LegendaryItemImageMap }) => {
-                    setLegendaryItemImageMap(legendaryItemImageMap);
+            setLegendaryItemImageMap(undefined);
+
+            return loadLegendaryThumbnailMap(selectedCategory)
+                .then((loadedLegendaryItemImageMap) => {
+                    if (isSubscribed) {
+                        setLegendaryItemImageMap(loadedLegendaryItemImageMap);
+                    }
                 })
                 .catch(() => "An error occurred while loading legendary item image map");
         }
 
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         getItemImageMap();
-    }, []);
+
+        return () => {
+            isSubscribed = false;
+        };
+    }, [selectedCategory]);
 
     return (
         <div className="legendaryPicker">
@@ -105,7 +116,10 @@ export const LegendaryPicker = (): JSX.Element => {
                         })
                     }
                 </div>
-            : <Evaluator />}
+            : <Evaluator
+                categoryId={selectedCategory}
+                legendaryItemImageMap={legendaryItemImageMap}
+            />}
         </div>
     );
 };

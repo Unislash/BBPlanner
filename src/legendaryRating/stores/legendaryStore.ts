@@ -3,26 +3,21 @@ import { devtools } from "zustand/middleware";
 import { shallow } from "zustand/shallow";
 import { createStore } from "zustand/vanilla";
 import { ArchetypeId, LegendaryStatInputType } from '../types/models';
-import { LegendaryItemImageMap } from '../components/LegendaryPicker/ArchetypeGridItem';
 
 export interface LegendaryStore {
     actions: {
+        resetLegendaryStats: () => void;
         setSelectedArchetypeId: (archetypeId: ArchetypeId | null) => void;
         setLegendaryStat: (LegendaryStat: LegendaryStatInputType, value: number) => void;
-        setLegendaryItemImageMap: (legendaryImageMap: LegendaryItemImageMap) => void;
+        setLegendaryStats: (legendaryStats: Partial<Record<LegendaryStatInputType, number>>) => void;
     };
     selectedArchetypeId: ArchetypeId | null;
     legendaryStats: Partial<Record<LegendaryStatInputType, number>>;
-    legendaryImageMap?: LegendaryItemImageMap;
 }
 
 export const initialLegendaryStore = {
     selectedArchetypeId: null,
-    legendaryImageMap: undefined,
-    legendaryStats: {
-        durability: 0,
-        fatigue: 0,
-    },
+    legendaryStats: {},
 };
 
 export const legendaryStore = createStore<LegendaryStore>()(
@@ -30,9 +25,11 @@ export const legendaryStore = createStore<LegendaryStore>()(
         (set) => ({
             ...initialLegendaryStore,
             actions: {
+                resetLegendaryStats: () => set({ legendaryStats: {} }),
                 setSelectedArchetypeId: (archetypeId: ArchetypeId | null) => set({ selectedArchetypeId: archetypeId }),
-                setLegendaryStat: (LegendaryStat: LegendaryStatInputType, value: number) => set({legendaryStats: {[LegendaryStat]: value}}),
-                setLegendaryItemImageMap: (legendaryImageMap: LegendaryItemImageMap) => set({ legendaryImageMap }),
+                setLegendaryStat: (LegendaryStat: LegendaryStatInputType, value: number) =>
+                    set((state) => ({legendaryStats: {...state.legendaryStats, [LegendaryStat]: value}})),
+                setLegendaryStats: (legendaryStats: Partial<Record<LegendaryStatInputType, number>>) => set({ legendaryStats }),
             },
         }),
 
@@ -42,5 +39,4 @@ export const legendaryStore = createStore<LegendaryStore>()(
 
 export const useSelectedArchetypeId = () => useStore(legendaryStore, (state) => state.selectedArchetypeId, shallow);
 export const useLegendaryStats = () => useStore(legendaryStore, (state) => state.legendaryStats);
-export const useLegendaryImageMap = () => useStore(legendaryStore, (state) => state.legendaryImageMap);
 export const useLegendaryActions = () => useStore(legendaryStore, (state) => state.actions);

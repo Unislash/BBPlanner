@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import * as React from "react";
 import { buttonResetStyles } from '../../../sharedStyles';
+import { LegendaryItemImageMap } from "./legendaryItemImageMap";
 
 export interface ArchetypeGridItemProps {
     id: string;
@@ -9,8 +10,6 @@ export interface ArchetypeGridItemProps {
     imageName: string;
     name: string;
 }
-
-export type LegendaryItemImageMap = { [key: string]: string };
 
 export const ArchetypeGridItem = styled.button<ArchetypeGridItemProps>`
     ${buttonResetStyles}

@@ -9,6 +9,8 @@
     "serve": "webpack-dev-server --open --config webpack.config.dev.js --hot",
     "deploy": "bash scripts/uploadAssets.sh",
     "analyze": "yarn run build --env withAnalyzer=true",
+    "generateLegendaryImageMaps": "npx ts-node -P ./tsconfig-node.json scripts/generateLegendaryImageMaps",
+    "generateLegendaryRanges": "npx ts-node -P ./tsconfig-node.json scripts/generateLegendaryRanges",
     "generateItemsById": "npx ts-node -P ./tsconfig-node.json scripts/generateItemsById",
     "postinstall": "husky install",
     "lint": "run-p 'lint:check--*'",
