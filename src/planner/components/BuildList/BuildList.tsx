@@ -3,12 +3,13 @@ import move from "array-move";
 import * as React from "react";
 import { useRef, useState } from "react";
 import { loadFromStorage, saveBuildIdListToStorage } from "../../../storage";
-import { useBuildActions, useBuildIdList } from "../../stores/buildStore";
+import { useBuildActions, useBuildIdList, useBuildName } from "../../stores/buildStore";
 import { BuildEntry } from "./BuildEntry";
 import { findIndex, Position } from "./findIndex";
 
 export const BuildList = (): JSX.Element => {
     const buildIdList = useBuildIdList();
+    const buildName = useBuildName();
     const { setBuildIdList, removeBuild } = useBuildActions();
 
     const [isItemDragging, setIsItemDragging] = useState(false);
@@ -52,7 +53,7 @@ export const BuildList = (): JSX.Element => {
                 {buildIdList.map((buildId, i) => (
                     <BuildEntry
                         key={buildId}
-                        className="buildEntry"
+                        className={`buildEntry${buildId === buildName ? " buildEntrySelected" : ""}`}
                         i={i}
                         setPosition={setPosition}
                         moveItem={moveItem}

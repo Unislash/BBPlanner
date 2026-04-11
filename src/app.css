@@ -669,6 +669,11 @@ body .rc-tooltip-inner {
     color: #fff;
 }
 
+.buildEntrySelected {
+    color: #ffa63e;
+    text-shadow: 0 0 2px rgba(255, 228, 161, .7);
+}
+
 .deleteBuild {
     cursor: pointer;
     height: 22px;
