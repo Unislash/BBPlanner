@@ -9,7 +9,9 @@ type BarColor = "red" | "yellow" | "blue" | "brown";
 
 interface StatBarProps {
     currentLevel: number;
+    giftedBonus?: number;
     icon: string;
+    interactionSymbols?: string;
     setStars: (value: number) => void;
     setStatNumber: (value: number) => void;
     stars: number;
@@ -34,9 +36,10 @@ const getMaxStat = (
     startValue: number,
     stars: number,
     remainingLevels: number,
+    giftedBonus: number,
     perkMultiplier: number,
 ): number => {
-    const standardMax = startValue + (levelIncrementByStat[statType] + stars * 0.5) * remainingLevels;
+    const standardMax = startValue + (levelIncrementByStat[statType] + stars * 0.5) * remainingLevels + giftedBonus;
     return Math.round(standardMax * (1 + perkMultiplier));
 };
 
@@ -64,7 +67,18 @@ const getBarColor = (statType: StatType): BarColor => {
 };
 
 export const StatBar: React.FC<StatBarProps> = (props) => {
-    const { statType, icon, statNumber, setStatNumber, stars, setStars, currentLevel, perkMultiplier } = props;
+    const {
+        statType,
+        icon,
+        statNumber,
+        setStatNumber,
+        stars,
+        setStars,
+        currentLevel,
+        perkMultiplier,
+        giftedBonus,
+        interactionSymbols,
+    } = props;
 
     const [hoveredStarIndex, setHoveredStarIndex] = useState<number | undefined>(undefined);
 
@@ -127,8 +141,8 @@ export const StatBar: React.FC<StatBarProps> = (props) => {
                 </div>
                 <img className="arrowIndicator" src={arrow_right} />
                 <div className="maxStat">
-                    {getMaxStat(statType, statNumber, stars, 11 - currentLevel, perkMultiplier || 0)}
-                    {perkMultiplier ? "*" : ""}
+                    {getMaxStat(statType, statNumber, stars, 11 - currentLevel, giftedBonus || 0, perkMultiplier || 0)}
+                    {interactionSymbols || ""}
                 </div>
             </div>
         </div>

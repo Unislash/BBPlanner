@@ -12,7 +12,7 @@ export const ForecastInfoButton: React.FC = () => {
                     individual attributes.
                     <br />
                     <br />
-                    <i>* Indicates perk interaction (such as Colossus or Fortified Mind).</i>
+                    <i>* Indicates perk interaction (such as Gifted, Colossus, or Fortified Mind).</i>
                 </span>
             }
             placement="bottom"
