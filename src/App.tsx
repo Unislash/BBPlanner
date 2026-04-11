@@ -20,7 +20,8 @@ import { Barkeep } from './legendaryRating/components/Barkeep/Barkeep';
 
 export const App = (): JSX.Element => {
     const themeId = useThemeId();
-    const showLegendaryTool = true;
+    const showLegendaryTool =
+        typeof window !== "undefined" && window.localStorage.getItem("legendaryRater") === "true";
 
     return (
         <MuiTheme>
