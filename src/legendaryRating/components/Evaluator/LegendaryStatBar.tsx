@@ -1,6 +1,6 @@
 import classcat from "classcat";
 import * as React from "react";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 type Tone = "red" | "yellow" | "blue" | "brown" | "gray";
 
@@ -13,6 +13,7 @@ interface StatInput {
 
 interface LegendaryStatBarProps {
     icon: string;
+    isModified: boolean;
     label: string;
     primary: StatInput;
     rangeText: string;
@@ -56,24 +57,29 @@ const formatPercentile = (value: number) => {
     return `${roundedValue}%`;
 };
 
-const sanitizeInteger = (value: string) => {
-    const sanitizedValue = value.replace(/[^\d-]/g, "");
-    if (!sanitizedValue) {
-        return "0";
+const normalizeIntegerInput = (value: string) => {
+    const digitMatches = value.match(/\d/g) || [];
+    const hasLeadingNegativeSign = value.trim().startsWith("-");
+
+    if (digitMatches.length === 0) {
+        return hasLeadingNegativeSign ? "-" : "";
     }
 
-    if (sanitizedValue === "-") {
-        return "0";
+    return `${hasLeadingNegativeSign ? "-" : ""}${digitMatches.join("")}`;
+};
+
+const parseIntegerInput = (value: string) => {
+    const normalizedValue = normalizeIntegerInput(value);
+    if (normalizedValue === "" || normalizedValue === "-") {
+        return undefined;
     }
 
-    const [firstCharacter, ...remainingCharacters] = sanitizedValue;
-    const remainingDigits = remainingCharacters.join("").replace(/-/g, "");
-
-    return `${firstCharacter === "-" ? "-" : ""}${(firstCharacter === "-" ? remainingDigits : `${firstCharacter}${remainingDigits}`).replace(/-/g, "")}`;
+    return parseInt(normalizedValue, 10);
 };
 
 export const LegendaryStatBar = ({
     icon,
+    isModified,
     label,
     primary,
     rangeText,
@@ -81,13 +87,30 @@ export const LegendaryStatBar = ({
     tone,
     valueFormatter,
 }: LegendaryStatBarProps): JSX.Element => {
+    const [primaryInputValue, setPrimaryInputValue] = useState(`${primary.value}`);
+    const [secondaryInputValue, setSecondaryInputValue] = useState(secondary ? `${secondary.value}` : "");
+
+    useEffect(() => {
+        setPrimaryInputValue(`${primary.value}`);
+    }, [primary.value]);
+
+    useEffect(() => {
+        setSecondaryInputValue(secondary ? `${secondary.value}` : "");
+    }, [secondary?.value]);
+
     const primaryPercentile = formatPercentile(getPercentile(primary.value, primary.min, primary.max));
     const secondaryPercentile = secondary
         ? formatPercentile(getPercentile(secondary.value, secondary.min, secondary.max))
         : undefined;
 
     const handlePrimaryChange = (event: ChangeEvent<HTMLInputElement>) => {
-        primary.onChange(parseInt(sanitizeInteger(event.target.value), 10));
+        const normalizedValue = normalizeIntegerInput(event.target.value);
+        setPrimaryInputValue(normalizedValue);
+
+        const parsedValue = parseIntegerInput(normalizedValue);
+        if (parsedValue !== undefined) {
+            primary.onChange(parsedValue);
+        }
     };
 
     const handleSecondaryChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -95,14 +118,35 @@ export const LegendaryStatBar = ({
             return;
         }
 
-        secondary.onChange(parseInt(sanitizeInteger(event.target.value), 10));
+        const normalizedValue = normalizeIntegerInput(event.target.value);
+        setSecondaryInputValue(normalizedValue);
+
+        const parsedValue = parseIntegerInput(normalizedValue);
+        if (parsedValue !== undefined) {
+            secondary.onChange(parsedValue);
+        }
+    };
+
+    const handlePrimaryBlur = () => {
+        setPrimaryInputValue(`${primary.value}`);
+    };
+
+    const handleSecondaryBlur = () => {
+        if (!secondary) {
+            return;
+        }
+
+        setSecondaryInputValue(`${secondary.value}`);
     };
 
     return (
-        <div className={classcat(["legendaryStatBar", `legendaryStatBar_${tone}`])}>
+        <div className={classcat(["legendaryStatBar", `legendaryStatBar_${tone}`, isModified && "legendaryStatBar_modified"])}>
             <img className="legendaryStatIcon" src={icon} />
             <div className="legendaryStatMeta">
-                <div className="legendaryStatLabel">{label}</div>
+                <div className="legendaryStatLabelRow">
+                    <div className="legendaryStatLabel">{label}</div>
+                    {isModified && <span className="legendaryStatChangedBadge">Rolled</span>}
+                </div>
                 <div className="legendaryStatRange">{rangeText}</div>
             </div>
             <div className="legendaryStatValueGroup">
@@ -110,8 +154,9 @@ export const LegendaryStatBar = ({
                     <input
                         className="legendaryStatInput"
                         inputMode="numeric"
-                        value={primary.value}
+                        value={primaryInputValue}
                         onChange={handlePrimaryChange}
+                        onBlur={handlePrimaryBlur}
                         aria-label={`${label} primary value`}
                     />
                     {secondary && (
@@ -120,8 +165,9 @@ export const LegendaryStatBar = ({
                             <input
                                 className="legendaryStatInput"
                                 inputMode="numeric"
-                                value={secondary.value}
+                                value={secondaryInputValue}
                                 onChange={handleSecondaryChange}
+                                onBlur={handleSecondaryBlur}
                                 aria-label={`${label} secondary value`}
                             />
                         </>

@@ -39,6 +39,12 @@ interface StatRowDefinition {
     valueFormatter?: (value: number) => string;
 }
 
+interface RatingResult {
+    label: string;
+    percentile: number;
+    ratedRowCount: number;
+}
+
 const formatPercent = (value: number) => `${value}%`;
 const formatSignedNumber = (value: number) => `${value > 0 ? "+" : ""}${value}`;
 const formatSignedPercent = (value: number) => `${value > 0 ? "+" : ""}${value}%`;
@@ -202,41 +208,104 @@ const getDefaultLegendaryStats = (archetype: Archetype) => {
     }, {});
 };
 
-const getOverallRating = (archetype: Archetype, legendaryStats: Partial<Record<LegendaryStatInputType, number>>) => {
-    const percentileValues = statRowDefinitions.flatMap((definition) => {
-        const primaryMin = getRangeValue(archetype, definition.primary.minKey);
-        const primaryMax = getRangeValue(archetype, definition.primary.maxKey);
-        const primaryValue = legendaryStats[definition.primary.inputKey];
+const isDurabilityRelevantForRating = (categoryId: CategoryId) => {
+    return categoryId === "shield" || categoryId === "armor" || categoryId === "helmet";
+};
 
-        if (primaryMin === undefined || primaryMax === undefined || primaryValue === undefined) {
+const getCurrentStatValue = (
+    legendaryStats: Partial<Record<LegendaryStatInputType, number>>,
+    defaultLegendaryStats: Partial<Record<LegendaryStatInputType, number>>,
+    inputKey: LegendaryStatInputType,
+) => {
+    return legendaryStats[inputKey] ?? defaultLegendaryStats[inputKey];
+};
+
+const isStatRowModified = (
+    definition: StatRowDefinition,
+    legendaryStats: Partial<Record<LegendaryStatInputType, number>>,
+    defaultLegendaryStats: Partial<Record<LegendaryStatInputType, number>>,
+) => {
+    const primaryValue = getCurrentStatValue(legendaryStats, defaultLegendaryStats, definition.primary.inputKey);
+    const defaultPrimaryValue = defaultLegendaryStats[definition.primary.inputKey];
+
+    if (primaryValue !== defaultPrimaryValue) {
+        return true;
+    }
+
+    if (!definition.secondary) {
+        return false;
+    }
+
+    const secondaryValue = getCurrentStatValue(legendaryStats, defaultLegendaryStats, definition.secondary.inputKey);
+    const defaultSecondaryValue = defaultLegendaryStats[definition.secondary.inputKey];
+
+    return secondaryValue !== defaultSecondaryValue;
+};
+
+const getRowPercentile = (
+    definition: StatRowDefinition,
+    archetype: Archetype,
+    legendaryStats: Partial<Record<LegendaryStatInputType, number>>,
+    defaultLegendaryStats: Partial<Record<LegendaryStatInputType, number>>,
+) => {
+    const primaryMin = getRangeValue(archetype, definition.primary.minKey);
+    const primaryMax = getRangeValue(archetype, definition.primary.maxKey);
+    const primaryValue = getCurrentStatValue(legendaryStats, defaultLegendaryStats, definition.primary.inputKey);
+
+    if (primaryMin === undefined || primaryMax === undefined || primaryValue === undefined) {
+        return undefined;
+    }
+
+    const rowPercentiles = [getPercentile(primaryValue, primaryMin, primaryMax)];
+
+    if (definition.secondary) {
+        const secondaryMin = getRangeValue(archetype, definition.secondary.minKey);
+        const secondaryMax = getRangeValue(archetype, definition.secondary.maxKey);
+        const secondaryValue = getCurrentStatValue(legendaryStats, defaultLegendaryStats, definition.secondary.inputKey);
+
+        if (secondaryMin !== undefined && secondaryMax !== undefined && secondaryValue !== undefined) {
+            rowPercentiles.push(getPercentile(secondaryValue, secondaryMin, secondaryMax));
+        }
+    }
+
+    return rowPercentiles.reduce((sum, value) => sum + value, 0) / rowPercentiles.length;
+};
+
+const getOverallRating = (
+    archetype: Archetype,
+    legendaryStats: Partial<Record<LegendaryStatInputType, number>>,
+    defaultLegendaryStats: Partial<Record<LegendaryStatInputType, number>>,
+    categoryId: CategoryId,
+): RatingResult => {
+    const rowPercentiles = statRowDefinitions.flatMap((definition) => {
+        const primaryMin = getRangeValue(archetype, definition.primary.minKey);
+        if (primaryMin === undefined) {
             return [];
         }
 
-        const values = [getPercentile(primaryValue, primaryMin, primaryMax)];
-
-        if (definition.secondary) {
-            const secondaryMin = getRangeValue(archetype, definition.secondary.minKey);
-            const secondaryMax = getRangeValue(archetype, definition.secondary.maxKey);
-            const secondaryValue = legendaryStats[definition.secondary.inputKey];
-
-            if (secondaryMin !== undefined && secondaryMax !== undefined && secondaryValue !== undefined) {
-                values.push(getPercentile(secondaryValue, secondaryMin, secondaryMax));
-            }
+        if (definition.id === "durability" && !isDurabilityRelevantForRating(categoryId)) {
+            return [];
         }
 
-        return values;
+        if (!isStatRowModified(definition, legendaryStats, defaultLegendaryStats)) {
+            return [];
+        }
+
+        const rowPercentile = getRowPercentile(definition, archetype, legendaryStats, defaultLegendaryStats);
+        return rowPercentile === undefined ? [] : [rowPercentile];
     });
 
-    if (percentileValues.length === 0) {
-        return { label: "Unrated", percentile: 0 };
+    if (rowPercentiles.length === 0) {
+        return { label: "Unrated", percentile: 0, ratedRowCount: 0 };
     }
 
-    const averagePercentile = percentileValues.reduce((sum, value) => sum + value, 0) / percentileValues.length;
+    const averagePercentile = rowPercentiles.reduce((sum, value) => sum + value, 0) / rowPercentiles.length;
     const label = ratingTiers.find((tier) => averagePercentile >= tier.minimum)!.label;
 
     return {
         label,
         percentile: Math.round(averagePercentile),
+        ratedRowCount: rowPercentiles.length,
     };
 };
 
@@ -298,7 +367,8 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
         return <></>;
     }
 
-    const overallRating = getOverallRating(selectedArchetype, legendaryStats);
+    const defaultLegendaryStats = getDefaultLegendaryStats(selectedArchetype);
+    const overallRating = getOverallRating(selectedArchetype, legendaryStats, defaultLegendaryStats, categoryId);
     const statRows = statRowDefinitions.filter((definition) => {
         return getRangeValue(selectedArchetype, definition.primary.minKey) !== undefined;
     });
@@ -328,7 +398,11 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
                     <div className="legendaryCardRating">
                         <span className="legendaryCardRatingLabel">Overall Rating</span>
                         <strong className="legendaryCardRatingValue">{overallRating.label}</strong>
-                        <span className="legendaryCardRatingMeta">{overallRating.percentile}% average roll</span>
+                        <span className="legendaryCardRatingMeta">
+                            {overallRating.ratedRowCount > 0
+                                ? `${overallRating.percentile}% average of rolled rows`
+                                : "Enter rolled rows to rate this item"}
+                        </span>
                     </div>
                 </div>
                 <div className="legendaryCardBody">
@@ -370,6 +444,7 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
                                 <LegendaryStatBar
                                     key={definition.id}
                                     icon={definition.icon}
+                                    isModified={isStatRowModified(definition, legendaryStats, defaultLegendaryStats)}
                                     label={definition.label}
                                     tone={definition.tone}
                                     rangeText={getRangeText(definition, selectedArchetype)}
