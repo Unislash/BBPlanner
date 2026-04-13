@@ -34,24 +34,6 @@ const getPercentile = (value: number, min: number, max: number) => {
     return clamp(((value - min) / (max - min)) * 100, 0, 100);
 };
 
-const getOrdinalSuffix = (value: number) => {
-    const mod100 = value % 100;
-    if (mod100 >= 11 && mod100 <= 13) {
-        return "th";
-    }
-
-    switch (value % 10) {
-        case 1:
-            return "st";
-        case 2:
-            return "nd";
-        case 3:
-            return "rd";
-        default:
-            return "th";
-    }
-};
-
 const formatPercentile = (value: number) => {
     const roundedValue = Math.round(value);
     return `${roundedValue}%`;
@@ -102,6 +84,18 @@ export const LegendaryStatBar = ({
     const secondaryPercentile = secondary
         ? formatPercentile(getPercentile(secondary.value, secondary.min, secondary.max))
         : undefined;
+    const averagePercentile = secondary
+        ? (getPercentile(primary.value, primary.min, primary.max) + getPercentile(secondary.value, secondary.min, secondary.max)) / 2
+        : getPercentile(primary.value, primary.min, primary.max);
+    const appraisalTierLabel = !isModified
+        ? "Reference"
+        : averagePercentile >= 90
+            ? "Masterwork"
+            : averagePercentile >= 75
+                ? "Fine"
+                : averagePercentile >= 50
+                    ? "Sound"
+                    : "Rough";
 
     const handlePrimaryChange = (event: ChangeEvent<HTMLInputElement>) => {
         const normalizedValue = normalizeIntegerInput(event.target.value);
@@ -140,12 +134,21 @@ export const LegendaryStatBar = ({
     };
 
     return (
-        <div className={classcat(["legendaryStatBar", `legendaryStatBar_${tone}`, isModified && "legendaryStatBar_modified"])}>
-            <img className="legendaryStatIcon" src={icon} />
+        <div
+            className={classcat([
+                "legendaryStatBar",
+                `legendaryStatBar_${tone}`,
+                isModified ? "legendaryStatBar_modified" : "legendaryStatBar_reference",
+                averagePercentile >= 90 && isModified && "legendaryStatBar_masterwork",
+            ])}
+        >
+            <div className="legendaryStatGlyph">
+                <img className="legendaryStatIcon" src={icon} />
+            </div>
             <div className="legendaryStatMeta">
                 <div className="legendaryStatLabelRow">
                     <div className="legendaryStatLabel">{label}</div>
-                    {isModified && <span className="legendaryStatChangedBadge">Rolled</span>}
+                    <span className="legendaryStatChangedBadge">{appraisalTierLabel}</span>
                 </div>
                 <div className="legendaryStatRange">{rangeText}</div>
             </div>
@@ -180,6 +183,9 @@ export const LegendaryStatBar = ({
                     {primaryPercentile}
                     {secondaryPercentile ? ` / ${secondaryPercentile}` : ""}
                 </strong>
+                <div className="legendaryStatPercentileBar">
+                    <span className="legendaryStatPercentileFill" style={{ width: `${Math.max(6, averagePercentile)}%` }} />
+                </div>
             </div>
         </div>
     );

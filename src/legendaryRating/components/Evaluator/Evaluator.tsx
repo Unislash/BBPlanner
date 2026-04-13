@@ -326,6 +326,41 @@ const getArchetypeSubtitle = (archetype: Archetype) => {
     return "Named Item";
 };
 
+const getAppraisalFlavor = (rating: RatingResult) => {
+    if (rating.ratedRowCount === 0) {
+        return "Read off the rolled lines and the barkeep will put a price on the workmanship.";
+    }
+
+    switch (rating.label) {
+        case "Godly":
+            return "The barkeep whistles low. This is the sort of piece mercenaries brag about for years.";
+        case "Excellent":
+            return "A cut above most named finds. Fine lines, fine balance, fine luck.";
+        case "Strong":
+            return "A strong piece of work. Not perfect, but worth hanging onto.";
+        case "Good":
+            return "Serviceable craftsmanship with a few proud marks to it.";
+        case "Average":
+            return "Decent enough, though the barkeep has seen finer examples come through.";
+        case "Weak":
+            return "Named, yes. Memorable, not especially.";
+        default:
+            return "There is some value in it, but not the sort that turns heads.";
+    }
+};
+
+const getInspectionNote = (categoryId: CategoryId) => {
+    if (categoryId === "shield") {
+        return "For shields, the barkeep counts the board itself as much as the guard it offers.";
+    }
+
+    if (categoryId === "armor" || categoryId === "helmet") {
+        return "For armor, he weighs the plates and the burden together before he judges the piece.";
+    }
+
+    return "For weapons, the barkeep mostly cares about the fighting lines that rolled above the common pattern.";
+};
+
 interface EvaluatorProps {
     categoryId: CategoryId;
     legendaryItemImageMap?: LegendaryItemImageMap;
@@ -372,6 +407,8 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
     const statRows = statRowDefinitions.filter((definition) => {
         return getRangeValue(selectedArchetype, definition.primary.minKey) !== undefined;
     });
+    const appraisalFlavor = getAppraisalFlavor(overallRating);
+    const inspectionNote = getInspectionNote(categoryId);
 
     return (
         <div className="legendaryEvaluator">
@@ -383,31 +420,16 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
                         setSelectedArchetypeId(null);
                     }}
                 >
-                    Choose Another Item
+                    Set Down Another Item
                 </button>
             </div>
-            <div className="legendaryCard">
-                <div className="legendaryCardHeader">
-                    <div>
-                        <div className="legendaryCardEyebrow">{getArchetypeSubtitle(selectedArchetype)}</div>
-                        <h2 className="legendaryCardTitle">{selectedArchetype.name}</h2>
-                        <p className="legendaryCardCopy">
-                            Enter the rolls from your item to rate it against the full named-item range.
-                        </p>
-                    </div>
-                    <div className="legendaryCardRating">
-                        <span className="legendaryCardRatingLabel">Overall Rating</span>
-                        <strong className="legendaryCardRatingValue">{overallRating.label}</strong>
-                        <span className="legendaryCardRatingMeta">
-                            {overallRating.ratedRowCount > 0
-                                ? `${overallRating.percentile}% average of rolled rows`
-                                : "Enter rolled rows to rate this item"}
-                        </span>
-                    </div>
-                </div>
-                <div className="legendaryCardBody">
-                    <div className="legendaryCardPreview">
-                        <div className="legendaryPreviewFrame">
+            <div className="legendarySceneStage">
+                <div className="legendaryPlacedItem">
+                    <div className="legendaryPlacedItemCard">
+                        <div className="legendaryPlacedItemEyebrow">Set On The Table</div>
+                        <div className="legendaryPlacedItemName">{selectedArchetype.name}</div>
+                        <div className="legendaryPlacedItemType">{getArchetypeSubtitle(selectedArchetype)}</div>
+                        <div className="legendaryPreviewFrame legendaryPreviewFrame_tabletop">
                             {(legendaryPreviewImageMap || legendaryItemImageMap) && (
                                 <img
                                     className="legendaryPreviewImage"
@@ -428,49 +450,73 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
                                 ))}
                             </div>
                         )}
+                        <div className="legendaryPlacedItemCopy">
+                            The barkeep studies the balance, weight, and finish before hearing the rest of the numbers.
+                        </div>
+                        <div className="legendaryPlacedItemShadow" />
                     </div>
-                    <div className="legendaryStatsPanel">
-                        {statRows.map((definition) => {
-                            const primaryMin = getRangeValue(selectedArchetype, definition.primary.minKey)!;
-                            const primaryMax = getRangeValue(selectedArchetype, definition.primary.maxKey)!;
-                            const secondaryMin = definition.secondary
-                                ? getRangeValue(selectedArchetype, definition.secondary.minKey)
-                                : undefined;
-                            const secondaryMax = definition.secondary
-                                ? getRangeValue(selectedArchetype, definition.secondary.maxKey)
-                                : undefined;
+                </div>
+                <div className="legendaryAppraisalSheet legendaryCard">
+                    <div className="legendaryCardBody legendaryCardBody_sheet legendaryCardBody_paper">
+                        <div className="legendaryAppraisalPrompt">
+                            Set it down and let&apos;s have a proper look.
+                            <br />
+                            What marks does it bear?
+                        </div>
+                        <div className="legendaryStatsPanel">
+                            {statRows.map((definition) => {
+                                const primaryMin = getRangeValue(selectedArchetype, definition.primary.minKey)!;
+                                const primaryMax = getRangeValue(selectedArchetype, definition.primary.maxKey)!;
+                                const secondaryMin = definition.secondary
+                                    ? getRangeValue(selectedArchetype, definition.secondary.minKey)
+                                    : undefined;
+                                const secondaryMax = definition.secondary
+                                    ? getRangeValue(selectedArchetype, definition.secondary.maxKey)
+                                    : undefined;
 
-                            return (
-                                <LegendaryStatBar
-                                    key={definition.id}
-                                    icon={definition.icon}
-                                    isModified={isStatRowModified(definition, legendaryStats, defaultLegendaryStats)}
-                                    label={definition.label}
-                                    tone={definition.tone}
-                                    rangeText={getRangeText(definition, selectedArchetype)}
-                                    valueFormatter={definition.valueFormatter}
-                                    primary={{
-                                        min: primaryMin,
-                                        max: primaryMax,
-                                        value: legendaryStats[definition.primary.inputKey] ?? primaryMin,
-                                        onChange: (value: number) => setLegendaryStat(definition.primary.inputKey, value),
-                                    }}
-                                    secondary={
-                                        definition.secondary && secondaryMin !== undefined && secondaryMax !== undefined
-                                            ? {
-                                                  min: secondaryMin,
-                                                  max: secondaryMax,
-                                                  value:
-                                                      legendaryStats[definition.secondary.inputKey] ??
-                                                      secondaryMin,
-                                                  onChange: (value: number) =>
-                                                      setLegendaryStat(definition.secondary!.inputKey, value),
-                                              }
-                                            : undefined
-                                    }
-                                />
-                            );
-                        })}
+                                return (
+                                    <LegendaryStatBar
+                                        key={definition.id}
+                                        icon={definition.icon}
+                                        isModified={isStatRowModified(definition, legendaryStats, defaultLegendaryStats)}
+                                        label={definition.label}
+                                        tone={definition.tone}
+                                        rangeText={getRangeText(definition, selectedArchetype)}
+                                        valueFormatter={definition.valueFormatter}
+                                        primary={{
+                                            min: primaryMin,
+                                            max: primaryMax,
+                                            value: legendaryStats[definition.primary.inputKey] ?? primaryMin,
+                                            onChange: (value: number) => setLegendaryStat(definition.primary.inputKey, value),
+                                        }}
+                                        secondary={
+                                            definition.secondary && secondaryMin !== undefined && secondaryMax !== undefined
+                                                ? {
+                                                      min: secondaryMin,
+                                                      max: secondaryMax,
+                                                      value:
+                                                          legendaryStats[definition.secondary.inputKey] ??
+                                                          secondaryMin,
+                                                      onChange: (value: number) =>
+                                                          setLegendaryStat(definition.secondary!.inputKey, value),
+                                                  }
+                                                : undefined
+                                        }
+                                    />
+                                );
+                            })}
+                        </div>
+                        <div className="legendaryAppraisalVerdict">
+                            <div className="legendaryAppraisalVerdictTitle">{overallRating.label}</div>
+                            <div className="legendaryAppraisalVerdictCopy">
+                                {appraisalFlavor}
+                            </div>
+                            <div className="legendaryAppraisalVerdictMeta">
+                                {overallRating.ratedRowCount > 0
+                                    ? `${overallRating.percentile}% average of rolled rows`
+                                    : inspectionNote}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

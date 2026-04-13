@@ -25,14 +25,14 @@ export const App = (): JSX.Element => {
 
     return (
         <MuiTheme>
-            <div className="blanket" />
-            <div className={`appBackground ${themeId}`} />
-            <div className="content">
+            <div className={`blanket ${showLegendaryTool ? "legendaryMode" : ""}`} />
+            <div className={`appBackground ${showLegendaryTool ? "legendaryRaterScene" : themeId}`} />
+            <div className={`content ${showLegendaryTool ? "legendaryMode" : ""}`}>
                 {showLegendaryTool ? (
                     <>
                         <div className="barRoom">
                             <div className="header">
-                                <h1 className="pageTitle">Legendary Rating</h1>
+                                <h1 className="pageTitle">Tavernkeeper&apos;s Appraisal</h1>
                             </div>
                             <Barkeep />
                             <LegendaryPicker />

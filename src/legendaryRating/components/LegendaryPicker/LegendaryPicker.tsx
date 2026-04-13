@@ -83,38 +83,56 @@ export const LegendaryPicker = (): JSX.Element => {
 
     return (
         <div className="legendaryPicker">
-            <div className="categories">
-                {categories.map(({name, id}, i) => (
-                    <CategoryButton
-                        key={id}
-                        name={name}
-                        selected={selectedCategory === id}
-                        onClick={() => {
-                            setSelectedCategory(id);
-                            setSelectedArchetypeId(null);
-                        }}
-                    />
-                ))}
+            <div className="legendaryCategoryStrip">
+                <div className="legendaryCategoryStripLabel">Sort The Goods</div>
+                <div className="categories">
+                    {categories.map(({name, id}, i) => (
+                        <CategoryButton
+                            key={id}
+                            name={name}
+                            selected={selectedCategory === id}
+                            onClick={() => {
+                                setSelectedCategory(id);
+                                setSelectedArchetypeId(null);
+                            }}
+                        />
+                    ))}
+                </div>
             </div>
             {selectedArchetypeId == null ?
-                <div className="archetypeGrid">
-                    {
-                        Object.values(archetypesByCategoryId[selectedCategory]).map(({ id, imageName, name }) => {
-                            return (
-                                <ArchetypeGridItem
-                                    key={id}
-                                    id={id}
-                                    onClick={() => {
-                                        setSelectedArchetypeId(id);
-                                    }}
-                                    imageName={imageName}
-                                    name={name}
-                                    legendaryItemImageMap={legendaryItemImageMap}
-                                    className="archetypeGridItem"
-                                />
-                            )
-                        })
-                    }
+                <div className="legendarySelectionTray">
+                    <div className="legendarySelectionTrayHeader">
+                        <div>
+                            <div className="legendarySelectionTrayTitle">Choose A Piece To Inspect</div>
+                            <div className="legendarySelectionCopy">
+                                Lay one of these named pieces on the barkeep&apos;s table and he&apos;ll size up the work.
+                            </div>
+                        </div>
+                        <div className="legendarySelectionTrayMeta">
+                            {selectedCategory === "shield" || selectedCategory === "armor" || selectedCategory === "helmet"
+                                ? "Durability matters for this appraisal."
+                                : "Most of the worth is in the rolled fighting lines."}
+                        </div>
+                    </div>
+                    <div className="archetypeGrid">
+                        {
+                            Object.values(archetypesByCategoryId[selectedCategory]).map(({ id, imageName, name }) => {
+                                return (
+                                    <ArchetypeGridItem
+                                        key={id}
+                                        id={id}
+                                        onClick={() => {
+                                            setSelectedArchetypeId(id);
+                                        }}
+                                        imageName={imageName}
+                                        name={name}
+                                        legendaryItemImageMap={legendaryItemImageMap}
+                                        className="archetypeGridItem"
+                                    />
+                                )
+                            })
+                        }
+                    </div>
                 </div>
             : <Evaluator
                 categoryId={selectedCategory}
