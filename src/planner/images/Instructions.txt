@@ -3,7 +3,7 @@
 ### Background images
 1. Pull background sources from data/gfx/ui/screens/
 1. Ensure size is 1920x1080
-1. Compress to ~78 quality (https://imagecompressor.com/ works)
+1. Compress to ~78 quality (https://imagecompressor.com/ works or can try https://squoosh.app/) 
 
 ### Buttons
 1. Pull button sources from data/gfx/ui/events
