@@ -257,7 +257,7 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
                     </div>
                 </div>
                 <div className="legendaryAppraisalSheet legendaryCard">
-                    <div className="legendaryCardBody legendaryCardBody_sheet legendaryCardBody_paper">
+                    <div className="legendaryCardBody legendaryCardBody_paper">
                         <div className={`legendaryAppraisalPrompt ${appraisalComplete ? "isComplete" : ""}`}>
                             <div className="legendaryAppraisalPromptRow">
                                 <div className="legendaryAppraisalPromptTitle">
