@@ -20,33 +20,33 @@ const getCategorySelectionScene = (categoryId: CategoryId) => {
     switch (categoryId) {
         case "oneHanded":
             return {
-                sceneText: "The tavernkeeper glances over the shorter weapons spread across the scarred boards.",
-                barkeepLine: "There's good close work among these one-handed pieces. A man could judge a brother by what he keeps at his hip.",
+                sceneText: "The tavernkeeper squints at the one-handers as he cleans his mug.",
+                barkeepLine: "One-handed kit tells on a soul quick. Handy, mean, close to the ribs. Alright, set one here and I'll tell yeh if it's fit for yeh.",
             };
         case "twoHanded":
             return {
-                sceneText: "The longer hafts and broad blades draw a few looks from the darker corners of the room.",
-                barkeepLine: "Two-handed work always has a bit of pride in it. Hard to hide a poor make when there's this much steel on the table.",
+                sceneText: "The tavernkeeper looks at the long blades with knowing eyes.",
+                barkeepLine: "Two-handed work's honest, eh? Too big to lie. Show me yer metal and I'll tell yeh if it's a killer, or an antique burning a hole in yer pocket.",
             };
         case "ranged":
             return {
-                sceneText: "The tavernkeeper's eyes linger on the ranged pieces a moment longer, measuring them by string, stock, and balance.",
-                barkeepLine: "Ranged gear tells on its maker quickly. Fine work shows itself before the shot ever leaves the hand.",
+                sceneText: "The tavernkeeper gives the ranged pieces a measured look.",
+                barkeepLine: "Ranged gear tells on its maker quick. Good work shows itself before the shot ever leaves the hand. Bad work shows itself in the eye.",
             };
         case "shield":
             return {
-                sceneText: "He gives the shields an appraising look, as if listening for the weight of each board before touching it.",
-                barkeepLine: "A shield earns its name by what it endures. Some look stout enough already; some only look painted well.",
+                sceneText: "The tavernkeeper studies the shields a moment before touching on them.",
+                barkeepLine: "A shield earns its name by what it survives. Some o' these look stout. Some look like they'd lose an argument with a chair leg.",
             };
         case "helmet":
             return {
-                sceneText: "The tavernkeeper eyes the helms the way an old hand looks at dents in a veteran's breastplate.",
-                barkeepLine: "A good helm ought to sit solid and spare the neck besides. That's the kind of craft worth talking about.",
+                sceneText: "The tavernkeeper eyes the helms with an old soldier's look.",
+                barkeepLine: "A good helm ought to sit solid and spare the neck besides. A bad one just keeps the skull tidy for burial. Go on, show me what yeh brought.",
             };
         case "armor":
             return {
-                sceneText: "Lamellar, mail, and plate catch the candlelight as the tavernkeeper studies the lot.",
-                barkeepLine: "Armor's always a bargain between burden and protection. The best smiths know how to cheat that bargain a little.",
+                sceneText: "Lamellar, mail, and plate catch the candlelight as the tavernkeeper studies them.",
+                barkeepLine: "Armor's always a bargain between burden and staying alive. Best smiths cheat that bargain a little. Worst ones sell yeh a coffin with straps.",
             };
     }
 };
@@ -65,8 +65,8 @@ export const Barkeep = ({ categoryId }: BarkeepProps): JSX.Element => {
         const appraisalComplete = isAppraisalComplete(selectedArchetype, legendaryStats, defaultLegendaryStats, categoryId);
 
         nextSceneText = appraisalComplete
-            ? "The tavernkeeper sets the piece down flat and gives it one last measured look."
-            : "The tavernkeeper leans in over the table, waiting for the rest of the item's marks.";
+            ? "The tavernkeeper sets the piece down flat and gives it one last tap."
+            : "The tavernkeeper leans over the piece, waiting for the rest of it.";
         nextBarkeepLine = appraisalComplete
             ? getCompletedAppraisalLine(getOverallRating(selectedArchetype, legendaryStats, defaultLegendaryStats, categoryId))
             : getIncompleteBarkeepPrompt(categoryId, selectedArchetype, legendaryStats, defaultLegendaryStats);
@@ -83,6 +83,9 @@ export const Barkeep = ({ categoryId }: BarkeepProps): JSX.Element => {
             displayedSpeech.barkeepLine === nextBarkeepLine &&
             displayedSpeech.sceneText === nextSceneText
         ) {
+            if (!isSpeechVisible) {
+                setIsSpeechVisible(true);
+            }
             return;
         }
 
@@ -99,7 +102,7 @@ export const Barkeep = ({ categoryId }: BarkeepProps): JSX.Element => {
         return () => {
             clearTimeout(timeoutId);
         };
-    }, [displayedSpeech.barkeepLine, displayedSpeech.sceneText, nextBarkeepLine, nextSceneText]);
+    }, [displayedSpeech.barkeepLine, displayedSpeech.sceneText, isSpeechVisible, nextBarkeepLine, nextSceneText]);
 
     return (
         <div className="barkeep">

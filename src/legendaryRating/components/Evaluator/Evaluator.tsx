@@ -80,7 +80,7 @@ const statRowDefinitions: StatRowDefinition[] = [
         icon: armorDamageIcon,
         label: "Effective Against Armor",
         primary: { inputKey: "armorDamage", minKey: "armorDamageMin", maxKey: "armorDamageMax" },
-        tone: "red",
+        tone: "gray",
         valueFormatter: formatPercent,
     },
     {
@@ -127,7 +127,7 @@ const statRowDefinitions: StatRowDefinition[] = [
         icon: fatigueIcon,
         label: "Skill Fatigue",
         primary: { inputKey: "fatigueSkillCost", minKey: "fatigueSkillCostMin", maxKey: "fatigueSkillCostMax" },
-        tone: "brown",
+        tone: "blue",
         valueFormatter: formatSignedNumber,
     },
     {
@@ -227,7 +227,6 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
             <div className="legendarySceneStage">
                 <div className="legendaryPlacedItem">
                     <div className="legendaryPlacedItemCard">
-                        <div className="legendaryPlacedItemEyebrow">Set On The Table</div>
                         <div className="legendaryPlacedItemName">{selectedArchetype.name}</div>
                         <div className="legendaryPlacedItemType">{getArchetypeSubtitle(selectedArchetype)}</div>
                         <div className="legendaryPreviewFrame legendaryPreviewFrame_tabletop">

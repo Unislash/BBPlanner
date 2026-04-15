@@ -953,7 +953,6 @@ body .rc-tooltip-inner {
     width: min(950px, 100%);
     margin-left: auto;
     margin-right: auto;
-    margin-top: 34px;
     perspective: 900px;
     transform-origin: center top;
     animation: legendaryGridReveal 240ms ease-out;
@@ -961,7 +960,7 @@ body .rc-tooltip-inner {
 
 .legendaryEvaluator {
     width: 100%;
-    margin-top: 28px;
+    margin-top: 16px;
 }
 
 .legendarySceneStage {
@@ -988,13 +987,6 @@ body .rc-tooltip-inner {
         inset 0 1px 0 rgba(255, 229, 182, 0.1);
     transform: rotate(-1.2deg);
     animation: legendarySettleCard 260ms ease-out;
-}
-
-.legendaryPlacedItemEyebrow {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: #cfa66a;
 }
 
 .legendaryPlacedItemName {
@@ -1205,10 +1197,10 @@ body .rc-tooltip-inner {
 
 .legendaryStatBar {
     display: grid;
-    grid-template-columns: 32px minmax(0, 1.1fr) minmax(214px, 0.92fr) minmax(148px, 0.72fr);
+    grid-template-columns: 32px minmax(0, 1.1fr) minmax(192px, 0.92fr) minmax(148px, 0.72fr);
     gap: 14px;
     align-items: center;
-    min-height: 72px;
+    min-height: 62px;
     padding: 12px 14px;
     border: 1px solid rgba(84, 59, 37, 0.22);
     background:

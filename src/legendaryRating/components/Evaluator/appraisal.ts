@@ -270,19 +270,19 @@ export const getArchetypeSubtitle = (archetype: Archetype) => {
 export const getCompletedAppraisalLine = (rating: RatingResult) => {
     switch (rating.label) {
         case "Godly":
-            return "Now that's a master's piece. You won't see many better than this.";
+            return "Ho. That's wicked good work, that is. I wouldn't part with it cheap unless I was already halfway dead.";
         case "Excellent":
-            return "Fine work. Better than most named gear that crosses this table.";
+            return "Aye, that's fine work. Better than most named kit what comes across this table, and I've seen plenty buried with their owners.";
         case "Strong":
-            return "Strong work. Worth keeping close.";
+            return "Strong piece, that. Not blessed by saints, maybe, but it'd keep yeh breathing longer than a prayer.";
         case "Good":
-            return "A respectable piece, with a few good marks on it.";
+            return "Good, solid work. The sort of thing folk brag on after a win and cling to after a bad night.";
         case "Average":
-            return "Decent enough, though nothing to boast over.";
+            return "Middle sort of piece. Won't make a song, won't make a funeral either. Least, not straightaway.";
         case "Weak":
-            return "Named, yes. Remarkable, not quite.";
+            return "Named, sure. So's a pig if yeh shout at it long enough.";
         default:
-            return "It'll serve, but it isn't turning any heads.";
+            return "It'll serve if the other poor bastard's worse equipped than yeh. I've seen worse. Usually on the floor.";
     }
 };
 
@@ -298,34 +298,28 @@ export const getIncompleteBarkeepPrompt = (
     if (categoryId === "shield") {
         const missingDurability = !modifiedRowIds.includes("durability");
         if (missingDurability && nonDurabilityModifiedCount < 2) {
-            return "For a shield, tell me the durability and at least two other rolled lines before I judge it.";
+            return "For a shield, I need the durability and two other marks besides. Else I'm judging it like a drunk judges weather.";
         }
 
         if (missingDurability) {
-            return "I still need the shield's durability. The board itself matters here.";
+            return "I still need the shield's durability. Pretty paint don't stop an axe.";
         }
 
-        return "Give me at least two other rolled lines besides the durability and I'll judge the shield properly.";
+        return "Good. Now tell me two more marks besides the durability. A shield's more than a door with opinions.";
     }
 
     if (categoryId === "armor" || categoryId === "helmet") {
         const missingDurability = !modifiedRowIds.includes("durability");
         const missingFatigue = !modifiedRowIds.includes("fatigue");
 
-        if (missingDurability && missingFatigue) {
-            return "For armor, I need both the durability and the fatigue burden before I can judge the piece.";
+        if (missingDurability || missingFatigue) {
+            return "For armor, I need the durability and the fatigue burden both. Kit that saves yeh and kills yeh tired is still trying to kill yeh.";
         }
-
-        if (missingDurability) {
-            return "I still need the durability before I can judge this properly.";
-        }
-
-        return "Tell me the fatigue burden as well. Weight matters on armor.";
     }
 
     if (nonDurabilityModifiedCount === 0) {
-        return "Give me at least two rolled fighting lines. Wear on the weapon itself won't decide the appraisal.";
+        return "Give me two more marks to work with before I judge. A dull blade sounds fine too, if yeh only praise the scabbard.";
     }
 
-    return "One line isn't enough. Give me one more rolled fighting mark and I'll judge it.";
+    return "One line more, then. Half a tale's how folk end up buried in the wrong boots.";
 };
