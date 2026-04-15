@@ -110,19 +110,12 @@ export const LegendaryPicker = ({ selectedCategoryId, setSelectedCategoryId }: L
             </div>
             {selectedArchetypeId == null ?
                 <div className="legendarySelectionTray">
-                    <div className="legendarySelectionTrayHeader">
-                        <div>
-                            <div className="legendarySelectionTrayTitle">Choose A Piece To Inspect</div>
-                            <div className="legendarySelectionCopy">
-                                Lay one of these named pieces on the barkeep&apos;s table and he&apos;ll size up the work.
-                            </div>
-                        </div>
-                    </div>
                     <div className="archetypeGrid">
                         {
-                            (Object.values(archetypesByCategoryId[selectedCategoryId]) as PickerArchetype[]).map(({ id, imageName, name }) => {
+                            (Object.values(archetypesByCategoryId[selectedCategoryId]) as PickerArchetype[]).map(({ id, imageName, name }, index) => {
                                 return (
                                     <ArchetypeGridItem
+                                        animationIndex={index}
                                         key={id}
                                         id={id}
                                         onClick={() => {

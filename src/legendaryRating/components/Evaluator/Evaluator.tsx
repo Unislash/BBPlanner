@@ -260,14 +260,16 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
                 <div className="legendaryAppraisalSheet legendaryCard">
                     <div className="legendaryCardBody legendaryCardBody_sheet legendaryCardBody_paper">
                         <div className={`legendaryAppraisalPrompt ${appraisalComplete ? "isComplete" : ""}`}>
-                            <div className="legendaryAppraisalPromptTitle">
-                                {appraisalComplete ? overallRating.label : "What marks does it bear?"}
-                            </div>
-                            {appraisalComplete && (
-                                <div className="legendaryAppraisalPromptMeta">
-                                    {overallRating.percentile}% Quality
+                            <div className="legendaryAppraisalPromptRow">
+                                <div className="legendaryAppraisalPromptTitle">
+                                    {appraisalComplete ? overallRating.label : "What marks does it bear?"}
                                 </div>
-                            )}
+                                {appraisalComplete && (
+                                    <div className="legendaryAppraisalPromptMeta">
+                                        {overallRating.percentile}% Quality
+                                    </div>
+                                )}
+                            </div>
                         </div>
                         <div className="legendaryStatsPanel">
                             {statRows.map((definition) => {
