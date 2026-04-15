@@ -43,6 +43,9 @@ export const App = (): JSX.Element => {
                 ) : (
                     <>
                         <div className="mainPanel">
+                            <div className="header">
+                                <h1 className="pageTitle">Battle Brothers Planner</h1>
+                            </div>
                             <div className="perkPlanner">
                                 <div className="plannerInfo">
                                     <div className="leftInfo">

@@ -171,6 +171,10 @@ p {
         radial-gradient(circle at 82% 18%, rgba(250, 194, 93, 0.18), rgba(250, 194, 93, 0) 22%);
 }
 
+.pageTitle {
+    text-align: center;
+}
+
 .content {
     display: flex;
     justify-content: center;
