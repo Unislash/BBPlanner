@@ -95,7 +95,7 @@ module.exports = (env) => {
                     use: ["style-loader", "css-loader"],
                 },
                 {
-                    test: /\.(png|jpg|jpeg|woff|woff2|eot|ttf|svg)$/,
+                    test: /\.(png|jpg|jpeg|webp|woff|woff2|eot|ttf|svg)$/,
                     type: "asset",
                     parser: {
                         dataUrlCondition: {

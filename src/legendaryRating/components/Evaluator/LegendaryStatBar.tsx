@@ -19,7 +19,6 @@ interface LegendaryStatBarProps {
     rangeText: string;
     secondary?: StatInput;
     tone: Tone;
-    valueFormatter?: (value: number) => string;
 }
 
 const clamp = (value: number, min: number, max: number) => {
@@ -67,7 +66,6 @@ export const LegendaryStatBar = ({
     rangeText,
     secondary,
     tone,
-    valueFormatter,
 }: LegendaryStatBarProps): JSX.Element => {
     const [primaryInputValue, setPrimaryInputValue] = useState(`${primary.value}`);
     const [secondaryInputValue, setSecondaryInputValue] = useState(secondary ? `${secondary.value}` : "");
@@ -88,7 +86,7 @@ export const LegendaryStatBar = ({
         ? (getPercentile(primary.value, primary.min, primary.max) + getPercentile(secondary.value, secondary.min, secondary.max)) / 2
         : getPercentile(primary.value, primary.min, primary.max);
     const appraisalTierLabel = !isModified
-        ? "Reference"
+        ? ""
         : averagePercentile >= 90
             ? "Masterwork"
             : averagePercentile >= 75
@@ -148,7 +146,7 @@ export const LegendaryStatBar = ({
             <div className="legendaryStatMeta">
                 <div className="legendaryStatLabelRow">
                     <div className="legendaryStatLabel">{label}</div>
-                    <span className="legendaryStatChangedBadge">{appraisalTierLabel}</span>
+                    {isModified && <span className="legendaryStatChangedBadge">{appraisalTierLabel}</span>}
                 </div>
                 <div className="legendaryStatRange">{rangeText}</div>
             </div>
@@ -177,16 +175,18 @@ export const LegendaryStatBar = ({
                     )}
                 </div>
             </div>
-            <div className="legendaryStatPercentiles">
-                <span className="legendaryStatPercentileLabel">Roll percentile</span>
-                <strong className="legendaryStatPercentileValue">
-                    {primaryPercentile}
-                    {secondaryPercentile ? ` / ${secondaryPercentile}` : ""}
-                </strong>
-                <div className="legendaryStatPercentileBar">
-                    <span className="legendaryStatPercentileFill" style={{ width: `${Math.max(6, averagePercentile)}%` }} />
+            {isModified && (
+                <div className="legendaryStatPercentiles">
+                    <span className="legendaryStatPercentileLabel">Quality</span>
+                    <strong className="legendaryStatPercentileValue">
+                        {primaryPercentile}
+                        {secondaryPercentile ? ` / ${secondaryPercentile}` : ""}
+                    </strong>
+                    <div className="legendaryStatPercentileBar">
+                        <span className="legendaryStatPercentileFill" style={{ width: `${Math.max(6, averagePercentile)}%` }} />
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 };

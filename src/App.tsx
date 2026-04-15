@@ -1,5 +1,5 @@
 import "./app.css";
-import React from "react";
+import React, { useState } from "react";
 import { MuiTheme } from "./MuiTheme";
 import { BuildList } from "./planner/components/BuildList/BuildList";
 import { BuildName } from "./planner/components/Header/BuildName";
@@ -17,11 +17,13 @@ import { ThemeSwitcher } from "./planner/components/ThemeSwitcher/ThemeSwitcher"
 import { useThemeId } from "./planner/stores/themeStore";
 import { LegendaryPicker } from './legendaryRating/components/LegendaryPicker/LegendaryPicker';
 import { Barkeep } from './legendaryRating/components/Barkeep/Barkeep';
+import { CategoryId } from "./legendaryRating/types/models";
 
 export const App = (): JSX.Element => {
     const themeId = useThemeId();
     const showLegendaryTool =
         typeof window !== "undefined" && window.localStorage.getItem("legendaryRater") === "true";
+    const [selectedLegendaryCategoryId, setSelectedLegendaryCategoryId] = useState<CategoryId>("oneHanded");
 
     return (
         <MuiTheme>
@@ -31,19 +33,16 @@ export const App = (): JSX.Element => {
                 {showLegendaryTool ? (
                     <>
                         <div className="barRoom">
-                            <div className="header">
-                                <h1 className="pageTitle">Tavernkeeper&apos;s Appraisal</h1>
-                            </div>
-                            <Barkeep />
-                            <LegendaryPicker />
+                            <Barkeep categoryId={selectedLegendaryCategoryId} />
+                            <LegendaryPicker
+                                selectedCategoryId={selectedLegendaryCategoryId}
+                                setSelectedCategoryId={setSelectedLegendaryCategoryId}
+                            />
                         </div>
                     </>
                 ) : (
                     <>
                         <div className="mainPanel">
-                            <div className="header">
-                                <h1 className="pageTitle">Battle Brothers Planner</h1>
-                            </div>
                             <div className="perkPlanner">
                                 <div className="plannerInfo">
                                     <div className="leftInfo">

@@ -171,10 +171,6 @@ p {
         radial-gradient(circle at 82% 18%, rgba(250, 194, 93, 0.18), rgba(250, 194, 93, 0) 22%);
 }
 
-.pageTitle {
-    text-align: center;
-}
-
 .content {
     display: flex;
     justify-content: center;
@@ -775,24 +771,42 @@ body .rc-tooltip-inner {
 }
 
 .barkeep {
-    max-width: 720px;
-    padding: 14px 18px 16px;
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: 20px;
+    align-items: center;
+    max-width: 700px;
+    padding: 20px 22px 18px;
     margin: 8px 0 26px;
-    border: 1px solid rgba(127, 93, 49, 0.88);
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid rgba(72, 47, 26, 0.68);
     background:
-        linear-gradient(180deg, rgba(66, 38, 21, 0.92), rgba(38, 21, 12, 0.94)),
-        rgba(52, 38, 25, 0.92);
+        linear-gradient(180deg, rgba(52, 29, 17, 0.9), rgba(27, 14, 8, 0.92)),
+        rgba(43, 25, 15, 0.92);
     box-shadow:
-        0 10px 20px rgba(0, 0, 0, 0.26),
-        inset 0 1px 0 rgba(255, 223, 177, 0.18),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.28);
+        0 18px 30px rgba(0, 0, 0, 0.42),
+        inset 0 1px 0 rgba(255, 229, 182, 0.1);
 }
 
-.barkeepEyebrow {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
+.barkeepAvatar {
+    display: block;
+    width: 200px;
+    max-width: 100%;
+    height: auto;
+    align-self: end;
+    filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.34));
+}
+
+.barkeepSpeech {
+    min-width: 0;
+}
+
+.barkeepSceneText {
     color: #d1a969;
+    font-size: 19px;
+    line-height: 1.35;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
 }
 
 .barkeepCopy {
@@ -813,7 +827,7 @@ body .rc-tooltip-inner {
 
 .categories {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
     width: 100%;
@@ -821,15 +835,6 @@ body .rc-tooltip-inner {
 
 .legendaryCategoryStrip {
     margin-bottom: 18px;
-}
-
-.legendaryCategoryStripLabel {
-    margin-bottom: 10px;
-    color: #d4af79;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
 }
 
 .categoryButton {
@@ -877,7 +882,6 @@ body .rc-tooltip-inner {
 
 .legendarySelectionTrayHeader {
     display: flex;
-    justify-content: space-between;
     gap: 16px;
     align-items: flex-start;
 }
@@ -897,14 +901,6 @@ body .rc-tooltip-inner {
     line-height: 1.32;
 }
 
-.legendarySelectionTrayMeta {
-    max-width: 240px;
-    color: rgba(242, 223, 190, 0.74);
-    font-size: 14px;
-    line-height: 1.35;
-    text-align: right;
-}
-
 .archetypeGrid {
     display: flex;
     flex-wrap: wrap;
@@ -917,29 +913,6 @@ body .rc-tooltip-inner {
 .legendaryEvaluator {
     width: 100%;
     margin-top: 28px;
-}
-
-.legendaryEvaluatorToolbar {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 14px;
-}
-
-.legendaryActionButton {
-    padding: 6px 14px;
-    border: 1px solid #7a5120;
-    background: linear-gradient(to bottom, #2d1810 0%, #754125 100%);
-    color: #f6ead6;
-    font-family: inherit;
-    font-size: 15px;
-    cursor: pointer;
-    box-shadow:
-        0 2px 4px rgba(0, 0, 0, 0.45),
-        inset 0 1px 1px rgba(255, 214, 174, 0.35);
-}
-
-.legendaryActionButton:hover {
-    background: linear-gradient(to bottom, #4a2718 0%, #99542d 100%);
 }
 
 .legendarySceneStage {
@@ -1018,21 +991,6 @@ body .rc-tooltip-inner {
     animation: legendarySettleSheet 280ms ease-out;
 }
 
-.legendaryAppraisalSheet::before {
-    content: "";
-    position: absolute;
-    top: 14px;
-    right: 26px;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background:
-        radial-gradient(circle at 35% 35%, rgba(255, 219, 160, 0.95), rgba(188, 120, 38, 0.92));
-    box-shadow:
-        0 2px 6px rgba(0, 0, 0, 0.3),
-        inset 0 1px 1px rgba(255, 242, 212, 0.7);
-}
-
 .legendaryAppraisalSheet::after {
     content: "";
     position: absolute;
@@ -1061,7 +1019,7 @@ body .rc-tooltip-inner {
 }
 
 .legendaryAppraisalSheet.legendaryCard {
-    max-width: 560px;
+    max-width: 700px;
     margin-left: auto;
     border: 1px solid rgba(112, 76, 38, 0.74);
     background:
@@ -1075,64 +1033,6 @@ body .rc-tooltip-inner {
         inset 0 1px 0 rgba(255, 245, 216, 0.62),
         inset 0 0 0 1px rgba(255, 234, 193, 0.34),
         inset 0 0 28px rgba(130, 78, 37, 0.11);
-}
-
-.legendaryCardHeader {
-    display: flex;
-    justify-content: space-between;
-    gap: 24px;
-    padding: 24px 28px 18px;
-    border-bottom: 1px solid rgba(83, 53, 29, 0.28);
-}
-
-.legendaryCardEyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 12px;
-    color: #76552b;
-}
-
-.legendaryCardTitle {
-    margin: 4px 0 6px;
-    font-size: 38px;
-    line-height: 1;
-    color: #241409;
-}
-
-.legendaryCardCopy {
-    max-width: 480px;
-    font-size: 18px;
-    line-height: 1.25;
-    color: #4f3720;
-}
-
-.legendaryCardRating {
-    min-width: 180px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
-    text-align: right;
-}
-
-.legendaryCardRatingLabel {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #76552b;
-}
-
-.legendaryCardRatingValue {
-    margin-top: 4px;
-    font-family: "Cinzel-Bold", sans-serif;
-    font-size: 31px;
-    color: #4f220f;
-    text-shadow: 0 1px 0 rgba(255, 240, 214, 0.65);
-}
-
-.legendaryCardRatingMeta {
-    margin-top: 2px;
-    color: #65452a;
 }
 
 .legendaryCardBody {
@@ -1208,11 +1108,26 @@ body .rc-tooltip-inner {
 .legendaryAppraisalPrompt {
     margin-bottom: 22px;
     color: #3f2913;
-    font-family: "Cinzel-Bold", sans-serif;
-    font-size: 28px;
-    line-height: 1.12;
     text-align: center;
     text-shadow: 0 1px 0 rgba(255, 247, 229, 0.42);
+}
+
+.legendaryAppraisalPromptTitle {
+    font-family: "Cinzel-Bold", sans-serif;
+    font-size: 30px;
+    line-height: 1.08;
+}
+
+.legendaryAppraisalPromptMeta {
+    margin-top: 6px;
+    color: #5d3a18;
+    font-family: "Cinzel-Bold", sans-serif;
+    font-size: 24px;
+    line-height: 1.08;
+}
+
+.legendaryAppraisalPrompt.isComplete .legendaryAppraisalPromptTitle {
+    color: #281508;
 }
 
 .legendaryStatsPanel {
@@ -1351,10 +1266,7 @@ body .rc-tooltip-inner {
     align-items: center;
     justify-content: flex-end;
     gap: 6px;
-    padding: 5px 8px;
-    border: 1px solid rgba(126, 87, 44, 0.18);
-    background: rgba(255, 247, 226, 0.55);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.54);
+    padding: 0;
 }
 
 .legendaryStatInput {
@@ -1418,36 +1330,6 @@ body .rc-tooltip-inner {
     background: linear-gradient(90deg, #7d4d1b, #c88a38 70%, #e7c06d);
 }
 
-.legendaryAppraisalVerdict {
-    margin-top: 24px;
-    padding-top: 18px;
-    border-top: 1px solid rgba(101, 63, 31, 0.18);
-    text-align: center;
-}
-
-.legendaryAppraisalVerdictTitle {
-    color: #291508;
-    font-family: "Cinzel-Bold", sans-serif;
-    font-size: 38px;
-    line-height: 1.02;
-}
-
-.legendaryAppraisalVerdictCopy {
-    max-width: 420px;
-    margin: 10px auto 0;
-    color: #5f4122;
-    font-size: 18px;
-    line-height: 1.35;
-}
-
-.legendaryAppraisalVerdictMeta {
-    margin-top: 12px;
-    color: #4f3016;
-    font-family: "Cinzel-Bold", sans-serif;
-    font-size: 26px;
-    line-height: 1.15;
-}
-
 @media only screen and (max-width: 980px) {
     .content.legendaryMode {
         padding: 18px 14px 34px;
@@ -1482,6 +1364,17 @@ body .rc-tooltip-inner {
         padding: 18px 14px 24px;
     }
 
+    .barkeep {
+        grid-template-columns: 120px minmax(0, 1fr);
+        gap: 14px;
+        padding: 12px 14px 14px;
+    }
+
+    .barkeepAvatar {
+        width: 120px;
+    }
+
+    .barkeepSceneText,
     .barkeepCopy {
         font-size: 17px;
     }
@@ -1500,11 +1393,6 @@ body .rc-tooltip-inner {
         flex-direction: column;
     }
 
-    .legendarySelectionTrayMeta {
-        max-width: none;
-        text-align: left;
-    }
-
     .legendaryCardBody {
         padding-left: 18px;
         padding-right: 18px;
@@ -1515,7 +1403,15 @@ body .rc-tooltip-inner {
     }
 
     .legendaryAppraisalPrompt {
+        margin-bottom: 18px;
+    }
+
+    .legendaryAppraisalPromptTitle {
         font-size: 24px;
+    }
+
+    .legendaryAppraisalPromptMeta {
+        font-size: 20px;
     }
 
     .legendaryStatBar {
@@ -1531,13 +1427,5 @@ body .rc-tooltip-inner {
 
     .legendaryStatPercentileBar {
         min-width: 0;
-    }
-
-    .legendaryAppraisalVerdictTitle {
-        font-size: 31px;
-    }
-
-    .legendaryAppraisalVerdictMeta {
-        font-size: 22px;
     }
 }

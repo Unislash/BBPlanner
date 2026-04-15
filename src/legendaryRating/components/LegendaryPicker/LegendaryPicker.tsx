@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { CategoryButton } from './CategoryButton';
-import { Category } from '../../types/models';
+import { ArchetypeId, Category, CategoryId } from '../../types/models';
 import { ArchetypeGridItem } from './ArchetypeGridItem';
 import {
     armorArchetypes,
@@ -49,13 +49,23 @@ const archetypesByCategoryId = {
     shield: shieldArchetypes,
     helmet: helmetArchetypes,
     armor: armorArchetypes,
+};
+
+type PickerArchetype = {
+    id: ArchetypeId;
+    imageName: string;
+    name: string;
+};
+
+interface LegendaryPickerProps {
+    selectedCategoryId: CategoryId;
+    setSelectedCategoryId: (categoryId: CategoryId) => void;
 }
 
-export const LegendaryPicker = (): JSX.Element => {
+export const LegendaryPicker = ({ selectedCategoryId, setSelectedCategoryId }: LegendaryPickerProps): JSX.Element => {
     const selectedArchetypeId = useSelectedArchetypeId();
     const {setSelectedArchetypeId} = useLegendaryActions();
 
-    const [selectedCategory, setSelectedCategory] = useState(categories[0].id);
     const [legendaryItemImageMap, setLegendaryItemImageMap] = useState<LegendaryItemImageMap>();
 
     useEffect(() => {
@@ -64,7 +74,7 @@ export const LegendaryPicker = (): JSX.Element => {
         async function getItemImageMap() {
             setLegendaryItemImageMap(undefined);
 
-            return loadLegendaryThumbnailMap(selectedCategory)
+            return loadLegendaryThumbnailMap(selectedCategoryId)
                 .then((loadedLegendaryItemImageMap) => {
                     if (isSubscribed) {
                         setLegendaryItemImageMap(loadedLegendaryItemImageMap);
@@ -79,20 +89,19 @@ export const LegendaryPicker = (): JSX.Element => {
         return () => {
             isSubscribed = false;
         };
-    }, [selectedCategory]);
+    }, [selectedCategoryId]);
 
     return (
         <div className="legendaryPicker">
             <div className="legendaryCategoryStrip">
-                <div className="legendaryCategoryStripLabel">Sort The Goods</div>
                 <div className="categories">
-                    {categories.map(({name, id}, i) => (
+                    {categories.map(({name, id}) => (
                         <CategoryButton
                             key={id}
                             name={name}
-                            selected={selectedCategory === id}
+                            selected={selectedCategoryId === id}
                             onClick={() => {
-                                setSelectedCategory(id);
+                                setSelectedCategoryId(id);
                                 setSelectedArchetypeId(null);
                             }}
                         />
@@ -108,15 +117,10 @@ export const LegendaryPicker = (): JSX.Element => {
                                 Lay one of these named pieces on the barkeep&apos;s table and he&apos;ll size up the work.
                             </div>
                         </div>
-                        <div className="legendarySelectionTrayMeta">
-                            {selectedCategory === "shield" || selectedCategory === "armor" || selectedCategory === "helmet"
-                                ? "Durability matters for this appraisal."
-                                : "Most of the worth is in the rolled fighting lines."}
-                        </div>
                     </div>
                     <div className="archetypeGrid">
                         {
-                            Object.values(archetypesByCategoryId[selectedCategory]).map(({ id, imageName, name }) => {
+                            (Object.values(archetypesByCategoryId[selectedCategoryId]) as PickerArchetype[]).map(({ id, imageName, name }) => {
                                 return (
                                     <ArchetypeGridItem
                                         key={id}
@@ -135,7 +139,7 @@ export const LegendaryPicker = (): JSX.Element => {
                     </div>
                 </div>
             : <Evaluator
-                categoryId={selectedCategory}
+                categoryId={selectedCategoryId}
                 legendaryItemImageMap={legendaryItemImageMap}
             />}
         </div>

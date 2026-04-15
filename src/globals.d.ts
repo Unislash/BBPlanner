@@ -17,3 +17,8 @@ declare module "*.jpeg" {
     const theModule: string;
     export = theModule;
 }
+
+declare module "*.webp" {
+    const theModule: string;
+    export = theModule;
+}
