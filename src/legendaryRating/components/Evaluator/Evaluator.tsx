@@ -11,15 +11,11 @@ import rangedDefenseIcon from "../../../planner/images/loadoutInfo/ranged_defens
 import regularDamageIcon from "../../../planner/images/loadoutInfo/regular_damage.png";
 import shieldDamageIcon from "../../../planner/images/loadoutInfo/shield_damage.png";
 import rattackIcon from "../../../planner/images/stats/rattack.png";
-import {
-    useLegendaryActions,
-    useLegendaryStats,
-    useSelectedArchetypeId,
-} from "../../stores/legendaryStore";
-import { Archetype, CategoryId, LegendaryStatInputType, LegendaryStatType } from "../../types/models";
+import { useLegendaryActions, useLegendaryStats, useSelectedArchetypeId } from "../../stores/legendaryStore";
+import type { Archetype, CategoryId, LegendaryStatInputType, LegendaryStatType } from "../../types/models";
 import { allArchetypesById } from "../../data/archetypes";
 import { LegendaryStatBar } from "./LegendaryStatBar";
-import { LegendaryItemImageMap, loadLegendaryPreviewMap } from "../LegendaryPicker/legendaryItemImageMap";
+import { type LegendaryItemImageMap, loadLegendaryPreviewMap } from "../LegendaryPicker/legendaryItemImageMap";
 import {
     getArchetypeSubtitle,
     getDefaultLegendaryStats,
@@ -233,7 +229,10 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
                             {(legendaryPreviewImageMap || legendaryItemImageMap) && (
                                 <img
                                     className="legendaryPreviewImage"
-                                    src={legendaryPreviewImageMap?.[selectedArchetype.imageName] || legendaryItemImageMap?.[selectedArchetype.imageName]}
+                                    src={
+                                        legendaryPreviewImageMap?.[selectedArchetype.imageName] ||
+                                        legendaryItemImageMap?.[selectedArchetype.imageName]
+                                    }
                                     alt={selectedArchetype.name}
                                 />
                             )}
@@ -250,9 +249,7 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
                                 ))}
                             </div>
                         )}
-                        <div className="legendaryPlacedItemCopy">
-                            {getPlacedItemCopy(categoryId)}
-                        </div>
+                        <div className="legendaryPlacedItemCopy">{getPlacedItemCopy(categoryId)}</div>
                         <div className="legendaryPlacedItemShadow" />
                     </div>
                 </div>
@@ -285,7 +282,11 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
                                     <LegendaryStatBar
                                         key={definition.id}
                                         icon={definition.icon}
-                                        isModified={isAppraisalRowModified(definition, legendaryStats, defaultLegendaryStats)}
+                                        isModified={isAppraisalRowModified(
+                                            definition,
+                                            legendaryStats,
+                                            defaultLegendaryStats,
+                                        )}
                                         label={definition.label}
                                         tone={definition.tone}
                                         rangeText={getRangeText(definition, selectedArchetype)}
@@ -293,16 +294,18 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
                                             min: primaryMin,
                                             max: primaryMax,
                                             value: legendaryStats[definition.primary.inputKey] ?? primaryMin,
-                                            onChange: (value: number) => setLegendaryStat(definition.primary.inputKey, value),
+                                            onChange: (value: number) =>
+                                                setLegendaryStat(definition.primary.inputKey, value),
                                         }}
                                         secondary={
-                                            definition.secondary && secondaryMin !== undefined && secondaryMax !== undefined
+                                            definition.secondary &&
+                                            secondaryMin !== undefined &&
+                                            secondaryMax !== undefined
                                                 ? {
                                                       min: secondaryMin,
                                                       max: secondaryMax,
                                                       value:
-                                                          legendaryStats[definition.secondary.inputKey] ??
-                                                          secondaryMin,
+                                                          legendaryStats[definition.secondary.inputKey] ?? secondaryMin,
                                                       onChange: (value: number) =>
                                                           setLegendaryStat(definition.secondary!.inputKey, value),
                                                   }

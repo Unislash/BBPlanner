@@ -7,12 +7,17 @@
  * - Review `output/generateLegendaryRanges.report.json`
  */
 
-import fs from "fs";
-import https from "https";
-import path from "path";
+import fs from "node:fs";
+import https from "node:https";
+import path from "node:path";
 import mkdirp from "mkdirp";
 import { allArchetypesById } from "../src/legendaryRating/data/archetypes";
-import { Archetype, ArchetypeId, LegendaryStatInputType, LegendaryStatType } from "../src/legendaryRating/types/models";
+import type {
+    Archetype,
+    ArchetypeId,
+    LegendaryStatInputType,
+    LegendaryStatType,
+} from "../src/legendaryRating/types/models";
 
 type RangePatch = Partial<Record<LegendaryStatType | LegendaryStatInputType, number>>;
 
@@ -109,7 +114,8 @@ const getRowMatch = (cells: string[]) => {
             continue;
         }
 
-        const matchedArchetypeId = aliasNameToArchetypeId[normalizedName] || archetypeIdByNormalizedName[normalizedName];
+        const matchedArchetypeId =
+            aliasNameToArchetypeId[normalizedName] || archetypeIdByNormalizedName[normalizedName];
         if (matchedArchetypeId) {
             latestMatch = {
                 archetypeId: matchedArchetypeId,
@@ -290,10 +296,7 @@ const comparePatchToCurrentData = (archetypeId: ArchetypeId, patch: RangePatch) 
         }));
 };
 
-const applyGeneratedRangesToSource = (
-    source: string,
-    generatedRanges: Partial<Record<ArchetypeId, RangePatch>>,
-) => {
+const applyGeneratedRangesToSource = (source: string, generatedRanges: Partial<Record<ArchetypeId, RangePatch>>) => {
     let updatedSource = source;
 
     (Object.entries(generatedRanges) as [ArchetypeId, RangePatch][]).forEach(([archetypeId, patch]) => {
@@ -387,16 +390,13 @@ const main = async () => {
         ),
     );
 
-    // eslint-disable-next-line no-console
     console.log(`Generated ${matchedIds.size} archetype range entries to ${outputFile}`);
-    // eslint-disable-next-line no-console
     console.log(`Wrote sync report to ${reportFile}`);
-    // eslint-disable-next-line no-console
     console.log(
         nextArchetypesSource !== archetypesSource
             ? `Updated ${archetypesFile}`
             : `${archetypesFile} already matched the generated ranges`,
     );
-}
+};
 
 void main();

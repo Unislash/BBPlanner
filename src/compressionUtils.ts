@@ -1,7 +1,7 @@
 export const STR64: Array<string> = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".split("");
 
 export const to64String = (input: number, current = ""): string => {
-    if (input < 0 && current.length == 0) {
+    if (input < 0 && current.length === 0) {
         input = input * -1;
     }
     const modify: number = input % 64;

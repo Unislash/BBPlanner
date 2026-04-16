@@ -24,6 +24,7 @@ export const Star: React.FC<StarProps> = (props) => {
     return (
         <div className="star">
             <img
+                alt=""
                 className={classcat([
                     "starIcon",
                     {

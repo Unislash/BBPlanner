@@ -1,5 +1,5 @@
 import { buildStore } from "./planner/stores/buildStore";
-import { LocalStorageBuildData } from "./planner/types/models";
+import type { LocalStorageBuildData } from "./planner/types/models";
 import { loadFromURL } from "./url";
 
 export const setLocalStorageObject = <T>(key: string, value: T) => {
@@ -8,7 +8,6 @@ export const setLocalStorageObject = <T>(key: string, value: T) => {
 
 export const getLocalStorageObject = <T = unknown>(key: string): T | undefined => {
     const value = localStorage.getItem(key);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return value ? JSON.parse(value) : undefined;
 };
 

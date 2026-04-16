@@ -1,4 +1,4 @@
-import { CategoryId } from "../../types/models";
+import type { CategoryId } from "../../types/models";
 
 export type LegendaryItemImageMap = Record<string, string>;
 

@@ -2,13 +2,13 @@ import { to64Parse, to64String } from "./compressionUtils";
 import { perkBinary } from "./perkBinary";
 import { idsByItem } from "./planner/components/Loadout/idsByItem";
 import { itemsById } from "./planner/components/Loadout/itemsById";
-import { buildStore, BuildStore, initialBuildStore } from "./planner/stores/buildStore";
+import { buildStore, type BuildStore, initialBuildStore } from "./planner/stores/buildStore";
 import { getNewLoadoutItems, getNewStars, getNewStatNums } from "./planner/stores/initialState";
-import { initialLoadoutStore, loadoutStore, LoadoutStore } from "./planner/stores/loadoutStore";
-import { initialPerkStore, perkStore, PerkStore } from "./planner/stores/perkStore";
-import { initialStarsStore, starsStore, StarsStore } from "./planner/stores/starsStore";
-import { initialStatsStore, statsStore, StatsStore } from "./planner/stores/statsStore";
-import { LoadoutItems, Stars, StatNums } from "./planner/types/models";
+import { initialLoadoutStore, loadoutStore, type LoadoutStore } from "./planner/stores/loadoutStore";
+import { initialPerkStore, perkStore, type PerkStore } from "./planner/stores/perkStore";
+import { initialStarsStore, starsStore, type StarsStore } from "./planner/stores/starsStore";
+import { initialStatsStore, statsStore, type StatsStore } from "./planner/stores/statsStore";
+import type { LoadoutItems, Stars, StatNums } from "./planner/types/models";
 import { getLocalStorageObject } from "./storage";
 
 export const padString = (padding: string, strToPad: string, padLeft = true) => {
@@ -68,7 +68,7 @@ const uncompressStats = (packedString: string) => {
         return newStatNums;
     }
 
-    const statsArray = packedString.match(/.{1,3}/g)!.map((str) => parseInt(str, 10));
+    const statsArray = packedString.match(/.{1,3}/g)?.map((str) => parseInt(str, 10));
     Object.keys(newStatNums).forEach((key: string, index: number) => {
         newStatNums[key] = statsArray[index];
     });
@@ -86,7 +86,7 @@ const uncompressStars = (packedString: string) => {
         return newStars;
     }
 
-    const starsArray = packedString.match(/.{1}/g)!.map((str) => parseInt(str, 10));
+    const starsArray = packedString.match(/.{1}/g)?.map((str) => parseInt(str, 10));
     Object.keys(newStars).forEach((key: string, index: number) => {
         newStars[key] = starsArray[index];
     });
@@ -106,7 +106,7 @@ const uncompressLoadoutItems = (packedString: string) => {
         return newLoadoutItems;
     }
 
-    const loadoutItemsArray = packedString.match(/.{2}/g)!.map((itemId) => (itemId === "AA" ? "" : itemsById[itemId]));
+    const loadoutItemsArray = packedString.match(/.{2}/g)?.map((itemId) => (itemId === "AA" ? "" : itemsById[itemId]));
     Object.keys(newLoadoutItems).forEach((key: string, index: number) => {
         newLoadoutItems[key] = loadoutItemsArray[index];
     });

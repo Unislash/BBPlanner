@@ -1,7 +1,7 @@
 import { motion, useMotionValue } from "framer-motion";
 import * as React from "react";
 import { useEffect, useState, useRef } from "react";
-import { Position } from "./findIndex";
+import type { Position } from "./findIndex";
 
 export interface BuildEntryProps {
     className: string;

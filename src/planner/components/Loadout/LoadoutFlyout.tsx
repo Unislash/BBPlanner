@@ -1,5 +1,6 @@
 /** @jsx jsx */
 
+// biome-ignore lint/correctness/noUnusedImports: Emotion's jsx pragma requires this import.
 import { jsx } from "@emotion/core";
 import styled from "@emotion/styled";
 import * as React from "react";

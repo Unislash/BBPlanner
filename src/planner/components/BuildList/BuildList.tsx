@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import { loadFromStorage, saveBuildIdListToStorage } from "../../../storage";
 import { useBuildActions, useBuildIdList, useBuildName } from "../../stores/buildStore";
 import { BuildEntry } from "./BuildEntry";
-import { findIndex, Position } from "./findIndex";
+import { findIndex, type Position } from "./findIndex";
 
 export const BuildList = (): JSX.Element => {
     const buildIdList = useBuildIdList();

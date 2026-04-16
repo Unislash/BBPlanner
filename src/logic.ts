@@ -86,11 +86,11 @@ export const isBuildInvalid = (activePerks: string[]) => {
     const firstInvalidPerkId = activePerks.find((currentPerk) => {
         // Find the row that the perk belongs to
         const rowNumberKey = Object.keys(perksByRows).find((row) => {
-            return !!perksByRows[parseInt(row)].find((perk) => {
+            return !!perksByRows[parseInt(row, 10)].find((perk) => {
                 return perk === currentPerk;
             });
         });
-        const rowNumber = parseInt(rowNumberKey!);
+        const rowNumber = parseInt(rowNumberKey!, 10);
 
         // Count the number of active perks in previous rows
         let previousRowsPerksCount = 0;

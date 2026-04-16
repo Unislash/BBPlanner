@@ -15,14 +15,13 @@ import { ResetPerks } from "./planner/components/PerkPlanner/ResetPerks";
 import { StatsForecast } from "./planner/components/StatsForecast/StatsForecast";
 import { ThemeSwitcher } from "./planner/components/ThemeSwitcher/ThemeSwitcher";
 import { useThemeId } from "./planner/stores/themeStore";
-import { LegendaryPicker } from './legendaryRating/components/LegendaryPicker/LegendaryPicker';
-import { Barkeep } from './legendaryRating/components/Barkeep/Barkeep';
-import { CategoryId } from "./legendaryRating/types/models";
+import { LegendaryPicker } from "./legendaryRating/components/LegendaryPicker/LegendaryPicker";
+import { Barkeep } from "./legendaryRating/components/Barkeep/Barkeep";
+import type { CategoryId } from "./legendaryRating/types/models";
 
 export const App = (): JSX.Element => {
     const themeId = useThemeId();
-    const showLegendaryTool =
-        typeof window !== "undefined" && window.localStorage.getItem("legendaryRater") === "true";
+    const showLegendaryTool = typeof window !== "undefined" && window.localStorage.getItem("legendaryRater") === "true";
     const [selectedLegendaryCategoryId, setSelectedLegendaryCategoryId] = useState<CategoryId>("oneHanded");
 
     return (
@@ -31,15 +30,13 @@ export const App = (): JSX.Element => {
             <div className={`appBackground ${showLegendaryTool ? "legendaryRaterScene" : themeId}`} />
             <div className={`content ${showLegendaryTool ? "legendaryMode" : ""}`}>
                 {showLegendaryTool ? (
-                    <>
-                        <div className="barRoom">
-                            <Barkeep categoryId={selectedLegendaryCategoryId} />
-                            <LegendaryPicker
-                                selectedCategoryId={selectedLegendaryCategoryId}
-                                setSelectedCategoryId={setSelectedLegendaryCategoryId}
-                            />
-                        </div>
-                    </>
+                    <div className="barRoom">
+                        <Barkeep categoryId={selectedLegendaryCategoryId} />
+                        <LegendaryPicker
+                            selectedCategoryId={selectedLegendaryCategoryId}
+                            setSelectedCategoryId={setSelectedLegendaryCategoryId}
+                        />
+                    </div>
                 ) : (
                     <>
                         <div className="mainPanel">

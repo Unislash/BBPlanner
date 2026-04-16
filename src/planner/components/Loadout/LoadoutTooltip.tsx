@@ -14,17 +14,17 @@ import regular_damage from "../../images/loadoutInfo/regular_damage.png";
 import shield_damage from "../../images/loadoutInfo/shield_damage.png";
 import vision from "../../images/loadoutInfo/vision.png";
 import {
-    Accessory,
-    Ammo,
-    Armor,
-    Bag,
-    Helmet,
+    type Accessory,
+    type Ammo,
+    type Armor,
+    type Bag,
+    type Helmet,
     instanceOfShield,
     instanceOfWeapon,
-    LoadoutItem,
-    LoadoutSlotType,
-    Offhand,
-    Weapon,
+    type LoadoutItem,
+    type LoadoutSlotType,
+    type Offhand,
+    type Weapon,
 } from "../../types/models";
 
 interface LoadoutTooltipProps {
@@ -152,7 +152,7 @@ const WeaponContent: React.FC<{ item: Weapon }> = ({ item }) => (
             </StatLine>
         )}
         {/*for some reason, some weapons have a shieldDamage of 0...*/}
-        {item.shieldDamage && !!parseInt(item.shieldDamage) && (
+        {item.shieldDamage && !!parseInt(item.shieldDamage, 10) && (
             <StatLine>
                 <StatIcon src={shield_damage} />
                 Shield damage of&nbsp;<b>{item.shieldDamage}</b>

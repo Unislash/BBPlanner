@@ -1,7 +1,7 @@
 import * as React from "react";
 import { accessories, ammo, armor, bags, helmets, offhandItems, TWO_HANDED_WEAPON, weapons } from "../../data/itemData";
 import { useLoadoutActions, useLoadoutItems } from "../../stores/loadoutStore";
-import { LoadoutItem, Weapon } from "../../types/models";
+import type { LoadoutItem, Weapon } from "../../types/models";
 import { LoadoutSelect } from "./LoadoutSelect";
 
 const getLoadoutItemByName = (name: string, loadoutItemList: LoadoutItem[]) => {
@@ -22,7 +22,7 @@ export const Loadout = (): JSX.Element => {
                         <div className="loadoutSlot accessory">
                             <LoadoutSelect
                                 onItemChange={(item) => setLoadoutSlot("accessories", item.id)}
-                                selected={getLoadoutItemByName(loadoutItems["accessories"], accessories)!}
+                                selected={getLoadoutItemByName(loadoutItems.accessories, accessories)!}
                                 options={accessories}
                                 loadoutSlotType="accessories"
                             />
@@ -35,7 +35,7 @@ export const Loadout = (): JSX.Element => {
                                         setLoadoutSlot("offhandItems", "");
                                     }
                                 }}
-                                selected={getLoadoutItemByName(loadoutItems["weapons"], weapons)!}
+                                selected={getLoadoutItemByName(loadoutItems.weapons, weapons)!}
                                 options={weapons}
                                 loadoutSlotType="weapons"
                             />
@@ -45,7 +45,7 @@ export const Loadout = (): JSX.Element => {
                         <div className="loadoutSlot helmet">
                             <LoadoutSelect
                                 onItemChange={(item) => setLoadoutSlot("helmets", item.id)}
-                                selected={getLoadoutItemByName(loadoutItems["helmets"], helmets)!}
+                                selected={getLoadoutItemByName(loadoutItems.helmets, helmets)!}
                                 options={helmets}
                                 loadoutSlotType="helmets"
                             />
@@ -53,7 +53,7 @@ export const Loadout = (): JSX.Element => {
                         <div className="loadoutSlot armor">
                             <LoadoutSelect
                                 onItemChange={(item) => setLoadoutSlot("armor", item.id)}
-                                selected={getLoadoutItemByName(loadoutItems["armor"], armor)!}
+                                selected={getLoadoutItemByName(loadoutItems.armor, armor)!}
                                 options={armor}
                                 loadoutSlotType="armor"
                             />
@@ -63,7 +63,7 @@ export const Loadout = (): JSX.Element => {
                         <div className="loadoutSlot ammo">
                             <LoadoutSelect
                                 onItemChange={(item) => setLoadoutSlot("ammo", item.id)}
-                                selected={getLoadoutItemByName(loadoutItems["ammo"], ammo)!}
+                                selected={getLoadoutItemByName(loadoutItems.ammo, ammo)!}
                                 options={ammo}
                                 loadoutSlotType="ammo"
                             />
@@ -72,7 +72,7 @@ export const Loadout = (): JSX.Element => {
                             <LoadoutSelect
                                 onItemChange={(item) => {
                                     setLoadoutSlot("offhandItems", item.id);
-                                    const selectedWeaponItem = getLoadoutItemByName(loadoutItems["weapons"], weapons);
+                                    const selectedWeaponItem = getLoadoutItemByName(loadoutItems.weapons, weapons);
                                     if (
                                         item.id !== "" &&
                                         (selectedWeaponItem as Weapon).handType === TWO_HANDED_WEAPON
@@ -80,7 +80,7 @@ export const Loadout = (): JSX.Element => {
                                         setLoadoutSlot("weapons", "");
                                     }
                                 }}
-                                selected={getLoadoutItemByName(loadoutItems["offhandItems"], offhandItems)!}
+                                selected={getLoadoutItemByName(loadoutItems.offhandItems, offhandItems)!}
                                 options={offhandItems}
                                 loadoutSlotType="offhandItems"
                             />
@@ -91,7 +91,7 @@ export const Loadout = (): JSX.Element => {
                     <div className="loadoutSlot bag">
                         <LoadoutSelect
                             onItemChange={(item) => setLoadoutSlot("bags1", item.id)}
-                            selected={getLoadoutItemByName(loadoutItems["bags1"], bags)!}
+                            selected={getLoadoutItemByName(loadoutItems.bags1, bags)!}
                             options={bags}
                             loadoutSlotType="bags1"
                         />
@@ -99,7 +99,7 @@ export const Loadout = (): JSX.Element => {
                     <div className="loadoutSlot bag">
                         <LoadoutSelect
                             onItemChange={(item) => setLoadoutSlot("bags2", item.id)}
-                            selected={getLoadoutItemByName(loadoutItems["bags2"], bags)!}
+                            selected={getLoadoutItemByName(loadoutItems.bags2, bags)!}
                             options={bags}
                             loadoutSlotType="bags2"
                         />
@@ -107,7 +107,7 @@ export const Loadout = (): JSX.Element => {
                     <div className="loadoutSlot bag">
                         <LoadoutSelect
                             onItemChange={(item) => setLoadoutSlot("bags3", item.id)}
-                            selected={getLoadoutItemByName(loadoutItems["bags3"], bags)!}
+                            selected={getLoadoutItemByName(loadoutItems.bags3, bags)!}
                             options={bags}
                             loadoutSlotType="bags3"
                         />
@@ -115,7 +115,7 @@ export const Loadout = (): JSX.Element => {
                     <div className="loadoutSlot bag">
                         <LoadoutSelect
                             onItemChange={(item) => setLoadoutSlot("bags4", item.id)}
-                            selected={getLoadoutItemByName(loadoutItems["bags4"], bags)!}
+                            selected={getLoadoutItemByName(loadoutItems.bags4, bags)!}
                             options={bags}
                             loadoutSlotType="bags4"
                         />

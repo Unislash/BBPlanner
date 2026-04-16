@@ -1,6 +1,6 @@
 import classcat from "classcat";
 import * as React from "react";
-import { ChangeEvent, useRef } from "react";
+import { type ChangeEvent, useRef } from "react";
 import arrow_right from "../../images/arrow_right.png";
 
 interface LevelBarProps {
@@ -36,7 +36,7 @@ export const LevelBar: React.FC<LevelBarProps> = (props) => {
 
     return (
         <div className="statBar">
-            <img className="icon" src={icon} />
+            <img alt="" className="icon" src={icon} />
             <div className={classcat(["inputBar", "yellow"])} onClick={handleBarClick}>
                 <div className="barTextControl">
                     <span className="barInputWidthReserver">{levelNumber}</span>
@@ -49,7 +49,7 @@ export const LevelBar: React.FC<LevelBarProps> = (props) => {
                         onBlur={handleInputBlur}
                     />
                 </div>
-                <img className="arrowIndicator" src={arrow_right} />
+                <img alt="" className="arrowIndicator" src={arrow_right} />
                 <div className="maxStat">11</div>
             </div>
         </div>

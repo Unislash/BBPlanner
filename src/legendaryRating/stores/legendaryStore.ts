@@ -2,7 +2,7 @@ import { useStore } from "zustand";
 import { devtools } from "zustand/middleware";
 import { shallow } from "zustand/shallow";
 import { createStore } from "zustand/vanilla";
-import { ArchetypeId, LegendaryStatInputType } from '../types/models';
+import type { ArchetypeId, LegendaryStatInputType } from "../types/models";
 
 export interface LegendaryStore {
     actions: {
@@ -28,8 +28,9 @@ export const legendaryStore = createStore<LegendaryStore>()(
                 resetLegendaryStats: () => set({ legendaryStats: {} }),
                 setSelectedArchetypeId: (archetypeId: ArchetypeId | null) => set({ selectedArchetypeId: archetypeId }),
                 setLegendaryStat: (LegendaryStat: LegendaryStatInputType, value: number) =>
-                    set((state) => ({legendaryStats: {...state.legendaryStats, [LegendaryStat]: value}})),
-                setLegendaryStats: (legendaryStats: Partial<Record<LegendaryStatInputType, number>>) => set({ legendaryStats }),
+                    set((state) => ({ legendaryStats: { ...state.legendaryStats, [LegendaryStat]: value } })),
+                setLegendaryStats: (legendaryStats: Partial<Record<LegendaryStatInputType, number>>) =>
+                    set({ legendaryStats }),
             },
         }),
 

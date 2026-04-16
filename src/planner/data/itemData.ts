@@ -1,4 +1,4 @@
-import { Accessory, Ammo, Bag, Consumable, Offhand, Shield, Tool, Weapon } from "../types/models";
+import type { Accessory, Ammo, Bag, Consumable, Offhand, Shield, Tool, Weapon } from "../types/models";
 import accessoriesJson from "./accessories.json";
 import ammoJson from "./ammo.json";
 import armorsJson from "./armors.json";
@@ -166,7 +166,7 @@ export const bags: Bag[] = [
     ...consumables,
     ...weapons.map((weapon) => ({
         ...weapon,
-        imageName: weapon.imageName + "_70x70",
+        imageName: `${weapon.imageName}_70x70`,
     })),
     ...shields.map((shield) => ({
         ...shield,
@@ -174,7 +174,7 @@ export const bags: Bag[] = [
     })),
     ...tools.map((tool) => ({
         ...tool,
-        imageName: tool.imageName.replace("inventory_", "") + "_70x70",
+        imageName: `${tool.imageName.replace("inventory_", "")}_70x70`,
     })),
     ...ammo,
 ];

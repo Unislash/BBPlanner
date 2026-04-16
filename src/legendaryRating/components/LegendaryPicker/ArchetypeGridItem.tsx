@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import * as React from "react";
-import { buttonResetStyles } from '../../../sharedStyles';
-import { LegendaryItemImageMap } from "./legendaryItemImageMap";
+import { buttonResetStyles } from "../../../sharedStyles";
+import type { LegendaryItemImageMap } from "./legendaryItemImageMap";
 
 export interface ArchetypeGridItemProps {
     animationIndex?: number;
@@ -29,7 +29,7 @@ const ArchetypeGridItemShell = styled.div<Pick<ArchetypeGridItemProps, "animatio
     margin: 0 50px 80px;
     opacity: 0;
     animation: legendaryGridItemSettle 360ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    animation-delay: ${props => `${Math.min((props.animationIndex || 0) * 26, 260)}ms`};
+    animation-delay: ${(props) => `${Math.min((props.animationIndex || 0) * 26, 260)}ms`};
 `;
 
 const ArchetypeGridItemButton = styled.button<ArchetypeGridItemProps>`
@@ -86,7 +86,7 @@ const ArchetypeGridItemButton = styled.button<ArchetypeGridItemProps>`
     
     /* Is this accessible? No. Is it hacky? Yes. But it works! */
     &:after {
-        content: "${props => props.name}";
+        content: "${(props) => props.name}";
         position: absolute;
         top: 100%;
         right: -34px;
@@ -103,11 +103,7 @@ const ArchetypeGridItemButton = styled.button<ArchetypeGridItemProps>`
     }
 `;
 
-export const ArchetypeGridItem = ({
-    animationIndex,
-    className,
-    ...props
-}: ArchetypeGridItemProps): JSX.Element => {
+export const ArchetypeGridItem = ({ animationIndex, className, ...props }: ArchetypeGridItemProps): JSX.Element => {
     return (
         <ArchetypeGridItemShell animationIndex={animationIndex} className={className}>
             <ArchetypeGridItemButton {...props} />

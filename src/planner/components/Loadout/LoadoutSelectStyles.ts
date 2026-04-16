@@ -1,7 +1,6 @@
 // dear god something with the StylesConfig type from react-select causes my IDE to freeze
 // whenever I edit this. Using anys because that's nutty
 
-/* eslint-disable @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access */
 export const loadoutSelectStyles = {
     container: (base: any) => ({ ...base }),
     control: (base: any) => ({

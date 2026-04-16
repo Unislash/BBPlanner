@@ -1,5 +1,6 @@
 /** @jsx jsx */
 
+// biome-ignore lint/correctness/noUnusedImports: Emotion's jsx pragma requires this import.
 import { jsx } from "@emotion/core";
 import styled from "@emotion/styled";
 import * as React from "react";
@@ -11,8 +12,8 @@ import inventory_slot_body from "../../images/items/inventory_slot_body.png";
 import inventory_slot_helmet from "../../images/items/inventory_slot_helmet.png";
 import inventory_slot_mainhand from "../../images/items/inventory_slot_mainhand.png";
 import inventory_slot_offhand from "../../images/items/inventory_slot_offhand.png";
-import { LoadoutSlotType } from "../../types/models";
-import { buttonResetStyles } from '../../../sharedStyles';
+import type { LoadoutSlotType } from "../../types/models";
+import { buttonResetStyles } from "../../../sharedStyles";
 
 type ItemImageMap = { [key: string]: string };
 
@@ -34,7 +35,6 @@ export const LoadoutSlotButton: React.FC<LoadoutSlotButtonProps> = (props) => {
                 .catch(() => "An error occurred while loading item image map");
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         getItemImageMap();
     }, []);
 

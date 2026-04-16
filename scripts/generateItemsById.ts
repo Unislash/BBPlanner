@@ -11,7 +11,7 @@
  * - IMPORTANT: Review for any out-of-order schenanigans via a git diff
  */
 
-import fs from "fs";
+import fs from "node:fs";
 import mkdirp from "mkdirp";
 import { STR64 } from "../src/compressionUtils";
 

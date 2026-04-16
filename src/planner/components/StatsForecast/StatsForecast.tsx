@@ -11,7 +11,7 @@ import resolveIcon from "../../images/stats/resolve.png";
 import { useActivePerkIds } from "../../stores/perkStore";
 import { useStars, useStarsActions } from "../../stores/starsStore";
 import { useStatNums, useStatsActions } from "../../stores/statsStore";
-import { StatType } from "../../types/models";
+import type { StatType } from "../../types/models";
 import { ForecastInfoButton } from "./ForecastInfoButton";
 import { LevelBar } from "./LevelBar";
 import { StatBar } from "./StatBar";
@@ -79,94 +79,94 @@ export const StatsForecast = (): JSX.Element => {
             </h2>
             <p>Enter your current level, stats, and stars to see the expected max stats</p>
             <div className="statBars">
-                <LevelBar icon={levelIcon} levelNumber={statNums["level"]} setLevelNumber={getSetStat("level")} />
+                <LevelBar icon={levelIcon} levelNumber={statNums.level} setLevelNumber={getSetStat("level")} />
                 <StatBar
                     icon={healthIcon}
-                    statNumber={statNums["health"]}
+                    statNumber={statNums.health}
                     setStatNumber={getSetStat("health")}
                     statType={"health"}
-                    stars={stars["health"]}
+                    stars={stars.health}
                     setStars={getSetStar("health")}
-                    currentLevel={statNums["level"]}
+                    currentLevel={statNums.level}
                     giftedBonus={getGiftedBonus("health")}
                     interactionSymbols={getInteractionSymbols("health")}
                     perkMultiplier={hasColossus ? 0.25 : undefined}
                 />
                 <StatBar
                     icon={fatigueIcon}
-                    statNumber={statNums["fatigue"]}
+                    statNumber={statNums.fatigue}
                     setStatNumber={getSetStat("fatigue")}
                     statType={"fatigue"}
-                    stars={stars["fatigue"]}
+                    stars={stars.fatigue}
                     setStars={getSetStar("fatigue")}
-                    currentLevel={statNums["level"]}
+                    currentLevel={statNums.level}
                     giftedBonus={getGiftedBonus("fatigue")}
                     interactionSymbols={getInteractionSymbols("fatigue")}
                 />
                 <StatBar
                     icon={resolveIcon}
-                    statNumber={statNums["resolve"]}
+                    statNumber={statNums.resolve}
                     setStatNumber={getSetStat("resolve")}
                     statType={"resolve"}
-                    stars={stars["resolve"]}
+                    stars={stars.resolve}
                     setStars={getSetStar("resolve")}
-                    currentLevel={statNums["level"]}
+                    currentLevel={statNums.level}
                     giftedBonus={getGiftedBonus("resolve")}
                     interactionSymbols={getInteractionSymbols("resolve")}
                     perkMultiplier={hasFortifiedMind ? 0.25 : undefined}
                 />
                 <StatBar
                     icon={initiativeIcon}
-                    statNumber={statNums["initiative"]}
+                    statNumber={statNums.initiative}
                     setStatNumber={getSetStat("initiative")}
                     statType={"initiative"}
-                    stars={stars["initiative"]}
+                    stars={stars.initiative}
                     setStars={getSetStar("initiative")}
-                    currentLevel={statNums["level"]}
+                    currentLevel={statNums.level}
                     giftedBonus={getGiftedBonus("initiative")}
                     interactionSymbols={getInteractionSymbols("initiative")}
                 />
                 <StatBar
                     icon={mattackIcon}
-                    statNumber={statNums["mattack"]}
+                    statNumber={statNums.mattack}
                     setStatNumber={getSetStat("mattack")}
                     statType={"mattack"}
-                    stars={stars["mattack"]}
+                    stars={stars.mattack}
                     setStars={getSetStar("mattack")}
-                    currentLevel={statNums["level"]}
+                    currentLevel={statNums.level}
                     giftedBonus={getGiftedBonus("mattack")}
                     interactionSymbols={getInteractionSymbols("mattack")}
                 />
                 <StatBar
                     icon={rattackIcon}
-                    statNumber={statNums["rattack"]}
+                    statNumber={statNums.rattack}
                     setStatNumber={getSetStat("rattack")}
                     statType={"rattack"}
-                    stars={stars["rattack"]}
+                    stars={stars.rattack}
                     setStars={getSetStar("rattack")}
-                    currentLevel={statNums["level"]}
+                    currentLevel={statNums.level}
                     giftedBonus={getGiftedBonus("rattack")}
                     interactionSymbols={getInteractionSymbols("rattack")}
                 />
                 <StatBar
                     icon={mdefenseIcon}
-                    statNumber={statNums["mdefense"]}
+                    statNumber={statNums.mdefense}
                     setStatNumber={getSetStat("mdefense")}
                     statType={"mdefense"}
-                    stars={stars["mdefense"]}
+                    stars={stars.mdefense}
                     setStars={getSetStar("mdefense")}
-                    currentLevel={statNums["level"]}
+                    currentLevel={statNums.level}
                     giftedBonus={getGiftedBonus("mdefense")}
                     interactionSymbols={getInteractionSymbols("mdefense")}
                 />
                 <StatBar
                     icon={rdefenseIcon}
-                    statNumber={statNums["rdefense"]}
+                    statNumber={statNums.rdefense}
                     setStatNumber={getSetStat("rdefense")}
                     statType={"rdefense"}
-                    stars={stars["rdefense"]}
+                    stars={stars.rdefense}
                     setStars={getSetStar("rdefense")}
-                    currentLevel={statNums["level"]}
+                    currentLevel={statNums.level}
                     giftedBonus={getGiftedBonus("rdefense")}
                     interactionSymbols={getInteractionSymbols("rdefense")}
                 />

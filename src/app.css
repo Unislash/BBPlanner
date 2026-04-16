@@ -516,7 +516,7 @@ body .rc-tooltip-inner {
     padding: 0;
     border: none;
     background: transparent;
-    outline: none !important;
+    outline: none;
     font-family: inherit;
     font-size: inherit;
 
@@ -694,7 +694,7 @@ body .rc-tooltip-inner {
 
 .buildEntrySelected {
     color: #ffa63e;
-    text-shadow: 0 0 2px rgba(255, 228, 161, .7);
+    text-shadow: 0 0 2px rgba(255, 228, 161, 0.7);
 }
 
 .deleteBuild {
@@ -796,9 +796,7 @@ body .rc-tooltip-inner {
     margin-left: auto;
     margin-right: auto;
     border: 1px solid rgba(72, 47, 26, 0.68);
-    background:
-        linear-gradient(180deg, rgba(52, 29, 17, 0.9), rgba(27, 14, 8, 0.92)),
-        rgba(43, 25, 15, 0.92);
+    background: linear-gradient(180deg, rgba(52, 29, 17, 0.9), rgba(27, 14, 8, 0.92)), rgba(43, 25, 15, 0.92);
     box-shadow:
         0 18px 30px rgba(0, 0, 0, 0.42),
         inset 0 1px 0 rgba(255, 229, 182, 0.1);
@@ -985,9 +983,7 @@ body .rc-tooltip-inner {
     position: relative;
     padding: 20px 22px 18px;
     border: 1px solid rgba(72, 47, 26, 0.68);
-    background:
-        linear-gradient(180deg, rgba(52, 29, 17, 0.9), rgba(27, 14, 8, 0.92)),
-        rgba(43, 25, 15, 0.92);
+    background: linear-gradient(180deg, rgba(52, 29, 17, 0.9), rgba(27, 14, 8, 0.92)), rgba(43, 25, 15, 0.92);
     box-shadow:
         0 18px 30px rgba(0, 0, 0, 0.42),
         inset 0 1px 0 rgba(255, 229, 182, 0.1);
@@ -1050,8 +1046,20 @@ body .rc-tooltip-inner {
         radial-gradient(circle at 82% 24%, rgba(118, 68, 28, 0.12), rgba(118, 68, 28, 0) 16%),
         radial-gradient(circle at 24% 76%, rgba(145, 86, 34, 0.11), rgba(145, 86, 34, 0) 18%),
         radial-gradient(circle at 78% 84%, rgba(255, 240, 205, 0.22), rgba(255, 240, 205, 0) 14%),
-        linear-gradient(180deg, rgba(94, 55, 26, 0.1), rgba(94, 55, 26, 0) 16%, rgba(94, 55, 26, 0) 82%, rgba(94, 55, 26, 0.12)),
-        linear-gradient(90deg, rgba(94, 55, 26, 0.1), rgba(94, 55, 26, 0) 11%, rgba(94, 55, 26, 0) 89%, rgba(94, 55, 26, 0.12));
+        linear-gradient(
+            180deg,
+            rgba(94, 55, 26, 0.1),
+            rgba(94, 55, 26, 0) 16%,
+            rgba(94, 55, 26, 0) 82%,
+            rgba(94, 55, 26, 0.12)
+        ),
+        linear-gradient(
+            90deg,
+            rgba(94, 55, 26, 0.1),
+            rgba(94, 55, 26, 0) 11%,
+            rgba(94, 55, 26, 0) 89%,
+            rgba(94, 55, 26, 0.12)
+        );
     pointer-events: none;
     opacity: 0.9;
 }
@@ -1107,8 +1115,7 @@ body .rc-tooltip-inner {
     padding: 16px;
     border: 1px solid rgba(72, 49, 30, 0.28);
     background:
-        radial-gradient(circle at top, rgba(255, 247, 228, 0.7), rgba(207, 180, 137, 0.45)),
-        rgba(96, 62, 35, 0.08);
+        radial-gradient(circle at top, rgba(255, 247, 228, 0.7), rgba(207, 180, 137, 0.45)), rgba(96, 62, 35, 0.08);
     box-shadow: inset 0 0 12px rgba(92, 56, 28, 0.14);
 }
 
@@ -1117,8 +1124,7 @@ body .rc-tooltip-inner {
     margin-top: 16px;
     border: 1px solid rgba(153, 117, 72, 0.32);
     background:
-        radial-gradient(circle at top, rgba(255, 240, 204, 0.18), rgba(115, 74, 37, 0.06)),
-        rgba(15, 8, 4, 0.34);
+        radial-gradient(circle at top, rgba(255, 240, 204, 0.18), rgba(115, 74, 37, 0.06)), rgba(15, 8, 4, 0.34);
     box-shadow:
         inset 0 0 20px rgba(0, 0, 0, 0.24),
         0 14px 20px rgba(0, 0, 0, 0.3);
@@ -1204,8 +1210,7 @@ body .rc-tooltip-inner {
     padding: 12px 14px;
     border: 1px solid rgba(84, 59, 37, 0.22);
     background:
-        linear-gradient(180deg, rgba(255, 252, 244, 0.78), rgba(243, 229, 199, 0.62)),
-        rgba(255, 250, 238, 0.52);
+        linear-gradient(180deg, rgba(255, 252, 244, 0.78), rgba(243, 229, 199, 0.62)), rgba(255, 250, 238, 0.52);
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.5),
         0 6px 12px rgba(88, 56, 28, 0.06);
@@ -1304,14 +1309,14 @@ body .rc-tooltip-inner {
     margin-top: 2px;
     font-size: 14px;
     color: #73563a;
-    font-family: 'Alkatra', cursive;
+    font-family: "Alkatra", cursive;
 }
 
 .legendaryStatValueGroup {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    font-family: 'Alkatra', cursive;
+    font-family: "Alkatra", cursive;
 }
 
 .legendaryStatInputs {
@@ -1365,7 +1370,7 @@ body .rc-tooltip-inner {
     margin-top: 3px;
     font-size: 18px;
     color: #4a1f0c;
-    font-family: 'Alkatra', cursive;
+    font-family: "Alkatra", cursive;
 }
 
 .legendaryStatPercentileBar {

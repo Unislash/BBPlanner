@@ -1,11 +1,12 @@
 /** @jsx jsx */
+// biome-ignore lint/correctness/noUnusedImports: Emotion's jsx pragma requires this import.
 import { jsx } from "@emotion/core";
 import Tooltip from "rc-tooltip";
 import * as React from "react";
 import { useState } from "react";
 import Select from "react-select";
 import { EMPTY_NAME } from "../../data/itemData";
-import { LoadoutItem, LoadoutSlotType } from "../../types/models";
+import type { LoadoutItem, LoadoutSlotType } from "../../types/models";
 import { LoadoutFlyout } from "./LoadoutFlyout";
 import { loadoutSelectStyles } from "./LoadoutSelectStyles";
 import { LoadoutSlotButton } from "./LoadoutSlotButton";
@@ -29,7 +30,7 @@ export const LoadoutSelect = (props: LoadoutSelectProps): JSX.Element => {
 
     const onSelectChange = (newValue: LoadoutItem) => {
         toggleOpen();
-        onItemChange && onItemChange(newValue);
+        onItemChange?.(newValue);
     };
 
     return (
@@ -66,10 +67,7 @@ export const LoadoutSelect = (props: LoadoutSelectProps): JSX.Element => {
                 hideSelectedOptions={false}
                 isClearable={false}
                 menuIsOpen
-                onChange={
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                    onSelectChange as any
-                }
+                onChange={onSelectChange as any}
                 options={options}
                 getOptionLabel={(option) => option.name}
                 getOptionValue={(option) => option.id}

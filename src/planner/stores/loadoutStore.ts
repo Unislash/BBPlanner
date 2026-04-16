@@ -4,7 +4,7 @@ import { shallow } from "zustand/shallow";
 import { createStore } from "zustand/vanilla";
 import { updateStorageForCurrentBuild } from "../../storage";
 import { saveToURL } from "../../url";
-import { LoadoutItems, LoadoutSlotType } from "../types/models";
+import type { LoadoutItems, LoadoutSlotType } from "../types/models";
 import { getNewLoadoutItems } from "./initialState";
 
 export interface LoadoutStore {

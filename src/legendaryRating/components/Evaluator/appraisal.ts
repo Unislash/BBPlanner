@@ -1,4 +1,4 @@
-import { Archetype, CategoryId, LegendaryStatInputType, LegendaryStatType } from "../../types/models";
+import type { Archetype, CategoryId, LegendaryStatInputType, LegendaryStatType } from "../../types/models";
 
 interface AppraisalFieldDefinition {
     inputKey: LegendaryStatInputType;
@@ -98,24 +98,27 @@ export const getRangeValue = (archetype: Archetype, key: LegendaryStatType) => {
 };
 
 export const getDefaultLegendaryStats = (archetype: Archetype) => {
-    return appraisalRowDefinitions.reduce<Partial<Record<LegendaryStatInputType, number>>>((accumulator, definition) => {
-        const primaryMin = getRangeValue(archetype, definition.primary.minKey);
-        if (primaryMin === undefined) {
-            return accumulator;
-        }
-
-        accumulator[definition.primary.inputKey] =
-            definition.primary.inputKey === "fatigueSkillCost" ? 0 : primaryMin;
-
-        if (definition.secondary) {
-            const secondaryMin = getRangeValue(archetype, definition.secondary.minKey);
-            if (secondaryMin !== undefined) {
-                accumulator[definition.secondary.inputKey] = secondaryMin;
+    return appraisalRowDefinitions.reduce<Partial<Record<LegendaryStatInputType, number>>>(
+        (accumulator, definition) => {
+            const primaryMin = getRangeValue(archetype, definition.primary.minKey);
+            if (primaryMin === undefined) {
+                return accumulator;
             }
-        }
 
-        return accumulator;
-    }, {});
+            accumulator[definition.primary.inputKey] =
+                definition.primary.inputKey === "fatigueSkillCost" ? 0 : primaryMin;
+
+            if (definition.secondary) {
+                const secondaryMin = getRangeValue(archetype, definition.secondary.minKey);
+                if (secondaryMin !== undefined) {
+                    accumulator[definition.secondary.inputKey] = secondaryMin;
+                }
+            }
+
+            return accumulator;
+        },
+        {},
+    );
 };
 
 const getCurrentStatValue = (
@@ -167,7 +170,11 @@ const getRowPercentile = (
     if (definition.secondary) {
         const secondaryMin = getRangeValue(archetype, definition.secondary.minKey);
         const secondaryMax = getRangeValue(archetype, definition.secondary.maxKey);
-        const secondaryValue = getCurrentStatValue(legendaryStats, defaultLegendaryStats, definition.secondary.inputKey);
+        const secondaryValue = getCurrentStatValue(
+            legendaryStats,
+            defaultLegendaryStats,
+            definition.secondary.inputKey,
+        );
 
         if (secondaryMin !== undefined && secondaryMax !== undefined && secondaryValue !== undefined) {
             rowPercentiles.push(getPercentile(secondaryValue, secondaryMin, secondaryMax));
@@ -210,7 +217,7 @@ export const getOverallRating = (
     }
 
     const averagePercentile = rowPercentiles.reduce((sum, value) => sum + value, 0) / rowPercentiles.length;
-    const label = ratingTiers.find((tier) => averagePercentile >= tier.minimum)!.label;
+    const label = ratingTiers.find((tier) => averagePercentile >= tier.minimum)?.label;
 
     return {
         label,

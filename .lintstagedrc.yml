@@ -1,5 +1,2 @@
-'**/*.{ts,tsx,js}':
-    - eslint --fix
-    - biome format --write --no-errors-on-unmatched
-'**/*.{css,scss,json,jsonc,yml,yaml}':
-    - biome format --write --no-errors-on-unmatched
+'**/*.{ts,tsx,js,css,scss,json,jsonc,yml,yaml}':
+    - biome check --write --no-errors-on-unmatched

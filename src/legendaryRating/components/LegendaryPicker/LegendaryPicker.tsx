@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import { CategoryButton } from './CategoryButton';
-import { ArchetypeId, Category, CategoryId } from '../../types/models';
-import { ArchetypeGridItem } from './ArchetypeGridItem';
+import { CategoryButton } from "./CategoryButton";
+import type { ArchetypeId, Category, CategoryId } from "../../types/models";
+import { ArchetypeGridItem } from "./ArchetypeGridItem";
 import {
     armorArchetypes,
     helmetArchetypes,
@@ -10,35 +10,35 @@ import {
     melee2hArchetypes,
     rangedArchetypes,
     shieldArchetypes,
-} from '../../data/archetypes';
-import { useLegendaryActions, useSelectedArchetypeId } from '../../stores/legendaryStore';
-import { Evaluator } from '../Evaluator/Evaluator';
-import { LegendaryItemImageMap, loadLegendaryThumbnailMap } from "./legendaryItemImageMap";
+} from "../../data/archetypes";
+import { useLegendaryActions, useSelectedArchetypeId } from "../../stores/legendaryStore";
+import { Evaluator } from "../Evaluator/Evaluator";
+import { type LegendaryItemImageMap, loadLegendaryThumbnailMap } from "./legendaryItemImageMap";
 
 const categories: Category[] = [
     {
-        name: 'One-Handed Weapon',
-        id: 'oneHanded',
+        name: "One-Handed Weapon",
+        id: "oneHanded",
     },
     {
-        name: 'Two-Handed Weapon',
-        id: 'twoHanded',
+        name: "Two-Handed Weapon",
+        id: "twoHanded",
     },
     {
-        name: 'Ranged Weapon',
-        id: 'ranged',
+        name: "Ranged Weapon",
+        id: "ranged",
     },
     {
-        name: 'Shield',
-        id: 'shield',
+        name: "Shield",
+        id: "shield",
     },
     {
-        name: 'Helmet',
-        id: 'helmet',
+        name: "Helmet",
+        id: "helmet",
     },
     {
-        name: 'Armor',
-        id: 'armor',
+        name: "Armor",
+        id: "armor",
     },
 ];
 
@@ -64,7 +64,7 @@ interface LegendaryPickerProps {
 
 export const LegendaryPicker = ({ selectedCategoryId, setSelectedCategoryId }: LegendaryPickerProps): JSX.Element => {
     const selectedArchetypeId = useSelectedArchetypeId();
-    const {setSelectedArchetypeId} = useLegendaryActions();
+    const { setSelectedArchetypeId } = useLegendaryActions();
 
     const [legendaryItemImageMap, setLegendaryItemImageMap] = useState<LegendaryItemImageMap>();
 
@@ -83,7 +83,6 @@ export const LegendaryPicker = ({ selectedCategoryId, setSelectedCategoryId }: L
                 .catch(() => "An error occurred while loading legendary item image map");
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         getItemImageMap();
 
         return () => {
@@ -95,7 +94,7 @@ export const LegendaryPicker = ({ selectedCategoryId, setSelectedCategoryId }: L
         <div className="legendaryPicker">
             <div className="legendaryCategoryStrip">
                 <div className="categories">
-                    {categories.map(({name, id}) => (
+                    {categories.map(({ name, id }) => (
                         <CategoryButton
                             key={id}
                             name={name}
@@ -108,11 +107,11 @@ export const LegendaryPicker = ({ selectedCategoryId, setSelectedCategoryId }: L
                     ))}
                 </div>
             </div>
-            {selectedArchetypeId == null ?
+            {selectedArchetypeId == null ? (
                 <div className="legendarySelectionTray">
                     <div className="archetypeGrid">
-                        {
-                            (Object.values(archetypesByCategoryId[selectedCategoryId]) as PickerArchetype[]).map(({ id, imageName, name }, index) => {
+                        {(Object.values(archetypesByCategoryId[selectedCategoryId]) as PickerArchetype[]).map(
+                            ({ id, imageName, name }, index) => {
                                 return (
                                     <ArchetypeGridItem
                                         animationIndex={index}
@@ -126,15 +125,14 @@ export const LegendaryPicker = ({ selectedCategoryId, setSelectedCategoryId }: L
                                         legendaryItemImageMap={legendaryItemImageMap}
                                         className="archetypeGridItem"
                                     />
-                                )
-                            })
-                        }
+                                );
+                            },
+                        )}
                     </div>
                 </div>
-            : <Evaluator
-                categoryId={selectedCategoryId}
-                legendaryItemImageMap={legendaryItemImageMap}
-            />}
+            ) : (
+                <Evaluator categoryId={selectedCategoryId} legendaryItemImageMap={legendaryItemImageMap} />
+            )}
         </div>
     );
 };

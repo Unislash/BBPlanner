@@ -1,8 +1,8 @@
 import classcat from "classcat";
 import * as React from "react";
-import { ChangeEvent, useRef, useState } from "react";
+import { type ChangeEvent, useRef, useState } from "react";
 import arrow_right from "../../images/arrow_right.png";
-import { StatType } from "../../types/models";
+import type { StatType } from "../../types/models";
 import { Star } from "./Star";
 
 type BarColor = "red" | "yellow" | "blue" | "brown";
@@ -99,7 +99,7 @@ export const StatBar: React.FC<StatBarProps> = (props) => {
 
     return (
         <div className="statBar">
-            <img className="icon" src={icon} />
+            <img alt="" className="icon" src={icon} />
             <div className={classcat(["inputBar", getBarColor(statType)])} onClick={handleBarClick}>
                 <div className="pinLeft">
                     <div className="stars">
@@ -139,7 +139,7 @@ export const StatBar: React.FC<StatBarProps> = (props) => {
                         onChange={handleInputChange}
                     />
                 </div>
-                <img className="arrowIndicator" src={arrow_right} />
+                <img alt="" className="arrowIndicator" src={arrow_right} />
                 <div className="maxStat">
                     {getMaxStat(statType, statNumber, stars, 11 - currentLevel, giftedBonus || 0, perkMultiplier || 0)}
                     {interactionSymbols || ""}

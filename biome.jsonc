@@ -6,7 +6,25 @@
     "useIgnoreFile": true
   },
   "files": {
-    "ignoreUnknown": true
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/dist",
+      "!**/output",
+      "!**/coverage",
+      "!**/storybook-static",
+      "!**/.yarn",
+      "!**/.cache",
+      "!**/.history",
+      "!**/.yalc",
+      "!.idea",
+      "!typedoc-output",
+      "!CHANGELOG.md",
+      "!CHANGELOG.json",
+      "!*.tgz",
+      "!yarn-error.log"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -20,43 +38,44 @@
     "bracketSpacing": true,
     "expand": "auto",
     "useEditorconfig": true,
-    "includes": [
-      "**",
-      "!**/*.json",
-      "!**/output",
-      "!**/yarn-error.log",
-      "!**/node_modules",
-      "!**/dist",
-      "!**/coverage",
-      "!**/storybook-static",
-      "!**/*.tgz",
-      "!**/.history",
-      "!**/.cache",
-      "!**/.yalc",
-      "!**/CHANGELOG.md",
-      "!**/CHANGELOG.json",
-      "!.idea/artifacts",
-      "!.idea/bashsupport_project.xml",
-      "!.idea/dataSources",
-      "!.idea/compiler.xml",
-      "!.idea/dictionaries",
-      "!.idea/modules.xml",
-      "!.idea/shelf",
-      "!.idea/tasks.xml",
-      "!.idea/dataSources.ids",
-      "!.idea/dataSources.xml",
-      "!.idea/dataSources.local.xml",
-      "!**/*.iml",
-      "!**/typedoc-output"
-    ]
+    "includes": ["**", "!**/*.json"]
   },
   "linter": {
-    "enabled": false
-  },
-  "assist": {
-    "enabled": false
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "noStaticElementInteractions": "off",
+        "useButtonType": "off",
+        "useKeyWithClickEvents": "off"
+      },
+      "complexity": {
+        "noArguments": "off"
+      },
+      "correctness": {
+        "noUnusedImports": {
+          "level": "error",
+          "fix": "none"
+        },
+        "useExhaustiveDependencies": "error",
+        "useHookAtTopLevel": "error"
+      },
+      "security": {
+        "noBlankTarget": "error"
+      },
+      "style": {
+        "noDescendingSpecificity": "off",
+        "noNonNullAssertion": "off"
+      },
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noFocusedTests": "error",
+        "useIterableCallbackReturn": "off"
+      }
+    }
   },
   "javascript": {
+    "jsxRuntime": "reactClassic",
     "formatter": {
       "jsxQuoteStyle": "double",
       "quoteProperties": "asNeeded",
@@ -81,6 +100,20 @@
       "formatter": {
         "indentWidth": 2
       }
+    },
+    {
+      "includes": ["*.stories.*"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "useExhaustiveDependencies": "off",
+            "useHookAtTopLevel": "off"
+          }
+        }
+      }
     }
-  ]
+  ],
+  "assist": {
+    "enabled": false
+  }
 }

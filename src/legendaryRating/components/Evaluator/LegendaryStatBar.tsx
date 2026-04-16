@@ -1,6 +1,6 @@
 import classcat from "classcat";
 import * as React from "react";
-import { ChangeEvent, useEffect, useState } from "react";
+import { type ChangeEvent, useEffect, useState } from "react";
 
 type Tone = "red" | "yellow" | "blue" | "brown" | "gray";
 
@@ -83,17 +83,19 @@ export const LegendaryStatBar = ({
         ? formatPercentile(getPercentile(secondary.value, secondary.min, secondary.max))
         : undefined;
     const averagePercentile = secondary
-        ? (getPercentile(primary.value, primary.min, primary.max) + getPercentile(secondary.value, secondary.min, secondary.max)) / 2
+        ? (getPercentile(primary.value, primary.min, primary.max) +
+              getPercentile(secondary.value, secondary.min, secondary.max)) /
+          2
         : getPercentile(primary.value, primary.min, primary.max);
     const appraisalTierLabel = !isModified
         ? ""
         : averagePercentile >= 90
-            ? "Masterwork"
-            : averagePercentile >= 75
-                ? "Exquisite"
-                : averagePercentile >= 50
-                    ? "Superior"
-                    : "Improved";
+          ? "Masterwork"
+          : averagePercentile >= 75
+            ? "Exquisite"
+            : averagePercentile >= 50
+              ? "Superior"
+              : "Improved";
 
     const handlePrimaryChange = (event: ChangeEvent<HTMLInputElement>) => {
         const normalizedValue = normalizeIntegerInput(event.target.value);
@@ -141,7 +143,7 @@ export const LegendaryStatBar = ({
             ])}
         >
             <div className="legendaryStatGlyph">
-                <img className="legendaryStatIcon" src={icon} />
+                <img alt="" className="legendaryStatIcon" src={icon} />
             </div>
             <div className="legendaryStatMeta">
                 <div className="legendaryStatLabelRow">
@@ -183,7 +185,10 @@ export const LegendaryStatBar = ({
                         {secondaryPercentile ? ` / ${secondaryPercentile}` : ""}
                     </strong>
                     <div className="legendaryStatPercentileBar">
-                        <span className="legendaryStatPercentileFill" style={{ width: `${Math.max(6, averagePercentile)}%` }} />
+                        <span
+                            className="legendaryStatPercentileFill"
+                            style={{ width: `${Math.max(6, averagePercentile)}%` }}
+                        />
                     </div>
                 </div>
             )}
