@@ -33,7 +33,8 @@ interface LoadoutTooltipProps {
 }
 
 const Title = styled.div`
-    font-family: "Cinzel-Bold", sans-serif;
+    font-family: "Cinzel", sans-serif;
+    font-weight: 700;
     font-size: 16px;
 `;
 

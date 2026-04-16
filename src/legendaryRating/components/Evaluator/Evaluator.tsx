@@ -169,14 +169,14 @@ interface EvaluatorProps {
 
 const getPlacedItemCopy = (categoryId: CategoryId) => {
     if (categoryId === "armor" || categoryId === "helmet") {
-        return "The barkeep weighs the protection against the burden, judging the make before hearing the numbers.";
+        return "The barkeep hefts the piece slightly, judging the weight and make before hearing the numbers.";
     }
 
     if (categoryId === "shield") {
         return "The barkeep taps the face and rim, listening to the board before hearing the rest of the marks.";
     }
 
-    return "The barkeep studies the balance, edge, and finish before hearing the rolled fighting lines.";
+    return "The barkeep studies the weapon's balance and finish for a moment before hearing the rest of the marks.";
 };
 
 export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps): JSX.Element => {

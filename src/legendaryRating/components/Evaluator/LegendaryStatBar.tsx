@@ -76,7 +76,7 @@ export const LegendaryStatBar = ({
 
     useEffect(() => {
         setSecondaryInputValue(secondary ? `${secondary.value}` : "");
-    }, [secondary?.value]);
+    }, [secondary, secondary?.value]);
 
     const primaryPercentile = formatPercentile(getPercentile(primary.value, primary.min, primary.max));
     const secondaryPercentile = secondary
@@ -90,10 +90,10 @@ export const LegendaryStatBar = ({
         : averagePercentile >= 90
             ? "Masterwork"
             : averagePercentile >= 75
-                ? "Fine"
+                ? "Exquisite"
                 : averagePercentile >= 50
-                    ? "Sound"
-                    : "Rough";
+                    ? "Superior"
+                    : "Improved";
 
     const handlePrimaryChange = (event: ChangeEvent<HTMLInputElement>) => {
         const normalizedValue = normalizeIntegerInput(event.target.value);

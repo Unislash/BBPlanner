@@ -5,6 +5,7 @@ import { LegendaryItemImageMap } from "./legendaryItemImageMap";
 
 export interface ArchetypeGridItemProps {
     animationIndex?: number;
+    className?: string;
     id: string;
     onClick: () => void;
     legendaryItemImageMap?: LegendaryItemImageMap;
@@ -12,8 +13,7 @@ export interface ArchetypeGridItemProps {
     name: string;
 }
 
-export const ArchetypeGridItem = styled.button<ArchetypeGridItemProps>`
-    ${buttonResetStyles}
+const ArchetypeGridItemShell = styled.div<Pick<ArchetypeGridItemProps, "animationIndex">>`
     @keyframes legendaryGridItemSettle {
         0% {
             opacity: 0;
@@ -27,6 +27,13 @@ export const ArchetypeGridItem = styled.button<ArchetypeGridItemProps>`
 
     flex-shrink: 0;
     margin: 0 50px 80px;
+    opacity: 0;
+    animation: legendaryGridItemSettle 360ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: ${props => `${Math.min((props.animationIndex || 0) * 26, 260)}ms`};
+`;
+
+const ArchetypeGridItemButton = styled.button<ArchetypeGridItemProps>`
+    ${buttonResetStyles}
     position: relative;
     background: linear-gradient(180deg, rgba(47, 28, 17, 0.96), rgba(22, 12, 7, 0.98));
     border: none;
@@ -39,9 +46,6 @@ export const ArchetypeGridItem = styled.button<ArchetypeGridItemProps>`
         inset 0 -6px 10px rgba(0, 0, 0, 0.22);
     border-radius: 8px;
     cursor: pointer;
-    opacity: 0;
-    animation: legendaryGridItemSettle 360ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    animation-delay: ${props => `${Math.min((props.animationIndex || 0) * 26, 260)}ms`};
     transition:
         transform 160ms ease,
         box-shadow 160ms ease,
@@ -98,3 +102,15 @@ export const ArchetypeGridItem = styled.button<ArchetypeGridItemProps>`
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
     }
 `;
+
+export const ArchetypeGridItem = ({
+    animationIndex,
+    className,
+    ...props
+}: ArchetypeGridItemProps): JSX.Element => {
+    return (
+        <ArchetypeGridItemShell animationIndex={animationIndex} className={className}>
+            <ArchetypeGridItemButton {...props} />
+        </ArchetypeGridItemShell>
+    );
+};
