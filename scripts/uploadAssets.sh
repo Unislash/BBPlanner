@@ -4,12 +4,16 @@
 #
 # Usage: `yarn deploy`
 #
-# Note: credentials are accessed from the aws cli config settings. See:
-#     https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html
+# Login to aws cli with `aws login`
+
+
+# Script intended to run from unix environment
 
 # Turn on command output
 set -x #echo on
 
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
 BUCKET_ADDRESS="s3://www.bbplanner.xyz"
 ## Expects a single argument: the s3 bucket to upload to.
 #
@@ -20,7 +24,7 @@ BUCKET_ADDRESS="s3://www.bbplanner.xyz"
 #    exit 1
 #fi
 
-productionAssetFolder="./dist"
+productionAssetFolder="${ROOT_DIR}/dist"
 if ! [ -d "${productionAssetFolder}" ]; then
     echo "Cannot find production asset folder located at: ${productionAssetFolder}"
     exit 1
@@ -89,20 +93,18 @@ aws s3 \
     --exclude "*.css" \
     --exclude "*.json" \
     --exclude "*.html" \
-    --cache-control "public, max-age=31536000, immutable" \
+    --cache-control "public, max-age=31536000, immutable"
 
 # Now invalidate the non-immutable entities
-
-# Holy batman this is janky.
-# We must generate a json file to sidestep some "peculiarities" of git bash
-# And then, naturally, when we read in the file to the aws cli it resolves with
-# standard windows uris rather than unix ones (although somehow a mix of them does
-# seem to work. But oh my goodness the jank)
 
 # Turn off command output
 set +x # turns echo off
 
 DATESTRING=$(date +"%Y-%m-%d_%H-%M-%S")
+OUTPUT_DIR="${ROOT_DIR}/output"
+INVALIDATION_FILE="${OUTPUT_DIR}/invalidate_cloudfront.json"
+mkdir -p "${OUTPUT_DIR}"
+
 JSON_STRING='
 {
   "Paths": {
@@ -112,16 +114,15 @@ JSON_STRING='
   "CallerReference": "'$DATESTRING'"
 }
 '
-echo $JSON_STRING > $PWD/output/invalidate_cloudfront.json
-LOCALPATH=$(cmd //c cd)
+printf "%s\n" "$JSON_STRING" > "${INVALIDATION_FILE}"
 
 # Turn on command output
 set -x #turns echo on
 
 aws cloudfront create-invalidation \
     --distribution-id E2009WZB53ANZE \
-    --invalidation-batch file://$LOCALPATH/output/invalidate_cloudfront.json
+    --invalidation-batch "file://${INVALIDATION_FILE}"
 
 #aws cloudfront create-invalidation \
 #    --distribution-id E1S2RN5GC9LKLO \
-#    --invalidation-batch file://$LOCALPATH/output/invalidate_cloudfront.json
+#    --invalidation-batch "file://${INVALIDATION_FILE}"
