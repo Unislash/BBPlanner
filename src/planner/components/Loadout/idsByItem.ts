@@ -1,4 +1,4 @@
-// prettier-ignore
+// biome-ignore format: generated lookup table should stay as-is.
 export const idsByItem: { [key: string]: string; } = {
     'Ancient Sword': 'AB',
     'Antler Cleaver': 'AC',

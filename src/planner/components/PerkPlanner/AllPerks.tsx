@@ -54,7 +54,7 @@ import { useActivePerkIds, useCanAddPerk, usePerkActions } from "../../stores/pe
 import { Perk } from "./Perk";
 import { PerkTooltipHeader } from "./PerkTooltipHeader";
 
-// prettier-ignore
+// biome-ignore format: keep tooltip entries compact for maintenance.
 const tooltips = {
     fastAdaption: <><PerkTooltipHeader title="Fast Adaptation" />Adapt to your opponent's moves! Gain an additional stacking +10% chance to hit with each attack that misses an opponent. Bonus is reset upon landing a hit.</>,
     cripplingStrikes: <><PerkTooltipHeader title="Crippling Strikes" /> Cripple your enemies! Lowers the threshold to inflict injuries by 33% for both melee and ranged attacks.</>,
@@ -108,7 +108,7 @@ const tooltips = {
     indomitable: <><PerkTooltipHeader title="Indomitable" />Unlocks the 'Indomitable' skill which costs 5 AP and 25 Fatigue to be used and grants a 50% damage reduction and immunity to being stunned, knocked back or grabbed for one turn.</>,
 };
 
-// prettier-ignore
+// biome-ignore format: preserve the perk grid layout.
 export const AllPerks = (): JSX.Element => {
     const activePerks = useActivePerkIds();
     const canAddPerk = useCanAddPerk();

@@ -10,7 +10,7 @@ export const getAvailableNumberOfPerks = (currentPerkAmount: number, maxLevel: n
     return remainingPerks;
 };
 
-// prettier-ignore
+// biome-ignore format: keep perk rows compact and visually grouped.
 const perksByRows: { [key: number]: string[]; } = {
     0: [
         'fastAdaption',

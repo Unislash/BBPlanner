@@ -1,0 +1,86 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 4,
+    "lineEnding": "lf",
+    "lineWidth": 120,
+    "attributePosition": "auto",
+    "bracketSameLine": false,
+    "bracketSpacing": true,
+    "expand": "auto",
+    "useEditorconfig": true,
+    "includes": [
+      "**",
+      "!**/*.json",
+      "!**/output",
+      "!**/yarn-error.log",
+      "!**/node_modules",
+      "!**/dist",
+      "!**/coverage",
+      "!**/storybook-static",
+      "!**/*.tgz",
+      "!**/.history",
+      "!**/.cache",
+      "!**/.yalc",
+      "!**/CHANGELOG.md",
+      "!**/CHANGELOG.json",
+      "!.idea/artifacts",
+      "!.idea/bashsupport_project.xml",
+      "!.idea/dataSources",
+      "!.idea/compiler.xml",
+      "!.idea/dictionaries",
+      "!.idea/modules.xml",
+      "!.idea/shelf",
+      "!.idea/tasks.xml",
+      "!.idea/dataSources.ids",
+      "!.idea/dataSources.xml",
+      "!.idea/dataSources.local.xml",
+      "!**/*.iml",
+      "!**/typedoc-output"
+    ]
+  },
+  "linter": {
+    "enabled": false
+  },
+  "assist": {
+    "enabled": false
+  },
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "trailingCommas": "all",
+      "semicolons": "always",
+      "arrowParentheses": "always",
+      "bracketSameLine": false,
+      "quoteStyle": "double",
+      "attributePosition": "auto",
+      "bracketSpacing": true
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["*.yml", "*.yaml"],
+      "formatter": {
+        "indentWidth": 2
+      }
+    },
+    {
+      "includes": ["*.json", "*.jsonc"],
+      "formatter": {
+        "indentWidth": 2
+      }
+    }
+  ]
+}

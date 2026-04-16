@@ -1,5 +1,5 @@
 '**/*.{ts,tsx,js}':
     - eslint --fix
-    - prettier --write
-'**/*.{css,scss,md,mdx}':
-    - prettier --write
+    - biome format --write --no-errors-on-unmatched
+'**/*.{css,scss,json,jsonc,yml,yaml}':
+    - biome format --write --no-errors-on-unmatched
