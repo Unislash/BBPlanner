@@ -64,7 +64,7 @@ interface LegendaryPickerProps {
 
 export const LegendaryPicker = ({ selectedCategoryId, setSelectedCategoryId }: LegendaryPickerProps): JSX.Element => {
     const selectedArchetypeId = useSelectedArchetypeId();
-    const { setSelectedArchetypeId } = useLegendaryActions();
+    const { resetLegendaryStats, setSelectedArchetypeId } = useLegendaryActions();
 
     const [legendaryItemImageMap, setLegendaryItemImageMap] = useState<LegendaryItemImageMap>();
 
@@ -102,6 +102,7 @@ export const LegendaryPicker = ({ selectedCategoryId, setSelectedCategoryId }: L
                             onClick={() => {
                                 setSelectedCategoryId(id);
                                 setSelectedArchetypeId(null);
+                                resetLegendaryStats();
                             }}
                         />
                     ))}
@@ -118,6 +119,7 @@ export const LegendaryPicker = ({ selectedCategoryId, setSelectedCategoryId }: L
                                         key={id}
                                         id={id}
                                         onClick={() => {
+                                            resetLegendaryStats();
                                             setSelectedArchetypeId(id);
                                         }}
                                         imageName={imageName}

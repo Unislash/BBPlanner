@@ -18,8 +18,8 @@ import { LegendaryStatBar } from "./LegendaryStatBar";
 import { type LegendaryItemImageMap, loadLegendaryPreviewMap } from "../LegendaryPicker/legendaryItemImageMap";
 import {
     getArchetypeSubtitle,
-    getDefaultLegendaryStats,
     getOverallRating,
+    getDefaultLegendaryStats,
     getRangeValue,
     isAppraisalComplete,
     isAppraisalRowModified,
@@ -178,17 +178,9 @@ const getPlacedItemCopy = (categoryId: CategoryId) => {
 export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps): React.ReactElement | null => {
     const selectedArchetypeId = useSelectedArchetypeId();
     const legendaryStats = useLegendaryStats();
-    const { setLegendaryStat, setLegendaryStats } = useLegendaryActions();
+    const { setLegendaryStat } = useLegendaryActions();
     const selectedArchetype = selectedArchetypeId ? allArchetypesById[selectedArchetypeId] : undefined;
     const [legendaryPreviewImageMap, setLegendaryPreviewImageMap] = useState<LegendaryItemImageMap>();
-
-    useEffect(() => {
-        if (!selectedArchetype) {
-            return;
-        }
-
-        setLegendaryStats(getDefaultLegendaryStats(selectedArchetype));
-    }, [selectedArchetype, setLegendaryStats]);
 
     useEffect(() => {
         let isSubscribed = true;

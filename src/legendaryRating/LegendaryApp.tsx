@@ -1,13 +1,28 @@
 import "../shared.css";
 import "../legendary.css";
-import React, { useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { MuiTheme } from "../MuiTheme";
 import { Barkeep } from "./components/Barkeep/Barkeep";
 import { LegendaryPicker } from "./components/LegendaryPicker/LegendaryPicker";
-import type { CategoryId } from "./types/models";
+import { useLegendaryActions, useLegendaryStats, useSelectedArchetypeId, useSelectedCategoryId } from "./stores/legendaryStore";
+import { saveLegendaryToURL } from "./url";
 
 export const LegendaryApp = (): JSX.Element => {
-    const [selectedCategoryId, setSelectedCategoryId] = useState<CategoryId>("oneHanded");
+    const selectedCategoryId = useSelectedCategoryId();
+    const selectedArchetypeId = useSelectedArchetypeId();
+    const legendaryStats = useLegendaryStats();
+    const { setSelectedCategoryId } = useLegendaryActions();
+    const previousArchetypeId = useRef(selectedArchetypeId);
+
+    useEffect(() => {
+        const shouldCreateHistoryEntry = previousArchetypeId.current !== selectedArchetypeId;
+        saveLegendaryToURL({
+            selectedArchetypeId,
+            legendaryStats,
+            shouldCreateHistoryEntry,
+        });
+        previousArchetypeId.current = selectedArchetypeId;
+    }, [legendaryStats, selectedArchetypeId]);
 
     return (
         <MuiTheme>

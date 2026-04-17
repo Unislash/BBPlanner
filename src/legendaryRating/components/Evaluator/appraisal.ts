@@ -220,7 +220,7 @@ export const getOverallRating = (
     const label = ratingTiers.find((tier) => averagePercentile >= tier.minimum)?.label;
 
     return {
-        label,
+        label: label || "",
         percentile: Math.round(averagePercentile),
         ratedRowCount: rowPercentiles.length,
     };
