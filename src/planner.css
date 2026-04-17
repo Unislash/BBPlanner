@@ -49,7 +49,7 @@
     left: 0;
     position: fixed;
     transform: translate3d(0, 0, 0);
-    background-image: url("planner/images/bg_beastsAndExporation.jpg");
+    background-image: url("planner/images/bg_beastsAndExporation.webp");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -65,28 +65,28 @@
 }
 
 .appBackground.vanilla {
-    background-image: url("planner/images/bg_vanilla.jpg");
+    background-image: url("planner/images/bg_vanilla.webp");
 }
 .appBackground.vanilla:after {
-    background-color: rgba(5, 5, 5, 0.5);
+    background-color: rgba(5, 5, 5, 0.4);
 }
 
 .appBackground.warriorsOfTheNorth {
-    background-image: url("planner/images/bg_warriorsOfTheNorth.jpg");
+    background-image: url("planner/images/bg_warriorsOfTheNorth.webp");
 }
 .appBackground.warriorsOfTheNorth:after {
     background-color: rgba(11, 11, 16, 0.4);
 }
 
 .appBackground.blazingDeserts {
-    background-image: url("planner/images/bg_blazingDeserts.jpg");
+    background-image: url("planner/images/bg_blazingDeserts.webp");
 }
 .appBackground.blazingDeserts:after {
     background-color: rgba(27, 20, 11, 0.5);
 }
 
 .appBackground.ofFleshAndFaith {
-    background-image: url("planner/images/bg_ofFleshAndFaith.jpg");
+    background-image: url("planner/images/bg_ofFleshAndFaith.webp");
 }
 .appBackground.ofFleshAndFaith:after {
     background-color: rgba(16, 11, 13, 0.4);
