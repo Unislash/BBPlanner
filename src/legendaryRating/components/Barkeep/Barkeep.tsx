@@ -76,7 +76,7 @@ export const Barkeep = ({ categoryId }: BarkeepProps): JSX.Element => {
         );
 
         nextSceneText = appraisalComplete
-            ? "The barkeep sets the piece down and gives it a final look before turning back to you."
+            ? "The barkeep sets the piece down and gives it a final reckoning before looking back at you."
             : "The barkeep leans over the piece, waiting for the rest of it.";
         nextBarkeepLine = appraisalComplete
             ? getCompletedAppraisalLine(
