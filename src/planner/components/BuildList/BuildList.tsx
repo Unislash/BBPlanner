@@ -4,6 +4,7 @@ import * as React from "react";
 import { useRef, useState } from "react";
 import { loadFromStorage, saveBuildIdListToStorage } from "../../../storage";
 import { useBuildActions, useBuildIdList, useBuildName } from "../../stores/buildStore";
+import { syncPlannerHistoryToCurrentState } from "../../stores/historyStore";
 import { BuildEntry } from "./BuildEntry";
 import { findIndex, type Position } from "./findIndex";
 
@@ -64,6 +65,7 @@ export const BuildList = (): JSX.Element => {
                             onClick={() => {
                                 if (!isItemDragging) {
                                     loadFromStorage(buildId);
+                                    syncPlannerHistoryToCurrentState();
                                 }
                             }}
                         >

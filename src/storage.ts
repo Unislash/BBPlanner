@@ -6,6 +6,10 @@ export const setLocalStorageObject = <T>(key: string, value: T) => {
     localStorage.setItem(key, JSON.stringify(value));
 };
 
+export const removeLocalStorageObject = (key: string) => {
+    localStorage.removeItem(key);
+};
+
 export const getLocalStorageObject = <T = unknown>(key: string): T | undefined => {
     const value = localStorage.getItem(key);
     return value ? JSON.parse(value) : undefined;

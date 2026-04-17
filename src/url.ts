@@ -164,13 +164,13 @@ export const saveToURL = (partialState: StateToSaveToUrl, shouldCreateHistoryEnt
     };
 
     // Update URL parameters based on the current and initial state values
-    updateParam("name", partialState.buildName || buildName, initialBuildStore.buildName, (name: string) => name || "");
-    updateParam("perks", partialState.activePerkIds || activePerkIds, initialPerkStore.activePerkIds, compressPerks);
-    updateParam("stats", partialState.statNums || statNums, initialStatsStore.statNums, compressStats);
-    updateParam("stars", partialState.stars || stars, initialStarsStore.stars, compressStars);
+    updateParam("name", partialState.buildName ?? buildName, initialBuildStore.buildName, (name: string) => name || "");
+    updateParam("perks", partialState.activePerkIds ?? activePerkIds, initialPerkStore.activePerkIds, compressPerks);
+    updateParam("stats", partialState.statNums ?? statNums, initialStatsStore.statNums, compressStats);
+    updateParam("stars", partialState.stars ?? stars, initialStarsStore.stars, compressStars);
     updateParam(
         "gear",
-        partialState.loadoutItems || loadoutItems,
+        partialState.loadoutItems ?? loadoutItems,
         initialLoadoutStore.loadoutItems,
         compressLoadoutItems,
     );

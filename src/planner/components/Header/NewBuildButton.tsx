@@ -2,6 +2,7 @@ import NewIcon from "@material-ui/icons/PostAdd";
 import Tooltip from "rc-tooltip";
 import * as React from "react";
 import { createNewBuild } from "../../stores/actions";
+import { syncPlannerHistoryToCurrentState } from "../../stores/historyStore";
 
 export const NewBuildButton = (): JSX.Element => {
     return (
@@ -15,6 +16,7 @@ export const NewBuildButton = (): JSX.Element => {
                 className="newButton plannerButton"
                 onClick={() => {
                     createNewBuild();
+                    syncPlannerHistoryToCurrentState();
                 }}
             >
                 <NewIcon />
