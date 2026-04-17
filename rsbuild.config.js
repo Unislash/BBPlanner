@@ -13,7 +13,8 @@ module.exports = defineConfig(({ command }) => ({
     ],
     source: {
         entry: {
-            index: "./src/index.tsx",
+            index: "./src/planner/index.tsx",
+            legendary: "./src/legendaryRating/index.tsx",
         },
     },
     server: {
@@ -24,7 +25,13 @@ module.exports = defineConfig(({ command }) => ({
     },
     html: {
         favicon: "./favicon.png",
-        template: "./index.html",
+        template: ({ entryName }) => (entryName === "legendary" ? "./legendary.html" : "./index.html"),
+    },
+    tools: {
+        htmlPlugin: (config, { entryName }) => {
+            config.filename = entryName === "legendary" ? "legendary/index.html" : "index.html";
+            return config;
+        },
     },
     output: {
         copy: [
