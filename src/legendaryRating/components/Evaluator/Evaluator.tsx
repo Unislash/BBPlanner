@@ -175,7 +175,7 @@ const getPlacedItemCopy = (categoryId: CategoryId) => {
     return "The barkeep studies the weapon's balance and finish for a moment before hearing the rest of the marks.";
 };
 
-export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps): JSX.Element => {
+export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps): React.ReactElement | null => {
     const selectedArchetypeId = useSelectedArchetypeId();
     const legendaryStats = useLegendaryStats();
     const { setLegendaryStat, setLegendaryStats } = useLegendaryActions();
@@ -208,7 +208,7 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
     }, [categoryId]);
 
     if (!selectedArchetype) {
-        return <></>;
+        return null;
     }
 
     const defaultLegendaryStats = getDefaultLegendaryStats(selectedArchetype);
