@@ -69,6 +69,9 @@ export const LegendaryStatBar = ({
 }: LegendaryStatBarProps): JSX.Element => {
     const [primaryInputValue, setPrimaryInputValue] = useState(`${primary.value}`);
     const [secondaryInputValue, setSecondaryInputValue] = useState(secondary ? `${secondary.value}` : "");
+    const primaryIsInvalid = primary.value < primary.min || primary.value > primary.max;
+    const secondaryIsInvalid = !!secondary && (secondary.value < secondary.min || secondary.value > secondary.max);
+    const hasInvalidValue = primaryIsInvalid || secondaryIsInvalid;
 
     useEffect(() => {
         setPrimaryInputValue(`${primary.value}`);
@@ -87,15 +90,20 @@ export const LegendaryStatBar = ({
               getPercentile(secondary.value, secondary.min, secondary.max)) /
           2
         : getPercentile(primary.value, primary.min, primary.max);
+    const percentileValue = hasInvalidValue
+        ? "Outside Range"
+        : `${primaryPercentile}${secondaryPercentile ? ` / ${secondaryPercentile}` : ""}`;
     const appraisalTierLabel = !isModified
         ? ""
-        : averagePercentile >= 90
-          ? "Masterwork"
-          : averagePercentile >= 75
-            ? "Exquisite"
-            : averagePercentile >= 50
-              ? "Superior"
-              : "Improved";
+        : hasInvalidValue
+          ? "Mistaken"
+          : averagePercentile >= 90
+            ? "Masterwork"
+            : averagePercentile >= 75
+              ? "Exquisite"
+              : averagePercentile >= 50
+                ? "Superior"
+                : "Improved";
 
     const handlePrimaryChange = (event: ChangeEvent<HTMLInputElement>) => {
         const normalizedValue = normalizeIntegerInput(event.target.value);
@@ -139,7 +147,8 @@ export const LegendaryStatBar = ({
                 "legendaryStatBar",
                 `legendaryStatBar_${tone}`,
                 isModified ? "legendaryStatBar_modified" : "legendaryStatBar_reference",
-                averagePercentile >= 90 && isModified && "legendaryStatBar_masterwork",
+                hasInvalidValue && "legendaryStatBar_invalid",
+                averagePercentile >= 90 && isModified && !hasInvalidValue && "legendaryStatBar_masterwork",
             ])}
         >
             <div className="legendaryStatGlyph">
@@ -148,14 +157,16 @@ export const LegendaryStatBar = ({
             <div className="legendaryStatMeta">
                 <div className="legendaryStatLabelRow">
                     <div className="legendaryStatLabel">{label}</div>
-                    {isModified && <span className="legendaryStatChangedBadge">{appraisalTierLabel}</span>}
+                    {isModified && (
+                        !hasInvalidValue && <span className="legendaryStatChangedBadge">{appraisalTierLabel}</span>
+                    )}
                 </div>
                 <div className="legendaryStatRange">{rangeText}</div>
             </div>
             <div className="legendaryStatValueGroup">
                 <div className="legendaryStatInputs">
                     <input
-                        className="legendaryStatInput"
+                        className={classcat(["legendaryStatInput", primaryIsInvalid && "legendaryStatInput_invalid"])}
                         inputMode="numeric"
                         value={primaryInputValue}
                         onChange={handlePrimaryChange}
@@ -166,7 +177,10 @@ export const LegendaryStatBar = ({
                         <>
                             <span className="legendaryStatSeparator">-</span>
                             <input
-                                className="legendaryStatInput"
+                                className={classcat([
+                                    "legendaryStatInput",
+                                    secondaryIsInvalid && "legendaryStatInput_invalid",
+                                ])}
                                 inputMode="numeric"
                                 value={secondaryInputValue}
                                 onChange={handleSecondaryChange}
@@ -178,18 +192,22 @@ export const LegendaryStatBar = ({
                 </div>
             </div>
             {isModified && (
-                <div className="legendaryStatPercentiles">
+                <div
+                    className={classcat([
+                        "legendaryStatPercentiles",
+                        hasInvalidValue && "legendaryStatPercentiles_invalid",
+                    ])}
+                >
                     <span className="legendaryStatPercentileLabel">Quality</span>
-                    <strong className="legendaryStatPercentileValue">
-                        {primaryPercentile}
-                        {secondaryPercentile ? ` / ${secondaryPercentile}` : ""}
-                    </strong>
-                    <div className="legendaryStatPercentileBar">
-                        <span
-                            className="legendaryStatPercentileFill"
-                            style={{ width: `${Math.max(6, averagePercentile)}%` }}
-                        />
-                    </div>
+                    <strong className="legendaryStatPercentileValue">{percentileValue}</strong>
+                    {!hasInvalidValue && (
+                        <div className="legendaryStatPercentileBar">
+                            <span
+                                className="legendaryStatPercentileFill"
+                                style={{ width: `${Math.max(6, averagePercentile)}%` }}
+                            />
+                        </div>
+                    )}
                 </div>
             )}
         </div>
