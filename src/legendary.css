@@ -12,6 +12,14 @@
     z-index: -2;
 }
 
+.appBackground.legendaryTheme_classic {
+    background-image:
+        radial-gradient(circle at 18% 18%, rgba(247, 198, 110, 0.2), rgba(247, 198, 110, 0) 24%),
+        radial-gradient(circle at 82% 14%, rgba(198, 102, 62, 0.22), rgba(198, 102, 62, 0) 20%),
+        radial-gradient(circle at 50% 68%, rgba(98, 46, 28, 0.34), rgba(98, 46, 28, 0) 44%),
+        linear-gradient(180deg, #26140d 0%, #140b08 48%, #090607 100%);
+}
+
 .appBackground::after {
     content: "";
     display: block;
@@ -70,6 +78,71 @@
     font-family: "Fondamento", cursive;
 }
 
+.legendaryToolbar {
+    position: absolute;
+    right: 150px;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+}
+
+.legendaryThemeSwitcher {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border: 1px solid rgba(72, 47, 26, 0.68);
+    background: linear-gradient(180deg, rgba(52, 29, 17, 0.88), rgba(27, 14, 8, 0.9)), rgba(43, 25, 15, 0.9);
+    box-shadow:
+        0 14px 24px rgba(0, 0, 0, 0.34),
+        inset 0 1px 0 rgba(255, 229, 182, 0.08);
+}
+
+.legendaryThemeButton {
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    border: 1px solid rgba(110, 74, 42, 0.94);
+    background-color: rgba(33, 19, 11, 0.84);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center 18%;
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 228, 184, 0.08),
+        0 8px 14px rgba(0, 0, 0, 0.28);
+    cursor: pointer;
+    transition:
+        transform 140ms ease,
+        box-shadow 140ms ease,
+        border-color 140ms ease,
+        filter 140ms ease;
+}
+
+.legendaryThemeButton:not(.hasImage) {
+    background-image:
+        radial-gradient(circle at 50% 28%, rgba(247, 196, 110, 0.5), rgba(247, 196, 110, 0) 32%),
+        linear-gradient(180deg, rgba(104, 45, 26, 0.95), rgba(31, 16, 11, 0.98));
+}
+
+.legendaryThemeButton:hover,
+.legendaryThemeButton:focus-visible {
+    transform: translateY(-1px);
+    border-color: rgba(202, 156, 90, 0.95);
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 228, 184, 0.16),
+        0 12px 18px rgba(0, 0, 0, 0.32);
+    filter: brightness(1.04);
+    outline: none;
+}
+
+.legendaryThemeButton.isActive {
+    border-color: rgba(236, 191, 113, 0.98);
+    box-shadow:
+        0 0 0 2px rgba(236, 191, 113, 0.24),
+        inset 0 0 0 1px rgba(255, 236, 201, 0.18),
+        0 12px 18px rgba(0, 0, 0, 0.34);
+}
+
 .barkeep {
     display: grid;
     grid-template-columns: 200px minmax(0, 1fr);
@@ -93,6 +166,38 @@
     height: auto;
     border: 1px solid rgba(72, 49, 30, 1);
     filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.34));
+}
+
+.barkeepAvatarFrame {
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    width: 200px;
+    max-width: 100%;
+    min-height: 200px;
+}
+
+.barkeepAvatarFrame.hasImage {
+    min-height: 0;
+}
+
+.barkeepAvatarFrame_classic {
+    border: 1px solid rgba(104, 69, 44, 0.92);
+    background:
+        radial-gradient(circle at 50% 20%, rgba(244, 191, 101, 0.3), rgba(244, 191, 101, 0) 24%),
+        linear-gradient(180deg, rgba(84, 40, 24, 0.98), rgba(27, 14, 10, 0.98));
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 226, 170, 0.08),
+        0 10px 16px rgba(0, 0, 0, 0.28);
+}
+
+.barkeepAvatarGradient {
+    width: 100%;
+    min-height: 200px;
+    background:
+        radial-gradient(circle at 50% 22%, rgba(255, 211, 128, 0.3), rgba(255, 211, 128, 0) 26%),
+        radial-gradient(circle at 50% 76%, rgba(69, 28, 18, 0.44), rgba(69, 28, 18, 0) 42%),
+        linear-gradient(180deg, rgba(96, 46, 28, 0.95), rgba(24, 12, 9, 0.98));
 }
 
 .barkeepSpeech {
@@ -713,6 +818,17 @@
         padding: 4px 0 24px;
     }
 
+    .legendaryThemeButton {
+        width: 58px;
+        height: 58px;
+    }
+
+    .barkeepAvatarFrame,
+    .barkeepAvatarGradient {
+        width: 200px;
+        min-height: 200px;
+    }
+
     .legendarySceneStage {
         grid-template-columns: 1fr;
     }
@@ -732,9 +848,24 @@
     }
 }
 
-@media only screen and (max-width: 760px) {
+@media only screen and (max-width: 1400px) {
     .barRoom {
-        padding: 18px 14px 24px;
+        position: relative;
+        padding-bottom: 100px;
+    }
+    
+    .legendaryToolbar {
+        position: absolute;
+        left: 50%;
+        bottom: -33px;
+        right: initial; /* reset default styling*/
+        transform: translateX(-50%);
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .barRoom {
+        padding: 18px 14px 100px;
     }
 
     .barkeep {
@@ -747,15 +878,37 @@
         width: 120px;
     }
 
+    .barkeepAvatarFrame,
+    .barkeepAvatarGradient {
+        max-width: 120px;
+        min-height: 120px;
+    }
+
     .barkeepSceneText,
     .barkeepCopy {
         font-size: 17px;
     }
 
-    .categoryButton {
-        width: auto;
-        padding-bottom: 8px;
-        font-size: 14px;
+    .legendarySceneStage {
+        display: flex;
+        align-items: center;
+        flex-flow: column;
+        justify-items: center;
+    }
+
+    .legendaryPlacedItem {
+        position: relative;
+        width: 440px;
+        padding-top: 0;
+    }
+
+    .legendaryPlacedItemCard {
+        transform: none;
+    }
+
+    .legendaryAppraisalSheet.legendaryCard {
+        margin-left: 0;
+        transform: none;
     }
 
     .legendaryCardBody {
@@ -763,39 +916,4 @@
         padding-right: 18px;
     }
 
-    .legendaryPlacedItemName {
-        font-size: 24px;
-    }
-
-    .legendaryAppraisalPrompt {
-        min-height: 28px;
-        margin-bottom: 18px;
-    }
-
-    .legendaryAppraisalPromptRow {
-        gap: 10px;
-    }
-
-    .legendaryAppraisalPromptTitle {
-        font-size: 24px;
-    }
-
-    .legendaryAppraisalPromptMeta {
-        font-size: 20px;
-    }
-
-    .legendaryStatBar {
-        grid-template-columns: 32px minmax(0, 1fr);
-    }
-
-    .legendaryStatValueGroup,
-    .legendaryStatPercentiles {
-        grid-column: 2;
-        align-items: flex-start;
-        text-align: left;
-    }
-
-    .legendaryStatPercentileBar {
-        min-width: 0;
-    }
 }

@@ -1,8 +1,9 @@
 import * as React from "react";
+import classcat from "classcat";
 import { useEffect, useState } from "react";
-import barkeepAvatar from "../../images/barkeep-avatar_resized_levels_nowarm_optimized.webp";
 import { allArchetypesById } from "../../data/archetypes";
 import { useLegendaryStats, useSelectedArchetypeId } from "../../stores/legendaryStore";
+import type { LegendaryThemeId } from "../../themes";
 import type { CategoryId } from "../../types/models";
 import {
     getCompletedAppraisalLine,
@@ -13,7 +14,9 @@ import {
 } from "../Evaluator/appraisal";
 
 interface BarkeepProps {
+    avatarImage?: string;
     categoryId: CategoryId;
+    themeId: LegendaryThemeId;
 }
 
 const getCategorySelectionScene = (categoryId: CategoryId) => {
@@ -57,7 +60,7 @@ const getCategorySelectionScene = (categoryId: CategoryId) => {
     }
 };
 
-export const Barkeep = ({ categoryId }: BarkeepProps): JSX.Element => {
+export const Barkeep = ({ avatarImage, categoryId, themeId }: BarkeepProps): JSX.Element => {
     const selectedArchetypeId = useSelectedArchetypeId();
     const legendaryStats = useLegendaryStats();
     const selectedArchetype = selectedArchetypeId ? allArchetypesById[selectedArchetypeId] : undefined;
@@ -116,7 +119,9 @@ export const Barkeep = ({ categoryId }: BarkeepProps): JSX.Element => {
 
     return (
         <div className="barkeep">
-            <img className="barkeepAvatar" src={barkeepAvatar} alt="" />
+            <div className={classcat(["barkeepAvatarFrame", `barkeepAvatarFrame_${themeId}`, { hasImage: !!avatarImage }])}>
+                {avatarImage ? <img className="barkeepAvatar" src={avatarImage} alt="" /> : <div className="barkeepAvatarGradient" />}
+            </div>
             <div className={`barkeepSpeech ${isSpeechVisible ? "isVisible" : "isHidden"}`}>
                 {displayedSpeech.sceneText && <div className="barkeepSceneText">{displayedSpeech.sceneText}</div>}
                 <div className="barkeepCopy">{displayedSpeech.barkeepLine}</div>
