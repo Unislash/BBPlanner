@@ -311,7 +311,8 @@ const applyGeneratedRangesToSource = (source: string, generatedRanges: Partial<R
     let updatedSource = source;
 
     (Object.entries(generatedRanges) as [ArchetypeId, RangePatch][]).forEach(([archetypeId, patch]) => {
-        const blockRegex = new RegExp(`('${escapeRegExp(archetypeId)}': \\{[\\s\\S]*?\\n\\s*\\},)`, "m");
+        const escapedArchetypeId = escapeRegExp(archetypeId);
+        const blockRegex = new RegExp(`(^\\s*(?:'${escapedArchetypeId}'|${escapedArchetypeId}): \\{[\\s\\S]*?\\n\\s*\\},)`, "m");
         const matchedBlock = updatedSource.match(blockRegex);
         if (!matchedBlock) {
             throw new Error(`Could not find archetype block for ${archetypeId}`);
