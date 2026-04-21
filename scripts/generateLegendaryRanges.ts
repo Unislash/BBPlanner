@@ -155,6 +155,19 @@ const setRange = (target: RangePatch, minKey: LegendaryStatType, maxKey: Legenda
     target[maxKey] = range[1];
 };
 
+const setDamageRange = (target: RangePatch, minimumDamageCell: string, maximumDamageCell: string) => {
+    const minimumDamageRange = parseRange(minimumDamageCell);
+    const maximumDamageRange = parseRange(maximumDamageCell);
+    if (!minimumDamageRange || !maximumDamageRange) {
+        return;
+    }
+
+    target.minimumDamageMin = minimumDamageRange[0];
+    target.minimumDamageMax = maximumDamageRange[0];
+    target.maximumDamageMin = minimumDamageRange[1];
+    target.maximumDamageMax = maximumDamageRange[1];
+};
+
 const getStatCells = (cellsAfterName: string[]) => {
     const statCells = cellsAfterName.filter((cell) => parseRange(cell) !== undefined);
     return statCells.slice(0, -1);
@@ -169,8 +182,7 @@ const buildPatchForWeapon = (archetype: Archetype, statCells: string[]) => {
         index += 1;
     }
 
-    setRange(patch, "damageLowMin", "damageLowMax", statCells[index]);
-    setRange(patch, "damageHighMin", "damageHighMax", statCells[index + 1]);
+    setDamageRange(patch, statCells[index], statCells[index + 1]);
     setRange(patch, "directDamageMin", "directDamageMax", statCells[index + 2]);
     setRange(patch, "armorDamageMin", "armorDamageMax", statCells[index + 3]);
 
@@ -214,8 +226,7 @@ const buildPatchForRangedWeapon = (archetype: Archetype, statCells: string[]) =>
         index += 1;
     }
 
-    setRange(patch, "damageLowMin", "damageLowMax", statCells[index]);
-    setRange(patch, "damageHighMin", "damageHighMax", statCells[index + 1]);
+    setDamageRange(patch, statCells[index], statCells[index + 1]);
     setRange(patch, "directDamageMin", "directDamageMax", statCells[index + 2]);
     setRange(patch, "armorDamageMin", "armorDamageMax", statCells[index + 3]);
 
@@ -278,7 +289,7 @@ const buildPatchForArchetype = (archetype: Archetype, cellsAfterName: string[]) 
         return buildPatchForRangedWeapon(archetype, statCells);
     }
 
-    if ("damageLowMin" in archetype && "damageHighMin" in archetype) {
+    if ("minimumDamageMin" in archetype && "maximumDamageMin" in archetype) {
         return buildPatchForWeapon(archetype, statCells);
     }
 

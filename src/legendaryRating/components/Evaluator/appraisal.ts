@@ -25,8 +25,8 @@ export const appraisalRowDefinitions: AppraisalRowDefinition[] = [
     },
     {
         id: "damage",
-        primary: { inputKey: "damageLow", minKey: "damageLowMin", maxKey: "damageLowMax" },
-        secondary: { inputKey: "damageHigh", minKey: "damageHighMin", maxKey: "damageHighMax" },
+        primary: { inputKey: "minimumDamage", minKey: "minimumDamageMin", maxKey: "minimumDamageMax" },
+        secondary: { inputKey: "maximumDamage", minKey: "maximumDamageMin", maxKey: "maximumDamageMax" },
     },
     {
         id: "directDamage",
@@ -264,7 +264,7 @@ export const getArchetypeSubtitle = (archetype: Archetype) => {
     if ("accuracyMin" in archetype || "ammoMin" in archetype) {
         return "Named Ranged Weapon";
     }
-    if ("damageLowMin" in archetype && "damageHighMin" in archetype) {
+    if ("minimumDamageMin" in archetype && "maximumDamageMin" in archetype) {
         return "Named Weapon";
     }
     if ("fatigueMin" in archetype) {

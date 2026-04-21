@@ -126,10 +126,10 @@ export interface MeleeArchetype extends ArchetypeBase {
     fatigueMax: number;
     durabilityMin: number;
     durabilityMax: number;
-    damageLowMin: number;
-    damageLowMax: number;
-    damageHighMin: number;
-    damageHighMax: number;
+    minimumDamageMin: number;
+    minimumDamageMax: number;
+    maximumDamageMin: number;
+    maximumDamageMax: number;
     directDamageMin: number;
     directDamageMax: number;
     armorDamageMin: number;
@@ -147,10 +147,10 @@ export interface RangedArchetype extends ArchetypeBase {
     fatigueMax: number;
     durabilityMin?: number;
     durabilityMax?: number;
-    damageLowMin: number;
-    damageLowMax: number;
-    damageHighMin: number;
-    damageHighMax: number;
+    minimumDamageMin: number;
+    minimumDamageMax: number;
+    maximumDamageMin: number;
+    maximumDamageMax: number;
     directDamageMin: number;
     directDamageMax: number;
     armorDamageMin: number;
@@ -197,8 +197,8 @@ export type Archetype = MeleeArchetype | RangedArchetype | ShieldArchetype | Arm
 export type LegendaryStatInputType =
     | "durability"
     | "fatigue"
-    | "damageLow"
-    | "damageHigh"
+    | "minimumDamage"
+    | "maximumDamage"
     | "directDamage"
     | "armorDamage"
     | "shieldDamage"

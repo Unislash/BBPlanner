@@ -59,8 +59,8 @@ const statRowDefinitions: StatRowDefinition[] = [
         id: "damage",
         icon: regularDamageIcon,
         label: "Damage",
-        primary: { inputKey: "damageLow", minKey: "damageLowMin", maxKey: "damageLowMax" },
-        secondary: { inputKey: "damageHigh", minKey: "damageHighMin", maxKey: "damageHighMax" },
+        primary: { inputKey: "minimumDamage", minKey: "minimumDamageMin", maxKey: "minimumDamageMax" },
+        secondary: { inputKey: "maximumDamage", minKey: "maximumDamageMin", maxKey: "maximumDamageMax" },
         tone: "red",
     },
     {

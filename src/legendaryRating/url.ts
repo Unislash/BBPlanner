@@ -14,8 +14,8 @@ import type { ArchetypeId, CategoryId, LegendaryStatInputType } from "./types/mo
 const statAliases: Record<LegendaryStatInputType, string> = {
     durability: "dur",
     fatigue: "fat",
-    damageLow: "damL",
-    damageHigh: "damH",
+    minimumDamage: "damL",
+    maximumDamage: "damH",
     directDamage: "dDam",
     armorDamage: "aDam",
     shieldDamage: "sDam",
@@ -30,8 +30,8 @@ const statAliases: Record<LegendaryStatInputType, string> = {
 const statKeysInOrder: LegendaryStatInputType[] = [
     "durability",
     "fatigue",
-    "damageLow",
-    "damageHigh",
+    "minimumDamage",
+    "maximumDamage",
     "directDamage",
     "armorDamage",
     "shieldDamage",
