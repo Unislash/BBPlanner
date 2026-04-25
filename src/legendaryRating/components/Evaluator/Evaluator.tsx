@@ -165,14 +165,14 @@ interface EvaluatorProps {
 
 const getPlacedItemCopy = (categoryId: CategoryId) => {
     if (categoryId === "armor" || categoryId === "helmet") {
-        return "The barkeep hefts the piece slightly, judging the weight and make before hearing the numbers.";
+        return "The barkeep hefts the piece slightly, judging the weight and make before you give him the marks.";
     }
 
     if (categoryId === "shield") {
-        return "The barkeep taps the face and rim, listening to the board before hearing the rest of the marks.";
+        return "The barkeep taps the face and rim, listening to the resonance of the shield.";
     }
 
-    return "The barkeep studies the weapon's balance and finish for a moment before hearing the rest of the marks.";
+    return "The barkeep studies the weapon's balance and finish for a moment before you give him the marks.";
 };
 
 export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps): React.ReactElement | null => {

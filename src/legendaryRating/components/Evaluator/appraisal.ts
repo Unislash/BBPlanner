@@ -287,9 +287,9 @@ export const getCompletedAppraisalLine = (rating: RatingResult) => {
         case "Average":
             return "Middle sort of piece. Won't make a song, won't make a funeral either. Least, not straightaway.";
         case "Weak":
-            return "Named, sure. So's a pig if yeh shout at it long enough.";
-        default:
-            return "It'll serve if the other poor bastard's worse equipped than yeh. I've seen worse. Usually on the floor.";
+            return "Well it's a bit of an antique innit it? It'll serve better than the standard cruft--but only just.";
+        default: // "Poor"
+            return "Named, sure. So's a pig if yeh shout at it long enough. Use it if you like, but don't expect much from it.";
     }
 };
 
