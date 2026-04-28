@@ -2,6 +2,7 @@ import * as React from "react";
 import { accessories, ammo, armor, bags, helmets, offhandItems, TWO_HANDED_WEAPON, weapons } from "../../data/itemData";
 import { useLoadoutActions, useLoadoutItems } from "../../stores/loadoutStore";
 import type { LoadoutItem, Weapon } from "../../types/models";
+import { ResetIconButton } from "../ResetIconButton";
 import { LoadoutSelect } from "./LoadoutSelect";
 
 const getLoadoutItemByName = (name: string, loadoutItemList: LoadoutItem[]) => {
@@ -10,11 +11,16 @@ const getLoadoutItemByName = (name: string, loadoutItemList: LoadoutItem[]) => {
 
 export const Loadout = (): JSX.Element => {
     const loadoutItems = useLoadoutItems();
-    const { setLoadoutSlot } = useLoadoutActions();
+    const { resetLoadoutItems, setLoadoutSlot } = useLoadoutActions();
 
     return (
         <div className="loadout">
-            <h2>Loadout</h2>
+            <div className="plannerSectionHeader">
+                <h2 className="plannerSectionTitle">Loadout</h2>
+                <div className="plannerSectionActions">
+                    <ResetIconButton onClick={resetLoadoutItems} tooltipText="Reset loadout" />
+                </div>
+            </div>
             <p>Select your intended weapons and armor</p>
             <div className="loadoutUI">
                 <div className="loadoutColumns">

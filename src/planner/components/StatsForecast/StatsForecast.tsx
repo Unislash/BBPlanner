@@ -12,6 +12,7 @@ import { useActivePerkIds } from "../../stores/perkStore";
 import { useStars, useStarsActions } from "../../stores/starsStore";
 import { useStatNums, useStatsActions } from "../../stores/statsStore";
 import type { StatType } from "../../types/models";
+import { ResetIconButton } from "../ResetIconButton";
 import { ForecastInfoButton } from "./ForecastInfoButton";
 import { LevelBar } from "./LevelBar";
 import { StatBar, type StatInteractionAnnotation } from "./StatBar";
@@ -19,9 +20,9 @@ import { StatBar, type StatInteractionAnnotation } from "./StatBar";
 export const StatsForecast = (): JSX.Element => {
     const activePerkIds = useActivePerkIds();
     const statNums = useStatNums();
-    const { setStat } = useStatsActions();
+    const { resetStatNums, setStat } = useStatsActions();
     const stars = useStars();
-    const { setStar } = useStarsActions();
+    const { resetStars, setStar } = useStarsActions();
     const hasGifted = activePerkIds.includes("gifted");
     const hasColossus = activePerkIds.includes("colossus");
     const hasFortifiedMind = activePerkIds.includes("fortifiedMind");
@@ -84,9 +85,19 @@ export const StatsForecast = (): JSX.Element => {
 
     return (
         <div className="statsForecast">
-            <h2 className="statsForecastHeader">
-                Stats Forecast <ForecastInfoButton />
-            </h2>
+            <div className="plannerSectionHeader statsForecastHeader">
+                <h2 className="plannerSectionTitle">Stats Forecast</h2>
+                <div className="plannerSectionActions">
+                    <ForecastInfoButton />
+                    <ResetIconButton
+                        onClick={() => {
+                            resetStatNums();
+                            resetStars();
+                        }}
+                        tooltipText="Reset stats forecast"
+                    />
+                </div>
+            </div>
             <p>Enter your current level, stats, and stars to see the expected max stats</p>
             <div className="statBars">
                 <LevelBar icon={levelIcon} levelNumber={statNums.level} setLevelNumber={getSetStat("level")} />

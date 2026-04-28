@@ -9,6 +9,7 @@ import { getNewLoadoutItems } from "./initialState";
 
 export interface LoadoutStore {
     actions: {
+        resetLoadoutItems: () => void;
         setLoadoutItems: (loadoutItems: LoadoutItems) => void;
         setLoadoutSlot: (loadoutSlot: LoadoutSlotType, itemName: string) => void;
     };
@@ -24,6 +25,17 @@ export const loadoutStore = createStore<LoadoutStore>()(
         (set) => ({
             ...initialLoadoutStore,
             actions: {
+                resetLoadoutItems: () =>
+                    set(() => {
+                        const newState = {
+                            loadoutItems: getNewLoadoutItems(),
+                        };
+
+                        saveToURL(newState);
+                        updateStorageForCurrentBuild();
+
+                        return newState;
+                    }),
                 setLoadoutSlot: (loadoutSlot: LoadoutSlotType, itemName: string) =>
                     set((state) => {
                         const newState = {

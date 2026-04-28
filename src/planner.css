@@ -203,6 +203,22 @@
     align-items: center;
 }
 
+.plannerSectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.plannerSectionTitle {
+    margin: 0;
+}
+
+.plannerSectionActions {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 6px;
+}
+
 .perkPlannerInfo {
     flex-shrink: 0;
 }
@@ -298,7 +314,13 @@ body .rc-tooltip-inner {
 }
 
 .statsForecastHeader {
-    display: flex;
+    margin-bottom: 0;
+}
+
+.sectionResetButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .statBar {
