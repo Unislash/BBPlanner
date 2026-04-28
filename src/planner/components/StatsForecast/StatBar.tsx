@@ -1,4 +1,5 @@
 import classcat from "classcat";
+import Tooltip from "rc-tooltip";
 import * as React from "react";
 import { type ChangeEvent, useRef, useState } from "react";
 import arrow_right from "../../images/arrow_right.png";
@@ -11,13 +12,18 @@ interface StatBarProps {
     currentLevel: number;
     giftedBonus?: number;
     icon: string;
-    interactionSymbols?: string;
+    interactionAnnotations?: StatInteractionAnnotation[];
     setStars: (value: number) => void;
     setStatNumber: (value: number) => void;
     stars: number;
     statNumber: number;
     statType: StatType;
     perkMultiplier?: number;
+}
+
+export interface StatInteractionAnnotation {
+    symbol: string;
+    tooltipText: string;
 }
 
 const levelIncrementByStat: { [key: string]: number } = {
@@ -77,7 +83,7 @@ export const StatBar: React.FC<StatBarProps> = (props) => {
         currentLevel,
         perkMultiplier,
         giftedBonus,
-        interactionSymbols,
+        interactionAnnotations,
     } = props;
 
     const [hoveredStarIndex, setHoveredStarIndex] = useState<number | undefined>(undefined);
@@ -142,7 +148,17 @@ export const StatBar: React.FC<StatBarProps> = (props) => {
                 <img alt="" className="arrowIndicator" src={arrow_right} />
                 <div className="maxStat">
                     {getMaxStat(statType, statNumber, stars, 11 - currentLevel, giftedBonus || 0, perkMultiplier || 0)}
-                    {interactionSymbols || ""}
+                    {interactionAnnotations?.map(({ symbol, tooltipText }) => (
+                        <Tooltip
+                            key={`${statType}-${symbol}`}
+                            overlay={tooltipText}
+                            placement="bottom"
+                            mouseEnterDelay={0.3}
+                            overlayClassName="plannerButtonTooltip"
+                        >
+                            <span className="maxStatAnnotation">{symbol}</span>
+                        </Tooltip>
+                    ))}
                 </div>
             </div>
         </div>

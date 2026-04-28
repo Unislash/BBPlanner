@@ -332,6 +332,7 @@ body .rc-tooltip-inner {
     right: 0;
     left: 0;
     background-color: rgba(164, 140, 105, 0.1);
+    pointer-events: none;
     user-select: none;
     z-index: 0;
 }
@@ -461,8 +462,19 @@ body .rc-tooltip-inner {
 }
 
 .maxStat {
+    display: inline-flex;
+    align-items: center;
+    gap: 1px;
     line-height: 24px;
     margin-top: -1px;
+    position: relative;
+    z-index: 1;
+}
+
+.maxStatAnnotation {
+    cursor: help;
+    display: inline-flex;
+    align-items: center;
 }
 
 .loadout {

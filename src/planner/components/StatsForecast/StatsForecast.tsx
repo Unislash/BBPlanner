@@ -14,7 +14,7 @@ import { useStatNums, useStatsActions } from "../../stores/statsStore";
 import type { StatType } from "../../types/models";
 import { ForecastInfoButton } from "./ForecastInfoButton";
 import { LevelBar } from "./LevelBar";
-import { StatBar } from "./StatBar";
+import { StatBar, type StatInteractionAnnotation } from "./StatBar";
 
 export const StatsForecast = (): JSX.Element => {
     const activePerkIds = useActivePerkIds();
@@ -44,20 +44,30 @@ export const StatsForecast = (): JSX.Element => {
         }
     };
 
-    const getInteractionSymbols = (statType: StatType) => {
-        const symbols: string[] = [];
+    const getInteractionAnnotations = (statType: StatType): StatInteractionAnnotation[] => {
+        const annotations: StatInteractionAnnotation[] = [];
+        const giftedBonus = getGiftedBonus(statType);
 
-        if (hasGifted) {
-            symbols.push("*");
+        if (giftedBonus > 0) {
+            annotations.push({
+                symbol: "*",
+                tooltipText: `This stat includes the Gifted perk bonus (+${giftedBonus}).`,
+            });
         }
         if (statType === "health" && hasColossus) {
-            symbols.push("✤");
+            annotations.push({
+                symbol: "✤",
+                tooltipText: "This stat includes the Colossus perk bonus (+25% maximum hitpoints).",
+            });
         }
         if (statType === "resolve" && hasFortifiedMind) {
-            symbols.push("†");
+            annotations.push({
+                symbol: "†",
+                tooltipText: "This stat includes the Fortified Mind perk bonus (+25% resolve).",
+            });
         }
 
-        return symbols.join("");
+        return annotations;
     };
 
     const getSetStat = (statType: StatType) => {
@@ -89,7 +99,7 @@ export const StatsForecast = (): JSX.Element => {
                     setStars={getSetStar("health")}
                     currentLevel={statNums.level}
                     giftedBonus={getGiftedBonus("health")}
-                    interactionSymbols={getInteractionSymbols("health")}
+                    interactionAnnotations={getInteractionAnnotations("health")}
                     perkMultiplier={hasColossus ? 0.25 : undefined}
                 />
                 <StatBar
@@ -101,7 +111,7 @@ export const StatsForecast = (): JSX.Element => {
                     setStars={getSetStar("fatigue")}
                     currentLevel={statNums.level}
                     giftedBonus={getGiftedBonus("fatigue")}
-                    interactionSymbols={getInteractionSymbols("fatigue")}
+                    interactionAnnotations={getInteractionAnnotations("fatigue")}
                 />
                 <StatBar
                     icon={resolveIcon}
@@ -112,7 +122,7 @@ export const StatsForecast = (): JSX.Element => {
                     setStars={getSetStar("resolve")}
                     currentLevel={statNums.level}
                     giftedBonus={getGiftedBonus("resolve")}
-                    interactionSymbols={getInteractionSymbols("resolve")}
+                    interactionAnnotations={getInteractionAnnotations("resolve")}
                     perkMultiplier={hasFortifiedMind ? 0.25 : undefined}
                 />
                 <StatBar
@@ -124,7 +134,7 @@ export const StatsForecast = (): JSX.Element => {
                     setStars={getSetStar("initiative")}
                     currentLevel={statNums.level}
                     giftedBonus={getGiftedBonus("initiative")}
-                    interactionSymbols={getInteractionSymbols("initiative")}
+                    interactionAnnotations={getInteractionAnnotations("initiative")}
                 />
                 <StatBar
                     icon={mattackIcon}
@@ -135,7 +145,7 @@ export const StatsForecast = (): JSX.Element => {
                     setStars={getSetStar("mattack")}
                     currentLevel={statNums.level}
                     giftedBonus={getGiftedBonus("mattack")}
-                    interactionSymbols={getInteractionSymbols("mattack")}
+                    interactionAnnotations={getInteractionAnnotations("mattack")}
                 />
                 <StatBar
                     icon={rattackIcon}
@@ -146,7 +156,7 @@ export const StatsForecast = (): JSX.Element => {
                     setStars={getSetStar("rattack")}
                     currentLevel={statNums.level}
                     giftedBonus={getGiftedBonus("rattack")}
-                    interactionSymbols={getInteractionSymbols("rattack")}
+                    interactionAnnotations={getInteractionAnnotations("rattack")}
                 />
                 <StatBar
                     icon={mdefenseIcon}
@@ -157,7 +167,7 @@ export const StatsForecast = (): JSX.Element => {
                     setStars={getSetStar("mdefense")}
                     currentLevel={statNums.level}
                     giftedBonus={getGiftedBonus("mdefense")}
-                    interactionSymbols={getInteractionSymbols("mdefense")}
+                    interactionAnnotations={getInteractionAnnotations("mdefense")}
                 />
                 <StatBar
                     icon={rdefenseIcon}
@@ -168,7 +178,7 @@ export const StatsForecast = (): JSX.Element => {
                     setStars={getSetStar("rdefense")}
                     currentLevel={statNums.level}
                     giftedBonus={getGiftedBonus("rdefense")}
-                    interactionSymbols={getInteractionSymbols("rdefense")}
+                    interactionAnnotations={getInteractionAnnotations("rdefense")}
                 />
             </div>
         </div>

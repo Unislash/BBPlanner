@@ -12,7 +12,7 @@ export const ForecastInfoButton: React.FC = () => {
                     individual attributes.
                     <br />
                     <br />
-                    <i>* Indicates perk interaction (such as Gifted, Colossus, or Fortified Mind).</i>
+                    <i>Symbols (*, ✤, †) indicate perk interactions; hover them to see which perk interaction is affecting that stat.</i>
                 </span>
             }
             placement="bottom"
