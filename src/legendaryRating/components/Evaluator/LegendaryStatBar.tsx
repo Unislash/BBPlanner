@@ -25,6 +25,12 @@ const clamp = (value: number, min: number, max: number) => {
     return Math.min(Math.max(value, min), max);
 };
 
+const isValueWithinRange = (value: number, min: number, max: number) => {
+    const lowerBound = Math.min(min, max);
+    const upperBound = Math.max(min, max);
+    return value >= lowerBound && value <= upperBound;
+};
+
 const getPercentile = (value: number, min: number, max: number) => {
     if (min === max) {
         return 100;
@@ -69,8 +75,8 @@ export const LegendaryStatBar = ({
 }: LegendaryStatBarProps): JSX.Element => {
     const [primaryInputValue, setPrimaryInputValue] = useState(`${primary.value}`);
     const [secondaryInputValue, setSecondaryInputValue] = useState(secondary ? `${secondary.value}` : "");
-    const primaryIsInvalid = primary.value < primary.min || primary.value > primary.max;
-    const secondaryIsInvalid = !!secondary && (secondary.value < secondary.min || secondary.value > secondary.max);
+    const primaryIsInvalid = !isValueWithinRange(primary.value, primary.min, primary.max);
+    const secondaryIsInvalid = !!secondary && !isValueWithinRange(secondary.value, secondary.min, secondary.max);
     const hasInvalidValue = primaryIsInvalid || secondaryIsInvalid;
 
     useEffect(() => {

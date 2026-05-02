@@ -121,7 +121,7 @@ const statRowDefinitions: StatRowDefinition[] = [
     {
         id: "fatigueSkillCost",
         icon: fatigueIcon,
-        label: "Skill Fatigue",
+        label: "Skill Fatigue Reduction",
         primary: { inputKey: "fatigueSkillCost", minKey: "fatigueSkillCostMin", maxKey: "fatigueSkillCostMax" },
         tone: "blue",
         valueFormatter: formatSignedNumber,

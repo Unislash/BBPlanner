@@ -32,7 +32,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 160,
         shieldDamageMin: 16,
         shieldDamageMax: 32,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     orc_axe: {
@@ -54,7 +54,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 160,
         shieldDamageMin: 16,
         shieldDamageMax: 32,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     whip: {
@@ -74,7 +74,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         directDamageMax: 26,
         armorDamageMin: 25,
         armorDamageMax: 55,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     cleaver: {
@@ -94,7 +94,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         directDamageMax: 41,
         armorDamageMin: 90,
         armorDamageMax: 120,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     khopesh: {
@@ -114,7 +114,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         directDamageMax: 41,
         armorDamageMin: 120,
         armorDamageMax: 150,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     orc_cleaver: {
@@ -134,7 +134,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         directDamageMax: 41,
         armorDamageMin: 110,
         armorDamageMax: 140,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     dagger: {
@@ -154,7 +154,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         directDamageMax: 36,
         armorDamageMin: 70,
         armorDamageMax: 100,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     qatal_dagger: {
@@ -174,7 +174,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         directDamageMax: 36,
         armorDamageMin: 70,
         armorDamageMax: 100,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     flail: {
@@ -196,7 +196,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 130,
         hitHeadChanceMin: 10,
         hitHeadChanceMax: 30,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     flail_three_headed: {
@@ -218,7 +218,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 130,
         hitHeadChanceMin: 10,
         hitHeadChanceMax: 30,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     warhammer: {
@@ -238,7 +238,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         directDamageMax: 66,
         armorDamageMin: 225,
         armorDamageMax: 255,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     mace: {
@@ -258,7 +258,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         directDamageMax: 56,
         armorDamageMin: 110,
         armorDamageMax: 140,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     goblin_skewer: {
@@ -278,7 +278,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         directDamageMax: 41,
         armorDamageMin: 70,
         armorDamageMax: 100,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     spear: {
@@ -298,7 +298,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         directDamageMax: 41,
         armorDamageMin: 100,
         armorDamageMax: 130,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     goblin_falchion: {
@@ -318,7 +318,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         directDamageMax: 36,
         armorDamageMin: 70,
         armorDamageMax: 100,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     sword_fencing: {
@@ -338,7 +338,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         directDamageMax: 36,
         armorDamageMin: 75,
         armorDamageMax: 105,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     shamshir: {
@@ -358,7 +358,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         directDamageMax: 36,
         armorDamageMin: 75,
         armorDamageMax: 105,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     sword: {
@@ -378,7 +378,7 @@ export const melee1hArchetypes: Record<Melee1hArchetypeId, MeleeArchetype> = {
         directDamageMax: 36,
         armorDamageMin: 85,
         armorDamageMax: 115,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
 };
@@ -403,7 +403,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 160,
         shieldDamageMin: 24,
         shieldDamageMax: 48,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     axe_two_handed: {
@@ -425,7 +425,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 180,
         shieldDamageMin: 36,
         shieldDamageMax: 72,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     rusty_axe: {
@@ -447,7 +447,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 180,
         shieldDamageMin: 36,
         shieldDamageMax: 72,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     longaxe: {
@@ -471,7 +471,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         shieldDamageMax: 48,
         hitHeadChanceMin: 5,
         hitHeadChanceMax: 25,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     cryptcleaver: {
@@ -493,7 +493,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 150,
         shieldDamageMin: 16,
         shieldDamageMax: 32,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     warblade: {
@@ -515,7 +515,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 140,
         shieldDamageMin: 16,
         shieldDamageMax: 32,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     scimitar_two_handed: {
@@ -537,7 +537,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 140,
         shieldDamageMin: 16,
         shieldDamageMax: 32,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     flail_two_handed: {
@@ -559,7 +559,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 145,
         hitHeadChanceMin: 15,
         hitHeadChanceMax: 35,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     polehammer: {
@@ -581,7 +581,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 215,
         hitHeadChanceMin: 5,
         hitHeadChanceMax: 25,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     hammer_two_handed: {
@@ -603,7 +603,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 230,
         shieldDamageMin: 26,
         shieldDamageMax: 52,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     skull_hammer: {
@@ -625,7 +625,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 210,
         shieldDamageMin: 26,
         shieldDamageMax: 52,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     polemace: {
@@ -647,7 +647,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 150,
         hitHeadChanceMin: 5,
         hitHeadChanceMax: 25,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     mace_two_handed: {
@@ -669,7 +669,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 155,
         shieldDamageMin: 26,
         shieldDamageMax: 52,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     spiked_mace: {
@@ -691,7 +691,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 145,
         shieldDamageMin: 20,
         shieldDamageMax: 40,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     billhook: {
@@ -713,7 +713,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 170,
         hitHeadChanceMin: 5,
         hitHeadChanceMax: 25,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     bladed_pike: {
@@ -735,7 +735,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 155,
         hitHeadChanceMin: 5,
         hitHeadChanceMax: 25,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     jagged_pike: {
@@ -757,7 +757,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 120,
         hitHeadChanceMin: 5,
         hitHeadChanceMax: 25,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     pike: {
@@ -779,7 +779,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 130,
         hitHeadChanceMin: 5,
         hitHeadChanceMax: 25,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     swordlance: {
@@ -799,7 +799,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         directDamageMax: 46,
         armorDamageMin: 90,
         armorDamageMax: 120,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     warscythe: {
@@ -819,7 +819,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         directDamageMax: 46,
         armorDamageMin: 105,
         armorDamageMax: 135,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     spetum: {
@@ -841,7 +841,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 130,
         hitHeadChanceMin: 5,
         hitHeadChanceMax: 25,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     sword_two_handed: {
@@ -865,7 +865,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         shieldDamageMax: 32,
         hitHeadChanceMin: 5,
         hitHeadChanceMax: 25,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     warbrand: {
@@ -887,7 +887,7 @@ export const melee2hArchetypes: Record<Melee2hArchetypeId, MeleeArchetype> = {
         armorDamageMax: 105,
         hitHeadChanceMin: 5,
         hitHeadChanceMax: 25,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
 };
@@ -912,7 +912,7 @@ export const rangedArchetypes: Record<RangedArchetypeId, RangedArchetype> = {
         armorDamageMax: 105,
         accuracyMin: 5,
         accuracyMax: 15,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     javelins: {
@@ -934,7 +934,7 @@ export const rangedArchetypes: Record<RangedArchetypeId, RangedArchetype> = {
         accuracyMax: 15,
         ammoMin: 1,
         ammoMax: 3,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     throwing_axes: {
@@ -958,7 +958,7 @@ export const rangedArchetypes: Record<RangedArchetypeId, RangedArchetype> = {
         accuracyMax: 15,
         ammoMin: 1,
         ammoMax: 3,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     handgonne: {
@@ -982,7 +982,7 @@ export const rangedArchetypes: Record<RangedArchetypeId, RangedArchetype> = {
         accuracyMax: 15,
         ammoMin: 1,
         ammoMax: 3,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     bow: {
@@ -1004,7 +1004,7 @@ export const rangedArchetypes: Record<RangedArchetypeId, RangedArchetype> = {
         armorDamageMax: 90,
         accuracyMin: 5,
         accuracyMax: 15,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     bow_goblin: {
@@ -1026,7 +1026,7 @@ export const rangedArchetypes: Record<RangedArchetypeId, RangedArchetype> = {
         armorDamageMax: 90,
         accuracyMin: 5,
         accuracyMax: 15,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
 };
@@ -1045,7 +1045,7 @@ export const shieldArchetypes: Record<ShieldArchetypeId, ShieldArchetype> = {
         meleeDefenseMax: 28,
         rangedDefenseMin: 15,
         rangedDefenseMax: 21,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     metal_heater: {
@@ -1061,7 +1061,7 @@ export const shieldArchetypes: Record<ShieldArchetypeId, ShieldArchetype> = {
         meleeDefenseMax: 28,
         rangedDefenseMin: 15,
         rangedDefenseMax: 21,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     relic_heater: {
@@ -1077,7 +1077,7 @@ export const shieldArchetypes: Record<ShieldArchetypeId, ShieldArchetype> = {
         meleeDefenseMax: 28,
         rangedDefenseMin: 15,
         rangedDefenseMax: 21,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     undead_heater: {
@@ -1093,7 +1093,7 @@ export const shieldArchetypes: Record<ShieldArchetypeId, ShieldArchetype> = {
         meleeDefenseMax: 28,
         rangedDefenseMin: 15,
         rangedDefenseMax: 21,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     winged: {
@@ -1109,7 +1109,7 @@ export const shieldArchetypes: Record<ShieldArchetypeId, ShieldArchetype> = {
         meleeDefenseMax: 28,
         rangedDefenseMin: 15,
         rangedDefenseMax: 21,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     bandit_kite: {
@@ -1125,7 +1125,7 @@ export const shieldArchetypes: Record<ShieldArchetypeId, ShieldArchetype> = {
         meleeDefenseMax: 21,
         rangedDefenseMin: 25,
         rangedDefenseMax: 35,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     dragon_kite: {
@@ -1141,7 +1141,7 @@ export const shieldArchetypes: Record<ShieldArchetypeId, ShieldArchetype> = {
         meleeDefenseMax: 21,
         rangedDefenseMin: 25,
         rangedDefenseMax: 35,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     pavise: {
@@ -1157,7 +1157,7 @@ export const shieldArchetypes: Record<ShieldArchetypeId, ShieldArchetype> = {
         meleeDefenseMax: 21,
         rangedDefenseMin: 25,
         rangedDefenseMax: 35,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     undead_kite: {
@@ -1173,7 +1173,7 @@ export const shieldArchetypes: Record<ShieldArchetypeId, ShieldArchetype> = {
         meleeDefenseMax: 21,
         rangedDefenseMin: 25,
         rangedDefenseMax: 35,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     orc_heavy: {
@@ -1189,7 +1189,7 @@ export const shieldArchetypes: Record<ShieldArchetypeId, ShieldArchetype> = {
         meleeDefenseMax: 21,
         rangedDefenseMin: 15,
         rangedDefenseMax: 21,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     gold_round: {
@@ -1205,7 +1205,7 @@ export const shieldArchetypes: Record<ShieldArchetypeId, ShieldArchetype> = {
         meleeDefenseMax: 27,
         rangedDefenseMin: 17,
         rangedDefenseMax: 24,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
     sipar: {
@@ -1221,7 +1221,7 @@ export const shieldArchetypes: Record<ShieldArchetypeId, ShieldArchetype> = {
         meleeDefenseMax: 25,
         rangedDefenseMin: 18,
         rangedDefenseMax: 25,
-        fatigueSkillCostMin: -1,
+        fatigueSkillCostMin: 0,
         fatigueSkillCostMax: -3,
     },
 };

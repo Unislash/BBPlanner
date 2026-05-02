@@ -200,7 +200,7 @@ const buildPatchForWeapon = (archetype: Archetype, statCells: string[]) => {
     setRange(patch, "fatigueMin", "fatigueMax", statCells[optionalIndex]);
 
     if ("fatigueSkillCostMin" in archetype && "fatigueSkillCostMax" in archetype) {
-        patch.fatigueSkillCostMin = -1;
+        patch.fatigueSkillCostMin = 0;
         patch.fatigueSkillCostMax = -3;
     }
 
@@ -239,7 +239,7 @@ const buildPatchForRangedWeapon = (archetype: Archetype, statCells: string[]) =>
     setRange(patch, "fatigueMin", "fatigueMax", statCells[optionalIndex]);
 
     if ("fatigueSkillCostMin" in archetype && "fatigueSkillCostMax" in archetype) {
-        patch.fatigueSkillCostMin = -1;
+        patch.fatigueSkillCostMin = 0;
         patch.fatigueSkillCostMax = -3;
     }
 
@@ -264,7 +264,7 @@ const buildPatchForShield = (archetype: Archetype, statCells: string[]) => {
     setRange(patch, "fatigueMin", "fatigueMax", statCells[3]);
 
     if ("fatigueSkillCostMin" in archetype && "fatigueSkillCostMax" in archetype) {
-        patch.fatigueSkillCostMin = -1;
+        patch.fatigueSkillCostMin = 0;
         patch.fatigueSkillCostMax = -3;
     }
 
