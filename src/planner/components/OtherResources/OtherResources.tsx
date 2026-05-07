@@ -20,20 +20,26 @@ export const OtherResources: React.FC = () => {
                     </a>
                 </p>
                 <p>
-                    <a href="https://bbbros.herokuapp.com">
-                        "Effective HP" Calculator
+                    <a href="https://wlirareddit.github.io/bb_calculator/seed_search.html">
+                        Seed Search by Wlira
+                        <HyperlinkIcon />
+                    </a>
+                </p>
+                <p>
+                    <a href="https://battlebrothers.academy">
+                        <i>Legends</i> Mod Build Planner
+                        <HyperlinkIcon />
+                    </a>
+                </p>
+                <p>
+                    <a href="https://bloodngold.com/battle-brothers/damage-calculator">
+                        Battle Brothers Damage Calculator
                         <HyperlinkIcon />
                     </a>
                 </p>
                 <p>
                     <a href="https://github.com/turtle225/Battle-Brothers-Damage-Calculator">
                         Multi-Enemy Combat Simulator
-                        <HyperlinkIcon />
-                    </a>
-                </p>
-                <p>
-                    <a href="https://wlirareddit.github.io/bb_calculator/seed_search.html">
-                        Seed Search by Wlira
                         <HyperlinkIcon />
                     </a>
                 </p>
