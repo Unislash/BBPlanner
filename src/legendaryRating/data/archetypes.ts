@@ -1239,7 +1239,7 @@ export const armorArchetypes: Record<ArmorArchetypeId, ArmorArchetype> = {
     },
     plated_fur_armor: {
         id: "plated_fur_armor",
-        name: "Plated Fur armor",
+        name: "Plated Fur Armor",
         imageName: "icon_body_armor_104",
         alternateImages: ["icon_body_armor_104"],
         fatigueMin: -11,

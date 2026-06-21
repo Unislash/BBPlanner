@@ -18,6 +18,7 @@ import { LegendaryStatBar } from "./LegendaryStatBar";
 import { type LegendaryItemImageMap, loadLegendaryPreviewMap } from "../LegendaryPicker/legendaryItemImageMap";
 import {
     getArchetypeSubtitle,
+    getRatingDetails,
     getOverallRating,
     getDefaultLegendaryStats,
     getRangeValue,
@@ -181,6 +182,7 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
     const { setLegendaryStat } = useLegendaryActions();
     const selectedArchetype = selectedArchetypeId ? allArchetypesById[selectedArchetypeId] : undefined;
     const [legendaryPreviewImageMap, setLegendaryPreviewImageMap] = useState<LegendaryItemImageMap>();
+    const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
     useEffect(() => {
         let isSubscribed = true;
@@ -199,13 +201,24 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
         };
     }, [categoryId]);
 
+    const defaultLegendaryStats = selectedArchetype ? getDefaultLegendaryStats(selectedArchetype) : {};
+    const overallRating = selectedArchetype
+        ? getOverallRating(selectedArchetype, legendaryStats, defaultLegendaryStats, categoryId)
+        : { label: "Unrated", percentile: 0, ratedRowCount: 0 };
+    const appraisalComplete = selectedArchetype
+        ? isAppraisalComplete(selectedArchetype, legendaryStats, defaultLegendaryStats, categoryId)
+        : false;
+    const ratingDetails = getRatingDetails(overallRating);
+
+    useEffect(() => {
+        if (!appraisalComplete) {
+            setIsDetailsOpen(false);
+        }
+    }, [appraisalComplete]);
+
     if (!selectedArchetype) {
         return null;
     }
-
-    const defaultLegendaryStats = getDefaultLegendaryStats(selectedArchetype);
-    const overallRating = getOverallRating(selectedArchetype, legendaryStats, defaultLegendaryStats, categoryId);
-    const appraisalComplete = isAppraisalComplete(selectedArchetype, legendaryStats, defaultLegendaryStats, categoryId);
     const statRows = statRowDefinitions.filter((definition) => {
         return getRangeValue(selectedArchetype, definition.primary.minKey) !== undefined;
     });
@@ -248,17 +261,47 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
                 <div className="legendaryAppraisalSheet legendaryCard">
                     <div className="legendaryCardBody legendaryCardBody_paper">
                         <div className={`legendaryAppraisalPrompt ${appraisalComplete ? "isComplete" : ""}`}>
-                            <div className="legendaryAppraisalPromptRow">
-                                <div className="legendaryAppraisalPromptTitle">
-                                    {appraisalComplete ? overallRating.label : "What marks does it bear?"}
+                            <div className="legendaryAppraisalPromptContent">
+                                <div className="legendaryAppraisalPromptRow">
+                                    <div className="legendaryAppraisalPromptTitle">
+                                        {appraisalComplete ? overallRating.label : "What marks does it bear?"}
+                                    </div>
+                                    {appraisalComplete && (
+                                        <div className="legendaryAppraisalPromptMeta">
+                                            {overallRating.percentile}% Quality
+                                        </div>
+                                    )}
                                 </div>
                                 {appraisalComplete && (
-                                    <div className="legendaryAppraisalPromptMeta">
-                                        {overallRating.percentile}% Quality
-                                    </div>
+                                    <button
+                                        type="button"
+                                        className="legendaryDetailsToggle"
+                                        aria-expanded={isDetailsOpen}
+                                        aria-controls="legendary-rating-details"
+                                        onClick={() => setIsDetailsOpen((previousValue) => !previousValue)}
+                                    >
+                                        {isDetailsOpen ? "Hide details" : "Details"}
+                                    </button>
                                 )}
                             </div>
                         </div>
+                        {appraisalComplete && (
+                            <div
+                                id="legendary-rating-details"
+                                className={`legendaryDetailsAccordion ${isDetailsOpen ? "isOpen" : ""}`}
+                                aria-hidden={!isDetailsOpen}
+                            >
+                                <div className="legendaryDetailsAccordionInner">
+                                    <ul className="legendaryDetailsList">
+                                        {ratingDetails.map((detail) => (
+                                            <li key={detail} className="legendaryDetailsItem">
+                                                {detail}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        )}
                         <div className="legendaryStatsPanel">
                             {statRows.map((definition) => {
                                 const primaryMin = getRangeValue(selectedArchetype, definition.primary.minKey)!;
@@ -276,6 +319,7 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
                                         icon={definition.icon}
                                         isModified={isAppraisalRowModified(
                                             definition,
+                                            selectedArchetype,
                                             legendaryStats,
                                             defaultLegendaryStats,
                                         )}

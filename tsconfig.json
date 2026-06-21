@@ -6,7 +6,7 @@
      */
     "incremental": true /* Enable incremental compilation. */,
     "composite": true /* Enable constraints that allow a TypeScript project to be used with project references. */,
-    "target": "es2016" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "target": "es2019" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "experimentalDecorators": true /* Enable experimental support for TC39 stage 2 draft decorators. */,
     "emitDecoratorMetadata": true /* Emit design-type metadata for decorated declarations in source files. */,
     "module": "esnext" /* Specify what module code is generated. */,
