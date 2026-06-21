@@ -9,7 +9,7 @@ import {
 } from "./data/archetypes";
 import { getDefaultLegendaryStats } from "./components/Evaluator/appraisal";
 import { legendaryStore } from "./stores/legendaryStore";
-import type { ArchetypeId, CategoryId, LegendaryStatInputType } from "./types/models";
+import type { ArchetypeId, CategoryId, LegendaryStatInputType, SelectedCategoryId } from "./types/models";
 
 const statAliases: Record<LegendaryStatInputType, string> = {
     durability: "dur",
@@ -60,12 +60,12 @@ const isValidArchetypeId = (itemId: string | null): itemId is ArchetypeId => {
     return !!itemId && itemId in allArchetypesById;
 };
 
-export const getCategoryIdForArchetypeId = (archetypeId: ArchetypeId | null): CategoryId => {
+export const getCategoryIdForArchetypeId = (archetypeId: ArchetypeId | null): SelectedCategoryId => {
     if (!archetypeId) {
-        return "oneHanded";
+        return null;
     }
 
-    return categoryByArchetypeId[archetypeId] || "oneHanded";
+    return categoryByArchetypeId[archetypeId] || null;
 };
 
 const getSerializedStats = (

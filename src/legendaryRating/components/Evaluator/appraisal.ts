@@ -1210,7 +1210,7 @@ export const getCompletedAppraisalLine = (rating: RatingResult) => {
         case "Excellent":
             return "Aye, that's real fine work. Far better than most that comes through my door, and I've seen plenty.";
         case "Strong":
-            return "Yeh have a good, solid piece here. The sort of thing folk'll brag to strangers about after an ale or two. Not that I recommend it.";
+            return "Yeh have a good, solid piece here. The sort of thing folk'll brag to strangers about after an ale or two. Not that I recommend doing that.";
         case "Good":
             return "Strong piece, that. Not blessed by saints, maybe, but it'll keep yeh breathing.";
         case "Average":

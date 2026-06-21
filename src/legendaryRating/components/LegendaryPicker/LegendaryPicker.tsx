@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { CategoryButton } from "./CategoryButton";
-import type { ArchetypeId, Category, CategoryId } from "../../types/models";
+import type { ArchetypeId, Category, SelectedCategoryId } from "../../types/models";
 import { ArchetypeGridItem } from "./ArchetypeGridItem";
 import {
     armorArchetypes,
@@ -58,8 +58,8 @@ type PickerArchetype = {
 };
 
 interface LegendaryPickerProps {
-    selectedCategoryId: CategoryId;
-    setSelectedCategoryId: (categoryId: CategoryId) => void;
+    selectedCategoryId: SelectedCategoryId;
+    setSelectedCategoryId: (categoryId: SelectedCategoryId) => void;
 }
 
 export const LegendaryPicker = ({ selectedCategoryId, setSelectedCategoryId }: LegendaryPickerProps): JSX.Element => {
@@ -71,19 +71,21 @@ export const LegendaryPicker = ({ selectedCategoryId, setSelectedCategoryId }: L
     useEffect(() => {
         let isSubscribed = true;
 
-        async function getItemImageMap() {
-            setLegendaryItemImageMap(undefined);
+        setLegendaryItemImageMap(undefined);
 
-            return loadLegendaryThumbnailMap(selectedCategoryId)
-                .then((loadedLegendaryItemImageMap) => {
-                    if (isSubscribed) {
-                        setLegendaryItemImageMap(loadedLegendaryItemImageMap);
-                    }
-                })
-                .catch(() => "An error occurred while loading legendary item image map");
+        if (!selectedCategoryId) {
+            return () => {
+                isSubscribed = false;
+            };
         }
 
-        getItemImageMap();
+        loadLegendaryThumbnailMap(selectedCategoryId)
+            .then((loadedLegendaryItemImageMap) => {
+                if (isSubscribed) {
+                    setLegendaryItemImageMap(loadedLegendaryItemImageMap);
+                }
+            })
+            .catch(() => "An error occurred while loading legendary item image map");
 
         return () => {
             isSubscribed = false;
@@ -110,30 +112,40 @@ export const LegendaryPicker = ({ selectedCategoryId, setSelectedCategoryId }: L
             </div>
             {selectedArchetypeId == null ? (
                 <div className="legendarySelectionTray">
-                    <div className="archetypeGrid">
-                        {(Object.values(archetypesByCategoryId[selectedCategoryId]) as PickerArchetype[]).map(
-                            ({ id, imageName, name }, index) => {
-                                return (
-                                    <ArchetypeGridItem
-                                        animationIndex={index}
-                                        key={id}
-                                        id={id}
-                                        onClick={() => {
-                                            resetLegendaryStats();
-                                            setSelectedArchetypeId(id);
-                                        }}
-                                        imageName={imageName}
-                                        name={name}
-                                        legendaryItemImageMap={legendaryItemImageMap}
-                                        className="archetypeGridItem"
-                                    />
-                                );
-                            },
-                        )}
-                    </div>
+                    {selectedCategoryId ? (
+                        <div className="archetypeGrid">
+                            {(Object.values(archetypesByCategoryId[selectedCategoryId]) as PickerArchetype[]).map(
+                                ({ id, imageName, name }, index) => {
+                                    return (
+                                        <ArchetypeGridItem
+                                            animationIndex={index}
+                                            key={id}
+                                            id={id}
+                                            onClick={() => {
+                                                resetLegendaryStats();
+                                                setSelectedArchetypeId(id);
+                                            }}
+                                            imageName={imageName}
+                                            name={name}
+                                            legendaryItemImageMap={legendaryItemImageMap}
+                                            className="archetypeGridItem"
+                                        />
+                                    );
+                                },
+                            )}
+                        </div>
+                    ) : (
+                        <div className="legendaryEmptyState">
+                            <div className="legendaryEmptyStateBody">
+                                Few men alive have seen more famed weapons and armor than the old mercenary-turned-barkeep.<br/>
+                                Show him a piece of equipment and he'll judge its quality, pointing out any noteworthy details.
+                            </div>
+                            <div className="legendaryEmptyStateCTA">To begin, choose an equipment category above.</div>
+                        </div>
+                    )}
                 </div>
             ) : (
-                <Evaluator categoryId={selectedCategoryId} legendaryItemImageMap={legendaryItemImageMap} />
+                selectedCategoryId && <Evaluator categoryId={selectedCategoryId} legendaryItemImageMap={legendaryItemImageMap} />
             )}
         </div>
     );

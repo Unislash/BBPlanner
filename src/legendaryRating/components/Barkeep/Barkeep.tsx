@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { allArchetypesById } from "../../data/archetypes";
 import { useLegendaryStats, useSelectedArchetypeId } from "../../stores/legendaryStore";
 import type { LegendaryThemeId } from "../../themes";
-import type { CategoryId } from "../../types/models";
+import type { CategoryId, SelectedCategoryId } from "../../types/models";
 import {
     getCompletedAppraisalLine,
     getDefaultLegendaryStats,
@@ -15,47 +15,82 @@ import {
 
 interface BarkeepProps {
     avatarImage?: string;
-    categoryId: CategoryId;
+    categoryId: SelectedCategoryId;
     themeId: LegendaryThemeId;
 }
+
+const barkeepGreetings = [
+    {
+        sceneText: "You duck beneath the tavern lintel as you clear the doorway. The old giant of a barkeep spots you at once and snorts.",
+        barkeepLine: "Thought I'd smelled road dust. Go on then. What've you dragged out o' the wilds this time?",
+    },
+    {
+        sceneText: "The barkeep is polishing a tankard as you enter. He sets it aside when he sees you.",
+        barkeepLine: "Captain. Been busy, have yeh? Let's see if any o' that loot's worth braggin' about.",
+    },
+    {
+        sceneText: "The barkeep is wrestling a squealing piglet toward the kitchen when you arrive.",
+        barkeepLine: "Damn thing's got more fight than half the sellswords I've known. Hold on. Now--what've yeh brought this time?",
+    },
+    {
+        sceneText: "The tavern is quiet at this time of night as you slip through the door. The barkeep watches you approach and grins through his beard.",
+        barkeepLine: "Either yeh found treasure, or yeh need a drink. I don't recall yeh being the drinking sort, so what have you wrestled up this time?",
+    },
+    {
+        sceneText: "As you enter the tavern the barkeep waves you over before you've even reached the counter.",
+        barkeepLine: "Don't stand there grinnin'. Put the piece down and let an old bastard judge it proper.",
+    },
+    {
+        sceneText: "A burly man stands behind the bar, having a nip of ale. The barkeep wipes his beard and points at an empty patch of counter.",
+        barkeepLine: "Back again with something special? Put it there then. If it's a keeper, I'll tell yeh... if it's not, I'll tell yeh louder.",
+    },
+    {
+        sceneText: "A deep laugh rumbles from behind the bar as you step inside the tavern.",
+        barkeepLine: "Either yeh found something rare, or yeh found some trouble. Or both. Show it here then and we'll see if it was worth it.",
+    },
+    {
+        sceneText: "You enter the crowded tavern and the old barkeep quickly picks you out of the rabble.",
+        barkeepLine: "Oh aye, the captain's back, is he? What treasure have your travels brought yeh this time? Let's have a look."
+    },
+];
 
 const getCategorySelectionScene = (categoryId: CategoryId) => {
     switch (categoryId) {
         case "oneHanded":
             return {
-                sceneText: "The barkeep squints at the one-handers as he cleans his mug.",
+                // sceneText: "The barkeep squints at the one-handers as he cleans his mug.",
                 barkeepLine:
-                    "One-handed kit tells on a soul quick. Handy, mean, close to the ribs. Alright, set one here and I'll tell yeh if it's fit for yeh.",
+                    "One-handed kit tells on a soul quick. Handy, mean, close to the ribs. Set it here and I'll tell yeh if it's worth carrying.",
             };
         case "twoHanded":
             return {
-                sceneText: "The barkeeper looks at the long blades with knowing eyes.",
+                // sceneText: "The barkeeper looks at the long blades with knowing eyes.",
                 barkeepLine:
-                    "Two-handed work's honest, eh? Too big to lie. Show me yer metal and I'll tell yeh if it's a killer, or an antique burning a hole in yer pocket.",
+                    "Two-handed work is honest, eh? Too big to lie. Set it here and I'll tell yeh if it's a killer or just old iron.",
             };
         case "ranged":
             return {
-                sceneText: "The barkeep gives the ranged pieces a measured look.",
+                // sceneText: "The barkeep gives the ranged pieces a measured look.",
                 barkeepLine:
-                    "Ranged gear tells on its maker quick. Good work shows itself before the shot ever leaves the hand. Bad work shows itself in the eye.",
+                    "Ranged gear tells on its maker quick. Good work shows itself before the shot ever leaves the hand. Let's see what yeh got.",
             };
         case "shield":
             return {
-                sceneText: "The barkeep studies the shields a moment before touching on them.",
+                // sceneText: "The barkeep studies the shields a moment before touching on them.",
                 barkeepLine:
-                    "A shield earns its name by what it survives. Some o' these look stout. Some look like they'd lose an argument with a chair leg.",
+                    "A shield earns its name by what it survives. Some look stout. Some look like they'd lose an argument with a chair leg.",
             };
         case "helmet":
             return {
-                sceneText: "The barkeeper eyes the helms with an old soldier's look.",
+                // sceneText: "The barkeeper eyes the helms with an old soldier's look.",
                 barkeepLine:
-                    "A good helm ought to sit solid and spare the neck besides. A bad one just keeps the skull tidy for burial. Go on, show me what yeh brought.",
+                    "A good helm ought to sit solid. A bad one just keeps the skull tidy for burial. Alright then, show me what yeh brought today.",
             };
         case "armor":
             return {
-                sceneText: "Lamellar, mail, and plate catch the candlelight as the barkeeper studies them.",
+                // sceneText: "Lamellar, mail, and plate catch the candlelight as the barkeeper studies them.",
                 barkeepLine:
-                    "Armor's always a bargain between burden and staying alive. Best smiths cheat that bargain a little. Worst ones sell yeh a coffin with straps.",
+                    "Armor's always a bargain between burden and staying alive. The best smiths cheat the scales. The worst sell yeh a coffin with straps.",
             };
     }
 };
@@ -64,12 +99,13 @@ export const Barkeep = ({ avatarImage, categoryId, themeId }: BarkeepProps): JSX
     const selectedArchetypeId = useSelectedArchetypeId();
     const legendaryStats = useLegendaryStats();
     const selectedArchetype = selectedArchetypeId ? allArchetypesById[selectedArchetypeId] : undefined;
+    const [landingGreeting] = useState(() => barkeepGreetings[Math.floor(Math.random() * barkeepGreetings.length)]);
 
-    const categorySelectionScene = getCategorySelectionScene(categoryId);
+    const categorySelectionScene = categoryId ? getCategorySelectionScene(categoryId) : landingGreeting;
     let nextBarkeepLine = categorySelectionScene.barkeepLine;
     let nextSceneText = categorySelectionScene.sceneText;
 
-    if (selectedArchetype) {
+    if (selectedArchetype && categoryId) {
         const defaultLegendaryStats = getDefaultLegendaryStats(selectedArchetype);
         const appraisalComplete = isAppraisalComplete(
             selectedArchetype,

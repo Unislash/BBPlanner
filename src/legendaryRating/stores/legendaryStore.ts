@@ -2,23 +2,23 @@ import { useStore } from "zustand";
 import { devtools } from "zustand/middleware";
 import { shallow } from "zustand/shallow";
 import { createStore } from "zustand/vanilla";
-import type { ArchetypeId, CategoryId, LegendaryStatInputType } from "../types/models";
+import type { ArchetypeId, LegendaryStatInputType, SelectedCategoryId } from "../types/models";
 
 export interface LegendaryStore {
     actions: {
         resetLegendaryStats: () => void;
         setSelectedArchetypeId: (archetypeId: ArchetypeId | null) => void;
-        setSelectedCategoryId: (categoryId: CategoryId) => void;
+        setSelectedCategoryId: (categoryId: SelectedCategoryId) => void;
         setLegendaryStat: (LegendaryStat: LegendaryStatInputType, value: number) => void;
         setLegendaryStats: (legendaryStats: Partial<Record<LegendaryStatInputType, number>>) => void;
     };
-    selectedCategoryId: CategoryId;
+    selectedCategoryId: SelectedCategoryId;
     selectedArchetypeId: ArchetypeId | null;
     legendaryStats: Partial<Record<LegendaryStatInputType, number>>;
 }
 
 export const initialLegendaryStore = {
-    selectedCategoryId: "oneHanded" as CategoryId,
+    selectedCategoryId: null as SelectedCategoryId,
     selectedArchetypeId: null,
     legendaryStats: {},
 };
@@ -30,7 +30,7 @@ export const legendaryStore = createStore<LegendaryStore>()(
             actions: {
                 resetLegendaryStats: () => set({ legendaryStats: {} }),
                 setSelectedArchetypeId: (archetypeId: ArchetypeId | null) => set({ selectedArchetypeId: archetypeId }),
-                setSelectedCategoryId: (categoryId: CategoryId) => set({ selectedCategoryId: categoryId }),
+                setSelectedCategoryId: (categoryId: SelectedCategoryId) => set({ selectedCategoryId: categoryId }),
                 setLegendaryStat: (LegendaryStat: LegendaryStatInputType, value: number) =>
                     set((state) => ({ legendaryStats: { ...state.legendaryStats, [LegendaryStat]: value } })),
                 setLegendaryStats: (legendaryStats: Partial<Record<LegendaryStatInputType, number>>) =>

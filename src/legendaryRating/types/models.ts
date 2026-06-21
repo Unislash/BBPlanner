@@ -6,6 +6,8 @@ export type CategoryId =
     "armor" |
     "helmet";
 
+export type SelectedCategoryId = CategoryId | null;
+
 export interface Category {
     name: string;
     id: CategoryId;
