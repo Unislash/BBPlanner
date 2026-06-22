@@ -118,6 +118,7 @@ export const LegendaryStatBar = ({
               : averagePercentile >= 50
                 ? "Superior"
                 : "Improved";
+    const percentileLabel = hasInvalidValue ? "Mistaken" : appraisalTierLabel || "Quality";
 
     const handlePrimaryChange = (event: ChangeEvent<HTMLInputElement>) => {
         const normalizedValue = normalizeIntegerInput(event.target.value);
@@ -175,9 +176,6 @@ export const LegendaryStatBar = ({
             <div className="legendaryStatMeta">
                 <div className="legendaryStatLabelRow">
                     <div className="legendaryStatLabel">{label}</div>
-                    {isModified && (
-                        !hasInvalidValue && <span className="legendaryStatChangedBadge">{appraisalTierLabel}</span>
-                    )}
                 </div>
                 <div className="legendaryStatRange">{rangeText}</div>
             </div>
@@ -216,7 +214,7 @@ export const LegendaryStatBar = ({
                         hasInvalidValue && "legendaryStatPercentiles_invalid",
                     ])}
                 >
-                    <span className="legendaryStatPercentileLabel">Quality</span>
+                    <span className="legendaryStatPercentileLabel">{percentileLabel}</span>
                     <strong className="legendaryStatPercentileValue">{percentileValue}</strong>
                     {!hasInvalidValue && (
                         <div className="legendaryStatPercentileBar">

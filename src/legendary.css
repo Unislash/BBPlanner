@@ -796,25 +796,12 @@
 .legendaryStatLabelRow {
     display: flex;
     align-items: center;
-    gap: 8px;
 }
 
 .legendaryStatLabel {
     font-size: 21px;
     line-height: 1.05;
     color: #2b1909;
-}
-
-.legendaryStatChangedBadge {
-    display: inline-flex;
-    align-items: center;
-    padding: 3px 8px 2px;
-    border: 1px solid rgba(137, 94, 23, 0.28);
-    background: rgba(118, 72, 13, 0.08);
-    color: #7c4a12;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
 }
 
 .legendaryStatRange {
