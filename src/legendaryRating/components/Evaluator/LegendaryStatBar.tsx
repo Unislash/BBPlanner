@@ -75,15 +75,9 @@ export const LegendaryStatBar = ({
 }: LegendaryStatBarProps): JSX.Element => {
     const [primaryInputValue, setPrimaryInputValue] = useState(`${primary.value}`);
     const [secondaryInputValue, setSecondaryInputValue] = useState(secondary ? `${secondary.value}` : "");
-    const parsedPrimaryInputValue = parseIntegerInput(primaryInputValue);
-    const parsedSecondaryInputValue = secondary ? parseIntegerInput(secondaryInputValue) : undefined;
-    const primaryIsInvalid = parsedPrimaryInputValue !== undefined
-        ? !isValueWithinRange(parsedPrimaryInputValue, primary.min, primary.max)
-        : !isValueWithinRange(primary.value, primary.min, primary.max);
-    const secondaryIsInvalid = !!secondary &&
-        (parsedSecondaryInputValue !== undefined
-            ? !isValueWithinRange(parsedSecondaryInputValue, secondary.min, secondary.max)
-            : !isValueWithinRange(secondary.value, secondary.min, secondary.max));
+
+    const primaryIsInvalid = !isValueWithinRange(primary.value, primary.min, primary.max);
+    const secondaryIsInvalid = !!secondary && !isValueWithinRange(secondary.value, secondary.min, secondary.max);
     const hasInvalidValue = primaryIsInvalid || secondaryIsInvalid;
 
     useEffect(() => {
@@ -94,35 +88,32 @@ export const LegendaryStatBar = ({
         setSecondaryInputValue(secondary ? `${secondary.value}` : "");
     }, [secondary, secondary?.value]);
 
-    const primaryPercentile = formatPercentile(getPercentile(primary.value, primary.min, primary.max));
-    const secondaryPercentile = secondary
-        ? formatPercentile(getPercentile(secondary.value, secondary.min, secondary.max))
+    const primaryPercentileValue = getPercentile(primary.value, primary.min, primary.max);
+    const secondaryPercentileValue = secondary
+        ? getPercentile(secondary.value, secondary.min, secondary.max)
+        : undefined;
+    const primaryPercentile = formatPercentile(primaryPercentileValue);
+    const secondaryPercentile = secondaryPercentileValue !== undefined
+        ? formatPercentile(secondaryPercentileValue)
         : undefined;
     const averagePercentile = secondary
-        ? (getPercentile(primary.value, primary.min, primary.max) +
-              getPercentile(secondary.value, secondary.min, secondary.max)) /
-          2
-        : getPercentile(primary.value, primary.min, primary.max);
-    const shouldShowQualityFeedback = isModified || hasInvalidValue;
+        ? (primaryPercentileValue + secondaryPercentileValue!) / 2
+        : primaryPercentileValue;
     const percentileValue = hasInvalidValue
         ? "Outside Range"
         : `${primaryPercentile}${secondaryPercentile ? ` / ${secondaryPercentile}` : ""}`;
-    const appraisalTierLabel = !isModified
-        ? ""
-        : hasInvalidValue
-          ? "Mistaken"
-          : averagePercentile >= 90
-            ? "Masterwork"
-            : averagePercentile >= 75
-              ? "Exquisite"
-              : averagePercentile >= 50
-                ? "Superior"
-                : "Improved";
-    const percentileLabel = hasInvalidValue ? "Mistaken" : appraisalTierLabel || "Quality";
+    const percentileLabel = hasInvalidValue
+        ? "Mistaken"
+        : averagePercentile >= 90
+          ? "Masterwork"
+          : averagePercentile >= 75
+            ? "Exquisite"
+            : averagePercentile >= 50
+              ? "Superior"
+              : "Improved";
 
     const handlePrimaryChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const normalizedValue = normalizeIntegerInput(event.target.value);
-        setPrimaryInputValue(normalizedValue);
+        setPrimaryInputValue(normalizeIntegerInput(event.target.value));
     };
 
     const handleSecondaryChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -130,8 +121,7 @@ export const LegendaryStatBar = ({
             return;
         }
 
-        const normalizedValue = normalizeIntegerInput(event.target.value);
-        setSecondaryInputValue(normalizedValue);
+        setSecondaryInputValue(normalizeIntegerInput(event.target.value));
     };
 
     const handlePrimaryBlur = () => {
@@ -174,9 +164,7 @@ export const LegendaryStatBar = ({
                 <img alt="" className="legendaryStatIcon" src={icon} />
             </div>
             <div className="legendaryStatMeta">
-                <div className="legendaryStatLabelRow">
-                    <div className="legendaryStatLabel">{label}</div>
-                </div>
+                <div className="legendaryStatLabel">{label}</div>
                 <div className="legendaryStatRange">{rangeText}</div>
             </div>
             <div className="legendaryStatValueGroup">
@@ -207,7 +195,7 @@ export const LegendaryStatBar = ({
                     )}
                 </div>
             </div>
-            {shouldShowQualityFeedback && (
+            {isModified && (
                 <div
                     className={classcat([
                         "legendaryStatPercentiles",
