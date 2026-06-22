@@ -731,8 +731,8 @@ const getDetailText = (
         switch (preference.tier) {
             case "premium":
                 return percentile >= 40
-                    ? `${capitalize(label)} is a top-tier stat for ${itemReference}. ${preference.reason}`
-                    : `${capitalize(label)} rolled low, but it is still a top-tier stat for ${itemReference}. ${preference.reason}`;
+                    ? `${capitalize(label)} rolled well. ${preference.reason}`
+                    : `${capitalize(label)} rolled low. ${preference.reason}`;
             case "strong":
                 return percentile >= 75
                     ? `${capitalize(label)} rolled well. ${preference.reason}`
@@ -753,49 +753,49 @@ const getDetailText = (
     switch (preference.tier) {
         case "premium":
             if (percentile >= 70) {
-                return `${capitalize(label)} got a great roll here and is a top-tier stat for ${itemReference}. ${preference.reason}`;
+                return `${capitalize(label)} rolled very well. ${preference.reason}`;
             }
 
             if (percentile >= 35) {
-                return `${capitalize(label)} is a top-tier stat for ${itemReference}, and is useful even with a moderate roll. ${preference.reason}`;
+                return `${capitalize(label)} rolled reasonably well. ${preference.reason}`;
             }
 
-            return `Although a low roll, ${capitalize(label)} is still valuable and one of the most important stats for ${itemReference}. ${preference.reason}`;
+            return `${capitalize(label)} rolled low. ${preference.reason}`;
         case "strong":
             if (percentile >= 70) {
-                return `${capitalize(label)} rolled very well and is very desirable on ${itemReference}. ${preference.reason}`;
+                return `${capitalize(label)} rolled very well. ${preference.reason}`;
             }
 
             if (percentile >= 35) {
-                return `${capitalize(label)} is a very desirable stat for ${itemReference}, and it rolled well here. ${preference.reason}`;
+                return `${capitalize(label)} rolled reasonably well. ${preference.reason}`;
             }
 
-            return `${capitalize(label)} is a very desirable stat for ${itemReference}, even with a modest roll. ${preference.reason}`;
+            return `${capitalize(label)} rolled low. ${preference.reason}`;
         case "useful":
             if (percentile >= 70) {
-                return `${capitalize(label)} rolled very well and is a useful stat for ${itemReference}. ${preference.reason}`;
+                return `${capitalize(label)} rolled very well. ${preference.reason}`;
             }
 
             if (percentile >= 35) {
-                return `${capitalize(label)} is useful on ${itemReference}, and it rolled well. ${preference.reason}`;
+                return `${capitalize(label)} rolled reasonably well. ${preference.reason}`;
             }
 
-            return `${capitalize(label)} rolled low, even if it is a useful stat for ${itemReference}. ${preference.reason}`;
+            return `${capitalize(label)} rolled low. ${preference.reason}`;
         case "minor":
             if (percentile >= 70) {
-                return `${capitalize(label)} rolled very well, but it only a slightly useful stat for ${itemReference}. ${preference.reason}`;
+                return `${capitalize(label)} rolled very well. ${preference.reason}`;
             }
 
-            return `${capitalize(label)} rolled low, and is only slightly useful on ${itemReference}. ${preference.reason}`;
+            return `${capitalize(label)} rolled low. ${preference.reason}`;
         case "wasted":
             if (percentile >= 70) {
-                return `${capitalize(label)} rolled high, but it is not useful on ${itemReference}. ${preference.reason}`;
+                return `${capitalize(label)} rolled high. ${preference.reason}`;
             }
 
-            return `${capitalize(label)} rolled, but it is not what you're looking for on ${itemReference}. ${preference.reason}`;
+            return `${capitalize(label)} is not what you're looking for on ${itemReference}. ${preference.reason}`;
         default:
             if (percentile >= 70) {
-                return `${capitalize(label)} rolled high, but it is actively unhelpful on ${itemReference}. ${preference.reason}`;
+                return `${capitalize(label)} rolled high. ${preference.reason}`;
             }
 
             return `${capitalize(label)} is actively unhelpful on ${itemReference}. ${preference.reason}`;
@@ -1376,7 +1376,7 @@ const getArchetypeContextEntries = (
         case "goblin_falchion":
             details.push({
                 impact: -0.28,
-                text: "Even with strong rolls, goblin weapons do less damage than the standard human alternatives. The exception being the Jagged Pike.",
+                text: "Even with good rolls, goblin weapons often do less damage than the standard human alternatives (the exception being the Jagged Pike, which offers more flexibility than human polearms with its 5ap attack).",
             });
             break;
         case "bow_goblin":
