@@ -1,3 +1,4 @@
+import { armorArchetypes, helmetArchetypes } from "../../data/archetypes";
 import type { Archetype, ArchetypeId, CategoryId, LegendaryStatInputType, LegendaryStatType } from "../../types/models";
 
 interface AppraisalFieldDefinition {
@@ -40,6 +41,13 @@ interface RowSummary {
 
 type PreferenceTier = "premium" | "strong" | "useful" | "minor" | "wasted" | "harmful";
 type RowId = (typeof appraisalRowDefinitions)[number]["id"];
+type ArmorRole = "nimble" | "battleforged" | "nimbleforged";
+
+interface ArmorStandardBenchmark {
+    durability: number;
+    fatigue: number;
+    name: string;
+}
 
 export const appraisalRowDefinitions: AppraisalRowDefinition[] = [
     {
@@ -656,7 +664,7 @@ const getShieldPreferences = (archetype: Archetype): Partial<Record<RowId, StatP
 const getArmorPreferences = (): Partial<Record<RowId, StatPreference>> => {
     return {
         durability: strong("Durability is the main stat that separates a strong piece of armor from a weak one.", "specific"),
-        fatigue: minor("Reduced fatigue is helpful, but you still need a good durability roll to make a great piece of armor.", "specific"),
+        fatigue: useful("Reduced fatigue matters a lot on armor and helmets because it determines which builds can actually wear the piece well.", "specific"),
     };
 };
 
@@ -800,6 +808,333 @@ const getUtilityForPreference = (preference: StatPreference, percentile: number)
     return profile.base + profile.scale * normalizedPercentile;
 };
 
+const getArmorRoleThresholds = (categoryId: CategoryId) => {
+    const isArmor = categoryId === "armor";
+
+    return {
+        heavyThreshold: isArmor ? 270 : 250,
+        lightThreshold: isArmor ? 16 : 10,
+        nimbleForgedThreshold: 170,
+    };
+};
+
+const getArmorRolesForStats = (
+    categoryId: CategoryId,
+    durability: number,
+    fatigue: number,
+): ArmorRole[] => {
+    const fatigueBurden = Math.abs(fatigue);
+    const { heavyThreshold, lightThreshold, nimbleForgedThreshold } = getArmorRoleThresholds(categoryId);
+    const roles: ArmorRole[] = [];
+
+    if (fatigueBurden < lightThreshold && durability >= nimbleForgedThreshold) {
+        roles.push("nimbleforged");
+    }
+
+    if (fatigueBurden < lightThreshold) {
+        roles.push("nimble");
+    }
+
+    if (durability > heavyThreshold) {
+        roles.push("battleforged");
+    }
+
+    return roles;
+};
+
+const canArchetypeFitArmorRole = (archetype: Archetype, categoryId: CategoryId, role: ArmorRole) => {
+    const bestFatigue = getRangeValue(archetype, "fatigueMax");
+    const bestDurability = getRangeValue(archetype, "durabilityMax");
+
+    if (bestFatigue === undefined || bestDurability === undefined) {
+        return false;
+    }
+
+    const { heavyThreshold, lightThreshold, nimbleForgedThreshold } = getArmorRoleThresholds(categoryId);
+    const fatigueBurden = Math.abs(bestFatigue);
+
+    switch (role) {
+        case "nimble":
+            return fatigueBurden < lightThreshold;
+        case "battleforged":
+            return bestDurability > heavyThreshold;
+        case "nimbleforged":
+            return fatigueBurden < lightThreshold && bestDurability >= nimbleForgedThreshold;
+    }
+};
+
+const getArmorRoleRanges = (categoryId: CategoryId, role: ArmorRole) => {
+    const archetypePool = Object.values(categoryId === "armor" ? armorArchetypes : helmetArchetypes).filter((archetype) =>
+        canArchetypeFitArmorRole(archetype, categoryId, role)
+    );
+    const { heavyThreshold, nimbleForgedThreshold } = getArmorRoleThresholds(categoryId);
+    const durabilityFloor =
+        role === "battleforged" ? heavyThreshold : role === "nimbleforged" ? nimbleForgedThreshold : undefined;
+    const durabilityMin = Math.min(...archetypePool.map((archetype) => archetype.durabilityMin));
+    const durabilityMax = Math.max(...archetypePool.map((archetype) => archetype.durabilityMax));
+    const fatigueMin = Math.min(...archetypePool.map((archetype) => archetype.fatigueMin));
+    const fatigueMax = Math.max(...archetypePool.map((archetype) => archetype.fatigueMax));
+
+    return {
+        durabilityMin: durabilityFloor === undefined ? durabilityMin : Math.max(durabilityMin, durabilityFloor),
+        durabilityMax,
+        fatigueMin,
+        fatigueMax,
+    };
+};
+
+const getArmorRoleLabel = (percentile: number) => {
+    if (percentile >= 90) {
+        return "Godly";
+    }
+
+    if (percentile >= 80) {
+        return "Excellent";
+    }
+
+    if (percentile >= 65) {
+        return "Strong";
+    }
+
+    if (percentile >= 50) {
+        return "Good";
+    }
+
+    if (percentile >= 35) {
+        return "Average";
+    }
+
+    if (percentile >= 20) {
+        return "Weak";
+    }
+
+    return "Poor";
+};
+
+const getArmorRoleDisplayName = (role: ArmorRole) => {
+    switch (role) {
+        case "battleforged":
+            return "battleforged";
+        case "nimble":
+            return "nimble";
+        case "nimbleforged":
+            return "nimbleforged";
+    }
+};
+
+const getArmorCategoryLabel = (categoryId: CategoryId, plural = false) => {
+    if (categoryId === "helmet") {
+        return plural ? "helmets" : "helmet";
+    }
+
+    return plural ? "armor pieces" : "armor piece";
+};
+
+const armorStandardBenchmarks: Record<"armor" | "helmet", Record<Exclude<ArmorRole, "nimbleforged">, ArmorStandardBenchmark>> = {
+    armor: {
+        battleforged: {
+            durability: 300,
+            fatigue: -38,
+            name: "Coat of Scales",
+        },
+        nimble: {
+            durability: 120,
+            fatigue: -9,
+            name: "Assassin's Robe",
+        },
+    },
+    helmet: {
+        battleforged: {
+            durability: 300,
+            fatigue: -20,
+            name: "Full Helm",
+        },
+        nimble: {
+            durability: 140,
+            fatigue: -6,
+            name: "Assassin's Face Mask",
+        },
+    },
+};
+
+const getArmorStandardBenchmark = (categoryId: CategoryId, role: Exclude<ArmorRole, "nimbleforged">) => {
+    if (categoryId !== "armor" && categoryId !== "helmet") {
+        return undefined;
+    }
+
+    return armorStandardBenchmarks[categoryId][role];
+};
+
+const formatFatigueDelta = (value: number) => {
+    if (value === 0) {
+        return "equal fatigue";
+    }
+
+    return value > 0 ? `${value} less fatigue` : `${Math.abs(value)} more fatigue`;
+};
+
+const getArmorRecommendation = (durabilityDelta: number, fatigueDelta: number) => {
+    if (durabilityDelta > 0) {
+        return "Use it.";
+    }
+
+    if (durabilityDelta === 0 && fatigueDelta >= 0) {
+        return "Use it.";
+    }
+
+    if (fatigueDelta > 0 && durabilityDelta >= -5) {
+        return "Use it.";
+    }
+
+    return "Skip it.";
+};
+
+const getArmorComparisonDetail = (
+    archetype: Archetype,
+    categoryId: CategoryId,
+    role: ArmorRole,
+    durability: number,
+    fatigue: number,
+    score: number,
+) => {
+    if (role === "nimbleforged") {
+        return score >= 70
+            ? `No clean standard equivalent for nimbleforged. ${getArchetypeReference(archetype, "subject")} is worth using.`
+            : `No clean standard equivalent for nimbleforged. ${getArchetypeReference(archetype, "subject")} is not worth using.`;
+    }
+
+    const benchmark = getArmorStandardBenchmark(categoryId, role);
+
+    if (!benchmark) {
+        return undefined;
+    }
+
+    const durabilityDelta = durability - benchmark.durability;
+    const fatigueDelta = fatigue - benchmark.fatigue;
+    const durabilityText = durabilityDelta === 0
+        ? "same durability"
+        : durabilityDelta > 0
+        ? `+${durabilityDelta} durability`
+        : `-${Math.abs(durabilityDelta)} durability`;
+    const recommendation = getArmorRecommendation(durabilityDelta, fatigueDelta);
+
+    return `Vs ${benchmark.name} (${benchmark.durability}/${benchmark.fatigue}), ${getArchetypeReference(archetype, "subject")} has ${durabilityText} and ${formatFatigueDelta(fatigueDelta)}. ${recommendation}`;
+};
+
+const getArmorRoleFatigueBonus = (fatiguePercentile: number) => {
+    if (fatiguePercentile >= 90) {
+        return 6;
+    }
+
+    if (fatiguePercentile >= 80) {
+        return 3;
+    }
+
+    return 0;
+};
+
+const getArmorOrHelmetRating = (
+    archetype: Archetype,
+    categoryId: CategoryId,
+    legendaryStats: Partial<Record<LegendaryStatInputType, number>>,
+    defaultLegendaryStats: Partial<Record<LegendaryStatInputType, number>>,
+): RatingResult => {
+    const modifiedRows = getValidModifiedRows(archetype, legendaryStats, defaultLegendaryStats);
+
+    if (modifiedRows.length === 0) {
+        return { details: [], label: "Unrated", percentile: 0, ratedRowCount: 0 };
+    }
+
+    const durability = getCurrentStatValue(legendaryStats, defaultLegendaryStats, "durability");
+    const fatigue = getCurrentStatValue(legendaryStats, defaultLegendaryStats, "fatigue");
+
+    if (durability === undefined || fatigue === undefined) {
+        return { details: [], label: "Unrated", percentile: 0, ratedRowCount: modifiedRows.length };
+    }
+
+    const durabilityRollPercentile = getPercentile(
+        durability,
+        getRangeValue(archetype, "durabilityMin")!,
+        getRangeValue(archetype, "durabilityMax")!,
+    );
+    const fatigueRollPercentile = getPercentile(
+        fatigue,
+        getRangeValue(archetype, "fatigueMin")!,
+        getRangeValue(archetype, "fatigueMax")!,
+    );
+    const fittingRoles = getArmorRolesForStats(categoryId, durability, fatigue);
+
+    if (fittingRoles.length === 0) {
+        const percentile = clamp(Math.round((durabilityRollPercentile * 0.6 + fatigueRollPercentile * 0.4) * 0.64), 0, 64);
+
+        return {
+            details: [
+                `${getArchetypeReference(archetype, "subject")} does not cleanly fit nimble, battleforged, or nimbleforged use.`,
+                `Current rolls are about the ${Math.round(durabilityRollPercentile)}th durability percentile and the ${Math.round(fatigueRollPercentile)}th fatigue percentile for ${getArchetypeReference(archetype, "object")}.`,
+                `Usually not worth using.`,
+            ],
+            label: getArmorRoleLabel(percentile),
+            percentile,
+            ratedRowCount: modifiedRows.length,
+        };
+    }
+
+    const bestRole = fittingRoles
+        .map((role) => {
+            const ranges = getArmorRoleRanges(categoryId, role);
+            const roleDurabilityPercentile = getPercentile(durability, ranges.durabilityMin, ranges.durabilityMax);
+            const roleFatiguePercentile = getPercentile(fatigue, ranges.fatigueMin, ranges.fatigueMax);
+            const fatigueBonus = getArmorRoleFatigueBonus(roleFatiguePercentile);
+
+            return {
+                fatigueBonus,
+                role,
+                roleDurabilityPercentile,
+                roleFatiguePercentile,
+                score: clamp(Math.round(roleDurabilityPercentile + fatigueBonus), 0, 100),
+            };
+        })
+        .sort((left, right) => right.score - left.score)[0];
+
+    const alternativeRoles = fittingRoles.filter((role) => role !== bestRole.role);
+    const details = [
+        `${getArchetypeReference(archetype, "subject")} fits ${getArmorRoleDisplayName(bestRole.role)} use.`,
+        `${durability} durability puts ${getArchetypeReference(archetype, "object")} around the ${Math.round(bestRole.roleDurabilityPercentile)}th percentile for ${getArmorRoleDisplayName(bestRole.role)} ${getArmorCategoryLabel(categoryId, true)}.`,
+    ];
+
+    if (bestRole.fatigueBonus > 0) {
+        details.push(
+            `${fatigue} fatigue is unusually low for a ${getArmorRoleDisplayName(bestRole.role)} ${getArmorCategoryLabel(categoryId)}, which adds a small bonus here.`,
+        );
+    }
+
+    if (alternativeRoles.length > 0) {
+        details.push(
+            `${getArchetypeReference(archetype, "subject")} also fits ${alternativeRoles.map(getArmorRoleDisplayName).join(" and ")} use, but ${getArmorRoleDisplayName(bestRole.role)} is the better comparison.`,
+        );
+    }
+
+    const comparisonDetail = getArmorComparisonDetail(
+        archetype,
+        categoryId,
+        bestRole.role,
+        durability,
+        fatigue,
+        bestRole.score,
+    );
+
+    if (comparisonDetail) {
+        details.push(comparisonDetail);
+    }
+
+    return {
+        details,
+        label: getArmorRoleLabel(bestRole.score),
+        percentile: bestRole.score,
+        ratedRowCount: modifiedRows.length,
+    };
+};
+
 const getArmorClassificationEntries = (
     archetype: Archetype,
     categoryId: CategoryId,
@@ -822,6 +1157,16 @@ const getArmorClassificationEntries = (
     const lightThreshold = isArmor ? 16 : 10;
     const heavyThreshold = isArmor ? 270 : 250;
     const nimbleForgedThreshold = isArmor ? 170 : 170;
+    const durabilityPercentile = getPercentile(
+        durability,
+        getRangeValue(archetype, "durabilityMin")!,
+        getRangeValue(archetype, "durabilityMax")!,
+    );
+    const fatiguePercentile = getPercentile(
+        fatigue,
+        getRangeValue(archetype, "fatigueMin")!,
+        getRangeValue(archetype, "fatigueMax")!,
+    );
     const details: DetailEntry[] = [];
     const fitsNimble = fatigueBurden < lightThreshold;
     const fitsBattleForged = durability > heavyThreshold;
@@ -846,6 +1191,25 @@ const getArmorClassificationEntries = (
             impact: 0.12,
             text: `${getArchetypeReference(archetype, "subject")} has high enough durability to fit battleforged use.`,
         });
+    }
+
+    if (durabilityPercentile >= 85 && fatiguePercentile >= 85) {
+        if (fitsNimbleForged) {
+            details.push({
+                impact: 0.34,
+                text: `${getArchetypeReference(archetype, "subject")} rolled extremely well in both durability and fatigue for a nimbleforged piece.`,
+            });
+        } else if (fitsBattleForged) {
+            details.push({
+                impact: 0.34,
+                text: `${getArchetypeReference(archetype, "subject")} rolled extremely well in both durability and fatigue for a battleforged piece.`,
+            });
+        } else if (fitsNimble) {
+            details.push({
+                impact: 0.24,
+                text: `${getArchetypeReference(archetype, "subject")} rolled extremely well in both durability and fatigue for a nimble piece.`,
+            });
+        }
     }
 
     if (!fitsNimble && !fitsBattleForged && !fitsNimbleForged) {
@@ -1095,6 +1459,10 @@ export const getOverallRating = (
     defaultLegendaryStats: Partial<Record<LegendaryStatInputType, number>>,
     categoryId: CategoryId,
 ): RatingResult => {
+    if (categoryId === "armor" || categoryId === "helmet") {
+        return getArmorOrHelmetRating(archetype, categoryId, legendaryStats, defaultLegendaryStats);
+    }
+
     const modifiedRows = getValidModifiedRows(archetype, legendaryStats, defaultLegendaryStats);
     const suppressStatSummaries = archetype.id === "orc_heavy";
 
@@ -1208,7 +1576,7 @@ export const getCompletedAppraisalLine = (rating: RatingResult) => {
         case "Godly":
             return "By the gods, that's wicked good work. A real beaut. Do right by her and she'll keep yeh sitting pretty--that she will.";
         case "Excellent":
-            return "Aye, that's real fine work. Far better than most that comes through my door, and I've seen plenty.";
+            return "Aye, that's real fine work. Far better than most that yeh see, and I've seen plenty.";
         case "Strong":
             return "Yeh have a good, solid piece here. The sort of thing folk'll brag to strangers about after an ale or two. Not that I recommend doing that.";
         case "Good":
