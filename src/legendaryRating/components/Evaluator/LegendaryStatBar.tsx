@@ -7,7 +7,7 @@ type Tone = "red" | "yellow" | "blue" | "brown" | "gray";
 interface StatInput {
     max: number;
     min: number;
-    onChange: (value: number) => void;
+    onCommit: (value: number) => void;
     value: number;
 }
 
@@ -75,8 +75,15 @@ export const LegendaryStatBar = ({
 }: LegendaryStatBarProps): JSX.Element => {
     const [primaryInputValue, setPrimaryInputValue] = useState(`${primary.value}`);
     const [secondaryInputValue, setSecondaryInputValue] = useState(secondary ? `${secondary.value}` : "");
-    const primaryIsInvalid = !isValueWithinRange(primary.value, primary.min, primary.max);
-    const secondaryIsInvalid = !!secondary && !isValueWithinRange(secondary.value, secondary.min, secondary.max);
+    const parsedPrimaryInputValue = parseIntegerInput(primaryInputValue);
+    const parsedSecondaryInputValue = secondary ? parseIntegerInput(secondaryInputValue) : undefined;
+    const primaryIsInvalid = parsedPrimaryInputValue !== undefined
+        ? !isValueWithinRange(parsedPrimaryInputValue, primary.min, primary.max)
+        : !isValueWithinRange(primary.value, primary.min, primary.max);
+    const secondaryIsInvalid = !!secondary &&
+        (parsedSecondaryInputValue !== undefined
+            ? !isValueWithinRange(parsedSecondaryInputValue, secondary.min, secondary.max)
+            : !isValueWithinRange(secondary.value, secondary.min, secondary.max));
     const hasInvalidValue = primaryIsInvalid || secondaryIsInvalid;
 
     useEffect(() => {
@@ -96,6 +103,7 @@ export const LegendaryStatBar = ({
               getPercentile(secondary.value, secondary.min, secondary.max)) /
           2
         : getPercentile(primary.value, primary.min, primary.max);
+    const shouldShowQualityFeedback = isModified || hasInvalidValue;
     const percentileValue = hasInvalidValue
         ? "Outside Range"
         : `${primaryPercentile}${secondaryPercentile ? ` / ${secondaryPercentile}` : ""}`;
@@ -114,11 +122,6 @@ export const LegendaryStatBar = ({
     const handlePrimaryChange = (event: ChangeEvent<HTMLInputElement>) => {
         const normalizedValue = normalizeIntegerInput(event.target.value);
         setPrimaryInputValue(normalizedValue);
-
-        const parsedValue = parseIntegerInput(normalizedValue);
-        if (parsedValue !== undefined) {
-            primary.onChange(parsedValue);
-        }
     };
 
     const handleSecondaryChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -128,19 +131,28 @@ export const LegendaryStatBar = ({
 
         const normalizedValue = normalizeIntegerInput(event.target.value);
         setSecondaryInputValue(normalizedValue);
-
-        const parsedValue = parseIntegerInput(normalizedValue);
-        if (parsedValue !== undefined) {
-            secondary.onChange(parsedValue);
-        }
     };
 
     const handlePrimaryBlur = () => {
+        const parsedValue = parseIntegerInput(primaryInputValue);
+        if (parsedValue !== undefined) {
+            primary.onCommit(parsedValue);
+            setPrimaryInputValue(`${parsedValue}`);
+            return;
+        }
+
         setPrimaryInputValue(`${primary.value}`);
     };
 
     const handleSecondaryBlur = () => {
         if (!secondary) {
+            return;
+        }
+
+        const parsedValue = parseIntegerInput(secondaryInputValue);
+        if (parsedValue !== undefined) {
+            secondary.onCommit(parsedValue);
+            setSecondaryInputValue(`${parsedValue}`);
             return;
         }
 
@@ -197,7 +209,7 @@ export const LegendaryStatBar = ({
                     )}
                 </div>
             </div>
-            {isModified && (
+            {shouldShowQualityFeedback && (
                 <div
                     className={classcat([
                         "legendaryStatPercentiles",

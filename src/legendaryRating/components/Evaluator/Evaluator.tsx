@@ -330,7 +330,7 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
                                             min: primaryMin,
                                             max: primaryMax,
                                             value: legendaryStats[definition.primary.inputKey] ?? primaryMin,
-                                            onChange: (value: number) =>
+                                            onCommit: (value: number) =>
                                                 setLegendaryStat(definition.primary.inputKey, value),
                                         }}
                                         secondary={
@@ -342,7 +342,7 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
                                                       max: secondaryMax,
                                                       value:
                                                           legendaryStats[definition.secondary.inputKey] ?? secondaryMin,
-                                                      onChange: (value: number) =>
+                                                      onCommit: (value: number) =>
                                                           setLegendaryStat(definition.secondary!.inputKey, value),
                                                   }
                                                 : undefined
