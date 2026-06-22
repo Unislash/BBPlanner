@@ -28,7 +28,7 @@ export const legendaryThemes: Record<LegendaryThemeId, LegendaryTheme> = {
     },
     classic: {
         id: "classic",
-        label: "Embers",
+        label: "Classic",
         modifierClassName: "legendaryTheme_classic",
         avatarImage: patronAvatar,
         buttonImage: patronAvatar,

@@ -1110,7 +1110,7 @@ const getArmorOrHelmetRating = (
 
     if (alternativeRoles.length > 0) {
         details.push(
-            `${getArchetypeReference(archetype, "subject")} also fits ${alternativeRoles.map(getArmorRoleDisplayName).join(" and ")} use, but ${getArmorRoleDisplayName(bestRole.role)} is the better comparison.`,
+            `${getArchetypeReference(archetype, "subject")} also fits ${alternativeRoles.map(getArmorRoleDisplayName).join(" and ")} use.`,
         );
     }
 
