@@ -340,6 +340,12 @@
     padding-top: 8px;
 }
 
+.legendarySelectionTray_empty {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100dvh - 360px);
+}
+
 .legendaryEmptyState {
     width: min(750px, 100%);
     margin: 8px auto;
@@ -376,7 +382,19 @@
 
 .legendaryEmptyStateCTA {
     margin: 12px auto 0;
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 1px 2px 2px #000, 1px 2px 2px #000, 1px 2px 2px #000;
+}
+
+.legendaryEmptyStateNotes {
+    font-size: 15px;
+    font-style: italic;
+}
+
+.legendarySelectionTray_empty .legendaryEmptyState:last-child {
+    margin-top: auto;
+    margin-bottom: 48px;
 }
 
 .archetypeGrid {
@@ -964,6 +982,10 @@
 }
 
 @media only screen and (max-width: 1000px) {
+    .legendarySelectionTray_empty {
+        min-height: calc(100dvh - 300px);
+    }
+
     .barRoom {
         padding: 18px 14px 100px;
     }
@@ -1020,4 +1042,10 @@
         max-height: 260px;
     }
 
+}
+
+@media only screen and (max-width: 680px) {
+    .legendarySelectionTray_empty {
+        min-height: 0;
+    }
 }

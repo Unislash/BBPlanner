@@ -111,7 +111,7 @@ export const LegendaryPicker = ({ selectedCategoryId, setSelectedCategoryId }: L
                 </div>
             </div>
             {selectedArchetypeId == null ? (
-                <div className="legendarySelectionTray">
+                <div className={`legendarySelectionTray ${!selectedCategoryId ? "legendarySelectionTray_empty" : ""}`}>
                     {selectedCategoryId ? (
                         <div className="archetypeGrid">
                             {(Object.values(archetypesByCategoryId[selectedCategoryId]) as PickerArchetype[]).map(
@@ -135,13 +135,23 @@ export const LegendaryPicker = ({ selectedCategoryId, setSelectedCategoryId }: L
                             )}
                         </div>
                     ) : (
-                        <div className="legendaryEmptyState">
-                            <div className="legendaryEmptyStateBody">
-                                Few men alive have seen more famed weapons and armor than the old mercenary-turned-barkeep.<br/>
-                                Show him a piece of equipment and he'll judge its quality, pointing out any noteworthy details.
+                        <>
+                            <div className="legendaryEmptyState">
+                                <div className="legendaryEmptyStateBody">
+                                    Few men alive have seen more famed weapons and armor than the old mercenary-turned-barkeep.<br/>
+                                    Show him a piece of equipment and he'll judge its quality, pointing out any noteworthy details.
+                                </div>
+                                <div className="legendaryEmptyStateCTA">To begin, choose an equipment category above.</div>
                             </div>
-                            <div className="legendaryEmptyStateCTA">To begin, choose an equipment category above.</div>
-                        </div>
+                            <div className="legendaryEmptyState">
+                                <div className="legendaryEmptyStateNotes">
+                                    This tool gives you an overall rating for your named equipment and show the possible stat ranges.<br/>
+                                    It also includes written details to explain the specifics that impacted the rating.
+                                    <br/><br/>
+                                    There are a lot of heuristics involved in this tool, and it can make mistakes. If you have feedback, please message <a href="mailto:unislash@bbplanner.xyz">unislash@bbplanner.xyz</a>
+                                </div>
+                            </div>
+                        </>
                     )}
                 </div>
             ) : (
