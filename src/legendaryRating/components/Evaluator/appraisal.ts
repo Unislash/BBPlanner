@@ -962,18 +962,18 @@ const formatFatigueDelta = (value: number) => {
 
 const getArmorRecommendation = (durabilityDelta: number, fatigueDelta: number) => {
     if (durabilityDelta > 0) {
-        return "Use it.";
+        return "Definitely consider using it.";
     }
 
     if (durabilityDelta === 0 && fatigueDelta >= 0) {
-        return "Use it.";
+        return "Definitely consider using it.";
     }
 
     if (fatigueDelta > 0 && durabilityDelta >= -5) {
-        return "Use it.";
+        return "Definitely consider using it.";
     }
 
-    return "Skip it.";
+    return "It might be a good backup, but probably not your main gear.";
 };
 
 const getArmorComparisonDetail = (
@@ -985,9 +985,7 @@ const getArmorComparisonDetail = (
     score: number,
 ) => {
     if (role === "nimbleforged") {
-        return score >= 70
-            ? `No clean standard equivalent for nimbleforged. ${getArchetypeReference(archetype, "subject")} is worth using.`
-            : `No clean standard equivalent for nimbleforged. ${getArchetypeReference(archetype, "subject")} is not worth using.`;
+        return `${getArchetypeReference(archetype, "subject")} is a good piece of nimbleforged armor.`;
     }
 
     const benchmark = getArmorStandardBenchmark(categoryId, role);
@@ -1005,7 +1003,7 @@ const getArmorComparisonDetail = (
         : `-${Math.abs(durabilityDelta)} durability`;
     const recommendation = getArmorRecommendation(durabilityDelta, fatigueDelta);
 
-    return `Vs ${benchmark.name} (${benchmark.durability}/${benchmark.fatigue}), ${getArchetypeReference(archetype, "subject")} has ${durabilityText} and ${formatFatigueDelta(fatigueDelta)}. ${recommendation}`;
+    return `Compared to the benchmark of the ${benchmark.name} (${benchmark.durability}/${benchmark.fatigue}), ${getArchetypeReference(archetype, "subject")} has ${durabilityText} and ${formatFatigueDelta(fatigueDelta)}. ${recommendation}`;
 };
 
 const getArmorRoleFatigueBonus = (fatiguePercentile: number) => {
@@ -1056,9 +1054,7 @@ const getArmorOrHelmetRating = (
 
         return {
             details: [
-                `${getArchetypeReference(archetype, "subject")} does not cleanly fit nimble, battleforged, or nimbleforged use.`,
-                `Current rolls are about the ${Math.round(durabilityRollPercentile)}th durability percentile and the ${Math.round(fatigueRollPercentile)}th fatigue percentile for ${getArchetypeReference(archetype, "object")}.`,
-                `Usually not worth using.`,
+                `This ${archetype.name} does not cleanly fit nimble, battleforged, or nimbleforged use.`,
             ],
             label: getArmorRoleLabel(percentile),
             percentile,
@@ -1307,33 +1303,6 @@ const getShieldContextEntries = (archetype: Archetype, rowSummaries: RowSummary[
     return details;
 };
 
-const getPremiumRollEntries = (
-    archetype: Archetype,
-    categoryId: CategoryId,
-    rowSummaries: RowSummary[],
-) => {
-    if (
-        categoryId === "armor" ||
-        categoryId === "helmet" ||
-        archetypeCeilings[archetype.id] !== undefined
-    ) {
-        return [];
-    }
-
-    const premiumRowCount = rowSummaries.filter((summary) => summary.preference.tier === "premium").length;
-
-    if (premiumRowCount < 2) {
-        return [];
-    }
-
-    return [
-        {
-            impact: 0,
-            text: `${getArchetypeReference(archetype, "subject")} rolled two of its top-tier stats. That alone makes it rare and almost certainly worth using.`,
-        },
-    ];
-};
-
 const getArchetypeCeiling = (archetype: Archetype) => {
     return archetypeCeilings[archetype.id];
 };
@@ -1370,7 +1339,7 @@ const getArchetypeContextEntries = (
         case "orc_heavy":
             details.push({
                 impact: -0.5,
-                text: "The orc heavy shield costs so much fatigue that its defenses just don't justify using it. It's worth some gold though.",
+                text: "The orc heavy shield costs so much fatigue that its defenses just don't justify using it.",
             });
             break;
         case "metal_heater":
@@ -1397,10 +1366,41 @@ const getArchetypeContextEntries = (
         details.push(...getShieldContextEntries(archetype, rowSummaries));
     }
 
-    details.push(...getPremiumRollEntries(archetype, categoryId, rowSummaries));
     details.push(...getThrowingWeaponEntries(archetype, legendaryStats, defaultLegendaryStats));
 
     return details;
+};
+
+const getUseRecommendationDetail = (
+    archetype: Archetype,
+    percentile: number,
+    rowSummaries: RowSummary[],
+) => {
+    const premiumRowCount = rowSummaries.filter((summary) => summary.preference.tier === "premium").length;
+
+    switch (archetype.id) {
+        case "orc_heavy":
+            return "Congrats, you found an ornament for the wagon!";
+        case "spear":
+            return percentile >= 70
+                ? "This one is worth using if you find it early, but not something to plan around for the late game."
+                : "This one is usually not worth using unless you need an early spear.";
+        case "spetum":
+        case "goblin_skewer":
+        case "goblin_falchion":
+        case "bow_goblin":
+            return null;
+        default:
+            if (premiumRowCount >= 2) {
+                return `${getArchetypeReference(archetype, "subject")} rolled two of its top-tier stats. That alone makes it rare and almost certainly worth using.`;
+            }
+
+            if (percentile >= 70) {
+                return "This rolled well and is a very solid improvement on the standard equivalent.";
+            }
+
+            return "Even if this didn't roll amazingly well, it's still better than the standard equivalent.";
+    }
 };
 
 const getRatingPercentile = (utilityScore: number) => {
@@ -1507,6 +1507,8 @@ export const getOverallRating = (
     const details = detailEntries
         .sort((left, right) => right.impact - left.impact)
         .map((entry) => entry.text);
+    const recommendationDetail = getUseRecommendationDetail(archetype, percentile, rowSummaries);
+    recommendationDetail && details.push(recommendationDetail);
 
     return {
         details,
