@@ -111,6 +111,15 @@ const ratingTiers = [
     { minimum: 0, label: "Poor" },
 ];
 
+const archetypeCeilings: Partial<Record<ArchetypeId, number>> = {
+    goblin_skewer: 68,
+    goblin_falchion: 68,
+    bow_goblin: 68,
+    spetum: 62,
+    spear: 88,
+    orc_heavy: 48,
+};
+
 const rowLabelById: Record<RowId, string> = {
     accuracy: "accuracy",
     ammo: "extra ammo",
@@ -432,10 +441,6 @@ const getOneHandedPreferences = (
         };
     }
 
-    if (isArchetypeId(archetype, ["cleaver", "khopesh"])) {
-        return standard;
-    }
-
     if (archetype.id === "orc_cleaver") {
         return {
             ...standard,
@@ -457,28 +462,10 @@ const getOneHandedPreferences = (
         };
     }
 
-    if (archetype.id === "mace") {
-        return standard;
-    }
-
-    if (archetype.id === "spear") {
-        return standard;
-    }
-
     if (archetype.id === "sword_fencing") {
         return {
             ...standard,
             fatigueSkillCost: strong("Skill-fatigue reduction matters more on fencing swords because fatigue lowers Lunge damage.", "specific"),
-        };
-    }
-
-    if (isArchetypeId(archetype, ["shamshir", "sword"])) {
-        return standard;
-    }
-
-    if (isArchetypeId(archetype, ["goblin_skewer", "goblin_falchion"])) {
-        return {
-            ...standard,
         };
     }
 
@@ -1320,21 +1307,35 @@ const getShieldContextEntries = (archetype: Archetype, rowSummaries: RowSummary[
     return details;
 };
 
-const getArchetypeCeiling = (archetype: Archetype) => {
-    switch (archetype.id) {
-        case "goblin_skewer":
-        case "goblin_falchion":
-        case "bow_goblin":
-            return 68;
-        case "spetum":
-            return 62;
-        case "spear":
-            return 88;
-        case "orc_heavy":
-            return 48;
-        default:
-            return undefined;
+const getPremiumRollEntries = (
+    archetype: Archetype,
+    categoryId: CategoryId,
+    rowSummaries: RowSummary[],
+) => {
+    if (
+        categoryId === "armor" ||
+        categoryId === "helmet" ||
+        archetypeCeilings[archetype.id] !== undefined
+    ) {
+        return [];
     }
+
+    const premiumRowCount = rowSummaries.filter((summary) => summary.preference.tier === "premium").length;
+
+    if (premiumRowCount < 2) {
+        return [];
+    }
+
+    return [
+        {
+            impact: 0,
+            text: `${getArchetypeReference(archetype, "subject")} rolled two of its top-tier stats. That alone makes it rare and almost certainly worth using.`,
+        },
+    ];
+};
+
+const getArchetypeCeiling = (archetype: Archetype) => {
+    return archetypeCeilings[archetype.id];
 };
 
 const getArchetypeContextEntries = (
@@ -1347,25 +1348,6 @@ const getArchetypeContextEntries = (
     const details: DetailEntry[] = [];
 
     switch (archetype.id) {
-        case "qatal_dagger":
-            if (hasModifiedRow("damage", archetype, legendaryStats, defaultLegendaryStats) &&
-                hasModifiedRow("directDamage", archetype, legendaryStats, defaultLegendaryStats)) {
-                details.push({
-                    impact: 0.16,
-                    text: `${getArchetypeReference(archetype, "subject")} rolled both of its top-tier stats. This alone makes it rare and absolutely worth using.`,
-                });
-            }
-            break;
-        case "warhammer":
-        case "mace":
-            if (hasModifiedRow("damage", archetype, legendaryStats, defaultLegendaryStats) &&
-                hasModifiedRow("directDamage", archetype, legendaryStats, defaultLegendaryStats)) {
-                details.push({
-                    impact: 0.12,
-                    text: `${getArchetypeReference(archetype, "subject")} rolled both of its top-tier stats. This alone makes it rare and absolutely worth using.`,
-                });
-            }
-            break;
         case "spear":
             details.push({
                 impact: -0.18,
@@ -1415,6 +1397,7 @@ const getArchetypeContextEntries = (
         details.push(...getShieldContextEntries(archetype, rowSummaries));
     }
 
+    details.push(...getPremiumRollEntries(archetype, categoryId, rowSummaries));
     details.push(...getThrowingWeaponEntries(archetype, legendaryStats, defaultLegendaryStats));
 
     return details;
@@ -1437,13 +1420,14 @@ const getPremiumThresholdBonus = (
 
     const averagePremiumPercentile =
         premiumPercentiles.reduce((sum, percentile) => sum + percentile, 0) / premiumPercentiles.length;
+    const lowestPremiumPercentile = Math.min(...premiumPercentiles);
 
     if (premiumPercentiles.length >= 2) {
-        if (averagePremiumPercentile >= 75) {
+        if (averagePremiumPercentile >= 75 && lowestPremiumPercentile >= 65) {
             return 6;
         }
 
-        if (averagePremiumPercentile >= 50) {
+        if (averagePremiumPercentile >= 50 && lowestPremiumPercentile >= 45) {
             return 4;
         }
 
