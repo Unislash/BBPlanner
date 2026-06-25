@@ -145,7 +145,7 @@ export const LegendaryPicker = ({ selectedCategoryId, setSelectedCategoryId }: L
                             </div>
                             <div className="legendaryEmptyState">
                                 <div className="legendaryEmptyStateNotes">
-                                    This tool gives you an overall rating for your named equipment and show the possible stat ranges.<br/>
+                                    This tool gives you an overall rating for your named equipment and shows the possible stat ranges.<br/>
                                     It also includes written details to explain the specifics that impacted the rating.
                                     <br/><br/>
                                     There are a lot of heuristics involved in this tool, and it can make mistakes. If you have feedback, please message <a href="mailto:unislash@bbplanner.xyz">unislash@bbplanner.xyz</a>
