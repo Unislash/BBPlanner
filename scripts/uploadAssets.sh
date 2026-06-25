@@ -108,8 +108,8 @@ mkdir -p "${OUTPUT_DIR}"
 JSON_STRING='
 {
   "Paths": {
-    "Quantity": 3,
-    "Items": ["/index.html", "/error.html", "/"]
+    "Quantity": 6,
+    "Items": ["/index.html", "/error.html", "/", "/legendary", "/legendary/", "/legendary/index.html"]
   },
   "CallerReference": "'$DATESTRING'"
 }
