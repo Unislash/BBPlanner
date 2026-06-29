@@ -660,6 +660,12 @@ body .rc-tooltip-inner {
     line-height: 1.08;
 }
 
+.legendaryAppraisalPromptMeta_info {
+    cursor: help;
+    text-decoration: underline dotted rgba(93, 58, 24, 0.45);
+    text-underline-offset: 0.14em;
+}
+
 .legendaryAppraisalPromptMetaGroup {
     display: inline-flex;
     align-items: center;

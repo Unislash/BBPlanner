@@ -231,6 +231,15 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
         ? isAppraisalComplete(selectedArchetype, legendaryStats, defaultLegendaryStats, categoryId)
         : false;
     const ratingDetails = getRatingDetails(overallRating);
+    const overallRatingTooltip = (
+        <>
+            This rating indicates how good this item is compared to other possible pieces of equipment that you are
+            likely to come across.
+            <br />
+            <br />
+            Even poorly rated named items are likely a worthy upgrade over standard equipment.
+        </>
+    );
 
     useEffect(() => {
         if (!appraisalComplete) {
@@ -312,9 +321,16 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
                                     </div>
                                     {appraisalComplete && (
                                         <div className="legendaryAppraisalPromptMetaGroup">
-                                            <div className="legendaryAppraisalPromptMeta">
-                                                {overallRating.percentile}% Quality
-                                            </div>
+                                            <Tooltip
+                                                overlay={overallRatingTooltip}
+                                                placement="bottom"
+                                                mouseEnterDelay={0.2}
+                                                overlayClassName="plannerButtonTooltip"
+                                            >
+                                                <div className="legendaryAppraisalPromptMeta legendaryAppraisalPromptMeta_info">
+                                                    {overallRating.percentile}% Quality
+                                                </div>
+                                            </Tooltip>
                                             <Tooltip
                                                 overlay="URL copied to the clipboard!"
                                                 placement="bottom"
