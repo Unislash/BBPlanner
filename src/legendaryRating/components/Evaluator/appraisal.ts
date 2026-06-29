@@ -405,8 +405,8 @@ const getOneHandedPreferences = (
         return {
             ...standard,
             armorDamage: wasted("Daggers are mostly used to Puncture, and never to actually do armor damage.", "specific"),
-            directDamage: harmful("Puncture already fully ignores armor, so getting more ignore armor is nearly useless.", "specific"),
-            fatigue: harmful("Daggers are already very light, so flat fatigue reduction is not useful.", "specific"),
+            directDamage: wasted("Puncture already fully ignores armor, so getting more ignore armor is nearly useless.", "specific"),
+            fatigue: wasted("Daggers are already very light, so flat fatigue reduction is not useful.", "specific"),
             fatigueSkillCost: premium("Repeated Puncture attacks make skill-fatigue reduction desirable on daggers.", "specific"),
         };
     }
