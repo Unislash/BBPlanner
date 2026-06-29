@@ -379,7 +379,7 @@ const getShieldRole = (archetype: Archetype): ShieldRole => {
     return "useless";
 };
 
-const getWeaponDurabilityPreference = () => minor("Durability is better than nothing, but it's never going to decide whether a named weapon is worth using.");
+const getWeaponDurabilityPreference = () => minor("Weapon durability rarely comes into play, so it's not impactful on the overall rating.");
 const getWeaponFatiguePreference = () => minor("Flat fatigue reduction can be convenient, but it is less valuable than offensive stats.");
 const getWeaponHeadshotPenalty = () => wasted("Extra head hit-chance splits damage between head and body armor, so it's often not desired outside of heavy-hitting weapons.");
 const getWeaponShieldDamagePenalty = () => wasted("Shield damage can come into play in some situations, but is not really what you're hoping for in a named item.");
@@ -789,7 +789,19 @@ const getDetailText = (
     }
 };
 
-const getUtilityForPreference = (preference: StatPreference, percentile: number) => {
+const getUtilityForPreference = (
+    preference: StatPreference,
+    percentile: number,
+    categoryId: CategoryId,
+    rowId: RowId,
+) => {
+    if (
+        rowId === "durability" &&
+        (categoryId === "oneHanded" || categoryId === "twoHanded" || categoryId === "ranged")
+    ) {
+        return 0;
+    }
+
     const normalizedPercentile = percentile / 100;
     const profile = preferenceUtilityByTier[preference.tier];
     return profile.base + profile.scale * normalizedPercentile;
@@ -982,7 +994,6 @@ const getArmorComparisonDetail = (
     role: ArmorRole,
     durability: number,
     fatigue: number,
-    score: number,
 ) => {
     if (role === "nimbleforged") {
         return `${getArchetypeReference(archetype, "subject")} is a good piece of nimbleforged armor.`;
@@ -1103,7 +1114,6 @@ const getArmorOrHelmetRating = (
         bestRole.role,
         durability,
         fatigue,
-        bestRole.score,
     );
 
     if (comparisonDetail) {
@@ -1467,7 +1477,7 @@ export const getOverallRating = (
             legendaryStats,
             defaultLegendaryStats,
         );
-        const utility = getUtilityForPreference(preference, percentile);
+        const utility = getUtilityForPreference(preference, percentile, categoryId, definition.id as RowId);
 
         return [
             {
