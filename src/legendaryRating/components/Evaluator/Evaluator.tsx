@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
+import ShareIcon from "@material-ui/icons/Share";
+import Tooltip from "rc-tooltip";
 import ammoIcon from "../../../planner/images/loadoutInfo/ammo.png";
 import armorDamageIcon from "../../../planner/images/loadoutInfo/armor_damage.png";
 import armorBodyIcon from "../../../planner/images/loadoutInfo/armor_body.png";
@@ -176,6 +178,24 @@ const getPlacedItemCopy = (categoryId: CategoryId) => {
     return "The barkeep studies the weapon's balance and finish for a moment before you give him the marks.";
 };
 
+const copyUrlToClipboard = async () => {
+    const text = window.location.href;
+
+    if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+        return;
+    }
+
+    const dummy = document.createElement("input");
+    dummy.style.opacity = "0";
+    dummy.style.position = "absolute";
+    document.body.appendChild(dummy);
+    dummy.value = text;
+    dummy.select();
+    document.execCommand("copy");
+    document.body.removeChild(dummy);
+};
+
 export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps): React.ReactElement | null => {
     const selectedArchetypeId = useSelectedArchetypeId();
     const legendaryStats = useLegendaryStats();
@@ -183,6 +203,8 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
     const selectedArchetype = selectedArchetypeId ? allArchetypesById[selectedArchetypeId] : undefined;
     const [legendaryPreviewImageMap, setLegendaryPreviewImageMap] = useState<LegendaryItemImageMap>();
     const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+    const [isShareTooltipVisible, setIsShareTooltipVisible] = useState(false);
+    const shareTooltipTimeoutRef = React.useRef<number | null>(null);
 
     useEffect(() => {
         let isSubscribed = true;
@@ -215,6 +237,28 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
             setIsDetailsOpen(false);
         }
     }, [appraisalComplete]);
+
+    useEffect(() => {
+        return () => {
+            if (shareTooltipTimeoutRef.current !== null) {
+                window.clearTimeout(shareTooltipTimeoutRef.current);
+            }
+        };
+    }, []);
+
+    const handleShareClick = async () => {
+        await copyUrlToClipboard();
+
+        if (shareTooltipTimeoutRef.current !== null) {
+            window.clearTimeout(shareTooltipTimeoutRef.current);
+        }
+
+        setIsShareTooltipVisible(true);
+        shareTooltipTimeoutRef.current = window.setTimeout(() => {
+            setIsShareTooltipVisible(false);
+            shareTooltipTimeoutRef.current = null;
+        }, 3000);
+    };
 
     if (!selectedArchetype) {
         return null;
@@ -267,8 +311,27 @@ export const Evaluator = ({ categoryId, legendaryItemImageMap }: EvaluatorProps)
                                         {appraisalComplete ? overallRating.label : "What marks does it bear?"}
                                     </div>
                                     {appraisalComplete && (
-                                        <div className="legendaryAppraisalPromptMeta">
-                                            {overallRating.percentile}% Quality
+                                        <div className="legendaryAppraisalPromptMetaGroup">
+                                            <div className="legendaryAppraisalPromptMeta">
+                                                {overallRating.percentile}% Quality
+                                            </div>
+                                            <Tooltip
+                                                overlay="URL copied to the clipboard!"
+                                                placement="bottom"
+                                                visible={isShareTooltipVisible}
+                                                overlayClassName="plannerButtonTooltip"
+                                            >
+                                                <button
+                                                    type="button"
+                                                    className="legendaryShareButton"
+                                                    aria-label="Share this rating"
+                                                    onClick={() => {
+                                                        void handleShareClick();
+                                                    }}
+                                                >
+                                                    <ShareIcon fontSize="inherit" />
+                                                </button>
+                                            </Tooltip>
                                         </div>
                                     )}
                                 </div>

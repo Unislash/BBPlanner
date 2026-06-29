@@ -1,5 +1,6 @@
 import "../shared.css";
 import "../legendary.css";
+import "rc-tooltip/assets/bootstrap.css";
 import classcat from "classcat";
 import React, { useEffect, useRef, useState } from "react";
 import { MuiTheme } from "../MuiTheme";
