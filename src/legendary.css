@@ -360,9 +360,10 @@ body .rc-tooltip-inner {
 }
 
 .legendaryEmptyState {
-    width: min(750px, 100%);
+    width: min(950px, 100%);
     margin: 8px auto;
     padding: 14px 100px 16px;
+    box-sizing: border-box;
     background:
         linear-gradient(
             90deg,
@@ -986,6 +987,22 @@ body .rc-tooltip-inner {
         padding: 4px 0 24px;
     }
 
+    .legendaryToolbar {
+        position: static;
+        right: auto;
+        left: auto;
+        bottom: auto;
+        transform: none;
+        justify-content: center;
+        margin-bottom: 18px;
+    }
+
+    .legendaryThemeSwitcher {
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 100%;
+    }
+
     .legendaryThemeButton {
         width: 58px;
         height: 58px;
@@ -997,12 +1014,29 @@ body .rc-tooltip-inner {
         min-height: 200px;
     }
 
+    .categories {
+        gap: 10px 16px;
+    }
+
+    .categoryButton {
+        min-width: 82px;
+        font-size: 16px;
+    }
+
+    .legendaryEmptyState {
+        padding: 14px 36px 16px;
+    }
+
     .legendarySceneStage {
         grid-template-columns: 1fr;
+        gap: 18px;
     }
 
     .legendaryPlacedItem {
-        max-width: 360px;
+        width: min(100%, 420px);
+        max-width: 420px;
+        padding-top: 0;
+        margin: 0 auto;
     }
 
     .legendaryPlacedItemCard,
@@ -1011,12 +1045,65 @@ body .rc-tooltip-inner {
         animation: none;
     }
 
+    .legendaryAppraisalSheet.legendaryCard {
+        max-width: none;
+        margin-left: 0;
+    }
+
+    .legendaryCardBody_paper {
+        padding: 24px 20px 22px;
+    }
+
+    .legendaryAppraisalPromptRow {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .legendaryStatBar {
+        grid-template-columns: 32px minmax(0, 1fr);
+        grid-template-areas:
+            "glyph meta"
+            "inputs inputs"
+            "percentiles percentiles";
+        gap: 10px 12px;
+        align-items: start;
+    }
+
+    .legendaryStatGlyph {
+        grid-area: glyph;
+        align-self: start;
+    }
+
+    .legendaryStatMeta {
+        grid-area: meta;
+    }
+
+    .legendaryStatValueGroup {
+        grid-area: inputs;
+        justify-content: flex-start;
+    }
+
+    .legendaryStatInputs {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .legendaryStatPercentiles {
+        grid-area: percentiles;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .legendaryStatPercentileBar {
+        width: min(220px, 100%);
+    }
+
     .archetypeGrid {
         width: auto;
     }
 }
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (min-width: 981px) and (max-width: 1400px) {
     .barRoom {
         position: relative;
         padding-bottom: 100px;
@@ -1031,13 +1118,9 @@ body .rc-tooltip-inner {
     }
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 980px) {
     .legendarySelectionTray_empty {
         min-height: calc(100dvh - 300px);
-    }
-
-    .barRoom {
-        padding: 18px 14px 100px;
     }
 
     .barkeep {
@@ -1060,42 +1143,160 @@ body .rc-tooltip-inner {
     .barkeepCopy {
         font-size: 17px;
     }
+}
 
-    .legendarySceneStage {
-        display: flex;
-        align-items: center;
-        flex-flow: column;
+@media only screen and (max-width: 700px) {
+    .legendarySelectionTray_empty {
+        min-height: 0;
+    }
+
+    .content {
+        padding: 12px 10px 26px;
+    }
+
+    .barRoom {
+        padding: 0 0 18px;
+    }
+
+    .legendaryToolbar {
+        margin-bottom: 14px;
+    }
+
+    .legendaryThemeSwitcher {
+        gap: 8px;
+        padding: 6px 8px;
+    }
+
+    .legendaryThemeButton {
+        width: 48px;
+        height: 48px;
+    }
+
+    .barkeep {
+        grid-template-columns: 1fr;
         justify-items: center;
+        text-align: center;
+        padding: 14px 12px;
+    }
+
+    .barkeepAvatar,
+    .barkeepAvatarFrame,
+    .barkeepAvatarGradient {
+        width: 132px;
+        max-width: 132px;
+        min-height: 132px;
+    }
+
+    .barkeepSceneText,
+    .barkeepCopy {
+        font-size: 16px;
+    }
+
+    .legendaryCategoryStrip {
+        margin-bottom: 16px;
+        padding: 0 0 6px;
+    }
+
+    .categories {
+        gap: 8px 12px;
+    }
+
+    .categoryButton {
+        min-width: 0;
+        padding: 4px 0 8px;
+        font-size: 15px;
+    }
+
+    .legendaryEmptyState {
+        padding: 14px 18px 16px;
+    }
+
+    .legendaryEmptyStateBody {
+        font-size: 16px;
+    }
+
+    .legendaryEmptyStateCTA {
+        font-size: 18px;
+    }
+
+    .legendaryEmptyStateNotes {
+        font-size: 14px;
     }
 
     .legendaryPlacedItem {
-        position: relative;
-        width: 440px;
-        padding-top: 0;
+        width: 100%;
+        max-width: none;
     }
 
     .legendaryPlacedItemCard {
-        transform: none;
+        padding: 16px 16px 14px;
     }
 
-    .legendaryAppraisalSheet.legendaryCard {
-        margin-left: 0;
-        transform: none;
+    .legendaryPlacedItemName {
+        font-size: 24px;
     }
 
-    .legendaryCardBody {
-        padding-left: 18px;
-        padding-right: 18px;
+    .legendaryPreviewFrame_tabletop {
+        min-height: 220px;
     }
 
-    .legendaryDetailsAccordion.isOpen {
-        max-height: 260px;
+    .legendaryPreviewVariants {
+        justify-content: center;
     }
 
-}
+    .legendaryCardBody_paper {
+        padding: 20px 14px 18px;
+    }
 
-@media only screen and (max-width: 680px) {
-    .legendarySelectionTray_empty {
-        min-height: 0;
+    .legendaryAppraisalPrompt {
+        margin-bottom: 12px;
+    }
+
+    .legendaryAppraisalPromptRow {
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .legendaryAppraisalPromptTitle {
+        font-size: 24px;
+    }
+
+    .legendaryAppraisalPromptMeta {
+        font-size: 18px;
+    }
+
+    .legendaryDetailsAccordionInner {
+        padding: 12px 12px 10px;
+    }
+
+    .legendaryStatBar {
+        padding: 10px 12px;
+    }
+
+    .legendaryStatLabel {
+        font-size: 18px;
+    }
+
+    .legendaryStatRange {
+        font-size: 13px;
+    }
+
+    .legendaryStatValueGroup {
+        width: 100%;
+    }
+
+    .legendaryStatInputs {
+        width: 100%;
+        gap: 4px 6px;
+    }
+
+    .legendaryStatInput {
+        width: 56px;
+        font-size: 20px;
+    }
+
+    .legendaryStatPercentileValue {
+        font-size: 16px;
     }
 }

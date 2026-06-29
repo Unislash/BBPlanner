@@ -30,6 +30,14 @@ const ArchetypeGridItemShell = styled.div<Pick<ArchetypeGridItemProps, "animatio
     opacity: 0;
     animation: legendaryGridItemSettle 360ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     animation-delay: ${(props) => `${Math.min((props.animationIndex || 0) * 26, 260)}ms`};
+
+    @media only screen and (max-width: 980px) {
+        margin: 0 24px 52px;
+    }
+
+    @media only screen and (max-width: 700px) {
+        margin: 0 12px 38px;
+    }
 `;
 
 const ArchetypeGridItemButton = styled.button<ArchetypeGridItemProps>`
@@ -100,6 +108,17 @@ const ArchetypeGridItemButton = styled.button<ArchetypeGridItemProps>`
         line-height: 1.2;
         text-shadow: 0 0 4px black;
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.18);
+    }
+
+    @media only screen and (max-width: 700px) {
+        width: 74px;
+        height: 74px;
+
+        &:after {
+            right: -22px;
+            left: -22px;
+            font-size: 13px;
+        }
     }
 `;
 
